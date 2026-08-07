@@ -47,7 +47,7 @@ o yüzden tercih edilmedi.)
 **b. Kodu gönder.** Bu klasörde:
 
 ```bash
-git remote add origin https://github.com/KULLANICI_ADIN/yilkigames-site.git
+git remote add origin https://github.com/yilkigames/yilkigames-site.git
 git branch -M main
 git push -u origin main
 ```
@@ -78,7 +78,7 @@ O A kayıtlarını **sil**, yerine bunları ekle:
 | A     | `@`        | `185.199.109.153`   |
 | A     | `@`        | `185.199.110.153`   |
 | A     | `@`        | `185.199.111.153`   |
-| CNAME | `www`      | `KULLANICI_ADIN.github.io` |
+| CNAME | `www`      | `yilkigames.github.io` |
 
 Yayılması 15 dakika ile birkaç saat sürer. Kontrol:
 
