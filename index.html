@@ -1,102 +1,147 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Yılkı Games — Bağımsız mobil oyun stüdyosu</title>
+    <title>Yılkı Games — Independent mobile game studio</title>
     <meta
       name="description"
-      content="Yılkı Games, Türkiye merkezli bağımsız bir mobil oyun stüdyosudur. XOXD ve Inklash geliştirme aşamasında."
+      content="Yılkı Games is an independent mobile game studio based in Türkiye."
     />
     <meta name="theme-color" content="#0a0a0a" />
+    <meta property="og:title" content="Yılkı Games" />
+    <meta
+      property="og:description"
+      content="An independent mobile game studio based in Türkiye."
+    />
+    <meta property="og:url" content="https://yilkigames.com/" />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://yilkigames.com/" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='23' font-size='20' font-family='sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='24' font-size='21' font-family='Segoe UI,sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
     />
+    <script>
+      /* Metinler yerine oturana kadar sayfayı gösterme; JS kapalıysa
+         bu betik hiç çalışmaz ve sayfa normal görünür. */
+      document.documentElement.className += " on-yukleme";
+      setTimeout(function () {
+        document.documentElement.classList.remove("on-yukleme");
+      }, 800);
+    </script>
   </head>
   <body>
     <header>
       <div class="sarmal ust">
-        <a class="marka" href="/">YILKI<span>.</span>GAMES</a>
-        <nav>
-          <a href="#oyunlar">Oyunlar</a>
-          <a href="#iletisim">İletişim</a>
-          <a href="/gizlilik.html">Gizlilik</a>
-          <a href="/destek.html">Destek</a>
-        </nav>
+        <a class="marka" href="/">
+          <span class="marka-isaret" aria-hidden="true">
+            <i>X</i><i>O</i><i>X</i>
+          </span>
+          YILKI GAMES
+        </a>
+
+        <div class="ust-sag">
+          <nav>
+            <a href="#oyunlar" data-i18n="nav.games">Games</a>
+            <a href="#studyo" data-i18n="nav.studio">Studio</a>
+            <a href="#iletisim" data-i18n="nav.contact">Contact</a>
+            <a href="/destek.html" data-i18n="nav.support">Support</a>
+          </nav>
+          <div class="dil">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
+            </svg>
+            <select id="dil-secici" aria-label="Language"></select>
+          </div>
+        </div>
       </div>
     </header>
 
     <main>
       <div class="hero">
-        <div class="sarmal">
+        <div class="hero-izgara" aria-hidden="true"></div>
+        <div class="sarmal hero-ic">
           <div class="tahta" aria-hidden="true">
             <i>X</i><i>O</i><i>X</i>
             <i>O</i><i class="v">X</i><i>O</i>
             <i>X</i><i>O</i><i>X</i>
           </div>
-          <h1>Küçük kurallar,<br />derin <em>oyunlar</em>.</h1>
-          <p>
-            Yılkı Games, Türkiye merkezli bağımsız bir mobil oyun stüdyosudur.
-            Öğrenmesi bir dakika, ustalaşması aylar süren oyunlar yapıyoruz.
+          <h1 data-i18n-html="hero.title">Small rules,<br />deep <em>games</em>.</h1>
+          <p class="hero-alt" data-i18n="hero.sub">
+            We are an independent mobile game studio based in Türkiye.
           </p>
         </div>
       </div>
 
       <section id="oyunlar">
         <div class="sarmal">
-          <h2>Oyunlar</h2>
+          <h2 data-i18n="games.label">Games</h2>
           <div class="oyunlar">
             <article class="oyun">
-              <span class="rozet">Yakında</span>
+              <div class="oyun-ust">
+                <span class="oyun-mark" aria-hidden="true">
+                  <i>X</i><i>O</i><i>X</i>
+                </span>
+                <span class="rozet" data-i18n="xoxd.badge">Coming soon</span>
+              </div>
               <h3>XOXD</h3>
-              <p>
-                Tanıdık bir tahta, tanımadığın bir kural. Her turda X ya da O
-                koyuyorsun; puanı X-O-X dizileri getiriyor. Çevrimiçi eşleşme,
-                sıralı maçlar, kaos modu ve 20 seviyelik meydan okuma.
-                On dilde oynanır.
+              <p data-i18n="xoxd.desc">
+                A familiar board, a rule you have not played before.
               </p>
             </article>
 
             <article class="oyun">
-              <span class="rozet yapim">Yapım aşamasında</span>
+              <div class="oyun-ust">
+                <span class="oyun-mark ink" aria-hidden="true">
+                  <i>/</i><i>|</i><i>\</i>
+                </span>
+                <span class="rozet yapim" data-i18n="inklash.badge"
+                  >In development</span
+                >
+              </div>
               <h3>Inklash</h3>
-              <p>
-                Hızlı tempolu 2B dövüş. Tek dokunuşla okunabilen, ustalaşması
-                zaman isteyen bir savaş sistemi üzerine kurulu.
+              <p data-i18n="inklash.desc">
+                Fast-paced 2D combat.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="iletisim" class="iletisim">
+      <section id="studyo">
         <div class="sarmal">
-          <h2>İletişim</h2>
-          <p>
-            Destek, hata bildirimi ve iş birliği için:
-            <a class="baglanti" href="mailto:destek@yilkigames.com"
-              >destek@yilkigames.com</a
-            >
+          <h2 data-i18n="studio.label">Studio</h2>
+          <p class="genis" data-i18n="studio.body">
+            We are a small team with one conviction.
           </p>
-          <p>
-            Basın ve iş teklifleri için:
-            <a class="baglanti" href="mailto:iletisim@yilkigames.com"
-              >iletisim@yilkigames.com</a
-            >
+        </div>
+      </section>
+
+      <section id="iletisim">
+        <div class="sarmal">
+          <h2 data-i18n="contact.label">Contact</h2>
+          <p class="genis" data-i18n="contact.body">
+            For support, bug reports and partnerships:
           </p>
+          <a class="posta" href="mailto:info@yilkigames.com"
+            >info@yilkigames.com</a
+          >
         </div>
       </section>
     </main>
 
-    <footer class="sarmal">
-      <span>© 2026 Yılkı Games</span>
-      <span>
-        <a href="/gizlilik.html">Gizlilik Politikası</a> ·
-        <a href="/privacy.html">Privacy Policy (EN)</a> ·
-        <a href="/destek.html">Destek</a>
-      </span>
+    <footer>
+      <div class="sarmal alt">
+        <span data-i18n="footer.rights">© 2026 Yılkı Games</span>
+        <span class="alt-baglantilar">
+          <a href="/gizlilik.html" data-i18n="nav.privacy">Privacy</a>
+          <a href="/destek.html" data-i18n="nav.support">Support</a>
+        </span>
+      </div>
     </footer>
+
+    <script src="i18n.js"></script>
   </body>
 </html>

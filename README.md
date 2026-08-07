@@ -1,18 +1,37 @@
 # yilkigames.com
 
 Yılkı Games'in tanıtım sitesi ve Google Play'in istediği yasal sayfalar.
-Statik HTML — derleme adımı, bağımlılık, JavaScript yok. Dosyaları olduğu gibi
+Statik HTML — derleme adımı ve dış bağımlılık yok. Dosyaları olduğu gibi
 sunmak yeterli.
 
 ```
-index.html      ana sayfa (oyunlar + iletişim)
+index.html      ana sayfa (oyunlar + stüdyo + iletişim) — 10 dilli
+destek.html     destek / SSS / hesap silme — 10 dilli
+i18n.js         on dilin tüm metinleri + dil seçme mantığı
 gizlilik.html   gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html    gizlilik politikası (EN)
-destek.html     destek / SSS / hesap silme
 style.css       tek stil dosyası, hepsi bunu kullanıyor
 CNAME           GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
+
+## Diller
+
+Site oyunla aynı on dili konuşuyor: **tr en es de fr it pt ru zh ja**.
+
+Dil şu sırayla belirlenir: `?lang=de` gibi bir adres parametresi → daha önce
+seçilmiş dil (`localStorage`) → tarayıcının dili → İngilizce. Seçim üst
+bardaki listeden değiştirilir ve hatırlanır.
+
+**Yeni metin eklerken:** HTML'e `data-i18n="anahtar"` koy (içinde etiket
+geçiyorsa `data-i18n-html`), sonra `i18n.js` içindeki on sözlüğe de karşılığını
+yaz. Bir dilde anahtar eksikse orada İngilizcesi görünür, sayfa bozulmaz.
+Sayfaya özel başlık/açıklama için `<body data-title="..." data-desc="...">`.
+
+**Gizlilik sayfaları bilerek yalnızca TR ve EN.** Hukuki metnin on dile
+çevrilmesi sürümler arasında kayma riski taşıyor; sayfaların başında hangi
+sürümün geçerli olduğu yazıyor. Play, İngilizce bir gizlilik politikasını
+her ülke için kabul ediyor.
 
 ---
 
@@ -89,13 +108,11 @@ google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
 
 ---
 
-## 4. E-posta adresleri
+## 4. E-posta
 
-Sitedeki bağlantılar bu iki adrese yazıyor — Google Admin Console →
-Dizin → Gruplar altında açılmalı, yoksa mailler geri döner:
-
-- `destek@yilkigames.com`
-- `iletisim@yilkigames.com`
+Sitedeki tüm bağlantılar tek adrese yazıyor: **`info@yilkigames.com`**.
+Ayrı bir destek adresi açarsan `i18n.js`, `gizlilik.html`, `privacy.html` ve
+`index.html` içinde toplu değiştir.
 
 ---
 
@@ -106,7 +123,7 @@ Dizin → Gruplar altında açılmalı, yoksa mailler geri döner:
 | Gizlilik politikası URL'i     | `https://yilkigames.com/gizlilik.html`         |
 | Hesap silme talebi URL'i      | `https://yilkigames.com/gizlilik.html#hesap-silme` |
 | Mağaza sayfası — Web sitesi   | `https://yilkigames.com`                       |
-| Mağaza sayfası — Destek maili | `destek@yilkigames.com`                        |
+| Mağaza sayfası — Destek maili | `info@yilkigames.com`                          |
 
 Hesap silme URL'i, hesap oluşturma özelliği olan uygulamalar için Play'in
 ayrıca istediği bir alandır — gizlilik politikası URL'i onun yerine geçmiyor.
@@ -138,7 +155,6 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
 
 - [ ] Depoyu GitHub'a gönder, Pages'i aç
 - [ ] DNS A kayıtlarını GitHub'a çevir, HTTPS'i doğrula
-- [ ] `destek@` ve `iletisim@` gruplarını Workspace'te aç
 - [ ] XOXD'de `Gizlilik.POLITIKA_ADRESI` sabitini
       `https://yilkigames.com/gizlilik.html` yap (şu an boş, DEVIR.md'de
       "doldurulmadan mağazaya gönderilemez" diye işaretli)

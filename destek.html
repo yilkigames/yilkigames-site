@@ -1,106 +1,119 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Destek — Yılkı Games</title>
+    <title>Support — Yılkı Games</title>
     <meta
       name="description"
-      content="Yılkı Games oyunları için destek, hata bildirimi, hesap silme ve sık sorulan sorular."
+      content="Support, bug reports, account deletion and frequently asked questions for Yılkı Games."
     />
     <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://yilkigames.com/destek.html" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='23' font-size='20' font-family='sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='24' font-size='21' font-family='Segoe UI,sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
     />
+    <script>
+      document.documentElement.className += " on-yukleme";
+      setTimeout(function () {
+        document.documentElement.classList.remove("on-yukleme");
+      }, 800);
+    </script>
   </head>
-  <body>
+  <body data-title="sup.meta.title" data-desc="sup.meta.desc">
     <header>
       <div class="sarmal ust">
-        <a class="marka" href="/">YILKI<span>.</span>GAMES</a>
-        <nav>
-          <a href="/#oyunlar">Oyunlar</a>
-          <a href="/gizlilik.html">Gizlilik</a>
-          <a href="/destek.html" aria-current="page">Destek</a>
-        </nav>
+        <a class="marka" href="/">
+          <span class="marka-isaret" aria-hidden="true">
+            <i>X</i><i>O</i><i>X</i>
+          </span>
+          YILKI GAMES
+        </a>
+
+        <div class="ust-sag">
+          <nav>
+            <a href="/#oyunlar" data-i18n="nav.games">Games</a>
+            <a href="/#studyo" data-i18n="nav.studio">Studio</a>
+            <a href="/gizlilik.html" data-i18n="nav.privacy">Privacy</a>
+            <a href="/destek.html" aria-current="page" data-i18n="nav.support"
+              >Support</a
+            >
+          </nav>
+          <div class="dil">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
+            </svg>
+            <select id="dil-secici" aria-label="Language"></select>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="sarmal belge">
-      <h1>Destek</h1>
-      <p class="tarih">
-        Sorularınızı yanıtlıyoruz — genellikle 2 iş günü içinde.
+      <h1 data-i18n="sup.title">Support</h1>
+      <p class="tarih" data-i18n="sup.sub">
+        We answer your questions, usually within two working days.
       </p>
 
       <div class="kutu">
         <p>
-          <strong>Bize yazın:</strong>
-          <a href="mailto:destek@yilkigames.com">destek@yilkigames.com</a>
+          <a class="posta kucuk" href="mailto:info@yilkigames.com"
+            >info@yilkigames.com</a
+          >
         </p>
-        <p>
-          Bir hata bildiriyorsanız kullanıcı adınızı, telefon modelinizi ve
-          sorunun hangi ekranda olduğunu yazarsanız çok daha hızlı çözeriz.
-          Varsa ekran görüntüsü ekleyin.
+        <p data-i18n="sup.boxBody">
+          If you are reporting a bug, tell us your username, your phone model
+          and which screen the problem appears on.
         </p>
       </div>
 
-      <h2>Sık sorulan sorular</h2>
+      <h2 data-i18n="faq.label">Frequently asked questions</h2>
 
-      <h3>Hesabımı nasıl silerim?</h3>
-      <p>
-        Hesabınıza kayıtlı e-posta adresinden
-        <a href="mailto:destek@yilkigames.com?subject=Hesap%20silme%20talebi"
-          >destek@yilkigames.com</a
-        >
-        adresine “Hesap silme talebi” konulu bir e-posta gönderin. Talebi 30 gün
-        içinde tamamlar ve size dönüş yaparız. Hangi verilerin silindiğini
-        <a href="/gizlilik.html#hesap-silme">gizlilik politikasında</a>
-        ayrıntılı yazdık.
+      <h3 data-i18n="faq.q1">How do I delete my account?</h3>
+      <p data-i18n-html="faq.a1">
+        Send an email titled “Account deletion request” to
+        <a href="mailto:info@yilkigames.com">info@yilkigames.com</a>.
       </p>
 
-      <h3>Şifremi unuttum.</h3>
-      <p>
-        Giriş ekranındaki şifre sıfırlama bağlantısını kullanın. E-posta
-        gelmediyse spam klasörünüze bakın; yine yoksa bize yazın.
+      <h3 data-i18n="faq.q2">I forgot my password.</h3>
+      <p data-i18n="faq.a2">
+        Use the password reset link on the sign-in screen.
       </p>
 
-      <h3>Premium aldım ama reklamlar hâlâ çıkıyor.</h3>
-      <p>
-        Üyeliğiniz hesabınıza bağlıdır, cihaza değil. Doğru hesapla giriş
-        yaptığınızdan emin olun ve uygulamayı kapatıp yeniden açın. Sorun
-        sürerse Google Play satın alma numaranızla birlikte bize yazın.
+      <h3 data-i18n="faq.q3">I bought premium but I still see ads.</h3>
+      <p data-i18n="faq.a3">
+        Your membership is tied to your account, not your device.
       </p>
 
-      <h3>Bir oyuncuyu nasıl şikâyet ederim?</h3>
-      <p>
-        Maç geçmişinden veya arkadaş listesinden oyuncunun profilini açın,
-        <strong>ŞİKÂYET ET</strong> butonuna dokunun ve bir sebep seçin.
-        Şikâyetleri elle inceliyoruz.
+      <h3 data-i18n="faq.q4">How do I report a player?</h3>
+      <p data-i18n="faq.a4">
+        Open the player's profile from your match history or friend list.
       </p>
 
-      <h3>İlerlemem kayboldu.</h3>
-      <p>
-        Puanınız, rütbeniz ve kozmetikleriniz sunucuda tutulur; aynı hesapla
-        giriş yaptığınızda geri gelir. Meydan okuma modundaki seviye ilerlemesi
-        ise yalnızca cihazda saklanır ve uygulamayı sildiğinizde kaybolur.
+      <h3 data-i18n="faq.q5">My progress is gone.</h3>
+      <p data-i18n="faq.a5">
+        Your points, rank and cosmetics live on the server.
       </p>
 
-      <h3>Oyun “bağlantı yok” diyor.</h3>
-      <p>
-        İnternet bağlantınızı kontrol edip <strong>YENİDEN DENE</strong>
-        deyin. Bağlantı olmadan da <strong>ÇEVRİMDIŞI OYNA</strong> ile tek
-        oyunculu mod ve meydan okuma açıktır.
+      <h3 data-i18n="faq.q6">The game says there is no connection.</h3>
+      <p data-i18n="faq.a6">
+        Check your internet connection and try again.
       </p>
     </main>
 
-    <footer class="sarmal">
-      <span>© 2026 Yılkı Games</span>
-      <span>
-        <a href="/">Ana sayfa</a> ·
-        <a href="/gizlilik.html">Gizlilik</a> ·
-        <a href="/privacy.html">English</a>
-      </span>
+    <footer>
+      <div class="sarmal alt">
+        <span data-i18n="footer.rights">© 2026 Yılkı Games</span>
+        <span class="alt-baglantilar">
+          <a href="/">Yılkı Games</a>
+          <a href="/gizlilik.html" data-i18n="nav.privacy">Privacy</a>
+        </span>
+      </div>
     </footer>
+
+    <script src="i18n.js"></script>
   </body>
 </html>
