@@ -1,20 +1,23 @@
 :root {
-  --bg: #0a0a0a;
-  --bg-kart: #131313;
-  --bg-kart-ust: #1a1a1a;
-  --cizgi: #242424;
-  --cizgi-acik: #333;
-  --metin: #f4f4f4;
-  --metin-orta: #c4c4c4;
-  --metin-soluk: #8f8f8f;
+  --bg: #08080a;
+  --bg-2: #0d0d10;
+  --kart-ust: #17171c;
+  --kart-alt: #101014;
+  --cizgi: #1e1e24;
+  --cizgi-2: #2e2e37;
+  --ak: #f4f4f6;
+  --orta: #adadb6;
+  --soluk: #6e6e79;
   --kirmizi: #d9262a;
+  --kirmizi-parlak: #ff4247;
   --altin: #edb31c;
   --font: "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
     "Noto Sans", Arial, sans-serif;
-  --olcu: 1080px;
+  --olcu: 1200px;
+  --yumusak: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Metinler yerine oturana kadar gizle — bkz. index.html'deki inline betik */
+/* Metinler yerine oturana kadar gizle — bkz. HTML'deki satır içi betik */
 .on-yukleme body {
   visibility: hidden;
 }
@@ -31,80 +34,115 @@ html {
 }
 
 body {
+  position: relative;
   background: var(--bg);
-  color: var(--metin);
+  color: var(--ak);
   font-family: var(--font);
   font-size: 17px;
-  line-height: 1.68;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* İnce film grenini her şeyin üstüne serer; derinlik hissi verir. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 :focus-visible {
-  outline: 2px solid var(--kirmizi);
+  outline: 2px solid var(--kirmizi-parlak);
   outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--kirmizi);
+  color: #fff;
 }
 
 .sarmal {
   width: 100%;
   max-width: var(--olcu);
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 32px;
 }
 
-/* ---------------- üst bar ---------------- */
+/* ============================ üst bar ============================ */
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 20;
-  background: rgba(10, 10, 10, 0.82);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--cizgi);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s var(--yumusak), border-color 0.3s var(--yumusak),
+    backdrop-filter 0.3s var(--yumusak);
+}
+
+header.kaydi {
+  background: rgba(8, 8, 10, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom-color: var(--cizgi);
 }
 
 .ust {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  min-height: 72px;
-  flex-wrap: wrap;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  gap: 24px;
+  height: 78px;
+  transition: height 0.3s var(--yumusak);
+}
+
+header.kaydi .ust {
+  height: 64px;
 }
 
 .marka {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.12em;
+  font-size: 15px;
+  letter-spacing: 0.16em;
   text-decoration: none;
-  color: var(--metin);
+  color: var(--ak);
   white-space: nowrap;
 }
 
 .marka-isaret {
   display: inline-grid;
-  grid-template-columns: repeat(3, 9px);
+  grid-template-columns: repeat(3, 8px);
   gap: 2px;
 }
 
 .marka-isaret i {
   display: grid;
   place-items: center;
-  height: 9px;
+  height: 8px;
   font-style: normal;
-  font-size: 7px;
+  font-size: 6px;
   font-weight: 700;
   line-height: 1;
   color: var(--bg);
-  background: var(--metin-soluk);
+  background: var(--soluk);
+  transition: background 0.3s var(--yumusak);
 }
 
-.marka-isaret i:nth-child(2) {
+.marka:hover .marka-isaret i {
+  background: var(--orta);
+}
+
+.marka-isaret i:nth-child(2),
+.marka:hover .marka-isaret i:nth-child(2) {
   background: var(--kirmizi);
   color: #fff;
 }
@@ -112,26 +150,77 @@ header {
 .ust-sag {
   display: flex;
   align-items: center;
-  gap: 26px;
-  flex-wrap: wrap;
+  gap: 34px;
 }
 
 nav {
   display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 30px;
 }
 
 nav a {
-  color: var(--metin-soluk);
+  position: relative;
+  color: var(--soluk);
   text-decoration: none;
-  font-size: 15px;
-  transition: color 0.16s ease;
+  font-size: 14.5px;
+  letter-spacing: 0.01em;
+  padding: 4px 0;
+  transition: color 0.2s var(--yumusak);
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--kirmizi);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.28s var(--yumusak);
 }
 
 nav a:hover,
 nav a[aria-current="page"] {
-  color: var(--metin);
+  color: var(--ak);
+}
+
+nav a:hover::after,
+nav a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* hamburger — yalnızca dar ekranda görünür */
+
+.menu-dugme {
+  display: none;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--cizgi-2);
+  border-radius: 999px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.menu-dugme span {
+  display: block;
+  width: 15px;
+  height: 1.5px;
+  background: var(--ak);
+  transition: transform 0.28s var(--yumusak), opacity 0.2s var(--yumusak);
+}
+
+.menu-dugme[aria-expanded="true"] span:first-child {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.menu-dugme[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.75px) rotate(-45deg);
 }
 
 /* dil seçici */
@@ -139,112 +228,128 @@ nav a[aria-current="page"] {
 .dil {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  border: 1px solid var(--cizgi-acik);
+  gap: 8px;
+  border: 1px solid var(--cizgi-2);
   border-radius: 999px;
-  padding: 5px 12px 5px 11px;
-  transition: border-color 0.16s ease;
+  padding: 6px 13px 6px 12px;
+  transition: border-color 0.2s var(--yumusak), background 0.2s var(--yumusak);
 }
 
 .dil:hover {
-  border-color: var(--metin-soluk);
+  border-color: var(--soluk);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .dil svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   flex: none;
   fill: none;
-  stroke: var(--metin-soluk);
-  stroke-width: 1.5;
+  stroke: var(--soluk);
+  stroke-width: 1.6;
 }
 
 .dil select {
   appearance: none;
   background: transparent;
   border: 0;
-  color: var(--metin);
+  color: var(--ak);
   font-family: inherit;
-  font-size: 14px;
-  padding-right: 14px;
+  font-size: 13.5px;
+  padding-right: 15px;
   cursor: pointer;
-  background-image: linear-gradient(45deg, transparent 50%, #8f8f8f 50%),
-    linear-gradient(135deg, #8f8f8f 50%, transparent 50%);
-  background-position: right 4px center, right 0px center;
+  background-image: linear-gradient(45deg, transparent 50%, #6e6e79 50%),
+    linear-gradient(135deg, #6e6e79 50%, transparent 50%);
+  background-position: right 4px center, right 0 center;
   background-size: 4px 4px, 4px 4px;
   background-repeat: no-repeat;
 }
 
 .dil select option {
-  background: #161616;
-  color: var(--metin);
+  background: #121216;
+  color: var(--ak);
 }
 
-/* ---------------- hero ---------------- */
+/* ============================= hero ============================= */
 
 .hero {
   position: relative;
+  padding-top: 168px;
+  padding-bottom: 120px;
   overflow: hidden;
-  border-bottom: 1px solid var(--cizgi);
+}
+
+.hero-isik {
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-58%);
+  width: 1100px;
+  height: 760px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(217, 38, 42, 0.14) 0%,
+    rgba(217, 38, 42, 0.05) 34%,
+    transparent 68%
+  );
 }
 
 .hero-izgara {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image: linear-gradient(var(--cizgi) 1px, transparent 1px),
     linear-gradient(90deg, var(--cizgi) 1px, transparent 1px);
-  background-size: 68px 68px;
+  background-size: 76px 76px;
   mask-image: radial-gradient(
-    120% 90% at 22% 30%,
+    110% 80% at 20% 24%,
     #000 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    transparent 78%
+    rgba(0, 0, 0, 0.3) 46%,
+    transparent 76%
   );
   -webkit-mask-image: radial-gradient(
-    120% 90% at 22% 30%,
+    110% 80% at 20% 24%,
     #000 0%,
-    rgba(0, 0, 0, 0.35) 45%,
-    transparent 78%
+    rgba(0, 0, 0, 0.3) 46%,
+    transparent 76%
   );
-  pointer-events: none;
 }
 
 .hero-ic {
   position: relative;
-  padding-top: 116px;
-  padding-bottom: 104px;
-}
-
-.tahta {
   display: grid;
-  grid-template-columns: repeat(3, 36px);
-  gap: 6px;
-  margin-bottom: 40px;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
+  gap: 56px;
+  align-items: center;
 }
 
-.tahta i {
-  display: grid;
-  place-items: center;
-  height: 36px;
-  border: 1px solid var(--cizgi-acik);
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--metin-soluk);
+.etiket {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--soluk);
+  margin-bottom: 26px;
 }
 
-.tahta i.v {
-  color: var(--kirmizi);
-  border-color: var(--kirmizi);
-  box-shadow: 0 0 22px rgba(217, 38, 42, 0.28);
+.etiket::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--kirmizi);
 }
 
 h1 {
-  font-size: clamp(42px, 7.6vw, 82px);
-  line-height: 1.03;
-  letter-spacing: -0.028em;
+  font-size: clamp(40px, 6.2vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.042em;
   font-weight: 800;
-  margin-bottom: 26px;
+  margin-bottom: 28px;
+  text-wrap: balance;
 }
 
 h1 em {
@@ -253,78 +358,220 @@ h1 em {
 }
 
 .hero-alt {
-  color: var(--metin-orta);
-  font-size: clamp(17px, 2.1vw, 20px);
-  max-width: 33em;
+  color: var(--orta);
+  font-size: clamp(16.5px, 1.5vw, 19px);
+  line-height: 1.65;
+  max-width: 30em;
 }
 
-/* ---------------- bölümler ---------------- */
+/* ---------- oynanabilir tahta ---------- */
+
+.demo {
+  justify-self: end;
+  width: 100%;
+  max-width: 348px;
+  background: linear-gradient(170deg, var(--kart-ust), var(--kart-alt));
+  border: 1px solid var(--cizgi);
+  padding: 26px;
+  box-shadow: 0 26px 70px -30px rgba(0, 0, 0, 0.9);
+}
+
+.demo-etiket {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--soluk);
+  margin-bottom: 18px;
+}
+
+.demo-tahta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.hucre {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--cizgi-2);
+  color: var(--soluk);
+  font-family: inherit;
+  font-size: clamp(22px, 4.4vw, 30px);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.18s var(--yumusak), color 0.18s var(--yumusak),
+    background 0.18s var(--yumusak), transform 0.18s var(--yumusak);
+}
+
+.hucre:hover {
+  border-color: var(--soluk);
+  transform: translateY(-2px);
+}
+
+.hucre.dolu {
+  color: var(--ak);
+}
+
+.hucre.yanan {
+  color: var(--kirmizi-parlak);
+  border-color: var(--kirmizi);
+  background: rgba(217, 38, 42, 0.09);
+  box-shadow: inset 0 0 22px rgba(217, 38, 42, 0.16);
+}
+
+.demo-alt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--cizgi);
+}
+
+.demo-puan {
+  font-size: 11px;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  font-weight: 600;
+}
+
+.demo-puan b {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--altin);
+  margin-right: 7px;
+  font-variant-numeric: tabular-nums;
+}
+
+.demo-sifirla {
+  background: transparent;
+  border: 1px solid var(--cizgi-2);
+  color: var(--soluk);
+  font-family: inherit;
+  font-size: 11.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: color 0.2s var(--yumusak), border-color 0.2s var(--yumusak);
+}
+
+.demo-sifirla:hover {
+  color: var(--ak);
+  border-color: var(--soluk);
+}
+
+/* ============================ bölümler ============================ */
 
 section {
-  padding: 88px 0;
-  border-bottom: 1px solid var(--cizgi);
+  position: relative;
+  padding: 104px 0;
+  border-top: 1px solid var(--cizgi);
 }
 
 h2 {
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--metin-soluk);
-  font-weight: 600;
-  margin-bottom: 34px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  font-weight: 600;
+  margin-bottom: 44px;
 }
 
 h2::after {
   content: "";
   height: 1px;
   flex: 1;
-  background: var(--cizgi);
+  background: linear-gradient(90deg, var(--cizgi), transparent);
 }
 
-.genis {
-  color: var(--metin-orta);
-  font-size: clamp(17px, 1.9vw, 19px);
-  max-width: 40em;
+.buyuk-metin {
+  font-size: clamp(23px, 3vw, 36px);
+  line-height: 1.34;
+  letter-spacing: -0.022em;
+  font-weight: 500;
+  color: var(--ak);
+  max-width: 21em;
 }
+
+.buyuk-metin em {
+  font-style: normal;
+  color: var(--kirmizi);
+}
+
+/* ---------- oyun kartları ---------- */
 
 .oyunlar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
 }
 
 .oyun {
   position: relative;
-  background: linear-gradient(180deg, var(--bg-kart-ust), var(--bg-kart));
+  overflow: hidden;
+  background: linear-gradient(168deg, var(--kart-ust), var(--kart-alt));
   border: 1px solid var(--cizgi);
-  padding: 30px 30px 34px;
+  padding: 34px 34px 40px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  gap: 16px;
+  transition: border-color 0.32s var(--yumusak), transform 0.32s var(--yumusak);
 }
 
 .oyun::before {
   content: "";
   position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 2px;
-  background: var(--kirmizi);
+  background: linear-gradient(
+    90deg,
+    var(--kirmizi),
+    var(--kirmizi-parlak),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--yumusak);
+}
+
+.oyun::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  bottom: -90px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(217, 38, 42, 0.13),
+    transparent 66%
+  );
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.42s var(--yumusak);
+  pointer-events: none;
 }
 
 .oyun:hover {
-  border-color: var(--cizgi-acik);
-  transform: translateY(-3px);
+  border-color: var(--cizgi-2);
+  transform: translateY(-5px);
 }
 
-.oyun:hover::before {
+.oyun:hover::before,
+.oyun:hover::after {
+  transform: scaleX(1);
   opacity: 1;
 }
 
@@ -332,26 +579,26 @@ h2::after {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 4px;
+  gap: 16px;
 }
 
 .oyun-mark {
   display: inline-grid;
-  grid-template-columns: repeat(3, 16px);
+  grid-template-columns: repeat(3, 17px);
   gap: 3px;
 }
 
 .oyun-mark i {
   display: grid;
   place-items: center;
-  height: 16px;
-  border: 1px solid var(--cizgi-acik);
+  height: 17px;
+  border: 1px solid var(--cizgi-2);
   font-style: normal;
   font-size: 10px;
   font-weight: 700;
   line-height: 1;
-  color: var(--metin-soluk);
+  color: var(--soluk);
+  transition: color 0.3s var(--yumusak), border-color 0.3s var(--yumusak);
 }
 
 .oyun-mark i:nth-child(2) {
@@ -359,92 +606,113 @@ h2::after {
   border-color: var(--kirmizi);
 }
 
-.oyun-mark.ink i {
-  border-color: var(--cizgi);
+.oyun:hover .oyun-mark i {
+  border-color: var(--soluk);
 }
 
 .oyun h3 {
-  font-size: 27px;
-  letter-spacing: -0.01em;
-  font-weight: 700;
+  font-size: clamp(28px, 3.2vw, 38px);
+  letter-spacing: -0.032em;
+  font-weight: 800;
+  line-height: 1.05;
 }
 
 .oyun p {
-  color: var(--metin-orta);
+  position: relative;
+  color: var(--orta);
   font-size: 15.5px;
-  line-height: 1.62;
+  line-height: 1.66;
 }
 
 .rozet {
-  font-size: 10.5px;
-  letter-spacing: 0.15em;
+  font-size: 10px;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 5px 10px;
+  padding: 6px 11px;
   border: 1px solid var(--altin);
   color: var(--altin);
   white-space: nowrap;
 }
 
 .rozet.yapim {
-  border-color: var(--cizgi-acik);
-  color: var(--metin-soluk);
+  border-color: var(--cizgi-2);
+  color: var(--soluk);
 }
+
+/* ---------- iletişim ---------- */
 
 .posta {
   display: inline-block;
-  margin-top: 18px;
-  font-size: clamp(21px, 3.4vw, 30px);
+  position: relative;
+  margin-top: 26px;
+  font-size: clamp(24px, 4.6vw, 52px);
   font-weight: 700;
-  letter-spacing: -0.015em;
-  color: var(--metin);
+  letter-spacing: -0.038em;
+  color: var(--ak);
   text-decoration: none;
-  border-bottom: 2px solid var(--kirmizi);
-  padding-bottom: 3px;
-  transition: color 0.16s ease;
   word-break: break-word;
+  transition: color 0.24s var(--yumusak);
+}
+
+.posta::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--kirmizi);
+  transform: scaleX(0.18);
+  transform-origin: left;
+  transition: transform 0.5s var(--yumusak);
 }
 
 .posta:hover {
-  color: var(--kirmizi);
+  color: var(--kirmizi-parlak);
+}
+
+.posta:hover::after {
+  transform: scaleX(1);
 }
 
 .posta.kucuk {
   margin-top: 0;
   font-size: 19px;
-  border-bottom-width: 1px;
+  letter-spacing: -0.01em;
 }
 
-/* ---------------- metin sayfaları ---------------- */
+/* ========================= metin sayfaları ========================= */
 
 .belge {
-  padding-top: 72px;
-  padding-bottom: 96px;
-  max-width: 780px;
+  padding-top: 140px;
+  padding-bottom: 110px;
+  max-width: 800px;
 }
 
 .belge h1 {
-  font-size: clamp(32px, 5vw, 44px);
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
+  font-size: clamp(32px, 5vw, 50px);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  margin-bottom: 14px;
 }
 
 .tarih {
-  color: var(--metin-soluk);
-  font-size: 15px;
-  margin-bottom: 46px;
+  color: var(--soluk);
+  font-size: 14.5px;
+  margin-bottom: 40px;
   padding-bottom: 26px;
   border-bottom: 1px solid var(--cizgi);
 }
 
 .belge h2 {
-  font-size: 22px;
-  letter-spacing: -0.008em;
-  text-transform: none;
-  color: var(--metin);
-  font-weight: 700;
-  margin: 50px 0 16px;
   display: block;
+  font-size: 22px;
+  letter-spacing: -0.018em;
+  text-transform: none;
+  color: var(--ak);
+  font-weight: 700;
+  margin: 52px 0 16px;
 }
 
 .belge h2::after {
@@ -454,12 +722,13 @@ h2::after {
 .belge h3 {
   font-size: 17.5px;
   font-weight: 700;
-  margin: 30px 0 9px;
+  letter-spacing: -0.005em;
+  margin: 32px 0 9px;
 }
 
 .belge p,
 .belge li {
-  color: var(--metin-orta);
+  color: var(--orta);
   margin-bottom: 13px;
 }
 
@@ -473,26 +742,27 @@ h2::after {
 }
 
 .belge a {
-  color: var(--metin);
+  color: var(--ak);
   border-bottom: 1px solid var(--kirmizi);
   text-decoration: none;
+  transition: color 0.2s var(--yumusak);
 }
 
 .belge a:hover {
-  color: var(--kirmizi);
+  color: var(--kirmizi-parlak);
 }
 
 .belge strong {
-  color: var(--metin);
+  color: var(--ak);
   font-weight: 600;
 }
 
 .kutu {
-  background: var(--bg-kart);
+  background: linear-gradient(168deg, var(--kart-ust), var(--kart-alt));
   border: 1px solid var(--cizgi);
   border-left: 2px solid var(--kirmizi);
-  padding: 22px 26px;
-  margin: 28px 0;
+  padding: 24px 28px;
+  margin: 30px 0;
 }
 
 .kutu p:last-child {
@@ -501,111 +771,177 @@ h2::after {
 
 .uyari {
   font-size: 14.5px;
-  color: var(--metin-soluk);
+  color: var(--soluk);
   border: 1px solid var(--cizgi);
-  padding: 13px 18px;
-  margin-bottom: 34px;
+  padding: 14px 19px;
+  margin-bottom: 36px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 22px 0 28px;
+  margin: 24px 0 30px;
   font-size: 15px;
 }
 
 th,
 td {
   text-align: left;
-  padding: 12px 15px;
+  padding: 13px 16px;
   border: 1px solid var(--cizgi);
   vertical-align: top;
 }
 
 th {
-  background: var(--bg-kart);
+  background: var(--kart-alt);
   font-weight: 600;
-  color: var(--metin);
+  color: var(--ak);
 }
 
 td {
-  color: var(--metin-orta);
+  color: var(--orta);
 }
 
 .kaydir {
   overflow-x: auto;
 }
 
-/* ---------------- alt bar ---------------- */
+/* ============================ alt bar ============================ */
 
 footer {
-  padding: 44px 0 64px;
+  border-top: 1px solid var(--cizgi);
+  padding: 44px 0 68px;
 }
 
 .alt {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 28px;
+  gap: 14px 32px;
   justify-content: space-between;
   align-items: center;
-  color: var(--metin-soluk);
-  font-size: 14.5px;
+  color: var(--soluk);
+  font-size: 14px;
 }
 
 .alt-baglantilar {
   display: flex;
-  gap: 22px;
+  gap: 26px;
   flex-wrap: wrap;
 }
 
 .alt a {
-  color: var(--metin-soluk);
+  color: var(--soluk);
   text-decoration: none;
-  transition: color 0.16s ease;
+  transition: color 0.2s var(--yumusak);
 }
 
 .alt a:hover {
-  color: var(--metin);
+  color: var(--ak);
 }
 
-/* ---------------- dar ekran ---------------- */
+/* ====================== kaydırınca beliren ====================== */
+
+/* Gizleme SADECE site.js çalıştıysa devreye girer (.hareket sınıfını o
+   ekliyor). Betik yüklenmez, engellenirse ya da IntersectionObserver
+   çalışmazsa içerik olduğu gibi görünür — hiçbir koşulda boş sayfa yok. */
+.hareket .beliriv {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.75s var(--yumusak), transform 0.75s var(--yumusak);
+  transition-delay: var(--gecikme, 0s);
+}
+
+.hareket .beliriv.gorundu {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================ dar ekran ============================ */
+
+@media (max-width: 940px) {
+  .hero-ic {
+    grid-template-columns: 1fr;
+    gap: 52px;
+  }
+  .demo {
+    justify-self: start;
+    max-width: 340px;
+  }
+}
 
 @media (max-width: 720px) {
-  .sarmal {
-    padding: 0 20px;
+  body {
+    font-size: 16.5px;
   }
-  .ust {
-    justify-content: center;
+  .sarmal {
+    padding: 0 22px;
+  }
+  .ust,
+  header.kaydi .ust {
+    height: 62px;
   }
   .ust-sag {
-    width: 100%;
-    justify-content: space-between;
-    gap: 14px;
+    gap: 12px;
+  }
+  .menu-dugme {
+    display: grid;
   }
   nav {
-    gap: 16px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10, 10, 13, 0.97);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--cizgi);
+    padding: 6px 22px 18px;
+    display: none;
+  }
+  nav.acik {
+    display: flex;
   }
   nav a {
-    font-size: 14.5px;
+    font-size: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--cizgi);
   }
-  .hero-ic {
-    padding-top: 68px;
-    padding-bottom: 64px;
+  nav a:last-child {
+    border-bottom: 0;
+  }
+  nav a::after {
+    display: none;
+  }
+  .hero {
+    padding-top: 116px;
+    padding-bottom: 78px;
   }
   section {
-    padding: 60px 0;
+    padding: 72px 0;
   }
   .belge {
-    padding-top: 52px;
+    padding-top: 104px;
   }
   .oyun {
-    padding: 26px 24px 30px;
+    padding: 28px 26px 32px;
+  }
+  .demo {
+    max-width: none;
+    padding: 22px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .beliriv {
+    opacity: 1;
+    transform: none;
   }
 }

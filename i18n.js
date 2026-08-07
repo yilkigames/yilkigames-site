@@ -31,6 +31,11 @@ const METIN = {
     "hero.title": "Küçük kurallar,<br />derin <em>oyunlar</em>.",
     "hero.sub":
       "Türkiye merkezli bağımsız bir mobil oyun stüdyosuyuz. Öğrenmesi bir dakika, ustalaşması aylar süren oyunlar yapıyoruz.",
+    "hero.eyebrow": "Bağımsız oyun stüdyosu",
+    "demo.hint":
+      "Hücrelere dokun. Kurduğun her X-O-X dizisi puan getirir — XOXD'nin tek kuralı bu.",
+    "demo.score": "Puan",
+    "demo.reset": "Temizle",
     "games.label": "Oyunlar",
     "xoxd.badge": "Yakında",
     "xoxd.desc":
@@ -87,6 +92,11 @@ const METIN = {
     "hero.title": "Small rules,<br />deep <em>games</em>.",
     "hero.sub":
       "We are an independent mobile game studio based in Türkiye. We make games that take a minute to learn and months to master.",
+    "hero.eyebrow": "Independent game studio",
+    "demo.hint":
+      "Tap the cells. Every X-O-X line you make scores a point — that is XOXD's only rule.",
+    "demo.score": "Points",
+    "demo.reset": "Clear",
     "games.label": "Games",
     "xoxd.badge": "Coming soon",
     "xoxd.desc":
@@ -143,6 +153,11 @@ const METIN = {
     "hero.title": "Reglas simples,<br /><em>juegos</em> profundos.",
     "hero.sub":
       "Somos un estudio independiente de juegos móviles con sede en Türkiye. Creamos juegos que se aprenden en un minuto y se dominan en meses.",
+    "hero.eyebrow": "Estudio independiente",
+    "demo.hint":
+      "Toca las casillas. Cada línea X-O-X suma un punto: esa es la única regla de XOXD.",
+    "demo.score": "Puntos",
+    "demo.reset": "Limpiar",
     "games.label": "Juegos",
     "xoxd.badge": "Próximamente",
     "xoxd.desc":
@@ -200,6 +215,11 @@ const METIN = {
     "hero.title": "Kleine Regeln,<br />tiefe <em>Spiele</em>.",
     "hero.sub":
       "Wir sind ein unabhängiges Mobile-Games-Studio aus der Türkei. Wir machen Spiele, die man in einer Minute lernt und in Monaten meistert.",
+    "hero.eyebrow": "Unabhängiges Spielestudio",
+    "demo.hint":
+      "Tippen Sie auf die Felder. Jede X-O-X-Reihe bringt einen Punkt — das ist die einzige Regel von XOXD.",
+    "demo.score": "Punkte",
+    "demo.reset": "Leeren",
     "games.label": "Spiele",
     "xoxd.badge": "Demnächst",
     "xoxd.desc":
@@ -257,6 +277,11 @@ const METIN = {
     "hero.title": "Des règles simples,<br />des <em>jeux</em> profonds.",
     "hero.sub":
       "Nous sommes un studio indépendant de jeux mobiles basé en Turquie. Nous créons des jeux qui s’apprennent en une minute et se maîtrisent en plusieurs mois.",
+    "hero.eyebrow": "Studio indépendant",
+    "demo.hint":
+      "Touchez les cases. Chaque alignement X-O-X rapporte un point : c’est la seule règle de XOXD.",
+    "demo.score": "Points",
+    "demo.reset": "Effacer",
     "games.label": "Jeux",
     "xoxd.badge": "Bientôt",
     "xoxd.desc":
@@ -314,6 +339,11 @@ const METIN = {
     "hero.title": "Regole semplici,<br /><em>giochi</em> profondi.",
     "hero.sub":
       "Siamo uno studio indipendente di giochi mobili con sede in Turchia. Creiamo giochi che si imparano in un minuto e si padroneggiano in mesi.",
+    "hero.eyebrow": "Studio indipendente",
+    "demo.hint":
+      "Tocca le caselle. Ogni sequenza X-O-X vale un punto: è l’unica regola di XOXD.",
+    "demo.score": "Punti",
+    "demo.reset": "Pulisci",
     "games.label": "Giochi",
     "xoxd.badge": "In arrivo",
     "xoxd.desc":
@@ -371,6 +401,11 @@ const METIN = {
     "hero.title": "Regras simples,<br /><em>jogos</em> profundos.",
     "hero.sub":
       "Somos um estúdio independente de jogos móveis sediado na Turquia. Criamos jogos que se aprendem num minuto e se dominam em meses.",
+    "hero.eyebrow": "Estúdio independente",
+    "demo.hint":
+      "Toque nas casas. Cada sequência X-O-X vale um ponto — é a única regra do XOXD.",
+    "demo.score": "Pontos",
+    "demo.reset": "Limpar",
     "games.label": "Jogos",
     "xoxd.badge": "Em breve",
     "xoxd.desc":
@@ -428,6 +463,11 @@ const METIN = {
     "hero.title": "Простые правила,<br />глубокие <em>игры</em>.",
     "hero.sub":
       "Мы независимая студия мобильных игр из Турции. Мы делаем игры, которые осваиваются за минуту, а совершенствуются месяцами.",
+    "hero.eyebrow": "Независимая студия",
+    "demo.hint":
+      "Нажимайте на клетки. Каждая линия X-O-X даёт очко — это единственное правило XOXD.",
+    "demo.score": "Очки",
+    "demo.reset": "Очистить",
     "games.label": "Игры",
     "xoxd.badge": "Скоро",
     "xoxd.desc":
@@ -484,6 +524,11 @@ const METIN = {
     "hero.title": "规则简单，<br />玩法<em>深邃</em>。",
     "hero.sub":
       "我们是一家位于土耳其的独立手机游戏工作室。我们做的游戏，一分钟就能学会，却要花上几个月才能精通。",
+    "hero.eyebrow": "独立游戏工作室",
+    "demo.hint":
+      "点击格子试试。每连成一条 X-O-X 就得一分 —— 这是 XOXD 唯一的规则。",
+    "demo.score": "分",
+    "demo.reset": "清空",
     "games.label": "游戏",
     "xoxd.badge": "即将推出",
     "xoxd.desc":
@@ -540,6 +585,11 @@ const METIN = {
     "hero.title": "ルールは小さく、<br /><em>ゲーム</em>は深く。",
     "hero.sub":
       "トルコを拠点とするインディーのモバイルゲームスタジオです。覚えるのは一分、極めるのは数か月かかるゲームを作っています。",
+    "hero.eyebrow": "インディーゲームスタジオ",
+    "demo.hint":
+      "マスをタップしてみてください。X-O-X が並ぶたびに 1 点 — XOXD のルールはこれだけです。",
+    "demo.score": "点",
+    "demo.reset": "クリア",
     "games.label": "ゲーム",
     "xoxd.badge": "近日公開",
     "xoxd.desc":

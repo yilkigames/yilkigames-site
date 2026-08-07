@@ -5,15 +5,28 @@ Statik HTML — derleme adımı ve dış bağımlılık yok. Dosyaları olduğu 
 sunmak yeterli.
 
 ```
-index.html      ana sayfa (oyunlar + stüdyo + iletişim) — 10 dilli
+index.html      ana sayfa (oynanabilir tahta + oyunlar + stüdyo) — 10 dilli
 destek.html     destek / SSS / hesap silme — 10 dilli
 i18n.js         on dilin tüm metinleri + dil seçme mantığı
+site.js         hero'daki oynanabilir tahta, beliren bölümler, mobil menü
 gizlilik.html   gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html    gizlilik politikası (EN)
 style.css       tek stil dosyası, hepsi bunu kullanıyor
 CNAME           GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
+
+## Hero'daki tahta
+
+Ziyaretçi hücrelere dokununca boş → X → O → boş diye döner; tamamlanan her
+**X-O-X** dizisi kırmızı yanar ve puan artar. Rakip yok, amaç oyunu oynatmak
+değil — XOXD'nin kuralını okumadan anlatmak. Mantığı `site.js` içinde,
+`DIZILER` sabiti 3×3 tahtadaki sekiz diziyi tutuyor.
+
+Kaydırınca beliren bölümler `.beliriv` sınıfıyla işaretli. Gizleme yalnızca
+`site.js` çalıştığında (`html.hareket`) devreye giriyor ve 2,5 saniyelik bir
+emniyet zamanlayıcısı var — betik yüklenmezse ya da IntersectionObserver
+çalışmazsa içerik yine görünür, hiçbir koşulda boş sayfa kalmaz.
 
 ## Diller
 
