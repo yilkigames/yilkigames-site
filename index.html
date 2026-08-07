@@ -24,11 +24,12 @@
     />
     <script>
       /* Metinler yerine oturana kadar sayfayı gösterme; JS kapalıysa
-         bu betik hiç çalışmaz ve sayfa normal görünür. */
+         bu betik hiç çalışmaz ve sayfa normal görünür. Süre, ülke
+         sorgusunun 700 ms'lik bütçesini aşacak kadar geniş. */
       document.documentElement.className += " on-yukleme";
       setTimeout(function () {
         document.documentElement.classList.remove("on-yukleme");
-      }, 800);
+      }, 1200);
     </script>
   </head>
   <body>

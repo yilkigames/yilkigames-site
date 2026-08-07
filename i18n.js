@@ -587,21 +587,82 @@ const METIN = {
 
 /* ---------------------------------------------------------------- */
 
-function dilSec() {
-  const url = new URLSearchParams(location.search).get("lang");
-  if (url && METIN[url]) return url;
+/* Ülke kodundan dil. Burada olmayan her ülke İngilizceye düşer.
+   Not: pt metinleri Avrupa Portekizcesi, zh ise Basitleştirilmiş Çince —
+   Brezilya ve Tayvan için ayrı sürüm gerekirse buradan ayrıştırılır. */
+const ULKE_DILI = {
+  TR: "tr",
 
-  const kayitli = localStorage.getItem("yg_lang");
-  if (kayitli && METIN[kayitli]) return kayitli;
+  ES: "es", MX: "es", AR: "es", CO: "es", PE: "es", VE: "es", CL: "es",
+  EC: "es", GT: "es", CU: "es", BO: "es", DO: "es", HN: "es", PY: "es",
+  SV: "es", NI: "es", CR: "es", PA: "es", UY: "es", PR: "es", GQ: "es",
 
+  DE: "de", AT: "de", CH: "de", LI: "de",
+
+  FR: "fr", BE: "fr", MC: "fr", LU: "fr", CI: "fr", SN: "fr", ML: "fr",
+  BF: "fr", NE: "fr", TG: "fr", BJ: "fr", GA: "fr", CG: "fr", CD: "fr",
+  CM: "fr", MG: "fr", HT: "fr",
+
+  IT: "it", SM: "it", VA: "it",
+
+  PT: "pt", BR: "pt", AO: "pt", MZ: "pt", CV: "pt", GW: "pt", ST: "pt",
+  TL: "pt",
+
+  RU: "ru", BY: "ru", KZ: "ru", KG: "ru", TJ: "ru",
+
+  CN: "zh", TW: "zh", HK: "zh", MO: "zh",
+
+  JP: "ja",
+};
+
+const ULKE_ANAHTAR = "yg_ulke";
+const ULKE_OMUR = 7 * 24 * 60 * 60 * 1000; /* ülkeyi 7 gün önbellekte tut */
+const ULKE_SURE = 700; /* servis bu sürede cevap vermezse vazgeç */
+
+/* Ziyaretçinin ülkesini IP'sinden öğrenir. İki servise aynı anda sorar,
+   ilk cevap verene bakar; ikisi de yetişmezse null döner ve tarayıcı
+   diline geri düşeriz. Sonuç önbelleğe yazılır, her ziyarette sorulmaz. */
+async function ulkeKodu() {
+  try {
+    const kayit = JSON.parse(localStorage.getItem(ULKE_ANAHTAR) || "null");
+    if (kayit && Date.now() - kayit.zaman < ULKE_OMUR) return kayit.ulke;
+  } catch (_) {}
+
+  const sor = (adres, ayikla) =>
+    fetch(adres, { signal: AbortSignal.timeout(ULKE_SURE) })
+      .then((cevap) => cevap.json())
+      .then((veri) => {
+        const kod = String(ayikla(veri) || "").toUpperCase();
+        if (!/^[A-Z]{2}$/.test(kod)) throw new Error("ülke kodu yok");
+        return kod;
+      });
+
+  try {
+    const kod = await Promise.any([
+      sor("https://get.geojs.io/v1/ip/country.json", (v) => v.country),
+      sor("https://ipwho.is/?fields=country_code", (v) => v.country_code),
+    ]);
+    try {
+      localStorage.setItem(
+        ULKE_ANAHTAR,
+        JSON.stringify({ ulke: kod, zaman: Date.now() })
+      );
+    } catch (_) {}
+    return kod;
+  } catch (_) {
+    return null;
+  }
+}
+
+function tarayiciDili() {
   for (const tercih of navigator.languages || [navigator.language || ""]) {
     const kod = tercih.toLowerCase().split("-")[0];
     if (METIN[kod]) return kod;
   }
-  return VARSAYILAN;
+  return null;
 }
 
-function uygula(dil) {
+function uygula(dil, kaydet) {
   const s = METIN[dil] || METIN[VARSAYILAN];
 
   document.documentElement.lang = dil;
@@ -623,7 +684,14 @@ function uygula(dil) {
     if (deger !== undefined) dugum.innerHTML = deger;
   });
 
-  localStorage.setItem("yg_lang", dil);
+  /* Sadece ziyaretçi listeden bilerek seçtiyse kaydediyoruz. Ülkeden ya da
+     tarayıcıdan türetilen dili kaydedersek, sonradan değişen tercihini
+     bir daha yakalayamayız. */
+  if (kaydet) {
+    try {
+      localStorage.setItem("yg_lang", dil);
+    } catch (_) {}
+  }
 
   const secici = document.getElementById("dil-secici");
   if (secici) {
@@ -643,8 +711,42 @@ function seciciyiKur() {
     secici.appendChild(secenek);
   }
 
-  secici.addEventListener("change", () => uygula(secici.value));
+  secici.addEventListener("change", () => uygula(secici.value, true));
 }
 
-seciciyiKur();
-uygula(dilSec());
+function goster() {
+  document.documentElement.classList.remove("on-yukleme");
+}
+
+/* Sıra önemli:
+   1. ?lang=de gibi açık bir istek — her şeyi ezer
+   2. ziyaretçinin listeden yaptığı seçim
+   3. IP'den bulunan ülke
+   4. tarayıcı dili
+   5. İngilizce                                                        */
+async function baslat() {
+  seciciyiKur();
+
+  const adresten = new URLSearchParams(location.search).get("lang");
+  if (adresten && METIN[adresten]) {
+    uygula(adresten, true);
+    goster();
+    return;
+  }
+
+  let secilmis = null;
+  try {
+    secilmis = localStorage.getItem("yg_lang");
+  } catch (_) {}
+  if (secilmis && METIN[secilmis]) {
+    uygula(secilmis);
+    goster();
+    return;
+  }
+
+  const kod = await ulkeKodu();
+  uygula((kod && ULKE_DILI[kod]) || tarayiciDili() || VARSAYILAN);
+  goster();
+}
+
+baslat().catch(goster);

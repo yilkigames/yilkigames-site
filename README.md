@@ -19,9 +19,22 @@ robots.txt / sitemap.xml
 
 Site oyunla aynı on dili konuşuyor: **tr en es de fr it pt ru zh ja**.
 
-Dil şu sırayla belirlenir: `?lang=de` gibi bir adres parametresi → daha önce
-seçilmiş dil (`localStorage`) → tarayıcının dili → İngilizce. Seçim üst
-bardaki listeden değiştirilir ve hatırlanır.
+Dil şu sırayla belirlenir:
+
+1. `?lang=de` gibi bir adres parametresi — her şeyi ezer
+2. ziyaretçinin üst bardaki listeden yaptığı seçim (`localStorage`)
+3. **IP'den bulunan ülke** (`ULKE_DILI` tablosu)
+4. tarayıcı dili
+5. İngilizce
+
+Ülke, GeoJS ve ipwho.is servislerine aynı anda sorulur, ilk cevap veren
+kullanılır; 700 ms içinde ikisi de yetişmezse tarayıcı diline düşülür.
+Sonuç 7 gün önbelleğe alınır, her ziyarette sorgu atılmaz. Sayfa, dil
+oturana kadar gizli tutulur (`.on-yukleme`); HTML'deki satır içi betikteki
+1200 ms'lik zamanlayıcı, JS bozulursa sayfanın gizli kalmasını engeller.
+
+Ziyaretçi listeden dil seçmediyse `yg_lang` **yazılmaz** — yoksa sonradan
+değişen tercihini bir daha yakalayamayız.
 
 **Yeni metin eklerken:** HTML'e `data-i18n="anahtar"` koy (içinde etiket
 geçiyorsa `data-i18n-html`), sonra `i18n.js` içindeki on sözlüğe de karşılığını
