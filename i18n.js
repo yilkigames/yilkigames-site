@@ -27,6 +27,9 @@ const METIN = {
     "nav.studio": "Stüdyo",
     "nav.contact": "İletişim",
     "nav.privacy": "Gizlilik",
+    "nav.terms": "Şartlar",
+    "link.privacy": "/gizlilik.html",
+    "link.terms": "/kullanim-sartlari.html",
     "nav.support": "Destek",
     "hero.title": "Küçük kurallar,<br />derin <em>oyunlar</em>.",
     "hero.sub":
@@ -76,6 +79,9 @@ const METIN = {
     "faq.q6": "Oyun “bağlantı yok” diyor.",
     "faq.a6":
       "İnternet bağlantınızı kontrol edip yeniden deneyin. Bağlantı olmadan da çevrimdışı modda tek oyunculu oyun ve meydan okuma açıktır.",
+    "faq.q7": "Bir oyuncuyu nasıl engellerim?",
+    "faq.a7":
+      "Maç geçmişinden veya arkadaş listenden oyuncunun profilini aç ve ENGELLE'ye dokun. Engellediğin kişi sana mesaj, arkadaşlık isteği veya oyun daveti gönderemez. Engellediklerini Ayarlar → Güvenlik → Engellenen Oyuncular ekranından görebilir ve dilediğin zaman kaldırabilirsin.",
     "legal.notice":
       "Bu belge Türkçe ve İngilizce olarak yayımlanır. Diğer dillerdeki oyuncularımız için geçerli sürüm İngilizcesidir.",
   },
@@ -88,6 +94,9 @@ const METIN = {
     "nav.studio": "Studio",
     "nav.contact": "Contact",
     "nav.privacy": "Privacy",
+    "nav.terms": "Terms",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Support",
     "hero.title": "Small rules,<br />deep <em>games</em>.",
     "hero.sub":
@@ -137,6 +146,9 @@ const METIN = {
     "faq.q6": "The game says there is no connection.",
     "faq.a6":
       "Check your internet connection and try again. Even offline, single-player and challenge mode remain available.",
+    "faq.q7": "How do I block a player?",
+    "faq.a7":
+      "Open the player's profile from your match history or friend list and tap BLOCK. A blocked player cannot send you messages, friend requests or game invites. You can see and undo your blocks in Settings → Safety → Blocked Players.",
     "legal.notice":
       "This document is published in Turkish and English. For players in other languages, the English version is the one that applies.",
   },
@@ -149,6 +161,9 @@ const METIN = {
     "nav.studio": "Estudio",
     "nav.contact": "Contacto",
     "nav.privacy": "Privacidad",
+    "nav.terms": "Términos",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Soporte",
     "hero.title": "Reglas simples,<br /><em>juegos</em> profundos.",
     "hero.sub":
@@ -199,6 +214,9 @@ const METIN = {
     "faq.q6": "El juego dice que no hay conexión.",
     "faq.a6":
       "Comprueba tu conexión a internet e inténtalo de nuevo. Incluso sin conexión, el modo de un jugador y el modo desafío siguen disponibles.",
+    "faq.q7": "¿Cómo bloqueo a un jugador?",
+    "faq.a7":
+      "Abre su perfil desde el historial de partidas o tu lista de amigos y toca BLOQUEAR. Un jugador bloqueado no puede enviarte mensajes, solicitudes de amistad ni invitaciones. Puedes ver y deshacer tus bloqueos en Ajustes → Seguridad → Jugadores bloqueados.",
     "legal.notice":
       "Este documento se publica en turco e inglés. Para los jugadores de otros idiomas, la versión aplicable es la inglesa.",
   },
@@ -211,6 +229,9 @@ const METIN = {
     "nav.studio": "Studio",
     "nav.contact": "Kontakt",
     "nav.privacy": "Datenschutz",
+    "nav.terms": "AGB",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Support",
     "hero.title": "Kleine Regeln,<br />tiefe <em>Spiele</em>.",
     "hero.sub":
@@ -261,6 +282,9 @@ const METIN = {
     "faq.q6": "Das Spiel meldet „keine Verbindung“.",
     "faq.a6":
       "Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut. Auch offline bleiben der Einzelspieler- und der Herausforderungsmodus verfügbar.",
+    "faq.q7": "Wie blockiere ich einen Spieler?",
+    "faq.a7":
+      "Öffne das Profil über den Spielverlauf oder deine Freundesliste und tippe auf BLOCKIEREN. Blockierte Spieler können dir keine Nachrichten, Freundschaftsanfragen oder Einladungen senden. Unter Einstellungen → Sicherheit → Blockierte Spieler kannst du das jederzeit rückgängig machen.",
     "legal.notice":
       "Dieses Dokument erscheint auf Türkisch und Englisch. Für Spielerinnen und Spieler anderer Sprachen gilt die englische Fassung.",
   },
@@ -273,6 +297,9 @@ const METIN = {
     "nav.studio": "Studio",
     "nav.contact": "Contact",
     "nav.privacy": "Confidentialité",
+    "nav.terms": "Conditions",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Assistance",
     "hero.title": "Des règles simples,<br />des <em>jeux</em> profonds.",
     "hero.sub":
@@ -323,6 +350,9 @@ const METIN = {
     "faq.q6": "Le jeu indique « pas de connexion ».",
     "faq.a6":
       "Vérifiez votre connexion internet puis réessayez. Même hors ligne, le mode solo et le mode défi restent accessibles.",
+    "faq.q7": "Comment bloquer un joueur ?",
+    "faq.a7":
+      "Ouvre son profil depuis l'historique des parties ou ta liste d'amis et appuie sur BLOQUER. Un joueur bloqué ne peut plus t'envoyer de messages, de demandes d'ami ni d'invitations. Tu peux gérer tes blocages dans Paramètres → Sécurité → Joueurs bloqués.",
     "legal.notice":
       "Ce document est publié en turc et en anglais. Pour les joueurs des autres langues, la version anglaise fait foi.",
   },
@@ -335,6 +365,9 @@ const METIN = {
     "nav.studio": "Studio",
     "nav.contact": "Contatti",
     "nav.privacy": "Privacy",
+    "nav.terms": "Termini",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Assistenza",
     "hero.title": "Regole semplici,<br /><em>giochi</em> profondi.",
     "hero.sub":
@@ -385,6 +418,9 @@ const METIN = {
     "faq.q6": "Il gioco dice che non c’è connessione.",
     "faq.a6":
       "Controlla la connessione a internet e riprova. Anche offline restano disponibili la modalità a giocatore singolo e la modalità sfida.",
+    "faq.q7": "Come blocco un giocatore?",
+    "faq.a7":
+      "Apri il suo profilo dalla cronologia delle partite o dalla lista amici e tocca BLOCCA. Un giocatore bloccato non può inviarti messaggi, richieste di amicizia o inviti. Puoi gestire i blocchi in Impostazioni → Sicurezza → Giocatori bloccati.",
     "legal.notice":
       "Questo documento è pubblicato in turco e inglese. Per i giocatori di altre lingue fa fede la versione inglese.",
   },
@@ -397,6 +433,9 @@ const METIN = {
     "nav.studio": "Estúdio",
     "nav.contact": "Contacto",
     "nav.privacy": "Privacidade",
+    "nav.terms": "Termos",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Suporte",
     "hero.title": "Regras simples,<br /><em>jogos</em> profundos.",
     "hero.sub":
@@ -447,6 +486,9 @@ const METIN = {
     "faq.q6": "O jogo diz que não há ligação.",
     "faq.a6":
       "Verifique a ligação à internet e tente novamente. Mesmo sem ligação, o modo de um jogador e o modo desafio continuam disponíveis.",
+    "faq.q7": "Como bloqueio um jogador?",
+    "faq.a7":
+      "Abra o perfil pelo histórico de partidas ou pela lista de amigos e toque em BLOQUEAR. Um jogador bloqueado não pode enviar-lhe mensagens, pedidos de amizade ou convites. Pode gerir os bloqueios em Definições → Segurança → Jogadores bloqueados.",
     "legal.notice":
       "Este documento é publicado em turco e inglês. Para jogadores de outras línguas, aplica-se a versão inglesa.",
   },
@@ -459,6 +501,9 @@ const METIN = {
     "nav.studio": "Студия",
     "nav.contact": "Контакты",
     "nav.privacy": "Конфиденциальность",
+    "nav.terms": "Условия",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "Поддержка",
     "hero.title": "Простые правила,<br />глубокие <em>игры</em>.",
     "hero.sub":
@@ -508,6 +553,9 @@ const METIN = {
     "faq.q6": "Игра пишет, что нет соединения.",
     "faq.a6":
       "Проверьте подключение к интернету и повторите попытку. Даже без сети доступны одиночная игра и режим испытаний.",
+    "faq.q7": "Как заблокировать игрока?",
+    "faq.a7":
+      "Откройте профиль игрока из истории матчей или списка друзей и нажмите ЗАБЛОКИРОВАТЬ. Заблокированный игрок не сможет отправлять вам сообщения, заявки в друзья и приглашения. Управлять блокировками можно в разделе Настройки → Безопасность → Заблокированные игроки.",
     "legal.notice":
       "Этот документ публикуется на турецком и английском языках. Для игроков, говорящих на других языках, действует английская версия.",
   },
@@ -520,6 +568,9 @@ const METIN = {
     "nav.studio": "工作室",
     "nav.contact": "联系我们",
     "nav.privacy": "隐私",
+    "nav.terms": "条款",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "支持",
     "hero.title": "规则简单，<br />玩法<em>深邃</em>。",
     "hero.sub":
@@ -569,6 +620,9 @@ const METIN = {
     "faq.q6": "游戏提示没有网络连接。",
     "faq.a6":
       "请检查网络连接后重试。即使离线，单人模式和挑战模式仍然可以游玩。",
+    "faq.q7": "如何屏蔽一位玩家？",
+    "faq.a7":
+      "在对战记录或好友列表中打开该玩家的个人资料，点击「屏蔽」。被屏蔽的玩家无法向你发送消息、好友请求或对战邀请。你可以在 设置 → 安全 → 已屏蔽的玩家 中查看并随时解除屏蔽。",
     "legal.notice":
       "本文件以土耳其语和英语发布。对于使用其他语言的玩家，以英文版本为准。",
   },
@@ -581,6 +635,9 @@ const METIN = {
     "nav.studio": "スタジオ",
     "nav.contact": "お問い合わせ",
     "nav.privacy": "プライバシー",
+    "nav.terms": "利用規約",
+    "link.privacy": "/privacy.html",
+    "link.terms": "/terms.html",
     "nav.support": "サポート",
     "hero.title": "ルールは小さく、<br /><em>ゲーム</em>は深く。",
     "hero.sub":
@@ -630,6 +687,9 @@ const METIN = {
     "faq.q6": "「接続がありません」と表示されます。",
     "faq.a6":
       "インターネット接続をご確認のうえ、もう一度お試しください。オフラインでもシングルプレイとチャレンジモードはお楽しみいただけます。",
+    "faq.q7": "プレイヤーをブロックするには？",
+    "faq.a7":
+      "対戦履歴かフレンドリストから相手のプロフィールを開き、「ブロック」をタップします。ブロックした相手はメッセージ・フレンド申請・対戦招待を送れません。設定 → 安全 → ブロックしたプレイヤー でいつでも確認・解除できます。",
     "legal.notice":
       "本書はトルコ語と英語で公開しています。その他の言語のプレイヤーの方には英語版が適用されます。",
   },
@@ -637,72 +697,7 @@ const METIN = {
 
 /* ---------------------------------------------------------------- */
 
-/* Ülke kodundan dil. Burada olmayan her ülke İngilizceye düşer.
-   Not: pt metinleri Avrupa Portekizcesi, zh ise Basitleştirilmiş Çince —
-   Brezilya ve Tayvan için ayrı sürüm gerekirse buradan ayrıştırılır. */
-const ULKE_DILI = {
-  TR: "tr",
-
-  ES: "es", MX: "es", AR: "es", CO: "es", PE: "es", VE: "es", CL: "es",
-  EC: "es", GT: "es", CU: "es", BO: "es", DO: "es", HN: "es", PY: "es",
-  SV: "es", NI: "es", CR: "es", PA: "es", UY: "es", PR: "es", GQ: "es",
-
-  DE: "de", AT: "de", CH: "de", LI: "de",
-
-  FR: "fr", BE: "fr", MC: "fr", LU: "fr", CI: "fr", SN: "fr", ML: "fr",
-  BF: "fr", NE: "fr", TG: "fr", BJ: "fr", GA: "fr", CG: "fr", CD: "fr",
-  CM: "fr", MG: "fr", HT: "fr",
-
-  IT: "it", SM: "it", VA: "it",
-
-  PT: "pt", BR: "pt", AO: "pt", MZ: "pt", CV: "pt", GW: "pt", ST: "pt",
-  TL: "pt",
-
-  RU: "ru", BY: "ru", KZ: "ru", KG: "ru", TJ: "ru",
-
-  CN: "zh", TW: "zh", HK: "zh", MO: "zh",
-
-  JP: "ja",
-};
-
-const ULKE_ANAHTAR = "yg_ulke";
-const ULKE_OMUR = 7 * 24 * 60 * 60 * 1000; /* ülkeyi 7 gün önbellekte tut */
-const ULKE_SURE = 700; /* servis bu sürede cevap vermezse vazgeç */
-
-/* Ziyaretçinin ülkesini IP'sinden öğrenir. İki servise aynı anda sorar,
-   ilk cevap verene bakar; ikisi de yetişmezse null döner ve tarayıcı
-   diline geri düşeriz. Sonuç önbelleğe yazılır, her ziyarette sorulmaz. */
-async function ulkeKodu() {
-  try {
-    const kayit = JSON.parse(localStorage.getItem(ULKE_ANAHTAR) || "null");
-    if (kayit && Date.now() - kayit.zaman < ULKE_OMUR) return kayit.ulke;
-  } catch (_) {}
-
-  const sor = (adres, ayikla) =>
-    fetch(adres, { signal: AbortSignal.timeout(ULKE_SURE) })
-      .then((cevap) => cevap.json())
-      .then((veri) => {
-        const kod = String(ayikla(veri) || "").toUpperCase();
-        if (!/^[A-Z]{2}$/.test(kod)) throw new Error("ülke kodu yok");
-        return kod;
-      });
-
-  try {
-    const kod = await Promise.any([
-      sor("https://get.geojs.io/v1/ip/country.json", (v) => v.country),
-      sor("https://ipwho.is/?fields=country_code", (v) => v.country_code),
-    ]);
-    try {
-      localStorage.setItem(
-        ULKE_ANAHTAR,
-        JSON.stringify({ ulke: kod, zaman: Date.now() })
-      );
-    } catch (_) {}
-    return kod;
-  } catch (_) {
-    return null;
-  }
-}
+/* ---------------------------------------------------------------- */
 
 function tarayiciDili() {
   for (const tercih of navigator.languages || [navigator.language || ""]) {
@@ -732,6 +727,14 @@ function uygula(dil, kaydet) {
   document.querySelectorAll("[data-i18n-html]").forEach((dugum) => {
     const deger = s[dugum.dataset.i18nHtml];
     if (deger !== undefined) dugum.innerHTML = deger;
+  });
+
+  /* Hukuki belgeler yalnizca Turkce ve Ingilizce yayimlaniyor. Baglantinin
+     kendisi de dile gore degismeli, yoksa Ingilizce gezen ziyaretci
+     "Privacy"ye basinca Turkce metne dusuyor. */
+  document.querySelectorAll("[data-i18n-href]").forEach((dugum) => {
+    const deger = s[dugum.dataset.i18nHref];
+    if (deger !== undefined) dugum.setAttribute("href", deger);
   });
 
   /* Sadece ziyaretçi listeden bilerek seçtiyse kaydediyoruz. Ülkeden ya da
@@ -771,10 +774,16 @@ function goster() {
 /* Sıra önemli:
    1. ?lang=de gibi açık bir istek — her şeyi ezer
    2. ziyaretçinin listeden yaptığı seçim
-   3. IP'den bulunan ülke
-   4. tarayıcı dili
-   5. İngilizce                                                        */
-async function baslat() {
+   3. tarayıcı dili
+   4. İngilizce
+
+   IP'den ülke tahmini 2026-08-09'da KALDIRILDI. Sebebi hukuki: ziyaretçinin
+   IP adresi kişisel veridir ve dil tahmini için üçüncü taraf servislere
+   gönderilmesi, rıza alınmadan yapılan bir yurt dışı aktarımdı. Tarayıcının
+   kendi dil tercihi aynı işi dış istek olmadan görüyor — üstelik daha
+   doğru: Almanya'daki bir Türk kullanıcı IP'ye göre Almanca alırdı, oysa
+   tarayıcı ayarı ne istediğini zaten söylüyor.                          */
+function baslat() {
   seciciyiKur();
 
   const adresten = new URLSearchParams(location.search).get("lang");
@@ -794,9 +803,12 @@ async function baslat() {
     return;
   }
 
-  const kod = await ulkeKodu();
-  uygula((kod && ULKE_DILI[kod]) || tarayiciDili() || VARSAYILAN);
+  uygula(tarayiciDili() || VARSAYILAN);
   goster();
 }
 
-baslat().catch(goster);
+try {
+  baslat();
+} catch (_) {
+  goster();
+}

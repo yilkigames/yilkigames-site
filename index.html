@@ -17,7 +17,6 @@
     <meta property="og:url" content="https://yilkigames.com/" />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://yilkigames.com/" />
-    <link rel="preconnect" href="https://get.geojs.io" />
     <link rel="stylesheet" href="style.css" />
     <link
       rel="icon"
@@ -25,12 +24,12 @@
     />
     <script>
       /* Metinler yerine oturana kadar sayfayı gösterme; JS kapalıysa
-         bu betik hiç çalışmaz ve sayfa normal görünür. Süre, ülke
-         sorgusunun 700 ms'lik bütçesini aşacak kadar geniş. */
+         bu betik hiç çalışmaz ve sayfa normal görünür. Dil artık ağ
+         isteği beklemeden tarayıcıdan okunuyor, bu yüzden süre kısa. */
       document.documentElement.className += " on-yukleme";
       setTimeout(function () {
         document.documentElement.classList.remove("on-yukleme");
-      }, 1200);
+      }, 400);
     </script>
   </head>
   <body>
@@ -179,7 +178,8 @@
       <div class="sarmal alt">
         <span data-i18n="footer.rights">© 2026 Yılkı Games</span>
         <span class="alt-baglantilar">
-          <a href="/gizlilik.html" data-i18n="nav.privacy">Privacy</a>
+          <a href="/gizlilik.html" data-i18n-href="link.privacy" data-i18n="nav.privacy">Privacy</a>
+          <a href="/kullanim-sartlari.html" data-i18n-href="link.terms" data-i18n="nav.terms">Terms</a>
           <a href="/destek.html" data-i18n="nav.support">Support</a>
         </span>
       </div>
