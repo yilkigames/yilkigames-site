@@ -769,6 +769,18 @@ h2::after {
   margin-bottom: 0;
 }
 
+/* Yasal künye: adres ve tacir bilgisi. Zorunlu ama vitrin değil —
+   sayfanın en altında, gövde metninden küçük ve soluk. */
+.kunye {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--soluk);
+}
+
+.kunye a {
+  border-bottom-color: var(--cizgi);
+}
+
 .uyari {
   font-size: 14.5px;
   color: var(--soluk);
