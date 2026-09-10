@@ -33,6 +33,21 @@
       if (m !== undefined) e.innerHTML = m;
     });
 
+    /* Sayfa başlığı ve açıklaması da çevrilsin: <body> üzerindeki
+       data-title / data-desc anahtarları buna yarıyor. */
+    var g = document.body;
+    var bAnahtar = g.getAttribute("data-title");
+    var aAnahtar = g.getAttribute("data-desc");
+    if (bAnahtar && (sozluk[bAnahtar] || yedek[bAnahtar])) {
+      document.title = sozluk[bAnahtar] || yedek[bAnahtar];
+    }
+    if (aAnahtar) {
+      var etiket = document.querySelector('meta[name="description"]');
+      if (etiket && (sozluk[aAnahtar] || yedek[aAnahtar])) {
+        etiket.setAttribute("content", sozluk[aAnahtar] || yedek[aAnahtar]);
+      }
+    }
+
     document.documentElement.lang = dil;
   }
 

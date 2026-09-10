@@ -1,0 +1,270 @@
+/* ============================================================
+   BELGE SAYFALARI — gizlilik, şartlar, destek, şifre sıfırlama
+
+   `tasarim.css` üstüne biniyor: renkler, yazı tipi, üst bar, alt
+   bilgi ve dil seçici oradan geliyor. Burada sadece uzun metin
+   sayfalarına özgü şeyler var.
+
+   İçerik metinlerine dokunulmadı; bu dosya yalnızca görünüm.
+   ============================================================ */
+
+/* Belge gövdesi: okunabilirlik için dar sütun. 800 piksel, satır
+   başına yaklaşık 75 karakter — uzun hukuki metinde gözü yormayan
+   ölçü bu. */
+.belge {
+  max-width: 820px;
+  padding-top: 170px;
+  padding-bottom: 120px;
+  position: relative;
+  z-index: 1;
+}
+
+.belge h1 {
+  font-size: clamp(34px, 5.5vw, 58px);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  margin-bottom: 16px;
+}
+
+.tarih {
+  color: var(--soluk);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  margin-bottom: 44px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.belge h2 {
+  font-size: 24px;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: var(--ak);
+  margin: 56px 0 16px;
+  padding-left: 18px;
+  border-left: 3px solid var(--yesil);
+}
+
+.belge h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--ak);
+  margin: 34px 0 10px;
+}
+
+.belge p,
+.belge li {
+  color: var(--orta);
+  margin-bottom: 14px;
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+
+.belge ul {
+  padding-left: 22px;
+  margin-bottom: 22px;
+}
+
+.belge li {
+  margin-bottom: 9px;
+}
+
+.belge li::marker {
+  color: var(--yesil);
+}
+
+.belge a {
+  color: var(--ak);
+  border-bottom: 1px solid var(--yesil);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.belge a:hover {
+  color: var(--yesil-parlak);
+  border-bottom-color: var(--yesil-parlak);
+}
+
+.belge strong {
+  color: var(--ak);
+  font-weight: 600;
+}
+
+/* Öne çıkan kutu: veri sorumlusu, iletişim, uyarı kutuları */
+.kutu {
+  background: linear-gradient(168deg, var(--kart-2), var(--kart));
+  border: 1px solid var(--cizgi);
+  border-left: 2px solid var(--yesil);
+  padding: 24px 28px;
+  margin: 30px 0;
+}
+
+.kutu p:last-child {
+  margin-bottom: 0;
+}
+
+/* İki dil uyarısı ve benzeri ikincil notlar */
+.uyari {
+  font-size: 14.5px;
+  color: var(--soluk);
+  border: 1px solid var(--cizgi);
+  padding: 14px 19px;
+  margin-bottom: 36px;
+}
+
+/* Yasal künye: adres burada, gövde metninden küçük ve soluk */
+.kunye {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--soluk);
+}
+
+.kunye a {
+  border-bottom-color: var(--cizgi-2);
+}
+
+/* Tablolar — saklama süreleri, aktarım listesi */
+.kaydir {
+  overflow-x: auto;
+  margin: 24px 0 30px;
+  border: 1px solid var(--cizgi);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  min-width: 460px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--cizgi);
+  color: var(--orta);
+}
+
+th {
+  background: var(--kart);
+  color: var(--ak);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Büyük e-posta bağlantısı (destek sayfası) */
+.posta {
+  display: inline-block;
+  font-size: clamp(20px, 3.4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ak);
+  border-bottom: 2px solid var(--yesil);
+  padding-bottom: 4px;
+  transition: color 0.2s;
+}
+
+.posta:hover {
+  color: var(--yesil-parlak);
+}
+
+.posta.kucuk {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   DOĞA SÜSLERİ
+   Ana sayfadaki dil burada da sürsün diye: sağ üstte dal, sayfa
+   dibinde ot şeridi. Metnin arkasında, çok soluk — okumayı
+   engellememeli.
+   ============================================================ */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.belge-dal {
+  position: absolute;
+  top: 40px;
+  right: -110px;
+  width: min(52vw, 640px);
+  height: auto;
+  opacity: 0.13;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.belge-otlar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Belge sayfalarında üst bar hep koyu dursun: uzun metinde
+   şeffaf bar okuma sırasında yazının üstüne biniyor. */
+header {
+  background: rgba(7, 11, 8, 0.9);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--cizgi);
+}
+
+/* İki dilli belgeler için TR/EN geçişi. On dilli panel burada
+   yanıltıcı olurdu: bu metinler yalnızca iki dilde var. */
+.dil-ikili {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--cizgi-2);
+}
+
+.dil-ikili a {
+  padding: 8px 13px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--soluk);
+  transition: color 0.2s, background 0.2s;
+}
+
+.dil-ikili a:hover {
+  color: var(--ak);
+}
+
+.dil-ikili a[aria-current="page"] {
+  color: var(--yesil-parlak);
+  background: rgba(76, 154, 94, 0.1);
+}
+
+@media (max-width: 760px) {
+  .belge {
+    padding-top: 130px;
+    padding-bottom: 80px;
+  }
+
+  .belge h2 {
+    font-size: 21px;
+    margin-top: 42px;
+  }
+
+  .belge-dal {
+    width: 90vw;
+    right: -60px;
+    opacity: 0.09;
+  }
+
+  .belge-otlar {
+    opacity: 0.1;
+  }
+}

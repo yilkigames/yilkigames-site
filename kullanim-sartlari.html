@@ -8,48 +8,36 @@
       name="description"
       content="Yılkı Games oyunlarının kullanım şartları: hesap kuralları, davranış kuralları, abonelikler, sorumluluk ve uygulanacak hukuk."
     />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#070b08" />
     <link rel="canonical" href="https://yilkigames.com/kullanim-sartlari.html" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='23' font-size='20' font-family='sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
-    />
+    <link rel="stylesheet" href="/tasarim.css" />
+    <link rel="stylesheet" href="/belge.css" />
   </head>
   <body>
-    <header>
+    <header id="ust-bar">
       <div class="sarmal ust">
         <a class="marka" href="/">
-          <span class="marka-isaret" aria-hidden="true">
-            <i>X</i><i>O</i><i>X</i>
-          </span>
+          <img src="/gorseller/logo-sade.webp" alt="" width="40" height="40" />
           YILKI GAMES
         </a>
         <div class="ust-sag">
-          <nav id="ana-nav">
+          <nav>
             <a href="/#oyunlar">Oyunlar</a>
             <a href="/destek.html">Destek</a>
-            <a href="/gizlilik.html">Gizlilik</a>
-            <a href="/kullanim-sartlari.html" aria-current="page">Türkçe</a>
-            <a href="/terms.html">English</a>
           </nav>
-          <button
-            type="button"
-            class="menu-dugme"
-            id="menu-dugme"
-            aria-expanded="false"
-            aria-controls="ana-nav"
-            aria-label="Menü"
-          >
-            <span></span><span></span>
-          </button>
+          <div class="dil-ikili">
+            <a href="#" aria-current="page">TR</a>
+            <a href="/terms.html">EN</a>
+          </div>
         </div>
       </div>
     </header>
+
+    <img class="belge-dal" src="/gorseller/dal-sag.webp" alt="" aria-hidden="true" onerror="this.remove()" />
 
     <main class="sarmal belge">
       <h1>Kullanım Şartları</h1>
@@ -357,18 +345,36 @@
       </p>
     </main>
 
+    <img class="belge-otlar" src="/gorseller/otlar.webp" alt="" aria-hidden="true" onerror="this.remove()" />
+
     <footer>
-      <div class="sarmal alt">
-        <span>© 2026 Yılkı Games</span>
-        <span class="alt-baglantilar">
-          <a href="/">Yılkı Games</a>
-          <a href="/gizlilik.html">Gizlilik Politikası</a>
-          <a href="/terms.html">Terms of Service (EN)</a>
-          <a href="/destek.html">Destek</a>
-        </span>
+      <div class="sarmal">
+        <div class="alt-ust">
+          <div class="alt-sutun">
+            <h4>Stüdyo</h4>
+            <a href="/#oyunlar">Oyunlar</a>
+          </div>
+          <div class="alt-sutun">
+            <h4>Yardım</h4>
+            <a href="/destek.html">Destek</a>
+            <a href="mailto:info@yilkigames.com">info@yilkigames.com</a>
+          </div>
+          <div class="alt-sutun">
+            <h4>Bize katıl</h4>
+            <a href="mailto:info@yilkigames.com?subject=Portfolyo">Portfolyo gönder</a>
+          </div>
+          <div class="alt-sutun">
+            <h4>Yasal</h4>
+            <a href="/gizlilik.html">Gizlilik Politikası</a>
+            <a href="/kullanim-sartlari.html">Kullanım Şartları</a>
+          </div>
+        </div>
+        <div class="alt-son">
+          <span>© 2026 Yılkı Games</span>
+        </div>
       </div>
     </footer>
 
-    <script src="site.js"></script>
+    <script src="/arayuz.js"></script>
   </body>
 </html>

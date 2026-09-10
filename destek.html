@@ -8,64 +8,45 @@
       name="description"
       content="Support, bug reports, account deletion and frequently asked questions for Yılkı Games."
     />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#070b08" />
     <link rel="canonical" href="https://yilkigames.com/destek.html" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230a0a0a'/><text x='16' y='24' font-size='21' font-family='Segoe UI,sans-serif' font-weight='bold' fill='%23d9262a' text-anchor='middle'>Y</text></svg>"
-    />
-    <script>
-      document.documentElement.className += " on-yukleme";
-      setTimeout(function () {
-        document.documentElement.classList.remove("on-yukleme");
-      }, 1200);
-    </script>
+    <link rel="stylesheet" href="/tasarim.css" />
+    <link rel="stylesheet" href="/belge.css" />
   </head>
   <body data-title="sup.meta.title" data-desc="sup.meta.desc">
-    <header>
+    <header id="ust-bar">
       <div class="sarmal ust">
         <a class="marka" href="/">
-          <span class="marka-isaret" aria-hidden="true">
-            <i>X</i><i>O</i><i>X</i>
-          </span>
+          <img src="/gorseller/logo-sade.webp" alt="" width="40" height="40" />
           YILKI GAMES
         </a>
-
         <div class="ust-sag">
-          <nav id="ana-nav">
-            <a href="/#oyunlar" data-i18n="nav.games">Games</a>
-            <a href="/#studyo" data-i18n="nav.studio">Studio</a>
-            <a href="/gizlilik.html" data-i18n-href="link.privacy" data-i18n="nav.privacy">Privacy</a>
-            <a href="/kullanim-sartlari.html" data-i18n-href="link.terms" data-i18n="nav.terms">Terms</a>
-            <a href="/destek.html" aria-current="page" data-i18n="nav.support"
-              >Support</a
-            >
+          <nav>
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/destek.html" aria-current="page" data-i18n="nav.support">Destek</a>
           </nav>
-          <div class="dil">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
-            </svg>
-            <select id="dil-secici" aria-label="Language"></select>
-          </div>
           <button
             type="button"
-            class="menu-dugme"
-            id="menu-dugme"
+            class="dil-dugme"
+            id="dil-dugme"
             aria-expanded="false"
-            aria-controls="ana-nav"
-            aria-label="Menu"
+            aria-haspopup="true"
           >
-            <span></span><span></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+            </svg>
+            <span id="dil-kod">TR</span>
           </button>
         </div>
       </div>
     </header>
+
+    <img class="belge-dal" src="/gorseller/dal-sag.webp" alt="" aria-hidden="true" onerror="this.remove()" />
 
     <main class="sarmal belge">
       <h1 data-i18n="sup.title">Support</h1>
@@ -125,18 +106,39 @@
       </p>
     </main>
 
+    <img class="belge-otlar" src="/gorseller/otlar.webp" alt="" aria-hidden="true" onerror="this.remove()" />
+
+    <div class="dil-panel" id="dil-panel" role="menu" aria-labelledby="dil-dugme"></div>
+
     <footer>
-      <div class="sarmal alt">
-        <span data-i18n="footer.rights">© 2026 Yılkı Games</span>
-        <span class="alt-baglantilar">
-          <a href="/">Yılkı Games</a>
-          <a href="/gizlilik.html" data-i18n-href="link.privacy" data-i18n="nav.privacy">Privacy</a>
-          <a href="/kullanim-sartlari.html" data-i18n-href="link.terms" data-i18n="nav.terms">Terms</a>
-        </span>
+      <div class="sarmal">
+        <div class="alt-ust">
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.studio">Stüdyo</h4>
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.help">Yardım</h4>
+            <a href="/destek.html" data-i18n="nav.support">Destek</a>
+            <a href="mailto:info@yilkigames.com">info@yilkigames.com</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.join">Bize katıl</h4>
+            <a href="mailto:info@yilkigames.com?subject=Portfolyo" data-i18n="foot.portfolio">Portfolyo gönder</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.legal">Yasal</h4>
+            <a href="/gizlilik.html" data-i18n="foot.privacy">Gizlilik Politikası</a>
+            <a href="/kullanim-sartlari.html" data-i18n="foot.terms">Kullanım Şartları</a>
+          </div>
+        </div>
+        <div class="alt-son">
+          <span data-i18n="footer.rights">© 2026 Yılkı Games</span>
+        </div>
       </div>
     </footer>
 
-    <script src="i18n.js"></script>
-    <script src="site.js"></script>
+    <script src="/metin.js"></script>
+    <script src="/arayuz.js"></script>
   </body>
 </html>
