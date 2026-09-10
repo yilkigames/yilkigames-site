@@ -1,0 +1,1416 @@
+/* ============================================================
+   YILKI GAMES — TASARIM SİSTEMİ
+   9 Eylül 2026
+
+   Renk yönü: gece ormanı. Zemin yeşile çalan siyah, vurgu yosun
+   yeşili, metin kirli beyaz. Beyaz blok olarak değil, metin ve
+   boşluk olarak kullanılıyor — koyu zemin "premium" hissini taşıyan
+   şey, beyaz blok koyunca site kurumsal broşüre dönüyor.
+
+   Yazı tipi Space Grotesk: oyunun kullandığı harflerle aynı.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+  /* zemin katmanları — hepsi yeşile çalıyor, nötr gri değil */
+  --zemin: #070b08;
+  --zemin-2: #0b110d;
+  --kart: #0f1712;
+  --kart-2: #131d17;
+  --cizgi: #1b2820;
+  --cizgi-2: #26382c;
+
+  /* metin */
+  --ak: #eef3ec;
+  --orta: #a3b3a5;
+  --soluk: #6b7d6e;
+
+  /* vurgu — yosun yeşili, neon değil */
+  --yesil: #4c9a5e;
+  --yesil-parlak: #6dc07f;
+  --yesil-sis: rgba(76, 154, 94, 0.14);
+
+  /* kilitli oyunlar ve rozetler */
+  --amber: #c9a227;
+
+  --font: "Space Grotesk", "Segoe UI", -apple-system, BlinkMacSystemFont,
+    "Noto Sans", Arial, sans-serif;
+  --olcu: 1240px;
+  --yumusak: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--zemin);
+  color: var(--ak);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* İnce gren — düz koyu zemin dijital ve ucuz duruyor, gren derinlik veriyor */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--yesil-parlak);
+  outline-offset: 3px;
+}
+
+.sarmal {
+  width: 100%;
+  max-width: var(--olcu);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ============================================================
+   ÜST BAR
+   ============================================================ */
+header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  transition: background 0.3s var(--yumusak), border-color 0.3s var(--yumusak);
+  border-bottom: 1px solid transparent;
+}
+
+header.inildi {
+  background: rgba(7, 11, 8, 0.86);
+  backdrop-filter: blur(14px);
+  border-bottom-color: var(--cizgi);
+}
+
+.ust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 84px;
+}
+
+.marka {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.14em;
+}
+
+.marka svg {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+nav {
+  display: flex;
+  gap: 34px;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--orta);
+}
+
+nav a {
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--yesil-parlak);
+  transition: width 0.3s var(--yumusak);
+}
+
+nav a:hover {
+  color: var(--ak);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 140px 0 80px;
+}
+
+/* Ufuktan yükselen yeşil ışık */
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -30%;
+  width: 140vw;
+  height: 90vh;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    var(--yesil-sis) 0%,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.manzara {
+  position: absolute;
+  inset: auto 0 0;
+  width: 100%;
+  height: 62vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-ic {
+  position: relative;
+  z-index: 3;
+}
+
+.etiket {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--yesil-parlak);
+  margin-bottom: 26px;
+}
+
+.etiket::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: var(--yesil);
+}
+
+h1 {
+  font-size: clamp(46px, 8.5vw, 104px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  max-width: 15ch;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--yesil-parlak);
+}
+
+.hero-alt {
+  margin-top: 28px;
+  max-width: 46ch;
+  color: var(--orta);
+  font-size: 19px;
+}
+
+/* ============================================================
+   BÖLÜMLER
+   ============================================================ */
+section {
+  position: relative;
+  padding: 130px 0;
+  border-top: 1px solid var(--cizgi);
+}
+
+.bolum-basi {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 56px;
+}
+
+h2 {
+  font-size: clamp(30px, 4.4vw, 52px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.bolum-not {
+  color: var(--soluk);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   OYUN KARTLARI
+   ============================================================ */
+.oyunlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.oyun {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+  padding: 30px;
+  background: linear-gradient(165deg, var(--kart-2), var(--kart));
+  border: 1px solid var(--cizgi);
+  overflow: hidden;
+  transition: border-color 0.3s var(--yumusak), transform 0.4s var(--yumusak);
+}
+
+.oyun:hover {
+  border-color: var(--cizgi-2);
+  transform: translateY(-4px);
+}
+
+/* Öne çıkan oyun iki sütun kaplıyor */
+.oyun.one-cikan {
+  grid-column: span 2;
+  min-height: 420px;
+}
+
+@media (max-width: 760px) {
+  .oyun.one-cikan {
+    grid-column: span 1;
+  }
+}
+
+.oyun-ust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: auto;
+}
+
+.rozet {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border: 1px solid var(--cizgi-2);
+  color: var(--soluk);
+}
+
+.rozet.canli {
+  color: var(--yesil-parlak);
+  border-color: var(--yesil);
+}
+
+.rozet.kilitli {
+  color: var(--amber);
+  border-color: rgba(201, 162, 39, 0.4);
+}
+
+.oyun h3 {
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  margin-top: 26px;
+}
+
+.oyun-tur {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  margin-top: 8px;
+}
+
+.oyun p {
+  color: var(--orta);
+  margin-top: 16px;
+  max-width: 52ch;
+}
+
+/* Kilitli kartlar: içerik soluk, üstünde asma kilit */
+.oyun.kapali .oyun-govde {
+  opacity: 0.5;
+  filter: blur(0.4px);
+}
+
+.kilit {
+  position: absolute;
+  right: 26px;
+  bottom: 26px;
+  width: 26px;
+  height: 26px;
+  color: var(--amber);
+  opacity: 0.75;
+}
+
+.oyun-bag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 26px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yesil-parlak);
+}
+
+.oyun-bag svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.25s var(--yumusak);
+}
+
+.oyun-bag:hover svg {
+  transform: translateX(4px);
+}
+
+/* ============================================================
+   STÜDYO
+   ============================================================ */
+.buyuk-metin {
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  max-width: 24ch;
+}
+
+.studyo-ikili {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .studyo-ikili {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.studyo-metin p {
+  color: var(--orta);
+  margin-top: 20px;
+  max-width: 54ch;
+}
+
+/* ============================================================
+   ALT — kariyer burada, göze sokmadan
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--cizgi);
+  padding: 60px 0 44px;
+  background: var(--zemin-2);
+}
+
+.alt-ust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.alt-sutun h4 {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.alt-sutun a,
+.alt-sutun p {
+  display: block;
+  color: var(--orta);
+  font-size: 15px;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+.alt-sutun a:hover {
+  color: var(--yesil-parlak);
+}
+
+.alt-son {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  font-size: 13px;
+  color: var(--soluk);
+}
+
+.alt-baglantilar {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   KAYDIRINCA BELİRME
+   ============================================================ */
+.beliriv {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s var(--yumusak), transform 0.7s var(--yumusak);
+  transition-delay: var(--gecikme, 0s);
+}
+
+.beliriv.gorundu {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beliriv {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .sarmal {
+    padding: 0 20px;
+  }
+  nav {
+    display: none;
+  }
+  section {
+    padding: 90px 0;
+  }
+}
+
+/* Oyunlar bölümündeki platform başlıkları */
+.tur-basligi {
+  font-size: 13px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  font-weight: 500;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--cizgi);
+}
+
+.oyunlar + .tur-basligi {
+  margin-top: 64px;
+}
+
+/* ============================================================
+   HERO — KATMANLI PARALLAKS
+   Katmanlar CSS arka planı olarak yükleniyor: dosya eksikse
+   sessizce boş kalıyor, kırık görsel simgesi çıkmıyor.
+   ============================================================ */
+.gokyuzu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #040705 0%, #071009 42%, #0c1a11 74%, #101f14 100%);
+  z-index: 0;
+}
+
+/* Yıldızlar: iki katman ince nokta. Görsel dosyası gerektirmiyor. */
+.yildizlar {
+  position: absolute;
+  inset: 0 0 45%;
+  z-index: 0;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, #cfe3d4 50%, transparent 52%),
+    radial-gradient(1px 1px at 28% 9%, #cfe3d4 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 44% 31%, #eaf3ec 50%, transparent 52%),
+    radial-gradient(1px 1px at 61% 14%, #cfe3d4 50%, transparent 52%),
+    radial-gradient(1px 1px at 73% 28%, #cfe3d4 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 86% 12%, #eaf3ec 50%, transparent 52%),
+    radial-gradient(1px 1px at 93% 34%, #cfe3d4 50%, transparent 52%),
+    radial-gradient(1px 1px at 5% 41%, #cfe3d4 50%, transparent 52%);
+}
+
+.kat {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 120%;
+  transform: translateX(-50%);
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% auto;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.kat-daglar {
+  height: 72%;
+  z-index: 1;
+  background-image: url("gorseller/daglar.webp");
+  opacity: 0.55;
+}
+
+.kat-tepeler {
+  height: 66%;
+  z-index: 2;
+  background-image: url("gorseller/tepeler.webp");
+  opacity: 0.8;
+}
+
+.kat-suru {
+  height: 26%;
+  z-index: 3;
+  background-image: url("gorseller/suru.webp");
+  background-size: auto 100%;
+  background-position: bottom 16% center;
+  opacity: 0.9;
+}
+
+/* Kutu resimden kısa kalırsa `background-position: bottom` üstü
+   kırpıyor ve ağaçların tepesinde yatay bir kesik oluşuyordu.
+   Kutu yükseldi: resim alta yaslanıyor, üstü boş kalıyor. */
+.kat-orman {
+  height: 100%;
+  z-index: 4;
+  background-image: url("gorseller/orman.webp");
+}
+
+.kat-otlar {
+  height: 16%;
+  z-index: 6;
+  background-image: url("gorseller/otlar.webp");
+  background-size: 100% 100%;
+}
+
+/* Metin ormanın önünde ama otların arkasında dursun: içeri girmiş hissi */
+.hero-ic {
+  z-index: 5;
+}
+
+/* Hero'nun altını bir sonraki bölüme yumuşak bağla */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 22%;
+  z-index: 7;
+  background: linear-gradient(180deg, transparent, var(--zemin) 88%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   DÜĞME
+   ============================================================ */
+.dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 16px 28px;
+  border: 1px solid var(--yesil);
+  color: var(--ak);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(76, 154, 94, 0.08);
+  backdrop-filter: blur(4px);
+  transition: background 0.3s var(--yumusak), border-color 0.3s var(--yumusak);
+}
+
+.dugme:hover {
+  background: rgba(76, 154, 94, 0.2);
+  border-color: var(--yesil-parlak);
+}
+
+.dugme svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--yumusak);
+}
+
+.dugme:hover svg {
+  transform: translateY(3px);
+}
+
+/* ============================================================
+   DOĞA SÜSLERİ — dallar ve ot şeridi
+   ============================================================ */
+.dalli {
+  overflow: hidden;
+}
+
+.dal {
+  position: absolute;
+  width: min(46vw, 620px);
+  height: auto;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dal-sag {
+  top: -60px;
+  right: -90px;
+}
+
+.dal-sol {
+  top: -50px;
+  left: -90px;
+}
+
+.otlar-serit {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: auto;
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dalli .sarmal {
+  position: relative;
+  z-index: 1;
+}
+
+.koyu {
+  background: var(--zemin-2);
+}
+
+/* ============================================================
+   OYUN KARTLARI — görselli sürüm
+   ============================================================ */
+.oyun {
+  padding: 0;
+  color: inherit;
+}
+
+.oyun-gorsel {
+  position: relative;
+  height: 190px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--cizgi);
+  transition: transform 0.6s var(--yumusak);
+}
+
+/* Karartma yalnizca alt kenarda: Inklash gibi acik zeminli kapaklar
+   tam kaplayan gradyanda gri sise donusuyordu. */
+.oyun-gorsel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 52%,
+    rgba(15, 23, 18, 0.75) 82%,
+    var(--kart) 100%
+  );
+}
+
+.oyun:hover .oyun-gorsel {
+  transform: scale(1.04);
+}
+
+.oyun-ic {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 22px;
+  padding: 26px 30px 30px;
+}
+
+.oyun.one-cikan .oyun-gorsel {
+  height: 260px;
+}
+
+/* Kartın kendi rengi: kenarlık, rozet ve bağlantı ondan besleniyor */
+.oyun:hover {
+  border-color: color-mix(in srgb, var(--oyun-renk) 55%, var(--cizgi));
+}
+
+.oyun .rozet.canli {
+  color: var(--oyun-renk);
+  border-color: color-mix(in srgb, var(--oyun-renk) 60%, transparent);
+}
+
+.oyun .oyun-bag {
+  color: var(--oyun-renk);
+}
+
+.oyun .kilit {
+  color: var(--oyun-renk);
+}
+
+/* XOXD'nin kendi kapağı henüz yok: kırmızı ızgara deseni duruyor */
+.xoxd-desen {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 62px, rgba(217, 38, 42, 0.16) 62px 63px),
+    repeating-linear-gradient(0deg, transparent 0 62px, rgba(217, 38, 42, 0.16) 62px 63px),
+    radial-gradient(circle at 30% 40%, rgba(217, 38, 42, 0.18), transparent 60%),
+    #0c0f0d;
+}
+
+/* PC bölümündeki tek kart: görseli yok, gizemli dursun */
+.oyun.gizemli {
+  min-height: 300px;
+  background:
+    radial-gradient(circle at 78% 30%, rgba(217, 164, 65, 0.08), transparent 60%),
+    linear-gradient(165deg, var(--kart-2), var(--kart));
+}
+
+.kilit.buyuk {
+  width: 40px;
+  height: 40px;
+  right: 34px;
+  bottom: 34px;
+  opacity: 0.5;
+}
+
+.marka-buyuk svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  color: var(--cizgi-2);
+}
+
+.studyo-metin .etiket {
+  margin-bottom: 18px;
+}
+
+.studyo-metin h2 {
+  margin-bottom: 22px;
+}
+
+@media (max-width: 860px) {
+  .marka-buyuk {
+    display: none;
+  }
+  .dal {
+    width: 70vw;
+    opacity: 0.25;
+  }
+}
+
+/* ============================================================
+   DİL SEÇİCİ
+   Büyük stüdyoların yaptığı gibi: üst barda küre simgesi + iki
+   harflik kod, altında ana dillerin kendi yazımıyla listelendiği
+   panel. İp fikri sevimliydi ama oyuncak gibi duruyordu.
+   ============================================================ */
+.ust-sag {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.marka img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.dil-dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: none;
+  border: 1px solid var(--cizgi-2);
+  color: var(--orta);
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.dil-dugme:hover,
+.dil-dugme[aria-expanded="true"] {
+  color: var(--ak);
+  border-color: var(--yesil);
+  background: rgba(76, 154, 94, 0.08);
+}
+
+.dil-dugme svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.85;
+}
+
+.dil-panel {
+  position: fixed;
+  top: 74px;
+  right: 32px;
+  z-index: 130;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 10px;
+  min-width: 320px;
+  background: rgba(12, 20, 15, 0.97);
+  border: 1px solid var(--cizgi-2);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.2s var(--yumusak), transform 0.26s var(--yumusak);
+}
+
+.dil-panel.acik {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.dil-panel button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  text-align: left;
+  color: var(--orta);
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s;
+}
+
+.dil-panel button:hover {
+  background: rgba(76, 154, 94, 0.12);
+  color: var(--ak);
+}
+
+.dil-panel button[aria-current="true"] {
+  color: var(--yesil-parlak);
+}
+
+.dil-panel button[aria-current="true"]::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yesil-parlak);
+  flex: none;
+}
+
+@media (max-width: 700px) {
+  .dil-panel {
+    right: 16px;
+    left: 16px;
+    min-width: 0;
+  }
+}
+
+/* ============================================================
+   OYUN SAYFASI
+   Renkler sayfanın kendi <style> bloğunda eziliyor; buradaki
+   yapı her oyun için ortak.
+   ============================================================ */
+.oyun-hero {
+  position: relative;
+  min-height: 84svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 160px 0 90px;
+  overflow: hidden;
+}
+
+.oyun-hero-gorsel {
+  position: absolute;
+  inset: 0;
+  background-image: url("gorseller/xoxd-kapak.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.oyun-hero-gorsel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(8, 8, 10, 0.72) 0%, rgba(8, 8, 10, 0.35) 38%, var(--zemin) 96%),
+    linear-gradient(90deg, rgba(8, 8, 10, 0.85) 0%, transparent 62%);
+}
+
+.oyun-hero-ic {
+  position: relative;
+  z-index: 2;
+}
+
+.oyun-hero h1 {
+  font-size: clamp(60px, 12vw, 150px);
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+}
+
+.geri {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 34px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--soluk);
+  transition: color 0.2s;
+}
+
+.geri:hover {
+  color: var(--ak);
+}
+
+.geri svg {
+  width: 15px;
+  height: 15px;
+}
+
+.kural-ikili {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 70px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .kural-ikili {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+.uzun-metin {
+  color: var(--orta);
+  margin-top: 20px;
+  max-width: 52ch;
+  font-size: 18px;
+}
+
+.uzun-metin strong {
+  color: var(--ak);
+  font-weight: 500;
+}
+
+.kural-ikili h2 {
+  margin-top: 16px;
+}
+
+/* ---- oynanabilir tahta ---- */
+.demo {
+  padding: 30px;
+  background: linear-gradient(165deg, var(--kart-2), var(--kart));
+  border: 1px solid var(--cizgi);
+}
+
+.demo-etiket {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--soluk);
+}
+
+.demo-tahta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.demo-hucre {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: var(--zemin-2);
+  border: 1px solid var(--cizgi);
+  border-radius: 6px;
+  font: inherit;
+  font-size: clamp(30px, 6vw, 46px);
+  font-weight: 700;
+  color: var(--ak);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.25s, color 0.25s,
+    transform 0.18s var(--yumusak);
+}
+
+.demo-hucre:hover {
+  transform: translateY(-2px);
+  border-color: var(--cizgi-2);
+}
+
+.demo-hucre.yanan {
+  color: var(--yesil-parlak);
+  border-color: var(--yesil);
+  background: var(--yesil-sis);
+}
+
+.demo-alt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--soluk);
+}
+
+.demo-puan b {
+  color: var(--yesil-parlak);
+  font-size: 24px;
+  margin-right: 6px;
+}
+
+.demo-sifirla {
+  background: none;
+  border: 1px solid var(--cizgi-2);
+  color: var(--orta);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.demo-sifirla:hover {
+  color: var(--ak);
+  border-color: var(--yesil);
+}
+
+/* ---- modlar ---- */
+.modlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.mod {
+  padding: 32px 28px;
+  background: linear-gradient(165deg, var(--kart-2), var(--kart));
+  border: 1px solid var(--cizgi);
+  border-top: 2px solid var(--yesil);
+  transition: transform 0.35s var(--yumusak);
+}
+
+.mod:hover {
+  transform: translateY(-4px);
+}
+
+.mod h3 {
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.mod p {
+  color: var(--orta);
+  font-size: 15.5px;
+}
+
+/* ---- özellik listesi ---- */
+.ozellik-listesi {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px 40px;
+}
+
+.ozellik-listesi li {
+  position: relative;
+  padding: 18px 0 18px 30px;
+  border-bottom: 1px solid var(--cizgi);
+  color: var(--orta);
+}
+
+.ozellik-listesi li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 27px;
+  width: 9px;
+  height: 9px;
+  background: var(--yesil);
+}
+
+/* ============================================================
+   OYUN IZGARASI — YENİDEN DÜZEN (11 Eylül 2026)
+   XOXD iki sütun kaplayınca diğerlerini ezip dengeyi bozuyordu.
+   Artık mobil oyunlar eşit üç kart; PC bölümündeki tek oyun ise
+   tam genişlikte yatay bir kart — yalnız kalmışlık hissi gidiyor
+   ve iki bölüm birbirinden görsel olarak ayrılıyor.
+   ============================================================ */
+.oyunlar {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1000px) {
+  .oyunlar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 660px) {
+  .oyunlar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Eşit kartlar: kapak yüksekliği ve gövde hizası aynı olsun */
+.oyun {
+  min-height: 0;
+}
+
+.oyun-gorsel {
+  height: 200px;
+}
+
+.oyun h3 {
+  margin-top: 0;
+}
+
+.oyun-ic {
+  gap: 18px;
+}
+
+/* ---- PC bölümündeki geniş kart ---- */
+.oyun.genis {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 260px;
+}
+
+.oyun.genis .oyun-gorsel {
+  flex: 0 0 42%;
+  height: auto;
+  min-height: 100%;
+  border-bottom: 0;
+  border-right: 1px solid var(--cizgi);
+}
+
+.oyun.genis .oyun-gorsel::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 55%,
+    rgba(15, 23, 18, 0.7) 85%,
+    var(--kart) 100%
+  );
+}
+
+.oyun.genis .oyun-ic {
+  justify-content: center;
+  padding: 40px;
+}
+
+@media (max-width: 760px) {
+  .oyun.genis {
+    flex-direction: column;
+  }
+  .oyun.genis .oyun-gorsel {
+    flex: none;
+    height: 170px;
+    /* Masaüstündeki `min-height: 100%` mobilde bu yüksekliği
+       eziyordu; desen ekranın yarısını kaplıyordu. */
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--cizgi);
+  }
+  .oyun.genis .oyun-ic {
+    padding: 26px 30px 30px;
+  }
+}
+
+/* Bit Pazarı'nın görseli yok: tezgâh tentesini andıran çizgili
+   bir desen duruyor, kilit onun üstünde. */
+.gizem-desen {
+  background:
+    repeating-linear-gradient(
+      115deg,
+      rgba(217, 164, 65, 0.09) 0 26px,
+      transparent 26px 52px
+    ),
+    radial-gradient(circle at 40% 45%, rgba(217, 164, 65, 0.1), transparent 62%),
+    #0d0f0e;
+}
+
+/* Kart içeriği üstten aksın: rozet satırı `margin-bottom: auto` ile
+   içeriği alta itiyordu, metin uzunluğu farklı olan kartlarda
+   başlıklar farklı hizalara düşüyordu. */
+.oyun-ust {
+  margin-bottom: 0;
+}
+
+.oyun-ic {
+  justify-content: flex-start;
+}
+
+.oyun.genis .oyun-ic {
+  justify-content: center;
+}
+
+/* Bağlantı her zaman kartın altında dursun */
+.oyun-bag {
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+/* ============================================================
+   MOBİL DÜZEN (11 Eylül 2026)
+   Tasarım aynı kalıyor; sadece yan yana duramayacak şeyler alt
+   alta iniyor ve dokunma hedefleri büyüyor.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* "Tüm oyunlar" ile rozet aynı satırda çakışıyordu */
+  .geri {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 22px;
+  }
+
+  /* Bölüm başlığı ve yanındaki not sığmıyordu */
+  .bolum-basi {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 34px;
+  }
+
+  .bolum-not {
+    white-space: normal;
+  }
+
+  /* Oyun sayfasının hero'su telefonda çok uzundu */
+  .oyun-hero {
+    min-height: 0;
+    padding: 130px 0 60px;
+  }
+
+  .oyun-hero h1 {
+    font-size: clamp(52px, 20vw, 88px);
+  }
+
+  /* Dokunma hedefleri: 44 piksel altına inmesin */
+  .dil-dugme,
+  .demo-sifirla {
+    min-height: 44px;
+  }
+
+  .dugme {
+    width: 100%;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  /* Süsler telefonda yer kaplamasın, taşma yapmasın */
+  .dal {
+    width: 86vw;
+    opacity: 0.18;
+  }
+
+  .dal-sag {
+    right: -40px;
+    top: -30px;
+  }
+
+  .dal-sol {
+    left: -40px;
+    top: -30px;
+  }
+
+  .otlar-serit {
+    opacity: 0.4;
+  }
+
+  .kural-ikili {
+    gap: 38px;
+  }
+
+  .demo {
+    padding: 22px;
+  }
+
+  .ozellik-listesi {
+    gap: 0;
+  }
+}
+
+/* Telefonda parallaks kapalı.
+   Beş katmanı her kaydırma karesinde taşımak orta segment
+   cihazlarda kekemeliğe yol açıyor; katmanlar sabit duruyor,
+   görüntü aynı kalıyor. */
+@media (max-width: 900px) {
+  .kat {
+    transform: translateX(-50%) !important;
+  }
+}
+
+/* Alt bilgi telefonda: dört sütun `space-between` ile taşıyordu,
+   uzun e-posta ve yasal başlıklar sağ kenardan kaçıyordu. */
+@media (max-width: 760px) {
+  .alt-ust {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+    justify-content: stretch;
+  }
+
+  .alt-sutun a,
+  .alt-sutun p {
+    overflow-wrap: anywhere;
+    font-size: 14.5px;
+  }
+
+  .alt-son {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

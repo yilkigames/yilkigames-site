@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>XOXD — Yılkı Games</title>
+    <meta
+      name="description"
+      content="Tanıdık bir tahta, hiç oynamadığın bir kural. Her tur X mi O mu koyacağına sen karar veriyorsun."
+    />
+    <meta name="theme-color" content="#08080a" />
+    <link rel="stylesheet" href="../tasarim.css" />
+    <style>
+      /* ============================================================
+         XOXD'NİN KENDİ KİMLİĞİ
+         Stüdyo yeşil, oyun kırmızı. Tasarım sistemindeki renk
+         değişkenlerini bu sayfada eziyoruz — tek yerden dokunmakla
+         düğmeler, rozetler, bağlantılar ve dil paneli oyunun rengine
+         geçiyor. Yapıyı kopyalamak yerine tema değiştiriyoruz.
+         ============================================================ */
+      :root {
+        --zemin: #08080a;
+        --zemin-2: #0c0c0f;
+        --kart: #131317;
+        --kart-2: #17171c;
+        --cizgi: #1e1e24;
+        --cizgi-2: #2e2e37;
+        --ak: #f4f4f6;
+        --orta: #adadb6;
+        --soluk: #6e6e79;
+        --yesil: #d9262a;
+        --yesil-parlak: #ff4247;
+        --yesil-sis: rgba(217, 38, 42, 0.14);
+      }
+    </style>
+  </head>
+  <body>
+    <header id="ust-bar">
+      <div class="sarmal ust">
+        <a class="marka" href="../">
+          <img src="../gorseller/logo-sade.webp" alt="" width="40" height="40" />
+          YILKI GAMES
+        </a>
+        <div class="ust-sag">
+          <nav>
+            <a href="../#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/destek.html" data-i18n="nav.support">Destek</a>
+          </nav>
+          <button
+            type="button"
+            class="dil-dugme"
+            id="dil-dugme"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+            </svg>
+            <span id="dil-kod">TR</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============================================================
+           OYUN HERO — kapak görseli tam genişlikte
+           ============================================================ -->
+      <div class="oyun-hero">
+        <div class="oyun-hero-gorsel" aria-hidden="true"></div>
+        <div class="sarmal oyun-hero-ic">
+          <a class="geri" href="../#oyunlar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M11 18l-6-6 6-6" />
+            </svg>
+            <span data-i18n="x.back">Tüm oyunlar</span>
+          </a>
+          <span class="etiket beliriv" data-i18n="x.eyebrow">Yayında · Android</span>
+          <h1 class="beliriv" style="--gecikme: 0.06s">XOXD</h1>
+          <p class="hero-alt beliriv" style="--gecikme: 0.12s" data-i18n="x.sub">
+            Tanıdık bir tahta, hiç oynamadığın bir kural.
+          </p>
+          <a class="dugme beliriv" href="#" style="--gecikme: 0.18s">
+            <span data-i18n="x.cta">Google Play'de indir</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           TEK KURAL + OYNANABİLİR TAHTA
+           Kuralı anlatmak yerine oynatıyoruz: ziyaretçi üç dokunuşta
+           anlıyor. Metinle anlatınca kimse okumuyor.
+           ============================================================ -->
+      <section id="kural">
+        <div class="sarmal kural-ikili">
+          <div class="beliriv">
+            <span class="etiket" data-i18n="x.rule.label">Tek kural</span>
+            <h2 data-i18n="x.rule.title">İki sembol de senin.</h2>
+            <p class="uzun-metin" data-i18n-html="x.rule.p1">
+              Klasik XOX'ta sen X'sin, rakibin O. Burada öyle değil. Her turda
+              hangisini koyacağına <strong>sen</strong> karar veriyorsun.
+            </p>
+            <p class="uzun-metin" data-i18n-html="x.rule.p2">
+              Tahtada beliren her <strong>X-O-X</strong> dizisi sana puan
+              yazıyor. Yani saldırıyla savunma aynı hamlede birleşiyor: kendine
+              dizi kurarken rakibine de kapı açıyorsun. Öğrenmesi bir dakika.
+            </p>
+          </div>
+
+          <div class="demo beliriv" style="--gecikme: 0.1s">
+            <span class="demo-etiket" data-i18n="x.demo.hint">Dene — hücrelere dokun</span>
+            <div class="demo-tahta" id="demo-tahta"></div>
+            <div class="demo-alt">
+              <span class="demo-puan"><b id="demo-puan">0</b> <span data-i18n="x.demo.score">puan</span></span>
+              <button type="button" class="demo-sifirla" id="demo-sifirla">
+                <span data-i18n="x.demo.clear">Temizle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           MODLAR
+           ============================================================ -->
+      <section id="modlar" class="koyu">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="beliriv" data-i18n="x.modes.title">Dört mod</h2>
+            <span class="bolum-not beliriv" data-i18n="x.modes.note">Aynı kural, dört yol</span>
+          </div>
+
+          <div class="modlar">
+            <article class="mod beliriv">
+              <h3 data-i18n="x.mode1.t">Sıralı</h3>
+              <p data-i18n="x.mode1.d">
+                Rastgele rakiple eşleş, puan topla, rütbe atla. Puan ve rütbe
+                hesabı sunucuda yapılıyor.
+              </p>
+            </article>
+            <article class="mod beliriv" style="--gecikme: 0.07s">
+              <h3 data-i18n="x.mode2.t">Kaos</h3>
+              <p data-i18n="x.mode2.d">
+                Rastgele üretilen engelli tahtalar. Ezber yok, her maç yeni bir
+                şekil.
+              </p>
+            </article>
+            <article class="mod beliriv" style="--gecikme: 0.14s">
+              <h3 data-i18n="x.mode3.t">Meydan okuma</h3>
+              <p data-i18n="x.mode3.d">
+                Yirmi bölüm. Çapraz sayma, ayna, sis, körlük — her bölüm kuralı
+                bir yerinden büküyor.
+              </p>
+            </article>
+            <article class="mod beliriv" style="--gecikme: 0.21s">
+              <h3 data-i18n="x.mode4.t">Tek oyuncu</h3>
+              <p data-i18n="x.mode4.d">
+                İnternetsiz oynanır. Bot üç zorlukta; kolayı ısınma, zoru
+                gerçekten zor.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           ÖZELLİKLER
+           ============================================================ -->
+      <section id="ozellikler">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="beliriv" data-i18n="x.feat.title">Kutunun içinde</h2>
+          </div>
+          <ul class="ozellik-listesi">
+            <li class="beliriv" data-i18n="x.feat.1">Arkadaş listesi, sohbet ve maç daveti</li>
+            <li class="beliriv" style="--gecikme: 0.05s" data-i18n="x.feat.2">Sıralama tablosu ve rütbeler</li>
+            <li class="beliriv" style="--gecikme: 0.1s" data-i18n="x.feat.3">Avatar ve arka plan koleksiyonu</li>
+            <li class="beliriv" style="--gecikme: 0.15s" data-i18n="x.feat.4">On dil desteği</li>
+            <li class="beliriv" style="--gecikme: 0.2s" data-i18n="x.feat.5">Google Play ile tek dokunuş giriş</li>
+            <li class="beliriv" style="--gecikme: 0.25s" data-i18n="x.feat.6">Premium ile reklamsız oyun</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <div class="dil-panel" id="dil-panel" role="menu" aria-labelledby="dil-dugme"></div>
+
+    <footer>
+      <div class="sarmal">
+        <div class="alt-ust">
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.studio">Stüdyo</h4>
+            <a href="../#oyunlar" data-i18n="nav.games">Oyunlar</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.help">Yardım</h4>
+            <a href="/destek.html" data-i18n="nav.support">Destek</a>
+            <a href="mailto:info@yilkigames.com">info@yilkigames.com</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.join">Bize katıl</h4>
+            <a href="mailto:info@yilkigames.com?subject=Portfolyo" data-i18n="foot.portfolio">Portfolyo gönder</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.legal">Yasal</h4>
+            <a href="/gizlilik.html" data-i18n="foot.privacy">Gizlilik Politikası</a>
+            <a href="/kullanim-sartlari.html" data-i18n="foot.terms">Kullanım Şartları</a>
+          </div>
+        </div>
+        <div class="alt-son">
+          <span>© 2026 Yılkı Games</span>
+          <span class="alt-baglantilar"><a href="/privacy.html">English</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../metin.js"></script>
+    <script src="../arayuz.js"></script>
+    <script src="xoxd.js"></script>
+  </body>
+</html>
