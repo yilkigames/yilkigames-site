@@ -6,7 +6,7 @@ Statik HTML — derleme adımı ve dış bağımlılık yok (yazı tipleri de
 yeterli.
 
 ```
-index.html             ana sayfa — karalamalı kapak, oyunlar, BASMA düğmesi, atölye kuralları
+index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA düğmesi, atölye kuralları
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
 oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — kısa bilgi
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
@@ -30,14 +30,18 @@ robots.txt / sitemap.xml
 ## Tasarım dili (2026-10): gece baskısı
 
 Site, gece basılmış bir çizgi roman gibi: zemin mürekkep siyahı, çizgiler
-kemik beyazı, tek vurgu kırmızı. Kalın çerçeveler, sert kırmızı gölgeler,
+kemik beyazı, ana vurgu kırmızı; sarı ve mavi yalnızca araya serpilen
+küçük detaylarda. Kalın çerçeveler, sert kırmızı gölgeler,
 "PAT!" patlamaları, iki kalıbın kaydığı yanlış baskı (`.kayik`), yırtık
 kenarlar (`.yirtik`) ve sayfanın üstünde hafif bir baskı greni. Konuşma
 balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
 
 - **Renkler** `tasarim.css` başındaki `:root`'ta: mürekkep `#0e0d0c`,
   paneller `#1a1816` / `#27241f`, kemik `#f1ece2`, kırmızı `#ff3b2f`.
-  Açık paneller için `--beyaz` `#f6f1e7`. Sarı ve mavi bilerek yok.
+  Açık paneller için `--beyaz` `#f6f1e7`. Ara renkler `--sari` `#ffd23f`
+  ve `--mavi` `#2f5bff` yalnızca detayda: maskeleme bantları, tükenmez
+  notları, yapışkan notlar, bazı patlamalar, yanlış baskının ikinci kalıbı,
+  3. ve 4. atölye kuralı. Büyük alanlara sarı/mavi verme.
 - **Logo:** kırmızı yılkı atı kafası. Canva'da üretildi, `vtracer` ile
   vektöre çevrildi → `gorseller/logo.svg` (üst bar ve SVG favicon).
   `favicon.ico`, `favicon-48/96.png`, `apple-touch-icon.png` ve
@@ -47,10 +51,19 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   vurgu kırmızı). Inklash: yumruk, mürekkep, ko · XOXD: x, o, tahta ·
   Survive in Turkey: çay, simit, kedi · Bit Pazarı: gramofon, kaset,
   etiket · stüdyo: nal, şimşek, bomba, parıltı. Yeni çizim eklerken
-  `arayuz.js`'teki `ADLAR` listesine de ekle.
-- **Parçalar:** `.bant-baslik` (dönük kırmızı şerit), `.balon`,
-  `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.kara`, uzun yazıda
-  `.uzun`), `.damga`, `.etiket`, `.kart`, `.raster`, `.dugme` (+ `.gece`).
+  `arayuz.js`'teki `ADLAR` listesine de ekle. Kırmızı vurgu
+  `style="fill: var(--vurgu, #ff3b2f)"` ile yazılı; hero'da bazılarına
+  sarı ya da mavi düşüyor.
+- **Oyun vitrini:** masaya açılmış spiralli defter (Inklash'ın menüsü de
+  kareli defter). Kemik kâğıt, soluk mavi kareler, kırmızı kenar çizgisi.
+  Sol sayfa Inklash: Amele Ninja kırmızı panelin üstünden taşıyor. Sağ
+  sayfa XOXD: bantlı polaroid. Başlıkların yanında mavi tükenmez notları,
+  altta atölyedekiler raptiyeli yapışkan not. Defter fareyle hafifçe yatıyor,
+  sayfa köşeleri kıvrılıyor; telefonda sayfalar alt alta.
+- **Parçalar:** `.bant-baslik` (dönük kırmızı şerit, sarı kalem çizgisi), `.balon`,
+  `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.kara`, `.sari`, `.mavi`, uzun yazıda
+  `.uzun`), `.damga`, `.etiket`, `.raster`, `.dugme` (+ `.gece`), `.bant`
+  (maskeleme bandı), `.yapiskan`, `.tukenmez`.
 - **Marjinal kısımlar** (hepsi `arayuz.js`'te, hareket azaltmayı
   seçenlerde sessiz):
   - girişte karalamalar her açılışta rastgele diziliyor; masaüstünde
@@ -62,11 +75,11 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
     7'de son uyarı, 8'de 3-2-1 ve tam ekran KA-BUM. Ardından "Söz
     dinlemez" damgası ve "Tamir et". Toplam basış/patlama yalnızca
     tarayıcıda (`localStorage` `yg-basma`). Metinler `a.press.*`;
-  - oyun kartları fareyle hafifçe yatıyor, logo üstüne gelince sallanıyor;
+  - logo üstüne gelince sallanıyor;
   - alt bilginin dibinde kesik, kaymış baskılı dev "YILKI GAMES".
 - **Oyun içerikleri bilerek kısa.** Oyun içi ekran görüntüsü yok. Amele
-  Ninja (`gorseller/inklash/ninja.webp`) yalnızca Inklash sayfasında;
-  ana sayfadaki Inklash kartı karalamalarla çizili.
+  Ninja (`gorseller/inklash/ninja.webp`) yalnızca vitrinde ve Inklash
+  sayfasında — girişte ve başka yerlerde kullanılmıyor.
 - **XOXD sayfası oyunun kendi dilinde:** üst bar ve alt bilgi siteninki,
   arası sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu
   `#d9262a` (oyundaki renkler). Çizgi roman efekti ve gren yok; demo

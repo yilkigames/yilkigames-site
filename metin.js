@@ -149,6 +149,9 @@ var METIN = {
     "x.n1": "tahta",
     "x.n2": "sembol, ikisi de senin",
     "x.n3": "kural: X-O-X puan",
+    "a.bubble": "Sıradaki raunt seninle!",
+    "a.v.note1": "kare kare elle çizildi!",
+    "a.v.note2": "iki sembol de senin!",
   },
 
   en: {
@@ -274,6 +277,9 @@ var METIN = {
     "x.n1": "board",
     "x.n2": "symbols, both yours",
     "x.n3": "rule: X-O-X scores",
+    "a.bubble": "Next round's on you!",
+    "a.v.note1": "drawn by hand, frame by frame!",
+    "a.v.note2": "both symbols are yours!",
   },
 
   es: {
@@ -399,6 +405,9 @@ var METIN = {
     "x.n1": "tablero",
     "x.n2": "símbolos, los dos tuyos",
     "x.n3": "regla: X-O-X puntúa",
+    "a.bubble": "¡El próximo asalto es tuyo!",
+    "a.v.note1": "¡dibujado a mano, fotograma a fotograma!",
+    "a.v.note2": "¡los dos símbolos son tuyos!",
   },
 
   de: {
@@ -524,6 +533,9 @@ var METIN = {
     "x.n1": "Brett",
     "x.n2": "Symbole, beide deine",
     "x.n3": "Regel: X-O-X zählt",
+    "a.bubble": "Die nächste Runde gehört dir!",
+    "a.v.note1": "Bild für Bild von Hand gezeichnet!",
+    "a.v.note2": "beide Symbole gehören dir!",
   },
 
   fr: {
@@ -649,6 +661,9 @@ var METIN = {
     "x.n1": "plateau",
     "x.n2": "symboles, les deux à toi",
     "x.n3": "règle : X-O-X marque",
+    "a.bubble": "Le prochain round, c'est toi !",
+    "a.v.note1": "dessiné à la main, image par image !",
+    "a.v.note2": "les deux symboles sont à toi !",
   },
 
   it: {
@@ -774,6 +789,9 @@ var METIN = {
     "x.n1": "griglia",
     "x.n2": "simboli, entrambi tuoi",
     "x.n3": "regola: X-O-X fa punto",
+    "a.bubble": "Il prossimo round tocca a te!",
+    "a.v.note1": "disegnato a mano, fotogramma per fotogramma!",
+    "a.v.note2": "entrambi i simboli sono tuoi!",
   },
 
   pt: {
@@ -899,6 +917,9 @@ var METIN = {
     "x.n1": "tabuleiro",
     "x.n2": "símbolos, os dois seus",
     "x.n3": "regra: X-O-X pontua",
+    "a.bubble": "O próximo round é seu!",
+    "a.v.note1": "desenhado à mão, quadro a quadro!",
+    "a.v.note2": "os dois símbolos são seus!",
   },
 
   ru: {
@@ -1024,6 +1045,9 @@ var METIN = {
     "x.n1": "поле",
     "x.n2": "символа, оба твои",
     "x.n3": "правило: X-O-X — очко",
+    "a.bubble": "Следующий раунд — твой!",
+    "a.v.note1": "нарисовано от руки, кадр за кадром!",
+    "a.v.note2": "оба символа твои!",
   },
 
   zh: {
@@ -1149,6 +1173,9 @@ var METIN = {
     "x.n1": "棋盘",
     "x.n2": "个符号，都归你",
     "x.n3": "条规则：X-O-X 得分",
+    "a.bubble": "下一回合轮到你了！",
+    "a.v.note1": "一帧一帧手绘！",
+    "a.v.note2": "两个符号都归你！",
   },
 
   ja: {
@@ -1274,5 +1301,8 @@ var METIN = {
     "x.n1": "盤面",
     "x.n2": "つの記号、どちらも君のもの",
     "x.n3": "つのルール：X-O-X で得点",
+    "a.bubble": "次のラウンドはキミの番！",
+    "a.v.note1": "1コマずつ手描き！",
+    "a.v.note2": "どちらの記号も君のもの！",
   },
 };

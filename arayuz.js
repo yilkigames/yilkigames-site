@@ -1,7 +1,7 @@
 /* ============================================================
    YILKI GAMES — arayüz davranışları
    Dil değiştirici, kaydırınca beliren paneller, üst bar; ana
-   sayfada karalamalar, ses efektleri, kırmızı düğme ve kart eğimi.
+   sayfada karalamalar, ses efektleri, kırmızı düğme ve defter eğimi.
    Hepsi isteğe bağlı — ilgili düğüm yoksa sessizce atlanıyor, aynı
    dosya her sayfaya konabiliyor.
    ============================================================ */
@@ -219,6 +219,12 @@
     return torba.pop();
   }
 
+  /* Çoğu kırmızı kalıyor; arada bir sarı ya da mavi */
+  function vurguVer(o) {
+    var r = Math.random();
+    o.style.setProperty("--vurgu", r < 0.14 ? "var(--sari)" : r < 0.27 ? "var(--mavi)" : "var(--kirmizi)");
+  }
+
   function rastgele(a, b) {
     return a + Math.random() * (b - a);
   }
@@ -253,6 +259,7 @@
         o.style.setProperty("--olcu", Math.round(hucre * rastgele(0.55, 0.92)) + "px");
         o.style.setProperty("--aci", Math.round(rastgele(-24, 24)) + "deg");
         o.style.setProperty("--saydam", saydam.toFixed(2));
+        vurguVer(o);
         o.style.setProperty("--gec", (-Math.random()).toFixed(2) + "s");
         /* Güçlü olanlar önce beliriyor: kalem sağdan sola çiziyor */
         o.style.setProperty("--sira", (0.15 + (1 - guc) * 0.9 + Math.random() * 0.15).toFixed(2) + "s");
@@ -284,6 +291,7 @@
       o.replaceChild(karalama(siradaki()), o.firstChild);
       o.style.setProperty("--aci", Math.round(rastgele(-24, 24)) + "deg");
       o.style.setProperty("--sira", "0s");
+      vurguVer(o);
       o.classList.remove("pat");
     }, 340);
   };
@@ -327,7 +335,7 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var SESLER = ["PAT!", "GÜM!", "BAM!", "POW!", "ŞAK!", "ZING!", "VUŞ!", "KA-BUM!", "BİNG!", "ÇAT!"];
-  var RENKLER = ["", "kirmizi", "kara"];
+  var RENKLER = ["", "kirmizi", "kara", "sari", "kirmizi", "mavi"];
   var sira = 0;
   var canli = [];
 
@@ -339,7 +347,7 @@
 
     var kutu = alan.getBoundingClientRect();
     var p = document.createElement("span");
-    p.className = "patlama ses-efekti " + RENKLER[sira % 3];
+    p.className = "patlama ses-efekti " + RENKLER[sira % RENKLER.length];
     p.setAttribute("aria-hidden", "true");
     p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
     p.style.left = e.clientX - kutu.left + "px";
@@ -432,7 +440,8 @@
 
   function patlat() {
     var p = document.createElement("span");
-    p.className = "patlama ses-efekti ucan " + (Math.random() < 0.5 ? "kirmizi" : "kara");
+    var r = Math.random();
+    p.className = "patlama ses-efekti ucan " + (r < 0.45 ? "kirmizi" : r < 0.75 ? "kara" : r < 0.88 ? "sari" : "mavi");
     p.setAttribute("aria-hidden", "true");
     p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
     p.style.left = 10 + Math.random() * 80 + "vw";
@@ -570,9 +579,9 @@
 })();
 
 /* ============================================================
-   KART EĞİMİ
-   Oyun kartları fareyi takip ederek birkaç derece yatıyor; kâğıt
-   bir panel elde tutuluyormuş gibi. Dokunmatikte ve hareket
+   DEFTER EĞİMİ
+   Vitrindeki defter fareyi takip ederek birkaç derece yatıyor;
+   masada elle tutulan bir defter gibi. Dokunmatikte ve hareket
    azaltmada kapalı.
    ============================================================ */
 (function () {
@@ -580,13 +589,13 @@
 
   if (window.matchMedia("(hover: none), (prefers-reduced-motion: reduce)").matches) return;
 
-  document.querySelectorAll("a.kart").forEach(function (k) {
+  document.querySelectorAll(".defter").forEach(function (k) {
     k.addEventListener("pointermove", function (e) {
       var r = k.getBoundingClientRect();
       var x = (e.clientX - r.left) / r.width - 0.5;
       var y = (e.clientY - r.top) / r.height - 0.5;
-      k.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
-      k.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+      k.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+      k.style.setProperty("--rx", (-y * 5).toFixed(2) + "deg");
     });
     k.addEventListener("pointerleave", function () {
       k.style.setProperty("--ry", "0deg");
