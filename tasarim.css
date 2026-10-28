@@ -1,16 +1,18 @@
 /* ============================================================
-   YILKI GAMES — tasarım sistemi (2026-10, "riso çizgi roman")
+   YILKI GAMES — tasarım sistemi (2026-10, "gece baskısı")
 
-   Kimlik: risograf baskı makinesinden yeni çıkmış bir çizgi roman.
-   Kemik beyazı kâğıt, mürekkep siyahı, cıva kırmızısı, kobalt mavi.
-   İki renk üst üste binince kayıyor (yanlış baskı), kâğıdın
-   kenarları yırtık, her yerde raster nokta. Logo: kırmızı yılkı atı.
+   Kimlik: gece basılmış bir çizgi roman. Zemin mürekkep siyahı,
+   çizgiler kemik beyazı, tek vurgu cıva kırmızısı. Konuşma
+   balonları ve belge kâğıdı açık kalıyor — çizgi romanda da öyle.
+   Logo: kırmızı yılkı atı.
 
-   Marjinal kısım etkileşimde: hero'ya dokununca ses efektleri
-   patlıyor, "BASMA" düğmesi sayfayı sarsıyor (arayuz.js).
+   Marjinal kısım etkileşimde: girişte stüdyonun oyunlarından
+   karışık karalamalar her açılışta rastgele diziliyor; "BASMA"
+   düğmesi kapaklı, alarmlı ve sonunda patlıyor (arayuz.js).
 
-   Belge sayfaları (gizlilik, şartlar, destek, şifre) da bu dosyayı
-   kullanıyor; onlara özgü kurallar belge.css'te.
+   XOXD sayfası kendi sade dilini konuşuyor (en altta). Belge
+   sayfaları (gizlilik, şartlar, destek, şifre) bu dosyanın üstüne
+   belge.css'i ekliyor.
    ============================================================ */
 
 @font-face {
@@ -39,21 +41,37 @@
   font-display: swap;
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+@font-face {
+  font-family: "Space Grotesk";
+  src: url(/fontlar/space-grotesk-medium.woff2) format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url(/fontlar/space-grotesk-bold.woff2) format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
 
 :root {
-  --kagit: #f1ece2;
-  --kagit-2: #e4dccd;
-  --beyaz: #fbf8f2;
-  --murekkep: #141414;
-  --murekkep-2: #34312c;
-  --gri: #67625a;
+  /* Gece baskısı: zemin mürekkep, çizgi kemik, ikinci renk kırmızı */
+  --murekkep: #0e0d0c;
+  --gece-2: #1a1816;
+  --gece-3: #27241f;
+  --kemik: #f1ece2;
+  --kemik-2: #c4bcad;
+  --gri: #8b8377;
   --kirmizi: #ff3b2f;
-  --kirmizi-koyu: #d42a1f;
-  --mavi: #2e4bff;
-  --mavi-koyu: #1f33c4;
-  --mavi-acik: #d9defc;
-  --cerceve: 3px solid var(--murekkep);
-  --golge: 6px 6px 0 var(--murekkep);
+  --kirmizi-koyu: #c4211a;
+
+  /* Açık paneller (konuşma balonu, belge kâğıdı) için */
+  --beyaz: #f6f1e7;
+  --murekkep-2: #34312c;
+
+  --cerceve: 3px solid var(--kemik);
+  --cerceve-koyu: 3px solid var(--murekkep);
+  --golge: 6px 6px 0 var(--kirmizi);
 
   --govde: "Bricolage", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Noto Sans", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
   /* Rusça/Çince/Japonca karakterler Bangers'ta yok; tarayıcı sıradaki
@@ -65,17 +83,16 @@
   --yirtik: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16' preserveAspectRatio='none'%3E%3Cpath d='M0 16 L0 9 L6 5 L11 10 L17 3 L24 8 L29 2 L36 9 L42 4 L47 11 L55 3 L61 8 L66 1 L73 7 L80 4 L85 10 L92 2 L98 8 L104 5 L110 11 L116 3 L120 7 L120 16 Z'/%3E%3C/svg%3E");
 
   /* Eski adlar: sifre-sifirla / reset-password sayfalarındaki satır
-     içi stiller bunları kullanıyor. Kaldırmadan önce oraları çevir. */
+     içi stiller bunları kullanıyor. O formlar açık belge kâğıdının
+     üstünde durduğu için koyu mürekkep tonlarına bağlılar. */
   --font: var(--govde);
   --ak: var(--murekkep);
   --orta: var(--murekkep-2);
-  --soluk: var(--gri);
+  --soluk: #67625a;
   --kart: var(--beyaz);
-  --kart-2: var(--kagit-2);
-  --cizgi: rgba(20, 20, 20, 0.18);
   --cizgi-2: var(--murekkep);
-  --yesil: var(--kirmizi);
-  --yesil-parlak: var(--kirmizi-koyu);
+  --yesil: var(--kirmizi-koyu);
+  --yesil-parlak: var(--kirmizi);
 }
 
 *,
@@ -89,28 +106,28 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background: var(--murekkep);
 }
 
 body {
   font-family: var(--govde);
   font-size: 17px;
   line-height: 1.6;
-  color: var(--murekkep);
-  background: var(--kagit);
+  color: var(--kemik);
+  background: var(--murekkep);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Riso kâğıt greni — tüm sayfanın üstünde, tıklamayı engellemeden */
+/* Baskı greni — koyu zeminde açık toz. Tıklamayı engellemiyor. */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.22;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .09 0 0 0 0 .08 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .92 0 0 0 0 .88 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 img {
@@ -130,13 +147,13 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid var(--mavi);
+  outline: 3px solid var(--kemik);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--mavi);
-  color: var(--beyaz);
+  background: var(--kirmizi);
+  color: var(--murekkep);
 }
 
 .sarmal {
@@ -151,8 +168,8 @@ button {
   top: -60px;
   left: 16px;
   z-index: 100;
-  background: var(--beyaz);
-  border: var(--cerceve);
+  background: var(--kemik);
+  color: var(--murekkep);
   padding: 8px 14px;
   font-weight: 800;
 }
@@ -162,13 +179,13 @@ button {
 }
 
 .raster {
-  background-image: radial-gradient(var(--nokta, rgba(20, 20, 20, 0.14)) 1.6px, transparent 1.9px);
+  background-image: radial-gradient(var(--nokta, rgba(241, 236, 226, 0.08)) 1.6px, transparent 1.9px);
   background-size: 11px 11px;
 }
 
-/* Yanlış baskı: kırmızı ve mavi kalıp birkaç piksel kaymış */
+/* Yanlış baskı: kırmızı ve soluk kemik kalıbı birkaç piksel kaymış */
 .kayik {
-  text-shadow: 0.05em 0.035em 0 var(--kirmizi), -0.035em -0.025em 0 var(--mavi);
+  text-shadow: 0.05em 0.035em 0 var(--kirmizi), -0.035em -0.025em 0 rgba(241, 236, 226, 0.28);
 }
 
 /* Yırtık üst kenar: bölümün kendi zemin rengiyle */
@@ -191,13 +208,13 @@ button {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--beyaz);
-  border-bottom: var(--cerceve);
+  background: rgba(14, 13, 12, 0.94);
+  border-bottom: 3px solid var(--kirmizi);
   transition: box-shadow 0.25s;
 }
 
 #ust-bar.inildi {
-  box-shadow: 0 5px 0 rgba(20, 20, 20, 0.1);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.45);
 }
 
 .ust {
@@ -265,14 +282,13 @@ button {
   font-weight: 700;
   font-size: 15.5px;
   border: 2px solid transparent;
-  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
 }
 
 .ust-sag nav a:hover,
 .ust-sag nav a[aria-current="page"] {
-  background: var(--mavi);
-  color: var(--beyaz);
-  border-color: var(--murekkep);
+  background: var(--kirmizi);
+  color: var(--murekkep);
   transform: rotate(-2deg);
 }
 
@@ -280,21 +296,21 @@ button {
   display: flex;
   align-items: center;
   gap: 6px;
-  border: var(--cerceve);
-  background: var(--beyaz);
+  border: 2px solid var(--kemik);
+  background: transparent;
   padding: 5px 11px;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: pointer;
-  box-shadow: 3px 3px 0 var(--murekkep);
+  box-shadow: 3px 3px 0 var(--kirmizi);
   transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
 .dil-dugme:hover {
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--murekkep);
-  background: var(--mavi-acik);
+  box-shadow: 4px 4px 0 var(--kirmizi);
+  background: var(--gece-3);
 }
 
 .dil-dugme svg {
@@ -312,7 +328,7 @@ button {
   gap: 2px;
   min-width: 270px;
   padding: 8px;
-  background: var(--beyaz);
+  background: var(--gece-2);
   border: var(--cerceve);
   box-shadow: var(--golge);
   opacity: 0;
@@ -338,12 +354,12 @@ button {
 }
 
 .dil-panel button:hover {
-  background: var(--mavi-acik);
+  background: var(--gece-3);
 }
 
 .dil-panel button[aria-current="true"] {
   font-weight: 800;
-  color: var(--kirmizi-koyu);
+  color: var(--kirmizi);
 }
 
 /* Telefonda menü: hamburger yerine kaydırılan şerit — üç dört
@@ -414,26 +430,25 @@ h2 {
 .etiket {
   display: inline-block;
   color: var(--murekkep);
-  background: var(--beyaz);
-  border: var(--cerceve);
+  background: var(--kemik);
   padding: 5px 12px 4px;
   font-size: 13.5px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  box-shadow: 3px 3px 0 var(--murekkep);
+  box-shadow: 4px 4px 0 var(--kirmizi);
 }
 
-/* Bant başlık: dönük kırmızı şerit, altında mavi kalem çizgisi */
+/* Bant başlık: dönük kırmızı şerit, altında kemik kalem çizgisi */
 .bant-baslik {
   position: relative;
   display: inline-block;
   padding: 10px 26px 6px;
   background: var(--kirmizi);
-  color: var(--beyaz);
-  border: var(--cerceve);
+  color: var(--kemik);
+  border: var(--cerceve-koyu);
   transform: rotate(-2deg);
-  box-shadow: var(--golge);
+  box-shadow: 6px 6px 0 var(--kemik);
   text-shadow: 3px 3px 0 var(--murekkep);
 }
 
@@ -442,9 +457,9 @@ h2 {
   position: absolute;
   left: 8%;
   right: 4%;
-  bottom: -16px;
+  bottom: -20px;
   height: 10px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C60 1 120 9 180 4 S260 2 298 6' fill='none' stroke='%232e4bff' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C60 1 120 9 180 4 S260 2 298 6' fill='none' stroke='%23ff3b2f' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
 }
 
 .bolum-basi {
@@ -456,13 +471,13 @@ h2 {
   margin-bottom: 64px;
 }
 
-/* Konuşma balonu */
+/* Konuşma balonu — çizgi romanda balon hep açık renk */
 .balon {
   position: relative;
   display: inline-block;
   color: var(--murekkep);
   background: var(--beyaz);
-  border: var(--cerceve);
+  border: var(--cerceve-koyu);
   border-radius: 22px;
   padding: 12px 18px;
   font-weight: 800;
@@ -479,8 +494,8 @@ h2 {
   width: 26px;
   height: 20px;
   background: var(--beyaz);
-  border-right: var(--cerceve);
-  border-bottom: var(--cerceve);
+  border-right: var(--cerceve-koyu);
+  border-bottom: var(--cerceve-koyu);
   clip-path: polygon(0 0, 100% 0, 100% 100%);
   transform: skewX(-24deg);
 }
@@ -492,9 +507,10 @@ h2 {
 }
 
 /* Patlama yıldızı — "PAT!", "YAKINDA!" vb. Şekil clip-path ile,
-   çerçeve için iki katman: dış siyah, iç renkli. */
+   çerçeve için iki katman: dış (--dis), iç (--renk). */
 .patlama {
-  --renk: var(--beyaz);
+  --renk: var(--kemik);
+  --dis: var(--murekkep);
   position: relative;
   display: grid;
   place-items: center;
@@ -515,7 +531,7 @@ h2 {
   inset: 0;
   z-index: -1;
   clip-path: polygon(50% 0%, 59% 22%, 79% 8%, 74% 31%, 98% 30%, 80% 47%, 100% 62%, 76% 66%, 86% 89%, 63% 78%, 54% 100%, 44% 79%, 22% 94%, 27% 70%, 2% 72%, 18% 54%, 0% 38%, 24% 34%, 14% 11%, 37% 21%);
-  background: var(--murekkep);
+  background: var(--dis);
 }
 
 .patlama::after {
@@ -530,12 +546,14 @@ h2 {
 
 .patlama.kirmizi {
   --renk: var(--kirmizi);
-  color: var(--beyaz);
+  color: var(--murekkep);
 }
 
-.patlama.mavi {
-  --renk: var(--mavi);
-  color: var(--beyaz);
+/* Kara patlama: kırmızı kenarlı, kemik yazılı */
+.patlama.kara {
+  --renk: var(--murekkep);
+  --dis: var(--kirmizi);
+  color: var(--kemik);
 }
 
 /* Mühür damgası — "KAPALI TEST" */
@@ -543,7 +561,7 @@ h2 {
   display: inline-block;
   padding: 6px 14px 3px;
   border: 4px double currentColor;
-  color: var(--kirmizi-koyu);
+  color: var(--kirmizi);
   font-family: var(--cizgi-roman);
   font-size: 26px;
   letter-spacing: 0.08em;
@@ -557,34 +575,37 @@ h2 {
   gap: 10px;
   padding: 13px 24px 12px;
   background: var(--kirmizi);
-  color: var(--beyaz);
-  border: var(--cerceve);
+  color: var(--murekkep);
+  border: var(--cerceve-koyu);
   font-family: var(--cizgi-roman);
   font-size: 24px;
   letter-spacing: 0.06em;
   line-height: 1;
-  box-shadow: 5px 5px 0 var(--murekkep);
+  box-shadow: 5px 5px 0 var(--kemik);
   transition: transform 0.12s, box-shadow 0.12s;
   cursor: pointer;
 }
 
 .dugme:hover {
   transform: translate(-2px, -2px) rotate(-1deg);
-  box-shadow: 8px 8px 0 var(--murekkep);
+  box-shadow: 8px 8px 0 var(--kemik);
 }
 
 .dugme:active {
   transform: translate(4px, 4px);
-  box-shadow: 1px 1px 0 var(--murekkep);
+  box-shadow: 1px 1px 0 var(--kemik);
 }
 
-.dugme.mavi {
-  background: var(--mavi);
+/* Koyu düğme: kemik çerçeve, kırmızı gölge */
+.dugme.gece {
+  background: var(--murekkep);
+  color: var(--kemik);
+  border-color: var(--kemik);
+  box-shadow: 5px 5px 0 var(--kirmizi);
 }
 
-.dugme.beyaz {
-  background: var(--beyaz);
-  color: var(--murekkep);
+.dugme.gece:hover {
+  box-shadow: 8px 8px 0 var(--kirmizi);
 }
 
 .dugme svg {
@@ -595,23 +616,23 @@ h2 {
 .rozet {
   display: inline-block;
   padding: 4px 10px 3px;
-  border: var(--cerceve);
+  border: 2px solid var(--kemik);
   font-size: 12.5px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: var(--beyaz);
   transform: rotate(-3deg);
 }
 
 .rozet.yakinda {
-  background: var(--mavi);
-  color: var(--beyaz);
+  background: var(--kemik);
+  color: var(--murekkep);
 }
 
 .rozet.test {
   background: var(--kirmizi);
-  color: var(--beyaz);
+  border-color: var(--kirmizi);
+  color: var(--murekkep);
 }
 
 /* Kaydırınca beliren — gizleme yalnızca betik çalışınca (html.hareket).
@@ -627,16 +648,30 @@ h2 {
   transform: none;
 }
 
+/* Çizim (karalama) — index.html'deki <symbol>'lerden. Çizgi rengi
+   currentColor, dolgu vurgusu kırmızı; açık zeminde siyah çizilir. */
+.cizim {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  color: var(--kemik);
+}
+
 /* ============================================================
-   HERO — kobalt kapak
+   HERO — gece kapağı, arkada stüdyonun karalamaları
+   Çizimler oyunlarımızdan karışık, her açılışta rastgele dizilip
+   sağdan sola giderek saydamlaşıyor (arayuz.js → KARALAMA).
    ============================================================ */
 .hero {
   position: relative;
-  padding: 56px 0 100px;
+  min-height: min(760px, calc(100svh - 75px));
+  display: flex;
+  align-items: center;
+  padding: 70px 0 120px;
   overflow: hidden;
-  background: var(--mavi);
-  color: var(--beyaz);
-  border-bottom: var(--cerceve);
+  background: radial-gradient(ellipse 60% 70% at 78% 45%, #2a1210 0%, transparent 70%), var(--murekkep);
+  border-bottom: 3px solid var(--kemik);
   cursor: crosshair;
 }
 
@@ -645,38 +680,95 @@ h2 {
   content: "";
   position: absolute;
   inset: -50%;
-  background: repeating-conic-gradient(from 0deg at 64% 50%, rgba(255, 255, 255, 0.09) 0deg 4deg, transparent 4deg 13deg);
+  background: repeating-conic-gradient(from 0deg at 72% 50%, rgba(241, 236, 226, 0.022) 0deg 4deg, transparent 4deg 13deg);
   pointer-events: none;
 }
 
-/* Kenarlarda kırmızı raster — mavinin üstüne basılınca morumsu */
-.hero::after {
-  content: "";
+.karalama {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 59, 47, 0.75) 2px, transparent 2.4px);
-  background-size: 13px 13px;
-  mix-blend-mode: multiply;
-  -webkit-mask-image: radial-gradient(ellipse at 64% 50%, transparent 38%, #000 88%);
-  mask-image: radial-gradient(ellipse at 64% 50%, transparent 38%, #000 88%);
-  pointer-events: none;
+  z-index: 0;
+}
+
+.karalama-ogesi {
+  position: absolute;
+  width: var(--olcu, 100px);
+  height: var(--olcu, 100px);
+  margin: calc(var(--olcu, 100px) / -2) 0 0 calc(var(--olcu, 100px) / -2);
+  opacity: var(--saydam, 1);
+  transform: rotate(var(--aci, 0deg));
+  transition: opacity 0.35s, transform 0.35s cubic-bezier(0.3, 1.8, 0.5, 1);
+  cursor: pointer;
+}
+
+/* Kaynayan çizgi: çizgi film karelerindeki titreme */
+.karalama-ogesi .cizim {
+  animation: kayna 0.9s steps(1) infinite;
+  animation-delay: var(--gec, 0s);
+}
+
+@keyframes kayna {
+  0% {
+    transform: rotate(-1.4deg) translate(0.5px, 0);
+  }
+  33% {
+    transform: rotate(1deg) translate(-0.5px, 0.5px);
+  }
+  66% {
+    transform: rotate(0.2deg) translate(0, -0.5px);
+  }
+}
+
+.karalama-ogesi:hover {
+  opacity: 1;
+  transform: rotate(calc(var(--aci, 0deg) * -0.5)) scale(1.15);
+}
+
+/* Açılışta sağdan sola, sırayla çiziliyormuş gibi beliriyorlar */
+.hareket .karalama-ogesi {
+  animation: ciziliyor 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) backwards;
+  animation-delay: var(--sira, 0s);
+}
+
+@keyframes ciziliyor {
+  from {
+    opacity: 0;
+    transform: rotate(var(--aci, 0deg)) scale(0.4);
+  }
+}
+
+.karalama-ogesi.pat {
+  animation: pat-git 0.35s ease-in forwards;
+}
+
+@keyframes pat-git {
+  to {
+    opacity: 0;
+    transform: rotate(calc(var(--aci, 0deg) + 40deg)) scale(1.7);
+  }
 }
 
 .hero-ic {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 30px;
-  align-items: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.hero-ic > * {
+  pointer-events: auto;
+}
+
+.hero-metin {
+  max-width: 780px;
 }
 
 .hero h1 {
-  font-size: clamp(54px, 6.8vw, 104px);
-  line-height: 0.9;
+  font-size: clamp(58px, 7.6vw, 118px);
+  line-height: 0.88;
   letter-spacing: 0.01em;
   margin: 24px 0 26px;
-  color: var(--beyaz);
+  color: var(--kemik);
   -webkit-text-stroke: 3px var(--murekkep);
   paint-order: stroke fill;
   text-shadow: 7px 6px 0 var(--kirmizi), 4px 3px 0 var(--murekkep);
@@ -685,7 +777,7 @@ h2 {
 .hero h1 em {
   font-style: normal;
   color: var(--kirmizi);
-  text-shadow: 7px 6px 0 var(--beyaz), 4px 3px 0 var(--murekkep);
+  text-shadow: 7px 6px 0 var(--kemik), 4px 3px 0 var(--murekkep);
 }
 
 .hero-alt {
@@ -695,9 +787,8 @@ h2 {
   margin-bottom: 34px;
   color: var(--murekkep);
   background: var(--beyaz);
-  border: var(--cerceve);
   padding: 14px 18px;
-  box-shadow: 4px 4px 0 var(--murekkep);
+  box-shadow: 6px 6px 0 var(--kirmizi);
 }
 
 .hero-dugmeler {
@@ -706,80 +797,21 @@ h2 {
   gap: 18px;
 }
 
-/* Sağdaki panel: kahraman çerçeveden taşıyor */
-.kapak-panel {
-  position: relative;
-  aspect-ratio: 4 / 4.6;
-  max-width: 440px;
-  width: 100%;
-  justify-self: center;
-}
-
-.kapak-cerceve {
-  position: absolute;
-  inset: 14% 4% 0 8%;
-  background: var(--kagit);
-  border: 4px solid var(--murekkep);
-  box-shadow: 10px 10px 0 var(--murekkep);
-  transform: rotate(3deg);
-  overflow: hidden;
-}
-
-.kapak-cerceve::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-conic-gradient(from 0deg at 50% 60%, rgba(255, 59, 47, 0.18) 0deg 5deg, transparent 5deg 14deg);
-}
-
-.kapak-ninja {
-  position: absolute;
-  left: 4%;
-  bottom: -2%;
-  width: 78%;
-  filter: drop-shadow(6px 6px 0 var(--murekkep));
-  animation: diken 3.2s ease-in-out infinite;
-  transform-origin: 50% 100%;
-}
-
-@keyframes diken {
-  50% {
-    transform: translateY(-6px) rotate(-1.5deg);
-  }
-}
-
-.kapak-panel .balon {
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 16px;
-  max-width: 230px;
-  transform: rotate(-3deg);
-}
-
-.kapak-panel .patlama {
-  position: absolute;
-  right: -2%;
-  bottom: 10%;
-  --boy: 128px;
-  transform: rotate(12deg);
-}
-
 .dokun-not {
   position: absolute;
   z-index: 1;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
+  right: 28px;
+  bottom: 22px;
   font-weight: 800;
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  background: var(--murekkep);
-  color: var(--beyaz);
+  background: var(--kirmizi);
+  color: var(--murekkep);
   padding: 5px 12px;
   white-space: nowrap;
   pointer-events: none;
+  transform: rotate(-2deg);
 }
 
 /* Tıklayınca beliren ses efekti yazıları (arayuz.js) */
@@ -826,10 +858,10 @@ h2 {
   left: -20px;
   right: -20px;
   top: 30px;
-  background: var(--murekkep);
-  color: var(--beyaz);
+  background: var(--kemik);
+  color: var(--murekkep);
   overflow: hidden;
-  border-block: var(--cerceve);
+  border-block: var(--cerceve-koyu);
   transform: rotate(-2deg);
 }
 
@@ -889,7 +921,7 @@ h2 {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--beyaz);
+  background: var(--gece-2);
   border: var(--cerceve);
   box-shadow: var(--golge);
   transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), box-shadow 0.25s;
@@ -901,7 +933,7 @@ a.kart {
 }
 
 a.kart:hover {
-  box-shadow: 11px 11px 0 var(--murekkep);
+  box-shadow: 11px 11px 0 var(--kirmizi);
 }
 
 .kart-gorsel {
@@ -909,7 +941,7 @@ a.kart:hover {
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-bottom: var(--cerceve);
-  background: var(--kagit-2);
+  background: var(--gece-3);
 }
 
 .kart-gorsel > img {
@@ -923,19 +955,19 @@ a.kart:hover .kart-gorsel > img {
   transform: scale(1.05);
 }
 
-/* Inklash kartı: ekran görüntüsü yerine kırmızı sahnede Amele Ninja */
-.kart-gorsel.ninja-sahne {
+/* Inklash kartı: kırmızı sahnede mürekkep kavgası çizimleri */
+.kart-gorsel.ink-sahne {
   background: var(--kirmizi);
 }
 
-.ninja-sahne::before {
+.ink-sahne::before {
   content: "";
   position: absolute;
   inset: -40%;
-  background: repeating-conic-gradient(from 0deg at 50% 60%, rgba(255, 255, 255, 0.16) 0deg 5deg, transparent 5deg 14deg);
+  background: repeating-conic-gradient(from 0deg at 50% 55%, rgba(14, 13, 12, 0.12) 0deg 5deg, transparent 5deg 14deg);
 }
 
-.ninja-sahne::after {
+.ink-sahne::after {
   content: "INKLASH";
   position: absolute;
   left: 50%;
@@ -944,26 +976,54 @@ a.kart:hover .kart-gorsel > img {
   font-family: var(--cizgi-roman);
   font-size: clamp(80px, 11vw, 150px);
   color: transparent;
-  -webkit-text-stroke: 2px rgba(20, 20, 20, 0.45);
+  -webkit-text-stroke: 2px rgba(14, 13, 12, 0.4);
   white-space: nowrap;
 }
 
-.kart-gorsel.ninja-sahne > img {
+.ink-sahne .cizim {
   position: absolute;
   z-index: 1;
-  left: 50%;
-  bottom: -8%;
-  height: 112%;
-  width: auto;
-  max-width: none;
-  object-fit: contain;
-  transform: translateX(-50%);
-  filter: drop-shadow(6px 6px 0 var(--murekkep));
+  color: var(--murekkep);
   transition: transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
 }
 
-a.kart:hover .kart-gorsel.ninja-sahne > img {
-  transform: translateX(-50%) scale(1.06) rotate(-3deg);
+.ink-sahne .c1 {
+  width: 46%;
+  height: auto;
+  aspect-ratio: 1;
+  left: 8%;
+  top: 14%;
+  transform: rotate(-12deg);
+}
+
+.ink-sahne .c2 {
+  width: 40%;
+  height: auto;
+  aspect-ratio: 1;
+  right: 6%;
+  top: 22%;
+  transform: scaleX(-1) rotate(-8deg);
+}
+
+.ink-sahne .c3 {
+  width: 24%;
+  height: auto;
+  aspect-ratio: 1;
+  left: 41%;
+  top: 4%;
+  transform: rotate(10deg);
+}
+
+a.kart:hover .ink-sahne .c1 {
+  transform: rotate(-4deg) translateX(14px) scale(1.05);
+}
+
+a.kart:hover .ink-sahne .c2 {
+  transform: scaleX(-1) rotate(-2deg) translateX(14px) scale(1.05);
+}
+
+a.kart:hover .ink-sahne .c3 {
+  transform: rotate(-14deg) scale(1.25);
 }
 
 .kart-gorsel .damga {
@@ -971,7 +1031,7 @@ a.kart:hover .kart-gorsel.ninja-sahne > img {
   z-index: 2;
   right: 16px;
   bottom: 18px;
-  background: rgba(251, 248, 242, 0.9);
+  background: rgba(14, 13, 12, 0.85);
 }
 
 .kart-ic {
@@ -1002,7 +1062,7 @@ a.kart:hover .kart-gorsel.ninja-sahne > img {
 }
 
 .kart p {
-  color: var(--murekkep-2);
+  color: var(--kemik-2);
 }
 
 .kart-bag {
@@ -1014,6 +1074,7 @@ a.kart:hover .kart-gorsel.ninja-sahne > img {
   font-family: var(--cizgi-roman);
   font-size: 23px;
   letter-spacing: 0.05em;
+  color: var(--kirmizi);
 }
 
 .kart-bag svg {
@@ -1030,7 +1091,7 @@ a.kart:hover .kart-bag svg {
   grid-column: span 6;
 }
 
-/* Atölyedekiler: isim ve tür, başka bir şey yok */
+/* Atölyedekiler: isim, tür ve küçük bir karalama */
 .atolye {
   grid-column: 1 / -1;
   display: flex;
@@ -1039,7 +1100,7 @@ a.kart:hover .kart-bag svg {
   gap: 14px 18px;
   margin-top: 26px;
   padding-top: 26px;
-  border-top: 3px dashed var(--murekkep);
+  border-top: 3px dashed rgba(241, 236, 226, 0.4);
 }
 
 .atolye-baslik {
@@ -1051,11 +1112,16 @@ a.kart:hover .kart-bag svg {
 
 .eskiz {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
-  padding: 8px 14px 6px;
-  border: 3px dashed var(--murekkep);
-  background: var(--beyaz);
+  padding: 6px 14px 6px 8px;
+  border: 3px dashed rgba(241, 236, 226, 0.55);
+}
+
+.eskiz .cizim {
+  width: 40px;
+  height: 40px;
+  flex: none;
 }
 
 .eskiz b {
@@ -1074,22 +1140,36 @@ a.kart:hover .kart-bag svg {
 }
 
 /* ============================================================
-   BASMA — kırmızı düğme. Marjinal kısım: basanı uyarıyor, ısrar
-   edeni sayfayı sarsarak cezalandırıyor (arayuz.js)
+   BASMA — kırmızı düğme, ikinci sürüm
+   Önce koruma kapağı kalkıyor, sonra her basış bir kademe:
+   sarsıntı → alarm → çatlak → son uyarı → geri sayım → KA-BUM.
+   Patlayınca düğme eziliyor, "Tamir et" çıkıyor. (arayuz.js)
    ============================================================ */
 .basma {
-  background: var(--murekkep);
-  color: var(--beyaz);
+  background: #070606;
+  color: var(--kemik);
   text-align: center;
   overflow: hidden;
+  transition: background 0.3s;
 }
 
 .basma::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(-45deg, transparent 0 26px, rgba(255, 59, 47, 0.08) 26px 52px);
+  background: repeating-linear-gradient(-45deg, transparent 0 26px, rgba(255, 59, 47, 0.06) 26px 52px);
   pointer-events: none;
+}
+
+/* Alarm kademesi: bölüm kırmızı nabız atıyor */
+.basma.alarm {
+  animation: alarm-nabiz 0.9s ease-in-out infinite;
+}
+
+@keyframes alarm-nabiz {
+  50% {
+    background: #2b0806;
+  }
 }
 
 .basma .sarmal {
@@ -1103,43 +1183,205 @@ a.kart:hover .kart-bag svg {
 }
 
 .basma .alt {
-  color: #cfc8ba;
+  color: var(--kemik-2);
   font-size: 18px;
   margin-bottom: 50px;
 }
 
+/* Düğmenin oturduğu sarı-siyah değil, kırmızı-siyah ikaz levhası */
+.basma-kutu {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 44px;
+  border: 4px solid var(--murekkep);
+  border-radius: 26px;
+  background: repeating-linear-gradient(-45deg, var(--kirmizi) 0 18px, var(--murekkep) 18px 36px);
+  box-shadow: 0 0 0 4px var(--kemik), 10px 10px 0 4px var(--kirmizi);
+}
+
+.basma-kutu::before {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  border-radius: 50%;
+  background: #1c1a18;
+  border: 4px solid var(--murekkep);
+  box-shadow: inset 0 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* Köşelerdeki vidalar */
+.basma-kutu::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  background:
+    radial-gradient(circle at 6px 6px, var(--kemik-2) 0 4px, transparent 4.5px) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at calc(100% - 6px) 6px, var(--kemik-2) 0 4px, transparent 4.5px) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at 6px calc(100% - 6px), var(--kemik-2) 0 4px, transparent 4.5px) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at calc(100% - 6px) calc(100% - 6px), var(--kemik-2) 0 4px, transparent 4.5px) 0 0 / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
 .kirmizi-dugme {
   position: relative;
-  width: 210px;
-  height: 210px;
+  z-index: 1;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
   border: 6px solid var(--murekkep);
   background: radial-gradient(circle at 38% 32%, #ff8a80 0 12%, var(--kirmizi) 34%, var(--kirmizi-koyu) 100%);
-  box-shadow: 0 16px 0 #8f150e, 0 16px 0 6px var(--murekkep), 0 0 0 14px #2a2724, 0 0 0 18px #4a4640;
+  box-shadow: 0 16px 0 #7d120c, 0 16px 0 6px var(--murekkep);
   font-family: var(--cizgi-roman);
-  font-size: 46px;
+  font-size: 44px;
   letter-spacing: 0.06em;
-  color: var(--beyaz);
+  color: var(--kemik);
   text-shadow: 3px 3px 0 var(--murekkep);
   cursor: pointer;
+  transform: translateY(-10px);
   transition: transform 0.08s, box-shadow 0.08s, filter 0.3s;
-  margin-bottom: 40px;
 }
 
 .kirmizi-dugme:hover {
-  transform: translateY(-2px);
+  transform: translateY(-12px);
 }
 
 .kirmizi-dugme:active,
 .kirmizi-dugme.basildi {
-  transform: translateY(13px);
-  box-shadow: 0 3px 0 #8f150e, 0 3px 0 6px var(--murekkep), 0 0 0 14px #2a2724, 0 0 0 18px #4a4640;
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #7d120c, 0 3px 0 6px var(--murekkep);
+}
+
+/* Çatlaklar: 5. ve 6. basışta beliriyor */
+.catlak {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--murekkep);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.catlak path {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.catlak-1 .catlak .k1,
+.catlak-2 .catlak .k1,
+.catlak-2 .catlak .k2 {
+  opacity: 1;
+}
+
+.kirmizi-dugme.geri-say {
+  animation: titre 0.12s linear infinite;
+}
+
+@keyframes titre {
+  25% {
+    transform: translate(-2px, -9px) rotate(-2deg);
+  }
+  75% {
+    transform: translate(2px, -11px) rotate(2deg);
+  }
 }
 
 .kirmizi-dugme.ezik {
-  transform: translateY(13px) scaleY(0.8);
-  filter: saturate(0.4);
+  transform: translateY(6px) scaleY(0.78) rotate(-4deg);
+  box-shadow: 0 2px 0 #7d120c, 0 2px 0 6px var(--murekkep);
+  filter: saturate(0.25) brightness(0.7);
   cursor: not-allowed;
+}
+
+/* Koruma kapağı: şeffaf plastik, menteşesi üstte. Kalkınca düğme açılıyor. */
+.kapak {
+  position: absolute;
+  z-index: 2;
+  inset: 18px;
+  border-radius: 50%;
+  border: 4px solid rgba(241, 236, 226, 0.85);
+  background: linear-gradient(160deg, rgba(241, 236, 226, 0.32), rgba(241, 236, 226, 0.08) 45%, rgba(241, 236, 226, 0.22));
+  backdrop-filter: blur(1.5px);
+  cursor: pointer;
+  transform-origin: 50% -4%;
+  transition: transform 0.45s cubic-bezier(0.3, 1.5, 0.5, 1), opacity 0.45s;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 22px;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kemik);
+  text-shadow: 0 1px 2px #000;
+}
+
+.kapak::before {
+  /* Parlama */
+  content: "";
+  position: absolute;
+  left: 22%;
+  top: 14%;
+  width: 26%;
+  height: 12%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: rotate(-28deg);
+}
+
+.kapak:hover {
+  transform: perspective(600px) rotateX(14deg);
+}
+
+.basma-kutu.acik .kapak {
+  transform: perspective(600px) rotateX(-112deg);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Siren lambası: alarm kademesinde dönüyor */
+.siren {
+  position: absolute;
+  z-index: 3;
+  top: -34px;
+  right: -26px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50% 50% 8px 8px;
+  border: 4px solid var(--murekkep);
+  background: #5a1410;
+  box-shadow: 0 0 0 3px var(--kemik);
+  overflow: hidden;
+}
+
+.siren::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent 0 70%, rgba(255, 230, 220, 0.9) 85%, transparent 100%);
+  opacity: 0;
+}
+
+.alarm .siren {
+  background: var(--kirmizi);
+  box-shadow: 0 0 0 3px var(--kemik), 0 0 40px 12px rgba(255, 59, 47, 0.7);
+}
+
+.alarm .siren::after {
+  opacity: 1;
+  animation: don 0.6s linear infinite;
+}
+
+@keyframes don {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .basma-mesaj {
@@ -1147,30 +1389,56 @@ a.kart:hover .kart-bag svg {
   font-family: var(--cizgi-roman);
   font-size: clamp(26px, 3.4vw, 40px);
   letter-spacing: 0.04em;
-  color: var(--beyaz);
+  color: var(--kemik);
 }
 
 .basma-sayac {
   margin-top: 8px;
   font-size: 14px;
-  color: #a39c8c;
+  color: var(--gri);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-/* Sarsıntı: tüm sayfa titriyor */
+.basma-son {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 26px 40px;
+  margin-top: 30px;
+}
+
+.basma-son[hidden] {
+  display: none;
+}
+
+.basma-son .damga {
+  font-size: 34px;
+  background: rgba(14, 13, 12, 0.7);
+  animation: damga-vur 0.45s cubic-bezier(0.2, 1.8, 0.4, 1) both;
+}
+
+@keyframes damga-vur {
+  from {
+    transform: rotate(-8deg) scale(3);
+    opacity: 0;
+  }
+}
+
+/* Sarsıntı: tüm sayfa titriyor. --siddet kademeyle büyüyor. */
 .sarsil main,
 .sarsil #ust-bar {
   animation: sars 0.42s linear;
 }
 
 @keyframes sars {
-  10% { transform: translate(-6px, 3px) rotate(-0.4deg); }
-  25% { transform: translate(7px, -4px) rotate(0.5deg); }
-  40% { transform: translate(-5px, -2px); }
-  55% { transform: translate(5px, 4px) rotate(-0.3deg); }
-  70% { transform: translate(-3px, 2px); }
-  85% { transform: translate(2px, -1px); }
+  10% { transform: translate(calc(-6px * var(--siddet, 1)), calc(3px * var(--siddet, 1))) rotate(-0.4deg); }
+  25% { transform: translate(calc(7px * var(--siddet, 1)), calc(-4px * var(--siddet, 1))) rotate(0.5deg); }
+  40% { transform: translate(calc(-5px * var(--siddet, 1)), calc(-2px * var(--siddet, 1))); }
+  55% { transform: translate(calc(5px * var(--siddet, 1)), calc(4px * var(--siddet, 1))) rotate(-0.3deg); }
+  70% { transform: translate(calc(-3px * var(--siddet, 1)), calc(2px * var(--siddet, 1))); }
+  85% { transform: translate(calc(2px * var(--siddet, 1)), -1px); }
 }
 
 .ucan {
@@ -1178,9 +1446,77 @@ a.kart:hover .kart-bag svg {
   z-index: 80;
 }
 
+/* Düğmeden fırlayıp düşen karalamalar */
+.dusen {
+  position: fixed;
+  z-index: 81;
+  width: var(--olcu, 70px);
+  height: var(--olcu, 70px);
+  margin: calc(var(--olcu, 70px) / -2) 0 0 calc(var(--olcu, 70px) / -2);
+  pointer-events: none;
+}
+
+/* KA-BUM: tam ekran patlama */
+.kabum {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  background: var(--kirmizi);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.kabum.patladi {
+  visibility: visible;
+  animation: kabum-flas 1.6s ease-out forwards;
+}
+
+.kabum .patlama {
+  --boy: min(78vw, 640px);
+}
+
+.kabum.patladi .patlama {
+  animation: kabum-yazi 1.6s cubic-bezier(0.2, 1.6, 0.4, 1) forwards;
+}
+
+@keyframes kabum-flas {
+  0% {
+    opacity: 1;
+    background: var(--kemik);
+  }
+  8% {
+    background: var(--kirmizi);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes kabum-yazi {
+  0% {
+    transform: scale(0.1) rotate(-30deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(-6deg);
+  }
+  100% {
+    transform: scale(1.25) rotate(-4deg);
+  }
+}
+
 /* ============================================================
    ATÖLYE KURALLARI — dört panelli şerit
    ============================================================ */
+.atolye-bolum {
+  background: var(--murekkep);
+}
+
 .kurallar {
   list-style: none;
   display: grid;
@@ -1192,7 +1528,7 @@ a.kart:hover .kart-bag svg {
 .kurallar li {
   counter-increment: kural;
   position: relative;
-  background: var(--beyaz);
+  background: var(--gece-2);
   border: var(--cerceve);
   box-shadow: var(--golge);
   padding: 58px 22px 26px;
@@ -1204,6 +1540,7 @@ a.kart:hover .kart-bag svg {
 
 .kurallar li:nth-child(even) {
   transform: rotate(1deg) translateY(14px);
+  box-shadow: 6px 6px 0 var(--kemik);
 }
 
 .kurallar li::before {
@@ -1215,15 +1552,14 @@ a.kart:hover .kart-bag svg {
   height: 52px;
   display: grid;
   place-items: center;
-  background: var(--mavi);
-  color: var(--beyaz);
-  border: var(--cerceve);
+  background: var(--kirmizi);
+  color: var(--murekkep);
   font-family: var(--cizgi-roman);
   font-size: 32px;
 }
 
 .kurallar li:nth-child(even)::before {
-  background: var(--kirmizi);
+  background: var(--kemik);
 }
 
 .kurallar h3 {
@@ -1232,17 +1568,18 @@ a.kart:hover .kart-bag svg {
 }
 
 .kurallar p {
-  color: var(--murekkep-2);
+  color: var(--kemik-2);
   font-size: 16px;
 }
 
 /* ============================================================
-   SELAM — iletişim çağrısı
+   SELAM — iletişim çağrısı, kırmızı sayfa
    ============================================================ */
 .selam {
   text-align: center;
   padding: 120px 0 130px;
-  background-color: var(--mavi-acik);
+  background-color: var(--kirmizi);
+  color: var(--murekkep);
 }
 
 .selam .balon {
@@ -1261,21 +1598,19 @@ a.kart:hover .kart-bag svg {
   font-size: clamp(25px, 6.4vw, 72px);
   letter-spacing: 0.03em;
   line-height: 1.1;
-  color: var(--beyaz);
-  background: var(--kirmizi);
-  border: var(--cerceve);
+  color: var(--kemik);
+  background: var(--murekkep);
   padding: 8px 22px 4px;
-  box-shadow: var(--golge);
-  text-shadow: 3px 3px 0 var(--murekkep);
+  box-shadow: 7px 7px 0 var(--kemik);
   transform: rotate(-1.5deg);
-  transition: transform 0.2s, background 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   max-width: 100%;
   overflow-wrap: anywhere;
 }
 
 .posta-buyuk:hover {
-  background: var(--mavi);
   transform: rotate(1deg) scale(1.03);
+  box-shadow: 10px 10px 0 var(--kemik);
 }
 
 /* ============================================================
@@ -1283,11 +1618,12 @@ a.kart:hover .kart-bag svg {
    ============================================================ */
 footer {
   position: relative;
-  background: var(--murekkep);
-  color: #ddd6c6;
+  background: #070606;
+  color: var(--kemik-2);
   padding: 70px 0 0;
   font-size: 15.5px;
   overflow: hidden;
+  border-top: 3px solid var(--kemik);
 }
 
 .alt-ust {
@@ -1295,7 +1631,7 @@ footer {
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   padding-bottom: 46px;
-  border-bottom: 2px dashed rgba(241, 236, 226, 0.25);
+  border-bottom: 2px dashed rgba(241, 236, 226, 0.2);
 }
 
 .alt-sutun {
@@ -1316,9 +1652,9 @@ footer {
 
 .alt-sutun a:hover,
 .alt-son a:hover {
-  color: var(--beyaz);
+  color: var(--kemik);
   text-decoration: underline;
-  text-decoration-color: var(--mavi);
+  text-decoration-color: var(--kirmizi);
   text-decoration-thickness: 3px;
   text-underline-offset: 4px;
 }
@@ -1330,7 +1666,7 @@ footer {
   flex-wrap: wrap;
   padding-top: 26px;
   font-size: 14px;
-  color: #a39c8c;
+  color: var(--gri);
 }
 
 .dev-yazi {
@@ -1342,15 +1678,16 @@ footer {
   font-size: clamp(80px, 19vw, 280px);
   line-height: 0.8;
   letter-spacing: 0.02em;
-  color: var(--kagit);
+  color: var(--kirmizi);
   white-space: nowrap;
-  text-shadow: 0.035em 0.025em 0 var(--kirmizi), -0.025em -0.02em 0 var(--mavi);
+  text-shadow: 0.035em 0.025em 0 rgba(241, 236, 226, 0.22), -0.02em -0.015em 0 #4a0f0b;
   user-select: none;
   pointer-events: none;
 }
 
 /* ============================================================
-   OYUN SAYFALARI (xoxd, inklash) — ortak iskelet
+   OYUN SAYFALARI — ortak iskelet (Inklash bunu kullanıyor;
+   XOXD kendi sade dilini aşağıda kuruyor)
    ============================================================ */
 .oyun-hero {
   position: relative;
@@ -1370,10 +1707,15 @@ footer {
   gap: 8px;
   font-weight: 800;
   margin-bottom: 30px;
-  color: var(--murekkep);
-  background: var(--beyaz);
-  border: var(--cerceve);
+  color: var(--kemik);
+  border: 2px solid var(--kemik);
   padding: 5px 12px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.geri:hover {
+  background: var(--kemik);
+  color: var(--murekkep);
 }
 
 .geri svg {
@@ -1390,7 +1732,7 @@ footer {
   font-size: clamp(84px, 15vw, 210px);
   line-height: 0.82;
   margin: 22px 0 22px;
-  color: var(--beyaz);
+  color: var(--kemik);
   -webkit-text-stroke: 4px var(--murekkep);
   paint-order: stroke fill;
   text-shadow: 9px 8px 0 var(--kirmizi), 5px 4px 0 var(--murekkep);
@@ -1402,61 +1744,274 @@ footer {
 
 .uzun-metin {
   font-size: 18.5px;
-  color: var(--murekkep-2);
+  color: var(--kemik-2);
   margin-bottom: 18px;
   max-width: 34em;
 }
 
 .uzun-metin strong {
   color: var(--murekkep);
-  background: var(--mavi-acik);
+  background: var(--kirmizi);
   padding: 0 4px;
 }
 
 .koyu {
-  background: var(--murekkep);
-  color: var(--beyaz);
+  background: #070606;
+  color: var(--kemik);
 }
 
-/* ---------- XOXD ---------- */
-.xoxd-sayfa .oyun-hero {
-  background: var(--murekkep);
-  color: var(--beyaz);
+/* ============================================================
+   XOXD — oyunun kendi dili
+   Oyun siyah-beyaz, düz ve sade: Space Grotesk, ince çizgiler,
+   tek vurgu kırmızı #D9262A. Burada çizgi roman efekti yok —
+   üst bar ve alt bilgi siteninki, aradaki her şey oyunun.
+   ============================================================ */
+.xoxd-sayfa {
+  --x-zemin: #0b0b0b;
+  --x-panel: #161616;
+  --x-cizgi: #2a2a2a;
+  --x-beyaz: #f5f5f5;
+  --x-soluk: #9aa0aa;
+  --x-kirmizi: #d9262a;
+  --x-yazi: "Space Grotesk", var(--govde);
 }
 
-.xoxd-sayfa .oyun-hero::before {
+.xoxd-sayfa::after {
+  display: none;
+}
+
+.xoxd-sayfa main {
+  background: var(--x-zemin);
+  color: var(--x-beyaz);
+  font-family: var(--x-yazi);
+  font-weight: 500;
+}
+
+.xoxd-sayfa main h1,
+.xoxd-sayfa main h2,
+.xoxd-sayfa main h3 {
+  font-family: var(--x-yazi);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.x-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 0 110px;
+  border-bottom: 1px solid var(--x-cizgi);
+}
+
+.x-hero-ic {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.x-geri {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--x-soluk);
+  font-size: 15px;
+  margin-bottom: 48px;
+  transition: color 0.15s;
+}
+
+.x-geri:hover {
+  color: var(--x-beyaz);
+}
+
+.x-geri svg {
+  width: 18px;
+  height: 18px;
+}
+
+.x-durum {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px;
+  border: 1px solid var(--x-cizgi);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--x-beyaz);
+}
+
+/* Kayıt ışığı gibi yanıp sönen nokta */
+.x-durum::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--x-kirmizi);
+  animation: nabiz 1.6s ease-in-out infinite;
+}
+
+@keyframes nabiz {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.x-baslik {
+  position: relative;
+  display: inline-block;
+  font-size: clamp(110px, 17vw, 240px);
+  line-height: 0.8;
+  margin: 30px 0 30px;
+  color: var(--x-beyaz);
+}
+
+/* Başlığın üstünden geçen kırmızı çizgi — oyunda dizi tamamlanınca
+   çekilen çizginin aynısı. Açılışta soldan sağa çiziliyor. */
+.x-baslik::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 59, 47, 0.5) 2px, transparent 2.4px);
-  background-size: 13px 13px;
-  -webkit-mask-image: linear-gradient(100deg, transparent 30%, #000 90%);
-  mask-image: linear-gradient(100deg, transparent 30%, #000 90%);
+  left: -2%;
+  right: -2%;
+  top: 50%;
+  height: 0.07em;
+  background: var(--x-kirmizi);
+  transform: rotate(-8deg) scaleX(var(--cek, 1));
+  transform-origin: left center;
+  animation: cizgi-cek 0.7s cubic-bezier(0.6, 0, 0.2, 1) 0.4s both;
 }
 
-.xoxd-sayfa .oyun-hero h1 {
-  color: var(--kirmizi);
-  -webkit-text-stroke-color: var(--beyaz);
-  text-shadow: 9px 8px 0 var(--mavi), 5px 4px 0 var(--beyaz);
+@keyframes cizgi-cek {
+  from {
+    transform: rotate(-8deg) scaleX(0);
+  }
 }
 
-.xoxd-sayfa .oyun-hero .damga {
-  color: var(--kirmizi);
-  font-size: 30px;
-  margin: 6px 0 0 10px;
+.x-alt {
+  font-size: clamp(19px, 1.8vw, 23px);
+  color: var(--x-soluk);
+  max-width: 24em;
+  margin-bottom: 36px;
 }
 
-.oyun-hero-gorsel {
-  position: absolute;
-  right: -5%;
-  top: 70px;
-  width: 50%;
-  aspect-ratio: 1400 / 763;
-  background: url(/gorseller/xoxd-kapak.webp) center / cover;
-  border: 4px solid var(--beyaz);
-  outline: 3px solid var(--murekkep);
-  box-shadow: 12px 12px 0 var(--kirmizi);
-  transform: rotate(4deg);
+.x-dugme {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 26px;
+  background: var(--x-beyaz);
+  color: var(--x-zemin);
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 10px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.x-dugme:hover {
+  background: var(--x-kirmizi);
+  color: var(--x-beyaz);
+}
+
+/* Sağda kapaktaki gibi dev X ve O'lar, üstlerinden kırmızı çizgi */
+.x-sahne {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 470px;
+  justify-self: center;
+}
+
+.x-sahne svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.x-sahne .x-isaret {
+  fill: none;
+  stroke: var(--x-beyaz);
+  stroke-width: 15;
+}
+
+.x-sahne .x-izgara {
+  stroke: var(--x-cizgi);
+  stroke-width: 3;
+}
+
+.x-sahne .x-cizgi {
+  stroke: var(--x-kirmizi);
+  stroke-width: 9;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: x-ciz 0.8s cubic-bezier(0.6, 0, 0.2, 1) 0.9s forwards;
+}
+
+@keyframes x-ciz {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Üç büyük sayı */
+.x-sayilar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--x-cizgi);
+}
+
+.x-sayilar div {
+  padding: 46px 28px 40px;
+  border-right: 1px solid var(--x-cizgi);
+}
+
+.x-sayilar div:last-child {
+  border-right: 0;
+}
+
+.x-sayilar b {
+  display: block;
+  font-size: clamp(56px, 7vw, 92px);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.x-sayilar b i {
+  font-style: normal;
+  color: var(--x-kirmizi);
+}
+
+.x-sayilar span {
+  color: var(--x-soluk);
+  font-size: 16px;
+}
+
+.x-kural {
+  padding: 110px 0;
+}
+
+.x-kural .kural-ikili h2 {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.02;
+  margin: 18px 0 28px;
+}
+
+.x-ust-yazi {
+  font-size: 14px;
+  color: var(--x-kirmizi);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.x-kural .uzun-metin {
+  color: var(--x-soluk);
+}
+
+.x-kural .uzun-metin strong {
+  color: var(--x-beyaz);
+  background: none;
+  padding: 0;
+  font-weight: 700;
 }
 
 .kural-ikili {
@@ -1466,47 +2021,42 @@ footer {
   align-items: center;
 }
 
-.kural-ikili h2 {
-  margin: 18px 0 22px;
-}
-
 .demo {
-  background: var(--beyaz);
-  border: var(--cerceve);
-  box-shadow: var(--golge);
-  padding: 24px;
+  background: var(--x-panel);
+  border: 1px solid var(--x-cizgi);
+  border-radius: 18px;
+  padding: 26px;
   max-width: 420px;
   justify-self: center;
   width: 100%;
-  transform: rotate(1.5deg);
 }
 
 .demo-etiket {
-  display: inline-block;
-  font-weight: 800;
-  font-size: 15px;
-  background: var(--mavi-acik);
-  border: var(--cerceve);
-  padding: 4px 10px;
-  margin-bottom: 16px;
+  display: block;
+  font-size: 14px;
+  color: var(--x-soluk);
+  margin-bottom: 18px;
 }
 
 .demo-tahta {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border: var(--cerceve);
 }
 
 .demo-hucre {
   aspect-ratio: 1;
   border: 0;
-  border-right: var(--cerceve);
-  border-bottom: var(--cerceve);
-  background: var(--beyaz);
-  font-family: var(--cizgi-roman);
-  font-size: clamp(44px, 7vw, 64px);
+  border-right: 3px solid var(--x-cizgi);
+  border-bottom: 3px solid var(--x-cizgi);
+  background: none;
+  color: var(--x-beyaz);
+  font-family: var(--x-yazi);
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 66px);
+  line-height: 1;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.15s;
 }
 
 .demo-hucre:nth-child(3n) {
@@ -1518,49 +2068,66 @@ footer {
 }
 
 .demo-hucre:hover {
-  background: var(--kagit);
+  background: rgba(245, 245, 245, 0.04);
 }
 
-.demo-hucre.yanan {
-  background: var(--kirmizi);
-  color: var(--beyaz);
+/* Tamamlanan dizilerin üstünden geçen kırmızı çizgiler (xoxd.js) */
+.demo-cizgiler {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.demo-cizgiler line {
+  stroke: var(--x-kirmizi);
+  stroke-width: 0.75;
+  stroke-linecap: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: x-ciz 0.35s ease-out forwards;
 }
 
 .demo-alt {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 20px;
+}
+
+.demo-puan {
+  color: var(--x-soluk);
 }
 
 .demo-puan b {
-  font-family: var(--cizgi-roman);
-  font-size: 34px;
-  font-weight: 400;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--x-beyaz);
+  margin-right: 4px;
 }
 
 .demo-sifirla {
-  border: var(--cerceve);
+  border: 1px solid var(--x-cizgi);
+  border-radius: 8px;
   background: none;
-  padding: 6px 14px;
-  font-weight: 800;
+  color: var(--x-beyaz);
+  padding: 8px 16px;
   cursor: pointer;
+  font-family: var(--x-yazi);
 }
 
 .demo-sifirla:hover {
-  background: var(--mavi-acik);
+  border-color: var(--x-beyaz);
 }
 
 /* ============================================================
    DUYARLILIK
    ============================================================ */
 @media (max-width: 1000px) {
-  .hero-ic,
-  .kural-ikili {
+  .kural-ikili,
+  .x-hero-ic {
     grid-template-columns: 1fr;
-  }
-  .kapak-panel {
-    max-width: 380px;
   }
   .kart.yarim {
     grid-column: 1 / -1;
@@ -1571,18 +2138,8 @@ footer {
   .kurallar li:nth-child(even) {
     transform: rotate(1deg);
   }
-  .xoxd-sayfa .oyun-hero {
-    display: flex;
-    flex-direction: column;
-  }
-  .oyun-hero-gorsel {
-    order: 2;
-    position: relative;
-    right: auto;
-    top: auto;
-    width: calc(100% - 48px);
-    margin: 50px auto 0;
-    transform: rotate(2deg);
+  .x-sahne {
+    max-width: 340px;
   }
 }
 
@@ -1597,29 +2154,38 @@ footer {
     padding: 80px 0;
   }
   .hero {
-    padding: 34px 0 90px;
+    align-items: flex-start;
+    min-height: 0;
+    padding: 34px 0 300px;
   }
   .hero h1 {
     -webkit-text-stroke-width: 2px;
     text-shadow: 5px 4px 0 var(--kirmizi), 3px 2px 0 var(--murekkep);
   }
   .hero h1 em {
-    text-shadow: 5px 4px 0 var(--beyaz), 3px 2px 0 var(--murekkep);
+    text-shadow: 5px 4px 0 var(--kemik), 3px 2px 0 var(--murekkep);
   }
-  .kapak-panel {
-    max-width: 320px;
-    margin-top: 10px;
-  }
-  .kapak-panel .patlama {
-    --boy: 96px;
+  .dokun-not {
+    right: 18px;
+    bottom: 64px;
   }
   .seritler {
     height: 100px;
   }
+  .basma-kutu {
+    width: 250px;
+    height: 250px;
+  }
   .kirmizi-dugme {
-    width: 170px;
-    height: 170px;
-    font-size: 38px;
+    width: 160px;
+    height: 160px;
+    font-size: 36px;
+  }
+  .siren {
+    width: 52px;
+    height: 52px;
+    top: -26px;
+    right: -18px;
   }
   .kurallar {
     grid-template-columns: 1fr;
@@ -1636,8 +2202,11 @@ footer {
     -webkit-text-stroke-width: 3px;
     text-shadow: 6px 5px 0 var(--kirmizi), 3px 2px 0 var(--murekkep);
   }
-  .xoxd-sayfa .oyun-hero h1 {
-    text-shadow: 6px 5px 0 var(--mavi), 3px 2px 0 var(--beyaz);
+  .x-sayilar div {
+    padding: 30px 14px 26px;
+  }
+  .x-sayilar span {
+    font-size: 14px;
   }
 }
 
@@ -1653,5 +2222,9 @@ footer {
   }
   a.kart {
     transform: none;
+  }
+  .x-sahne .x-cizgi,
+  .demo-cizgiler line {
+    stroke-dashoffset: 0;
   }
 }

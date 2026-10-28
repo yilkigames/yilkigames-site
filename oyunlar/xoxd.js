@@ -53,17 +53,49 @@
     });
   }
 
+  /* Oyundaki gibi: tamamlanan dizinin üstünden kırmızı çizgi geçiyor.
+     Tahta 3×3 birim; çizgi ilk hücrenin ortasından son hücreninkine. */
+  var ns = "http://www.w3.org/2000/svg";
+  var cizgiler = document.createElementNS(ns, "svg");
+  cizgiler.setAttribute("class", "demo-cizgiler");
+  cizgiler.setAttribute("viewBox", "0 0 30 30");
+  cizgiler.setAttribute("aria-hidden", "true");
+  tahta.appendChild(cizgiler);
+  var oncekiler = {};
+
+  function merkez(i) {
+    return [(i % 3) * 10 + 5, Math.floor(i / 3) * 10 + 5];
+  }
+
   function ciz() {
     var yanan = {};
     var puan = 0;
+    var simdikiler = {};
+    cizgiler.textContent = "";
 
     for (var d = 0; d < DIZILER.length; d++) {
       var a = DIZILER[d];
       if (durum[a[0]] === "X" && durum[a[1]] === "O" && durum[a[2]] === "X") {
         puan++;
         yanan[a[0]] = yanan[a[1]] = yanan[a[2]] = true;
+        var b = merkez(a[0]);
+        var s = merkez(a[2]);
+        /* Biraz taşsın: çizgi uçtaki hücrelerin kenarına kadar */
+        var dx = (s[0] - b[0]) * 0.18;
+        var dy = (s[1] - b[1]) * 0.18;
+        var l = document.createElementNS(ns, "line");
+        l.setAttribute("x1", b[0] - dx);
+        l.setAttribute("y1", b[1] - dy);
+        l.setAttribute("x2", s[0] + dx);
+        l.setAttribute("y2", s[1] + dy);
+        /* Yeni tamamlanan dizi çiziliyor, eskiler yerinde duruyor */
+        if (oncekiler[d]) l.style.animation = "none";
+        if (oncekiler[d]) l.style.strokeDashoffset = "0";
+        simdikiler[d] = true;
+        cizgiler.appendChild(l);
       }
     }
+    oncekiler = simdikiler;
 
     for (var i = 0; i < 9; i++) {
       hucreler[i].textContent = durum[i];

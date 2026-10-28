@@ -8,7 +8,7 @@
       name="description"
       content="Tanıdık bir tahta, hiç oynamadığın bir kural. Her tur X mi O mu koyacağına sen karar veriyorsun."
     />
-    <meta name="theme-color" content="#141414" />
+    <meta name="theme-color" content="#0b0b0b" />
     <link rel="icon" type="image/svg+xml" href="/gorseller/logo.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
@@ -48,10 +48,11 @@
       }
     </script>
 
+    <link rel="preload" href="/fontlar/space-grotesk-bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/tasarim.css" />
   </head>
   <body class="xoxd-sayfa">
-    <a class="atla" href="#kural" data-i18n="a.skip">İçeriğe atla</a>
+    <a class="atla" href="#icerik" data-i18n="a.skip">İçeriğe atla</a>
     <header id="ust-bar">
       <div class="sarmal ust">
         <a class="marka" href="/" aria-label="Yılkı Games">
@@ -81,28 +82,49 @@
       </div>
     </header>
 
-    <main>
-      <!-- ============================================================
-           OYUN HERO — kapak görseli tam genişlikte
-           ============================================================ -->
-      <div class="oyun-hero">
-        <div class="oyun-hero-gorsel" aria-hidden="true"></div>
-        <div class="sarmal oyun-hero-ic">
-          <a class="geri" href="/#oyunlar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M11 18l-6-6 6-6" />
+    <!-- ============================================================
+         XOXD — oyunun kendi dili
+         Üst bar ve alt bilgi siteninki; arası oyunun: siyah zemin,
+         Space Grotesk, düz beyaz X ve O'lar, tek vurgu kırmızı çizgi.
+         Çizgi roman efekti yok — XOXD sade bir oyun, sayfası da öyle.
+         ============================================================ -->
+    <main id="icerik">
+      <div class="x-hero">
+        <div class="sarmal x-hero-ic">
+          <div>
+            <a class="x-geri" href="/#oyunlar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+              <span data-i18n="x.back">Tüm oyunlar</span>
+            </a>
+            <br />
+            <span class="x-durum" data-i18n="x.eyebrow">Kapalı test · Android</span>
+            <h1 class="x-baslik">XOXD</h1>
+            <p class="x-alt" data-i18n="x.sub">Tanıdık bir tahta, hiç oynamadığın bir kural.</p>
+            <a class="x-dugme" href="mailto:info@yilkigames.com?subject=XOXD%20-%20haber%20ver">
+              <span data-i18n="x.cta">Çıkınca haber ver</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </a>
+          </div>
+
+          <!-- Kapaktaki gibi: X-O-X dizisi ve üstünden geçen kırmızı çizgi -->
+          <div class="x-sahne" aria-hidden="true">
+            <svg viewBox="0 0 300 300">
+              <path class="x-izgara" d="M100 10 V290 M200 10 V290 M10 100 H290 M10 200 H290" />
+              <path class="x-isaret" d="M24 224 L76 276 M76 224 L24 276" />
+              <circle class="x-isaret" cx="150" cy="150" r="30" />
+              <path class="x-isaret" d="M224 24 L276 76 M276 24 L224 76" />
+              <circle class="x-isaret" cx="250" cy="250" r="27" style="opacity: 0.35" />
+              <path class="x-isaret" d="M124 24 L176 76 M176 24 L124 76" style="opacity: 0.35" />
+              <path class="x-cizgi" d="M28 272 L272 28" />
             </svg>
-            <span data-i18n="x.back">Tüm oyunlar</span>
-          </a>
-          <span class="etiket beliriv" data-i18n="x.eyebrow">Kapalı test · Android</span>
-          <h1 class="beliriv" style="--gecikme: 0.06s">XOXD</h1>
-          <p class="hero-alt beliriv" style="--gecikme: 0.12s" data-i18n="x.sub">
-            Tanıdık bir tahta, hiç oynamadığın bir kural.
-          </p>
-          <a class="dugme beliriv" href="mailto:info@yilkigames.com?subject=XOXD%20-%20haber%20ver" style="--gecikme: 0.18s">
-            <span data-i18n="x.cta">Çıkınca haber ver</span>
-          </a>
+          </div>
         </div>
+      </div>
+
+      <div class="sarmal x-sayilar">
+        <div><b>3<i>×</i>3</b> <span data-i18n="x.n1">tahta</span></div>
+        <div><b>2</b> <span data-i18n="x.n2">sembol, ikisi de senin</span></div>
+        <div><b>1</b> <span data-i18n="x.n3">kural: X-O-X puan</span></div>
       </div>
 
       <!-- ============================================================
@@ -110,11 +132,11 @@
            Kuralı anlatmak yerine oynatıyoruz: ziyaretçi üç dokunuşta
            anlıyor. Metinle anlatınca kimse okumuyor.
            ============================================================ -->
-      <section id="kural">
+      <section class="x-kural" id="kural">
         <div class="sarmal kural-ikili">
-          <div class="beliriv">
-            <span class="etiket" data-i18n="x.rule.label">Tek kural</span>
-            <h2 class="bant-baslik" data-i18n="x.rule.title" style="margin-bottom: 40px">İki sembol de senin.</h2>
+          <div>
+            <span class="x-ust-yazi" data-i18n="x.rule.label">Tek kural</span>
+            <h2 data-i18n="x.rule.title">İki sembol de senin.</h2>
             <p class="uzun-metin" data-i18n-html="x.rule.p1">
               Klasik XOX'ta sen X'sin, rakibin O. Burada öyle değil. Her turda
               hangisini koyacağına <strong>sen</strong> karar veriyorsun.
@@ -126,7 +148,7 @@
             </p>
           </div>
 
-          <div class="demo beliriv" style="--gecikme: 0.1s">
+          <div class="demo">
             <span class="demo-etiket" data-i18n="x.demo.hint">Dene — hücrelere dokun</span>
             <div class="demo-tahta" id="demo-tahta"></div>
             <div class="demo-alt">

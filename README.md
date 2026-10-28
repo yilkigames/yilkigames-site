@@ -6,7 +6,8 @@ Statik HTML — derleme adımı ve dış bağımlılık yok (yazı tipleri de
 yeterli.
 
 ```
-index.html             ana sayfa — kapak, oyunlar, BASMA düğmesi, atölye kuralları
+index.html             ana sayfa — karalamalı kapak, oyunlar, BASMA düğmesi, atölye kuralları
+                       (karalama çizimleri <symbol> olarak bu dosyanın başında)
 oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — kısa bilgi
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
@@ -16,46 +17,60 @@ kullanim-sartlari.html / terms.html          kullanım şartları
 sifre-sifirla.html / reset-password.html    Supabase şifre sıfırlama
 support.html           /destek.html'e yönlendirme
 metin.js               on dilin tüm metinleri
-arayuz.js              dil seçici, beliren paneller, üst bar, ses efektleri, BASMA, kart eğimi
+arayuz.js              dil seçici, beliren paneller, üst bar, karalamalar, ses efektleri, BASMA, kart eğimi
 tasarim.css            tasarım sistemi — her sayfa bunu kullanıyor
 belge.css              uzun metin sayfalarına (gizlilik, şartlar, destek) ek
-fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde), woff2
+fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde) + Space Grotesk (yalnız XOXD), woff2
 gorseller/logo.svg     stüdyo logosu (vektör)
 gorseller/inklash/     ninja.webp — dekupe Amele Ninja
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
 
-## Tasarım dili (2026-10): riso çizgi roman
+## Tasarım dili (2026-10): gece baskısı
 
-Site, risograf baskı makinesinden yeni çıkmış bir çizgi roman gibi:
-kalın mürekkep çerçeveli paneller, raster noktalar, konuşma balonları,
-"PAT!" patlamaları, iki rengin üst üste kaydığı yanlış baskı (`.kayik`),
-yırtık kâğıt kenarları (`.yirtik`) ve tüm sayfanın üstünde hafif kâğıt greni.
+Site, gece basılmış bir çizgi roman gibi: zemin mürekkep siyahı, çizgiler
+kemik beyazı, tek vurgu kırmızı. Kalın çerçeveler, sert kırmızı gölgeler,
+"PAT!" patlamaları, iki kalıbın kaydığı yanlış baskı (`.kayik`), yırtık
+kenarlar (`.yirtik`) ve sayfanın üstünde hafif bir baskı greni. Konuşma
+balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
 
-- **Renkler** `tasarim.css` başındaki `:root`'ta: kâğıt `#f1ece2`,
-  mürekkep `#141414`, kırmızı `#ff3b2f`, kobalt mavi `#2e4bff`, açık mavi
-  `#d9defc`. Sarı bilerek yok.
+- **Renkler** `tasarim.css` başındaki `:root`'ta: mürekkep `#0e0d0c`,
+  paneller `#1a1816` / `#27241f`, kemik `#f1ece2`, kırmızı `#ff3b2f`.
+  Açık paneller için `--beyaz` `#f6f1e7`. Sarı ve mavi bilerek yok.
 - **Logo:** kırmızı yılkı atı kafası. Canva'da üretildi, `vtracer` ile
   vektöre çevrildi → `gorseller/logo.svg` (üst bar ve SVG favicon).
   `favicon.ico`, `favicon-48/96.png`, `apple-touch-icon.png` ve
   `gorseller/logo-kare.png` aynı çizimden.
-- **Parçalar:** `.bant-baslik` (dönük kırmızı şerit + mavi kalem çizgisi),
-  `.balon`, `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.mavi`, uzun
-  yazıda `.uzun`), `.damga` (çift çizgili mühür), `.etiket`, `.kart`,
-  `.raster`, `.dugme` (+ `.mavi`, `.beyaz`).
-- **Marjinal kısımlar** (hepsi `arayuz.js` sonunda, hareket azaltmayı
+- **Karalamalar:** oyunlarımızdan karikatür çizimler, `index.html`'in
+  başında `<symbol id="c-...">` olarak (100×100, çizgi `currentColor`,
+  vurgu kırmızı). Inklash: yumruk, mürekkep, ko · XOXD: x, o, tahta ·
+  Survive in Turkey: çay, simit, kedi · Bit Pazarı: gramofon, kaset,
+  etiket · stüdyo: nal, şimşek, bomba, parıltı. Yeni çizim eklerken
+  `arayuz.js`'teki `ADLAR` listesine de ekle.
+- **Parçalar:** `.bant-baslik` (dönük kırmızı şerit), `.balon`,
+  `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.kara`, uzun yazıda
+  `.uzun`), `.damga`, `.etiket`, `.kart`, `.raster`, `.dugme` (+ `.gece`).
+- **Marjinal kısımlar** (hepsi `arayuz.js`'te, hareket azaltmayı
   seçenlerde sessiz):
-  - hero'ya dokununca dokunulan yerde "PAT!", "GÜM!" patlıyor;
-  - "BASMA" yazan kırmızı düğme: her basışta mesaj sertleşiyor, sayfa
-    sarsılıyor, altıncıda düğme eziliyor. Mesajlar `a.press.m1..m6`;
-  - oyun kartları fareyle hafifçe yatıyor;
-  - üst bardaki at kafası fareyle üstüne gelince sallanıyor;
+  - girişte karalamalar her açılışta rastgele diziliyor; masaüstünde
+    sağdan sola, telefonda aşağıdan yukarı giderek saydamlaşıyor,
+    çizgileri çizgi film gibi "kaynıyor". Birine dokununca patlayıp
+    yerine başkası geliyor; boş yere dokununca "PAT!", "GÜM!";
+  - "BASMA" düğmesi: önce koruma kapağı, sonra sekiz kademe — sarsıntı
+    ve düğmeden fırlayan karalamalar, 4'te alarm ve siren, 5-6'da çatlak,
+    7'de son uyarı, 8'de 3-2-1 ve tam ekran KA-BUM. Ardından "Söz
+    dinlemez" damgası ve "Tamir et". Toplam basış/patlama yalnızca
+    tarayıcıda (`localStorage` `yg-basma`). Metinler `a.press.*`;
+  - oyun kartları fareyle hafifçe yatıyor, logo üstüne gelince sallanıyor;
   - alt bilginin dibinde kesik, kaymış baskılı dev "YILKI GAMES".
-- **Oyun içerikleri bilerek kısa.** Oyun içi ekran görüntüsü kullanılmıyor;
-  görsel olarak yalnızca Amele Ninja (`gorseller/inklash/ninja.webp`)
-  ve XOXD kapak görseli var. Inklash sayfası defter kâğıdı zemininde,
-  dört kısa madde ve "ne zaman" bölümünden ibaret.
+- **Oyun içerikleri bilerek kısa.** Oyun içi ekran görüntüsü yok. Amele
+  Ninja (`gorseller/inklash/ninja.webp`) yalnızca Inklash sayfasında;
+  ana sayfadaki Inklash kartı karalamalarla çizili.
+- **XOXD sayfası oyunun kendi dilinde:** üst bar ve alt bilgi siteninki,
+  arası sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu
+  `#d9262a` (oyundaki renkler). Çizgi roman efekti ve gren yok; demo
+  tahtada tamamlanan dizilerin üstünden oyundaki gibi kırmızı çizgi geçiyor.
 - Eski adlı renk değişkenleri (`--yesil`, `--ak`, `--kart`...) şifre
   sayfalarının satır içi stilleri için takma ad olarak duruyor.
 

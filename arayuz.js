@@ -1,8 +1,9 @@
 /* ============================================================
    YILKI GAMES — arayüz davranışları
-   Dört iş: dil değiştirici, kaydırınca beliren paneller, kaydırınca
-   gölgelenen üst bar, hero'da dokununca patlayan ses efektleri. Hepsi isteğe bağlı — ilgili düğüm
-   yoksa sessizce atlanıyor, aynı dosya her sayfaya konabiliyor.
+   Dil değiştirici, kaydırınca beliren paneller, üst bar; ana
+   sayfada karalamalar, ses efektleri, kırmızı düğme ve kart eğimi.
+   Hepsi isteğe bağlı — ilgili düğüm yoksa sessizce atlanıyor, aynı
+   dosya her sayfaya konabiliyor.
    ============================================================ */
 
 (function () {
@@ -170,10 +171,150 @@
 })();
 
 /* ============================================================
+   KARALAMALAR
+   Hero'nun arkasına stüdyonun oyunlarından karışık karikatürler
+   diziliyor (index.html'deki <symbol id="c-...">). Her açılışta
+   dizilim ve seçim rastgele. Saydamlık konuma bağlı: masaüstünde
+   sağdan sola, telefonda aşağıdan yukarı giderek siliniyor — yazının
+   arkası hep sakin kalıyor. Sayfa kaydıkça da hepsi biraz daha
+   soluyor.
+
+   Dışarıya iki şey veriyor: window.YG_KARALAMALAR (çizim adları)
+   ve window.ygKaralama(ad) (<svg><use> üretir). BASMA bunları
+   düğmeden fırlattığı çizimler için kullanıyor.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var ADLAR = ["cay", "simit", "kedi", "x", "o", "tahta", "yumruk", "murekkep", "ko", "gramofon", "kaset", "etiket", "nal", "simsek", "bomba", "parilti"];
+  window.YG_KARALAMALAR = ADLAR;
+
+  function karalama(ad) {
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("class", "cizim");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    var use = document.createElementNS(ns, "use");
+    use.setAttribute("href", "#c-" + ad);
+    svg.appendChild(use);
+    return svg;
+  }
+  window.ygKaralama = karalama;
+
+  var alan = document.getElementById("karalama");
+  if (!alan || !document.getElementById("c-cay")) return;
+
+  /* Karışık torba: aynı çizim art arda gelmesin, hepsi sırayla çıksın */
+  var torba = [];
+  function siradaki() {
+    if (!torba.length) {
+      torba = ADLAR.slice();
+      for (var i = torba.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = torba[i];
+        torba[i] = torba[j];
+        torba[j] = t;
+      }
+    }
+    return torba.pop();
+  }
+
+  function rastgele(a, b) {
+    return a + Math.random() * (b - a);
+  }
+
+  function diz() {
+    alan.textContent = "";
+    var g = alan.clientWidth;
+    var y = alan.clientHeight;
+    if (!g || !y) return;
+    var dar = g < 760;
+    var hucre = dar ? 92 : 132;
+    var sutun = Math.max(3, Math.round(g / hucre));
+    var satir = Math.max(3, Math.round(y / hucre));
+    var hg = g / sutun;
+    var hy = y / satir;
+
+    for (var r = 0; r < satir; r++) {
+      for (var c = 0; c < sutun; c++) {
+        if (Math.random() < 0.18) continue;
+        var x = (c + 0.5 + rastgele(-0.28, 0.28)) * hg;
+        var yy = (r + 0.5 + rastgele(-0.28, 0.28)) * hy;
+        /* 0 → neredeyse görünmez, 1 → tam mürekkep */
+        var konum = dar ? yy / y : x / g;
+        var guc = Math.max(0, Math.min(1, (konum - (dar ? 0.42 : 0.3)) / (dar ? 0.5 : 0.62)));
+        var saydam = 0.05 + Math.pow(guc, 1.4) * rastgele(0.75, 0.95);
+
+        var o = document.createElement("span");
+        o.className = "karalama-ogesi";
+        o.appendChild(karalama(siradaki()));
+        o.style.left = x.toFixed(1) + "px";
+        o.style.top = yy.toFixed(1) + "px";
+        o.style.setProperty("--olcu", Math.round(hucre * rastgele(0.55, 0.92)) + "px");
+        o.style.setProperty("--aci", Math.round(rastgele(-24, 24)) + "deg");
+        o.style.setProperty("--saydam", saydam.toFixed(2));
+        o.style.setProperty("--gec", (-Math.random()).toFixed(2) + "s");
+        /* Güçlü olanlar önce beliriyor: kalem sağdan sola çiziyor */
+        o.style.setProperty("--sira", (0.15 + (1 - guc) * 0.9 + Math.random() * 0.15).toFixed(2) + "s");
+        alan.appendChild(o);
+      }
+    }
+  }
+
+  diz();
+
+  /* Genişlik ciddi değişince (telefon döndü, pencere büyüdü) yeniden diz */
+  var sonGenislik = alan.clientWidth;
+  var bekle;
+  window.addEventListener("resize", function () {
+    clearTimeout(bekle);
+    bekle = setTimeout(function () {
+      if (Math.abs(alan.clientWidth - sonGenislik) > 80) {
+        sonGenislik = alan.clientWidth;
+        diz();
+      }
+    }, 200);
+  });
+
+  /* Dokunulan karalama patlayıp yerini başka bir karalamaya bırakıyor */
+  window.ygKaralamaDegistir = function (o) {
+    if (o.classList.contains("pat")) return;
+    o.classList.add("pat");
+    setTimeout(function () {
+      o.replaceChild(karalama(siradaki()), o.firstChild);
+      o.style.setProperty("--aci", Math.round(rastgele(-24, 24)) + "deg");
+      o.style.setProperty("--sira", "0s");
+      o.classList.remove("pat");
+    }, 340);
+  };
+
+  /* Kaydırdıkça karalamalar biraz daha soluyor ve geride kalıyor */
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var hero = document.getElementById("hero");
+    var tik = false;
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (tik) return;
+        tik = true;
+        requestAnimationFrame(function () {
+          var o = Math.min(1, window.scrollY / (hero.offsetHeight || 1));
+          alan.style.opacity = (1 - o * 0.85).toFixed(3);
+          alan.style.transform = "translateY(" + (window.scrollY * 0.25).toFixed(1) + "px)";
+          tik = false;
+        });
+      },
+      { passive: true }
+    );
+  }
+})();
+
+/* ============================================================
    SES EFEKTLERİ
    Hero'da boş bir yere dokununca dokunulan noktada çizgi roman
    patlaması beliriyor: "PAT!", "GÜM!"... Oyunlarımızın ilk kuralı
-   "her dokunuşa tepki" — site de buna uysun.
+   "her dokunuşa tepki" — site de buna uysun. Bir karalamaya
+   dokunulursa o karalama da patlayıp değişiyor.
 
    Bağlantı ve düğmelere dokunuş sayılmıyor; aynı anda en fazla
    altı patlama ekranda kalıyor, eskisi siliniyor.
@@ -186,16 +327,19 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var SESLER = ["PAT!", "GÜM!", "BAM!", "POW!", "ŞAK!", "ZING!", "VUŞ!", "KA-BUM!", "BİNG!", "ÇAT!"];
-  var RENKLER = ["", "kirmizi"];
+  var RENKLER = ["", "kirmizi", "kara"];
   var sira = 0;
   var canli = [];
 
   alan.addEventListener("pointerdown", function (e) {
     if (e.target.closest("a, button")) return;
 
+    var oge = e.target.closest(".karalama-ogesi");
+    if (oge && window.ygKaralamaDegistir) window.ygKaralamaDegistir(oge);
+
     var kutu = alan.getBoundingClientRect();
     var p = document.createElement("span");
-    p.className = "patlama ses-efekti " + RENKLER[sira % 2];
+    p.className = "patlama ses-efekti " + RENKLER[sira % 3];
     p.setAttribute("aria-hidden", "true");
     p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
     p.style.left = e.clientX - kutu.left + "px";
@@ -216,25 +360,52 @@
 })();
 
 /* ============================================================
-   KIRMIZI DÜĞME
-   "Basma" yazan düğme. Her basışta mesaj sertleşiyor, sayfa
-   sarsılıyor ve ekranın rastgele yerlerinde patlamalar çıkıyor.
-   Altıncı basışta düğme eziliyor ve öyle kalıyor (sayfa yenilenene
-   kadar). Hiçbir şey kaydedilmiyor, sunucuya gitmiyor.
+   KIRMIZI DÜĞME — ikinci sürüm
+   Önce şeffaf koruma kapağı kalkıyor. Sonra sekiz kademe:
+     1-3  mesaj sertleşiyor, sayfa sarsılıyor, düğmeden karalama fırlıyor
+     4    alarm: siren dönüyor, bölüm kırmızı nabız atıyor
+     5-6  düğme çatlıyor
+     7    son uyarı
+     8    3-2-1 geri sayım → tam ekran KA-BUM, karalama yağmuru,
+          düğme eziliyor, "Söz dinlemez" damgası ve "Tamir et"
+   "Tamir et" her şeyi başa sarıyor (kapak yine kapalı).
 
-   Mesajlar o anki dilde: METIN sözlüğünden a.press.m1..m6.
+   Toplam basış ve patlatma sayısı yalnızca bu tarayıcıda
+   (localStorage "yg-basma") — sunucuya hiçbir şey gitmiyor.
+   Mesajlar o anki dilde: METIN sözlüğünden a.press.*.
    ============================================================ */
 (function () {
   "use strict";
 
   var dugme = document.getElementById("kirmizi-dugme");
   if (!dugme) return;
+  var kutu = document.getElementById("basma-kutu");
+  var kapak = document.getElementById("basma-kapak");
+  var bolum = document.getElementById("basma");
   var mesaj = document.getElementById("basma-mesaj");
   var sayac = document.getElementById("basma-sayac");
+  var son = document.getElementById("basma-son");
+  var tamir = document.getElementById("basma-tamir");
+  var kabum = document.getElementById("kabum");
+  var kabumYazi = document.getElementById("kabum-yazi");
   var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var SESLER = ["BAM!", "KRAK!", "GÜM!", "POW!", "ÇAT!", "VUŞ!"];
-  var SINIR = 6;
+  var SESLER = ["BAM!", "KRAK!", "GÜM!", "POW!", "ÇAT!", "VUŞ!", "BZZT!"];
+  var SINIR = 8;
   var kez = 0;
+  var kilit = false;
+
+  var kayit = { basis: 0, patlama: 0 };
+  try {
+    var k = JSON.parse(localStorage.getItem("yg-basma") || "{}");
+    kayit.basis = k.basis | 0;
+    kayit.patlama = k.patlama | 0;
+  } catch (e) {}
+
+  function sakla() {
+    try {
+      localStorage.setItem("yg-basma", JSON.stringify(kayit));
+    } catch (e) {}
+  }
 
   function metin(a) {
     var dil = document.documentElement.lang || "en";
@@ -242,9 +413,26 @@
     return s || "";
   }
 
+  function sayacYaz() {
+    var s = kez ? metin("a.press.count").replace("{n}", kez) : "";
+    if (kayit.basis) {
+      var t = metin("a.press.total").replace("{t}", kayit.basis).replace("{k}", kayit.patlama);
+      s = s ? s + " · " + t : t;
+    }
+    sayac.textContent = s;
+  }
+
+  function sars(siddet) {
+    if (azalt) return;
+    document.body.style.setProperty("--siddet", siddet);
+    document.body.classList.remove("sarsil");
+    void document.body.offsetWidth; /* animasyonu yeniden başlat */
+    document.body.classList.add("sarsil");
+  }
+
   function patlat() {
     var p = document.createElement("span");
-    p.className = "patlama ses-efekti ucan " + (Math.random() < 0.5 ? "kirmizi" : "mavi");
+    p.className = "patlama ses-efekti ucan " + (Math.random() < 0.5 ? "kirmizi" : "kara");
     p.setAttribute("aria-hidden", "true");
     p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
     p.style.left = 10 + Math.random() * 80 + "vw";
@@ -257,25 +445,128 @@
     });
   }
 
-  dugme.addEventListener("click", function () {
-    if (kez >= SINIR) return;
-    kez++;
-    mesaj.textContent = metin("a.press.m" + kez);
-    sayac.textContent = metin("a.press.count").replace("{n}", kez);
+  /* Düğmeden bir karalama fırlıyor, yay çizip ekranın dibine düşüyor */
+  function firlat(x, y) {
+    if (azalt || !window.ygKaralama || !document.body.animate) return;
+    var adlar = window.YG_KARALAMALAR;
+    var o = document.createElement("span");
+    o.className = "dusen";
+    o.setAttribute("aria-hidden", "true");
+    o.appendChild(window.ygKaralama(adlar[Math.floor(Math.random() * adlar.length)]));
+    o.style.left = x + "px";
+    o.style.top = y + "px";
+    o.style.setProperty("--olcu", 50 + Math.round(Math.random() * 50) + "px");
+    document.body.appendChild(o);
+    var dx = (Math.random() - 0.5) * Math.min(window.innerWidth, 900);
+    var yuk = 120 + Math.random() * 220;
+    var don = (Math.random() - 0.5) * 900;
+    var dus = window.innerHeight - y + 160;
+    var a = o.animate(
+      [
+        { transform: "translate(0, 0) rotate(0deg) scale(0.3)", easing: "cubic-bezier(.2,.7,.4,1)" },
+        { transform: "translate(" + dx * 0.45 + "px, " + -yuk + "px) rotate(" + don * 0.4 + "deg) scale(1)", offset: 0.32, easing: "cubic-bezier(.5,0,.9,.6)" },
+        { transform: "translate(" + dx + "px, " + dus + "px) rotate(" + don + "deg) scale(1)" },
+      ],
+      { duration: 1500 + Math.random() * 700, fill: "forwards" }
+    );
+    a.onfinish = function () {
+      o.remove();
+    };
+  }
 
-    if (!azalt) {
-      document.body.classList.remove("sarsil");
-      void document.body.offsetWidth; /* animasyonu yeniden başlat */
-      document.body.classList.add("sarsil");
-      for (var i = 0; i < Math.min(kez, 4); i++) setTimeout(patlat, i * 90);
-    }
-    if (navigator.vibrate) navigator.vibrate(kez * 25);
+  function dugmeMerkezi() {
+    var r = dugme.getBoundingClientRect();
+    return [r.left + r.width / 2, r.top + r.height / 2];
+  }
 
-    if (kez >= SINIR) {
-      dugme.classList.add("ezik");
-      dugme.setAttribute("aria-disabled", "true");
-    }
+  kapak.addEventListener("click", function () {
+    kutu.classList.add("acik");
+    dugme.tabIndex = 0;
+    dugme.focus({ preventScroll: true });
+    mesaj.textContent = metin("a.press.lid");
   });
+
+  dugme.addEventListener("click", function () {
+    if (kilit || kez >= SINIR || !kutu.classList.contains("acik")) return;
+    kez++;
+    kayit.basis++;
+    sakla();
+    sayacYaz();
+
+    if (navigator.vibrate) navigator.vibrate(kez * 20);
+
+    if (kez < SINIR) {
+      mesaj.textContent = metin("a.press.m" + kez);
+      sars(1 + kez * 0.18);
+      var m = dugmeMerkezi();
+      for (var i = 0; i < Math.min(kez, 4); i++) {
+        setTimeout(patlat, i * 90);
+        setTimeout(firlat, i * 70, m[0], m[1]);
+      }
+      if (kez >= 4) bolum.classList.add("alarm");
+      if (kez === 5) kutu.classList.add("catlak-1");
+      if (kez === 6) kutu.classList.replace("catlak-1", "catlak-2");
+      return;
+    }
+
+    /* Sekizinci basış: geri sayım ve patlama */
+    kilit = true;
+    dugme.classList.add("geri-say");
+    var n = 3;
+    var etiket = dugme.textContent;
+    (function say() {
+      if (n > 0) {
+        dugme.textContent = n;
+        mesaj.textContent = n + "…";
+        sars(0.6);
+        n--;
+        setTimeout(say, azalt ? 400 : 650);
+        return;
+      }
+      dugme.classList.remove("geri-say");
+      dugme.textContent = etiket;
+      patla();
+    })();
+  });
+
+  function patla() {
+    kayit.patlama++;
+    sakla();
+    kabumYazi.textContent = metin("a.press.boom") || "KA-BUM!";
+    if (!azalt) {
+      kabum.classList.remove("patladi");
+      void kabum.offsetWidth;
+      kabum.classList.add("patladi");
+      sars(3.2);
+      for (var i = 0; i < 18; i++) setTimeout(firlat, 250 + i * 45, window.innerWidth * (0.15 + Math.random() * 0.7), window.innerHeight * (0.35 + Math.random() * 0.3));
+      for (var j = 0; j < 5; j++) setTimeout(patlat, 300 + j * 120);
+    }
+    if (navigator.vibrate) navigator.vibrate([90, 40, 200]);
+    bolum.classList.remove("alarm");
+    kutu.classList.remove("catlak-1", "catlak-2");
+    dugme.classList.add("ezik");
+    dugme.setAttribute("aria-disabled", "true");
+    mesaj.textContent = metin("a.press.m8");
+    sayacYaz();
+    setTimeout(function () {
+      son.hidden = false;
+    }, azalt ? 0 : 700);
+  }
+
+  tamir.addEventListener("click", function () {
+    kez = 0;
+    kilit = false;
+    son.hidden = true;
+    dugme.classList.remove("ezik");
+    dugme.removeAttribute("aria-disabled");
+    dugme.tabIndex = -1;
+    kutu.classList.remove("acik");
+    mesaj.textContent = metin("a.press.fixed");
+    sayacYaz();
+    kapak.focus({ preventScroll: true });
+  });
+
+  sayacYaz();
 })();
 
 /* ============================================================

@@ -8,7 +8,7 @@
       name="description"
       content="Türkiye'de kurulu bağımsız oyun stüdyosu. Bir dakikada öğrenilen, aylarca bırakılmayan, el çizimi mobil oyunlar."
     />
-    <meta name="theme-color" content="#2e4bff" />
+    <meta name="theme-color" content="#0e0d0c" />
     <link rel="icon" type="image/svg+xml" href="/gorseller/logo.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
@@ -50,6 +50,190 @@
     <link rel="stylesheet" href="/tasarim.css" />
   </head>
   <body data-title="a.meta.title" data-desc="a.meta.desc">
+    <!-- ============================================================
+         KARALAMALAR — stüdyonun oyunlarından karikatür çizimler.
+         Hepsi 100×100; çizgi currentColor, vurgu kırmızı. Hero'da
+         rastgele diziliyor, kartlarda ve BASMA'da da kullanılıyor.
+         Inklash: yumruk, mürekkep, ko · XOXD: x, o, tahta
+         Survive in Turkey: cay, simit, kedi · Bit Pazarı: gramofon,
+         kaset, etiket · Stüdyo: nal, simsek, bomba, parilti
+         ============================================================ -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol id="c-cay" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M37 33 H63 C61 40 57 45 57 52 C57 62 65 70 63 80 H37 C35 70 43 62 43 52 C43 45 39 40 37 33 Z" fill="#ff3b2f" stroke="none" />
+            <path d="M33 21 H67 C67 34 58 42 58 52 C58 62 66 70 64 81 H36 C34 70 42 62 42 52 C42 42 33 34 33 21 Z" />
+            <ellipse cx="50" cy="85" rx="28" ry="6.5" />
+            <path d="M44 15 C39 10 48 7 43 1 M57 15 C52 10 61 7 56 1" stroke-width="3.2" />
+            <path d="M38 25 C39 29 41 32 43 35" stroke-width="2.6" />
+          </g>
+        </symbol>
+
+        <symbol id="c-simit" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 16 C72 16 86 31 86 50 C86 69 71 84 50 84 C29 84 14 69 14 50 C14 31 28 16 50 16 Z M50 38 C43 38 38 43 38 50 C38 57 43 62 50 62 C57 62 62 57 62 50 C62 43 57 38 50 38 Z" fill="#ff3b2f" fill-rule="evenodd" />
+            <path d="M50 17 C57 25 57 32 51 38 M76 24 C72 33 66 37 59 40 M85 52 C76 54 69 54 62 51 M73 77 C66 70 63 64 60 58 M47 84 C46 74 47 68 49 62 M22 74 C28 67 34 62 40 58 M15 46 C24 46 32 47 38 49 M27 23 C33 30 38 35 42 40" stroke-width="2.8" />
+            <path d="M33 30 l3 1 M64 28 l2 2 M75 44 l3 -1 M70 66 l2 2 M56 74 l1 3 M34 71 l-2 2 M24 56 l-3 0 M44 25 l2 -2" stroke-width="3.4" />
+          </g>
+        </symbol>
+
+        <symbol id="c-kedi" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 44 L25 12 L43 29 C48 28 52 28 57 29 L75 12 L78 44 C82 66 68 80 50 80 C32 80 18 66 22 44 Z" />
+            <path d="M28 21 L31 33 M72 21 L69 33" stroke-width="3" />
+            <path d="M31 46 C35 41 41 41 45 46 M55 46 C59 41 65 41 69 46" />
+            <circle cx="38" cy="49" r="2.8" fill="currentColor" stroke="none" />
+            <circle cx="62" cy="49" r="2.8" fill="currentColor" stroke="none" />
+            <path d="M46 56 H54 L50 61 Z" fill="#ff3b2f" />
+            <path d="M50 61 C48 67 42 68 39 64 M50 61 C52 67 58 68 61 64" stroke-width="3" />
+            <path d="M12 54 L33 57 M13 63 L33 61 M88 54 L67 57 M87 63 L67 61" stroke-width="2.6" />
+            <path d="M60 31 L64 36" stroke-width="3" />
+          </g>
+        </symbol>
+
+        <symbol id="c-x" viewBox="0 0 100 100">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 22 L78 78 M78 22 L22 78" stroke="currentColor" stroke-width="22" />
+            <path d="M22 22 L78 78 M78 22 L22 78" stroke="#ff3b2f" stroke-width="13" />
+            <circle cx="42" cy="47" r="6.5" fill="#f6f1e7" stroke="#0e0d0c" stroke-width="3" />
+            <circle cx="58" cy="47" r="6.5" fill="#f6f1e7" stroke="#0e0d0c" stroke-width="3" />
+            <circle cx="43.5" cy="48.5" r="2.6" fill="#0e0d0c" />
+            <circle cx="56.5" cy="48.5" r="2.6" fill="#0e0d0c" />
+            <path d="M34 37 L47 42 M66 37 L53 42" stroke="#0e0d0c" stroke-width="4" />
+            <path d="M43 62 C47 58 53 58 57 62" stroke="#0e0d0c" stroke-width="3.6" />
+          </g>
+        </symbol>
+
+        <symbol id="c-o" viewBox="0 0 100 100">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="50" cy="50" r="31" stroke="currentColor" stroke-width="14" />
+            <circle cx="50" cy="50" r="31" stroke="#0e0d0c" stroke-width="1.5" />
+            <circle cx="42" cy="44" r="5.5" fill="currentColor" />
+            <circle cx="58" cy="44" r="5.5" fill="currentColor" />
+            <circle cx="42" cy="45" r="2.2" fill="#0e0d0c" />
+            <circle cx="58" cy="45" r="2.2" fill="#0e0d0c" />
+            <path d="M36 34 C39 31 43 31 46 33 M54 33 C57 31 61 31 64 34" stroke="currentColor" stroke-width="3" />
+            <ellipse cx="50" cy="60" rx="4.5" ry="6" fill="#ff3b2f" stroke="currentColor" stroke-width="2.6" />
+          </g>
+        </symbol>
+
+        <symbol id="c-tahta" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M38 12 C37 38 39 62 37 88 M63 11 C64 36 62 64 64 88 M12 37 C38 38 62 36 88 38 M12 63 C37 62 63 64 88 62" />
+            <path d="M18 18 L30 30 M30 18 L18 30 M70 70 L82 82 M82 70 L70 82" stroke-width="4.5" />
+            <circle cx="50" cy="50" r="7.5" stroke-width="4.5" />
+            <circle cx="76" cy="24" r="6.5" stroke-width="4" />
+            <path d="M13 13 L87 87" stroke="#ff3b2f" stroke-width="5.5" />
+          </g>
+        </symbol>
+
+        <symbol id="c-yumruk" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M33 44 C31 34 37 29 45 30 L71 30 C80 30 85 37 84 46 L83 61 C82 72 75 77 65 77 L46 77 C37 77 32 71 32 62 Z" />
+            <path d="M47 30 C46 36 47 41 49 45 M59 30 C58 36 59 41 61 45 M71 31 C70 37 71 41 73 45" stroke-width="3.2" />
+            <path d="M32 52 C41 47 51 49 54 55 C56 61 50 64 42 63 L33 62" />
+            <path d="M44 77 L43 92 L69 92 L68 77" fill="#ff3b2f" />
+            <path d="M44 84 H68" stroke-width="3" />
+            <path d="M6 41 H22 M3 52 H22 M7 63 H22" stroke-width="3.6" />
+          </g>
+        </symbol>
+
+        <symbol id="c-murekkep" viewBox="0 0 100 100">
+          <g stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 17 C61 17 65 27 73 25 C84 22 87 35 80 41 C90 47 87 61 77 61 C79 73 67 79 59 73 C55 83 43 84 40 74 C30 80 18 72 24 62 C12 58 13 44 24 42 C18 32 28 21 38 28 C40 20 44 17 50 17 Z" fill="currentColor" />
+            <path d="M44 79 C44 85 43 89 44 93" fill="none" stroke="currentColor" stroke-width="4" />
+            <circle cx="44" cy="95" r="3" fill="currentColor" />
+            <circle cx="86" cy="22" r="3.5" fill="currentColor" />
+            <circle cx="14" cy="34" r="2.5" fill="currentColor" />
+            <ellipse cx="42" cy="47" rx="6" ry="7" fill="#0e0d0c" />
+            <ellipse cx="60" cy="47" rx="6" ry="7" fill="#0e0d0c" />
+            <circle cx="44" cy="45" r="2" fill="currentColor" />
+            <circle cx="62" cy="45" r="2" fill="currentColor" />
+            <path d="M33 36 L47 41 M69 36 L55 41" fill="none" stroke="#0e0d0c" stroke-width="4" />
+            <path d="M41 62 C46 57 56 57 61 62 L57 60 L53 63 L49 59 L45 63 Z" fill="#ff3b2f" stroke="#0e0d0c" stroke-width="2.6" />
+          </g>
+        </symbol>
+
+        <symbol id="c-ko" viewBox="0 0 100 100">
+          <path d="M50 3 L59 25 L80 10 L74 33 L97 33 L79 49 L97 64 L74 66 L82 90 L61 78 L52 98 L43 78 L21 92 L27 68 L3 70 L19 53 L3 37 L26 34 L16 12 L38 23 Z" fill="#ff3b2f" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+          <text x="50" y="62" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="34" fill="currentColor" stroke="#0e0d0c" stroke-width="1.5" paint-order="stroke" transform="rotate(-8 50 50)">K.O!</text>
+        </symbol>
+
+        <symbol id="c-gramofon" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M47 55 L70 18 C80 15 92 24 91 35 Z" fill="#ff3b2f" />
+            <path d="M70 18 C74 24 80 30 91 35 M75 22 L57 46" stroke-width="2.6" />
+            <rect x="12" y="62" width="60" height="22" rx="3" />
+            <path d="M18 62 C18 55 28 52 40 52 C52 52 64 55 64 62" />
+            <path d="M47 55 L40 60" />
+            <path d="M18 84 V91 M66 84 V91" />
+            <circle cx="24" cy="73" r="3.2" fill="currentColor" stroke="none" />
+            <path d="M82 76 V62 L92 59 V71" stroke-width="3" />
+            <circle cx="79" cy="77" r="3.6" fill="currentColor" stroke="none" />
+            <circle cx="89" cy="72" r="3.6" fill="currentColor" stroke="none" />
+          </g>
+        </symbol>
+
+        <symbol id="c-kaset" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="10" y="24" width="80" height="54" rx="6" />
+            <rect x="19" y="31" width="62" height="16" rx="2" fill="#ff3b2f" />
+            <path d="M25 39 H62" stroke="#0e0d0c" stroke-width="3" />
+            <rect x="27" y="51" width="46" height="14" rx="7" />
+            <circle cx="35" cy="58" r="4" />
+            <circle cx="65" cy="58" r="4" />
+            <path d="M26 78 L31 69 H69 L74 78" />
+            <circle cx="16" cy="29" r="1.6" fill="currentColor" />
+            <circle cx="84" cy="29" r="1.6" fill="currentColor" />
+          </g>
+        </symbol>
+
+        <symbol id="c-etiket" viewBox="0 0 100 100">
+          <g stroke-linecap="round" stroke-linejoin="round" transform="rotate(-18 50 50)">
+            <path d="M14 32 H62 L86 50 L62 68 H14 Z" fill="#ff3b2f" stroke="currentColor" stroke-width="4" />
+            <circle cx="70" cy="50" r="5" fill="#0e0d0c" stroke="currentColor" stroke-width="3" />
+            <path d="M75 50 C86 46 92 36 94 24" fill="none" stroke="currentColor" stroke-width="3" />
+            <text x="40" y="60" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="29" fill="currentColor" stroke="#0e0d0c" stroke-width="1.4" paint-order="stroke">5 TL</text>
+          </g>
+        </symbol>
+
+        <symbol id="c-nal" viewBox="0 0 100 100">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M28 18 C14 46 20 84 50 84 C80 84 86 46 72 18" stroke="currentColor" stroke-width="20" />
+            <path d="M28 18 C14 46 20 84 50 84 C80 84 86 46 72 18" stroke="#ff3b2f" stroke-width="11" />
+            <circle cx="25" cy="40" r="2.4" fill="currentColor" />
+            <circle cx="26" cy="58" r="2.4" fill="currentColor" />
+            <circle cx="37" cy="74" r="2.4" fill="currentColor" />
+            <circle cx="75" cy="40" r="2.4" fill="currentColor" />
+            <circle cx="74" cy="58" r="2.4" fill="currentColor" />
+            <circle cx="63" cy="74" r="2.4" fill="currentColor" />
+            <path d="M84 8 L86 15 L93 17 L86 19 L84 26 L82 19 L75 17 L82 15 Z" fill="currentColor" />
+          </g>
+        </symbol>
+
+        <symbol id="c-simsek" viewBox="0 0 100 100">
+          <path d="M58 5 L24 55 H46 L36 95 L78 39 H55 L66 5 Z" fill="#ff3b2f" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+          <path d="M14 22 L22 28 M84 70 L92 74 M10 76 L18 72" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" />
+        </symbol>
+
+        <symbol id="c-bomba" viewBox="0 0 100 100">
+          <g stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="44" cy="60" r="28" fill="#ff3b2f" stroke="currentColor" stroke-width="4" />
+            <rect x="52" y="28" width="16" height="12" rx="2" transform="rotate(35 60 34)" fill="currentColor" />
+            <path d="M65 30 C70 20 78 18 84 22" fill="none" stroke="currentColor" stroke-width="3.4" />
+            <path d="M86 12 L88 19 L95 18 L90 23 L94 29 L87 27 L85 34 L83 27 L76 28 L80 23 L76 17 L83 19 Z" fill="currentColor" />
+            <path d="M28 52 C30 44 36 39 42 38" fill="none" stroke="#f6f1e7" stroke-width="4.5" />
+          </g>
+        </symbol>
+
+        <symbol id="c-parilti" viewBox="0 0 100 100">
+          <path d="M50 8 C53 38 62 47 92 50 C62 53 53 62 50 92 C47 62 38 53 8 50 C38 47 47 38 50 8 Z" fill="currentColor" />
+          <circle cx="82" cy="20" r="5" fill="#ff3b2f" />
+        </symbol>
+      </defs>
+    </svg>
+
     <a class="atla" href="#icerik" data-i18n="a.skip">İçeriğe atla</a>
 
     <header id="ust-bar">
@@ -78,13 +262,16 @@
 
     <main id="icerik">
       <!-- ============================================================
-           HERO — kobalt kapak
-           Boş bir yere dokununca "PAT!" gibi bir ses efekti patlıyor
-           (arayuz.js). Oyunlarımızın kuralı: her dokunuşa tepki.
+           HERO — gece kapağı
+           Arkada stüdyonun oyunlarından karışık karalamalar: her
+           açılışta rastgele diziliyor, sağdan sola giderek
+           saydamlaşıyor. Bir karalamaya dokununca patlayıp yerine
+           başkası geliyor; boş yere dokununca "PAT!" (arayuz.js).
            ============================================================ -->
       <div class="hero" id="hero">
+        <div class="karalama" id="karalama" aria-hidden="true"></div>
         <div class="sarmal hero-ic">
-          <div>
+          <div class="hero-metin">
             <span class="etiket beliriv" data-i18n="a.eyebrow">Bağımsız oyun stüdyosu · Türkiye</span>
             <h1 class="beliriv" style="--gecikme: 0.06s" data-i18n-html="a.title">
               Küçük kurallar,<br />büyük <em>kapışmalar!</em>
@@ -98,20 +285,13 @@
                 <span data-i18n="a.cta1">Oyunlara bak</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
               </a>
-              <a class="dugme beyaz" href="#basma">
+              <a class="dugme gece" href="#basma">
                 <span data-i18n="a.cta3">Kırmızı düğme?</span>
               </a>
             </div>
           </div>
-
-          <div class="kapak-panel beliriv" style="--gecikme: 0.1s" aria-hidden="true">
-            <div class="kapak-cerceve"></div>
-            <img class="kapak-ninja" src="/gorseller/inklash/ninja.webp" alt="" width="512" height="720" fetchpriority="high" />
-            <span class="balon" data-i18n="a.bubble">Sıradaki raunt seninle!</span>
-            <span class="patlama mavi" data-i18n="a.burst">GÜM!</span>
-          </div>
         </div>
-        <span class="dokun-not" data-i18n="a.tap">Bir yere dokun</span>
+        <span class="dokun-not" data-i18n="a.tap">Çizimlere dokun</span>
       </div>
 
       <!-- Çapraz iki şerit. İçerik iki kez yazılıyor: yarısı kayınca
@@ -163,8 +343,10 @@
 
           <div class="oyun-izgara">
             <a class="kart yarim beliriv" href="/oyunlar/inklash.html">
-              <div class="kart-gorsel ninja-sahne">
-                <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja, Inklash'ın kahramanı" width="512" height="720" loading="lazy" />
+              <div class="kart-gorsel ink-sahne" aria-hidden="true">
+                <svg class="cizim c1"><use href="#c-yumruk" /></svg>
+                <svg class="cizim c2"><use href="#c-yumruk" /></svg>
+                <svg class="cizim c3"><use href="#c-ko" /></svg>
               </div>
               <div class="kart-ic">
                 <div class="kart-ust">
@@ -201,32 +383,46 @@
 
             <div class="atolye beliriv">
               <span class="atolye-baslik" data-i18n="a.wip">Çizim masasında</span>
-              <span class="eskiz"><b>Survive in Turkey</b> <span data-i18n="survive.genre">Hayat simülasyonu</span></span>
-              <span class="eskiz"><b>Bit Pazarı Simulator</b> <span data-i18n="bit.genre">Ticaret simülasyonu</span></span>
+              <span class="eskiz"><svg class="cizim" aria-hidden="true"><use href="#c-cay" /></svg><b>Survive in Turkey</b> <span data-i18n="survive.genre">Hayat simülasyonu</span></span>
+              <span class="eskiz"><svg class="cizim" aria-hidden="true"><use href="#c-gramofon" /></svg><b>Bit Pazarı Simulator</b> <span data-i18n="bit.genre">Ticaret simülasyonu</span></span>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           BASMA — kırmızı düğme
-           Her basışta mesaj sertleşiyor, sayfa sarsılıyor; altıncıda
-           düğme eziliyor. Tamamen süs, hiçbir şey kaydedilmiyor.
+           BASMA — kırmızı düğme, ikinci sürüm
+           Koruma kapağı → sekiz kademe: sarsıntı, alarm, çatlak, son
+           uyarı, geri sayım, KA-BUM. Patlayınca "Söz dinlemez" damgası
+           ve "Tamir et" çıkıyor. Toplam basış yalnızca bu tarayıcıda
+           tutuluyor; hiçbir şey sunucuya gitmiyor.
            ============================================================ -->
       <section class="basma yirtik" id="basma" aria-labelledby="basma-baslik">
         <div class="sarmal">
           <h2 id="basma-baslik" class="kayik beliriv" data-i18n="a.press.title">Bu düğmeye basma.</h2>
           <p class="alt beliriv" data-i18n="a.press.sub">Ciddiyiz. Kırmızı düğmelere basmak kötü bir alışkanlık.</p>
-          <button type="button" class="kirmizi-dugme" id="kirmizi-dugme" data-i18n="a.press.btn">BASMA</button>
+          <div class="basma-kutu" id="basma-kutu">
+            <span class="siren" aria-hidden="true"></span>
+            <button type="button" class="kirmizi-dugme" id="kirmizi-dugme" data-i18n="a.press.btn" tabindex="-1">BASMA</button>
+            <svg class="catlak" viewBox="0 0 300 300" aria-hidden="true">
+              <path class="k1" d="M150 62 L140 98 L158 118 L144 150 M158 118 L184 128" />
+              <path class="k2" d="M96 196 L128 178 L138 196 L170 186 L186 214 M128 178 L120 150" />
+            </svg>
+            <button type="button" class="kapak" id="basma-kapak" data-i18n="a.press.lift">Kapağı kaldır</button>
+          </div>
           <p class="basma-mesaj" id="basma-mesaj" aria-live="polite"></p>
           <p class="basma-sayac" id="basma-sayac"></p>
+          <div class="basma-son" id="basma-son" hidden>
+            <span class="damga" data-i18n="a.press.badge">Söz dinlemez</span>
+            <button type="button" class="dugme gece" id="basma-tamir" data-i18n="a.press.fix">Tamir et</button>
+          </div>
         </div>
       </section>
 
       <!-- ============================================================
            ATÖLYE KURALLARI — stüdyonun nasıl çalıştığı
            ============================================================ -->
-      <section id="atolye" class="yirtik" style="background-color: var(--kagit)">
+      <section id="atolye" class="atolye-bolum yirtik">
         <div class="sarmal">
           <div class="bolum-basi">
             <h2 class="bant-baslik beliriv" data-i18n="a.rules.title">Atölye kuralları</h2>
@@ -253,7 +449,7 @@
         </div>
       </section>
 
-      <section class="selam raster yirtik" style="--nokta: rgba(46, 75, 255, 0.16)" aria-labelledby="selam-baslik">
+      <section class="selam raster yirtik" style="--nokta: rgba(14, 13, 12, 0.16)" aria-labelledby="selam-baslik">
         <div class="sarmal">
           <span class="balon beliriv" data-i18n="a.hello.bubble">Psst! Bir fikrin mi var?</span>
           <h2 id="selam-baslik" class="beliriv" data-i18n="a.hello.title">Bize yaz: hata, öneri, iş birliği ya da sadece selam.</h2>
@@ -261,6 +457,9 @@
         </div>
       </section>
     </main>
+
+    <!-- BASMA patlaması: main sarsılırken transform alıyor, fixed katman onun dışında durmalı -->
+    <div class="kabum" id="kabum" aria-hidden="true"><span class="patlama" id="kabum-yazi">KA-BUM!</span></div>
 
     <div class="dil-panel" id="dil-panel" role="menu" aria-labelledby="dil-dugme"></div>
 

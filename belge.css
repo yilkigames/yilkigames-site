@@ -10,15 +10,16 @@
    İçerik metinlerine dokunulmadı; bu dosya yalnızca görünüm.
    ============================================================ */
 
-/* Belge gövdesi: beyaz kâğıt paneli. 820 piksel, satır başına
+/* Belge gövdesi: gece masasının üstünde açık kâğıt paneli. 820 piksel, satır başına
    yaklaşık 75 karakter — uzun hukuki metinde gözü yormayan ölçü. */
 .belge {
   max-width: 880px;
   margin: 56px auto 100px;
   padding: 56px 60px 64px;
+  color: var(--murekkep);
   background: var(--beyaz);
-  border: var(--cerceve);
-  box-shadow: 10px 10px 0 var(--murekkep);
+  border: var(--cerceve-koyu);
+  box-shadow: 10px 10px 0 var(--kirmizi);
   position: relative;
 }
 
@@ -28,15 +29,15 @@
   line-height: 1;
   margin-bottom: 22px;
   padding: 10px 20px 4px;
-  background: var(--sari);
-  border: var(--cerceve);
-  box-shadow: 5px 5px 0 var(--murekkep);
+  color: var(--kemik);
+  background: var(--murekkep);
+  box-shadow: 5px 5px 0 var(--kirmizi);
   transform: rotate(-1.5deg);
   margin-left: -8px;
 }
 
 .tarih {
-  color: var(--gri);
+  color: var(--soluk);
   font-size: 14.5px;
   margin-bottom: 40px;
   padding-bottom: 24px;
@@ -93,7 +94,7 @@
 }
 
 .belge a:hover {
-  background: var(--sari);
+  background: rgba(255, 59, 47, 0.18);
 }
 
 .belge strong {
@@ -101,11 +102,11 @@
   font-weight: 700;
 }
 
-/* Öne çıkan kutu: veri sorumlusu, iletişim — sarı anlatıcı kutusu */
+/* Öne çıkan kutu: veri sorumlusu, iletişim — anlatıcı kutusu */
 .kutu {
-  background: #fff3c4;
-  border: var(--cerceve);
-  box-shadow: 5px 5px 0 var(--murekkep);
+  background: #ece5d6;
+  border: var(--cerceve-koyu);
+  box-shadow: 5px 5px 0 var(--kirmizi);
   padding: 22px 26px;
   margin: 30px 0;
 }
@@ -117,7 +118,7 @@
 /* İki dil uyarısı ve benzeri ikincil notlar */
 .uyari {
   font-size: 14.5px;
-  color: var(--gri);
+  color: var(--soluk);
   border: 2px dashed rgba(18, 18, 18, 0.35);
   padding: 12px 18px;
   margin-bottom: 36px;
@@ -127,14 +128,14 @@
 .kunye {
   font-size: 13.5px;
   line-height: 1.7;
-  color: var(--gri);
+  color: var(--soluk);
 }
 
 /* Tablolar — saklama süreleri, aktarım listesi */
 .kaydir {
   overflow-x: auto;
   margin: 24px 0 30px;
-  border: var(--cerceve);
+  border: var(--cerceve-koyu);
 }
 
 table {
@@ -176,14 +177,14 @@ tr:last-child td {
   color: var(--murekkep);
   text-decoration: none !important;
   padding: 4px 14px 0;
-  background: var(--sari);
-  border: var(--cerceve);
+  background: var(--kirmizi);
+  border: var(--cerceve-koyu);
   transition: background 0.15s, color 0.15s;
 }
 
 .belge a.posta:hover {
-  background: var(--kirmizi);
-  color: var(--beyaz);
+  background: var(--murekkep);
+  color: var(--kemik);
 }
 
 .posta.kucuk {
@@ -195,9 +196,8 @@ tr:last-child td {
 .dil-ikili {
   display: flex;
   align-items: center;
-  border: var(--cerceve);
-  background: var(--beyaz);
-  box-shadow: 3px 3px 0 var(--murekkep);
+  border: 2px solid var(--kemik);
+  box-shadow: 3px 3px 0 var(--kirmizi);
 }
 
 .dil-ikili a {
@@ -209,13 +209,13 @@ tr:last-child td {
 }
 
 .dil-ikili a:hover {
-  color: var(--murekkep);
-  background: var(--kagit);
+  color: var(--kemik);
+  background: var(--gece-3);
 }
 
 .dil-ikili a[aria-current="page"] {
   color: var(--murekkep);
-  background: var(--sari);
+  background: var(--kemik);
 }
 
 @media (max-width: 760px) {
@@ -223,7 +223,7 @@ tr:last-child td {
     margin: 26px 12px 70px;
     width: auto;
     padding: 34px 20px 40px;
-    box-shadow: 6px 6px 0 var(--murekkep);
+    box-shadow: 6px 6px 0 var(--kirmizi);
   }
 
   .belge h2 {
