@@ -6,9 +6,10 @@
     <title>Yılkı Games — Küçük kurallar, büyük kapışmalar</title>
     <meta
       name="description"
-      content="Türkiye'de kurulu bağımsız oyun stüdyosu. Bir dakikada öğrenilen, aylarca bırakılmayan, el çizimi mobil oyunlar: XOXD ve yakında Inklash."
+      content="Türkiye'de kurulu bağımsız oyun stüdyosu. Bir dakikada öğrenilen, aylarca bırakılmayan, el çizimi mobil oyunlar."
     />
-    <meta name="theme-color" content="#ffd638" />
+    <meta name="theme-color" content="#2e4bff" />
+    <link rel="icon" type="image/svg+xml" href="/gorseller/logo.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
@@ -54,11 +55,7 @@
     <header id="ust-bar">
       <div class="sarmal ust">
         <a class="marka" href="/" aria-label="Yılkı Games">
-          <svg class="marka-isaret" viewBox="0 0 100 100" aria-hidden="true">
-            <polygon fill="#121212" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
-            <polygon fill="#ffd638" transform="translate(50 50) scale(.84) translate(-50 -50)" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
-            <text x="50" y="63" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="36" fill="#121212">YG</text>
-          </svg>
+          <img class="marka-isaret" src="/gorseller/logo.svg" alt="" width="54" height="48" />
           <span>YILKI <b>GAMES</b></span>
         </a>
         <div class="ust-sag">
@@ -81,11 +78,9 @@
 
     <main id="icerik">
       <!-- ============================================================
-           HERO — çizgi roman kapağı
-           Sarı zemin, hız çizgileri, kenarlarda raster. Ziyaretçi
-           herhangi bir yere dokununca "PAT!" gibi bir ses efekti
-           patlıyor (arayuz.js → sesEfektleri). Amaç oyunlarımızın
-           hissini daha ilk saniyede vermek: dokun, tepki al.
+           HERO — kobalt kapak
+           Boş bir yere dokununca "PAT!" gibi bir ses efekti patlıyor
+           (arayuz.js). Oyunlarımızın kuralı: her dokunuşa tepki.
            ============================================================ -->
       <div class="hero" id="hero">
         <div class="sarmal hero-ic">
@@ -103,45 +98,61 @@
                 <span data-i18n="a.cta1">Oyunlara bak</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
               </a>
-              <a class="dugme beyaz" href="/oyunlar/inklash.html">
-                <span data-i18n="a.cta2">Inklash'ı tanı</span>
+              <a class="dugme beyaz" href="#basma">
+                <span data-i18n="a.cta3">Kırmızı düğme?</span>
               </a>
             </div>
           </div>
 
           <div class="kapak-panel beliriv" style="--gecikme: 0.1s" aria-hidden="true">
             <div class="kapak-cerceve"></div>
-            <img class="kapak-bot" src="/gorseller/inklash/bot.webp" alt="" width="360" height="354" />
             <img class="kapak-ninja" src="/gorseller/inklash/ninja.webp" alt="" width="512" height="720" fetchpriority="high" />
             <span class="balon" data-i18n="a.bubble">Sıradaki raunt seninle!</span>
-            <span class="patlama kirmizi" data-i18n="a.burst">GÜM!</span>
+            <span class="patlama mavi" data-i18n="a.burst">GÜM!</span>
           </div>
         </div>
         <span class="dokun-not" data-i18n="a.tap">Bir yere dokun</span>
       </div>
 
-      <!-- Kayan şerit. İçerik iki kez yazılıyor: yarısı kayınca
+      <!-- Çapraz iki şerit. İçerik iki kez yazılıyor: yarısı kayınca
            ikinci kopya tam yerine oturuyor, boşluk görünmüyor. -->
-      <div class="serit" aria-hidden="true">
-        <div class="serit-ic">
-          <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
-          <span data-i18n="a.s2">Ustalaşması aylar</span>
-          <span data-i18n="a.s3">Kare kare elle çizim</span>
-          <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
-          <span data-i18n="a.s5">On dilde oyun</span>
-          <span data-i18n="a.s6">Türkiye'den dünyaya</span>
-          <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
-          <span data-i18n="a.s2">Ustalaşması aylar</span>
-          <span data-i18n="a.s3">Kare kare elle çizim</span>
-          <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
-          <span data-i18n="a.s5">On dilde oyun</span>
-          <span data-i18n="a.s6">Türkiye'den dünyaya</span>
+      <div class="seritler" aria-hidden="true">
+        <div class="serit ters">
+          <div class="serit-ic">
+            <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
+            <span data-i18n="a.s5">On dilde oyun</span>
+            <span data-i18n="a.s6">Türkiye'den dünyaya</span>
+            <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
+            <span data-i18n="a.s5">On dilde oyun</span>
+            <span data-i18n="a.s6">Türkiye'den dünyaya</span>
+            <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
+            <span data-i18n="a.s5">On dilde oyun</span>
+            <span data-i18n="a.s6">Türkiye'den dünyaya</span>
+            <span data-i18n="a.s4">Aynı telefonda iki kişi</span>
+            <span data-i18n="a.s5">On dilde oyun</span>
+            <span data-i18n="a.s6">Türkiye'den dünyaya</span>
+          </div>
+        </div>
+        <div class="serit">
+          <div class="serit-ic">
+            <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
+            <span data-i18n="a.s2">Ustalaşması aylar</span>
+            <span data-i18n="a.s3">Kare kare elle çizim</span>
+            <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
+            <span data-i18n="a.s2">Ustalaşması aylar</span>
+            <span data-i18n="a.s3">Kare kare elle çizim</span>
+            <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
+            <span data-i18n="a.s2">Ustalaşması aylar</span>
+            <span data-i18n="a.s3">Kare kare elle çizim</span>
+            <span data-i18n="a.s1">Öğrenmesi bir dakika</span>
+            <span data-i18n="a.s2">Ustalaşması aylar</span>
+            <span data-i18n="a.s3">Kare kare elle çizim</span>
+          </div>
         </div>
       </div>
 
       <!-- ============================================================
-           OYUNLAR — çizgi roman sayfası: iki büyük panel, altında
-           atölyedeki eskizler
+           OYUNLAR — kısa ve genel: iki panel, altında atölyedekiler
            ============================================================ -->
       <section id="oyunlar">
         <div class="sarmal">
@@ -151,11 +162,9 @@
           </div>
 
           <div class="oyun-izgara">
-            <a class="kart buyuk beliriv" href="/oyunlar/inklash.html">
-              <span class="patlama uzun" data-i18n="a.burst.soon">ÇOK YAKINDA!</span>
-              <div class="kart-gorsel">
-                <img src="/gorseller/inklash/vs_b-k.webp" srcset="/gorseller/inklash/vs_b-k.webp 720w, /gorseller/inklash/vs_b.webp 1280w" sizes="(max-width: 1000px) 100vw, 680px" alt="Inklash VS ekranı: Amele Ninja ve Samara karşı karşıya" width="1280" height="720" loading="lazy" />
-                <span class="etiket" data-i18n="a.ink.genre">Karikatür dövüş</span>
+            <a class="kart yarim beliriv" href="/oyunlar/inklash.html">
+              <div class="kart-gorsel ninja-sahne">
+                <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja, Inklash'ın kahramanı" width="512" height="720" loading="lazy" />
               </div>
               <div class="kart-ic">
                 <div class="kart-ust">
@@ -163,7 +172,7 @@
                   <span class="platform">Android</span>
                 </div>
                 <h3>Inklash</h3>
-                <p data-i18n="a.ink.desc">Kara kalem arenalarda kare kare çizilmiş karakterler, kombolar ve aynı telefonda iki kişilik kapışma.</p>
+                <p data-i18n="a.ink.desc">Elle çizilmiş karikatür kahramanların kapıştığı hızlı bir dövüş oyunu.</p>
                 <span class="kart-bag">
                   <span data-i18n="a.cta2">Inklash'ı tanı</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -171,18 +180,18 @@
               </div>
             </a>
 
-            <a class="kart orta beliriv" href="/oyunlar/xoxd.html" style="--gecikme: 0.08s">
+            <a class="kart yarim beliriv" href="/oyunlar/xoxd.html" style="--gecikme: 0.08s">
               <div class="kart-gorsel">
                 <img src="/gorseller/xoxd-kapak.webp" alt="XOXD kapak görseli: siyah zemin üstünde X ve O'lar" width="1400" height="763" loading="lazy" />
-                <span class="etiket" data-i18n="xoxd.genre">Sıra tabanlı strateji</span>
+                <span class="damga" data-i18n="badge.test">Kapalı test</span>
               </div>
               <div class="kart-ic">
                 <div class="kart-ust">
-                  <span class="rozet canli" data-i18n="badge.live">Yayında</span>
+                  <span class="rozet test" data-i18n="badge.test">Kapalı test</span>
                   <span class="platform">Android</span>
                 </div>
                 <h3>XOXD</h3>
-                <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, hiç oynamadığın bir kural: X de O da senin.</p>
+                <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, bilmediğin bir kural. Şu an kapalı testte, yakında herkese açık.</p>
                 <span class="kart-bag">
                   <span data-i18n="xoxd.link">Oyunu incele</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -190,82 +199,34 @@
               </div>
             </a>
 
-            <h3 class="atolye-baslik beliriv" data-i18n="a.wip">Çizim masasında</h3>
-
-            <article class="kart eskiz beliriv">
-              <div class="kart-gorsel">
-                <img src="/gorseller/survive-kapak.webp" alt="" width="1400" height="780" loading="lazy" />
-              </div>
-              <div class="kart-ic">
-                <div class="kart-ust">
-                  <span class="rozet kilitli" data-i18n="badge.dev">Geliştiriliyor</span>
-                  <span class="platform">Android</span>
-                </div>
-                <h3>Survive in Turkey</h3>
-                <span class="tur" data-i18n="survive.genre">Hayat simülasyonu</span>
-                <p data-i18n="survive.desc">Bir hayatı baştan kur. Her karar bir sonrakini belirliyor.</p>
-              </div>
-            </article>
-
-            <article class="kart eskiz beliriv" style="--gecikme: 0.08s">
-              <div class="kart-gorsel raster" aria-hidden="true">
-                <div class="gizem">?</div>
-              </div>
-              <div class="kart-ic">
-                <div class="kart-ust">
-                  <span class="rozet kilitli" data-i18n="badge.soon">Yakında</span>
-                  <span class="platform">PC · Steam</span>
-                </div>
-                <h3>Bit Pazarı Simulator</h3>
-                <span class="tur" data-i18n="bit.genre">Ticaret simülasyonu</span>
-                <p data-i18n="bit.desc">Tezgâhını kur, pazarlığı öğren, semtin en iyisi ol.</p>
-              </div>
-            </article>
+            <div class="atolye beliriv">
+              <span class="atolye-baslik" data-i18n="a.wip">Çizim masasında</span>
+              <span class="eskiz"><b>Survive in Turkey</b> <span data-i18n="survive.genre">Hayat simülasyonu</span></span>
+              <span class="eskiz"><b>Bit Pazarı Simulator</b> <span data-i18n="bit.genre">Ticaret simülasyonu</span></span>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           INKLASH BANDI — sıradaki büyük sayı
+           BASMA — kırmızı düğme
+           Her basışta mesaj sertleşiyor, sayfa sarsılıyor; altıncıda
+           düğme eziliyor. Tamamen süs, hiçbir şey kaydedilmiyor.
            ============================================================ -->
-      <section class="ink-band" aria-labelledby="ink-baslik">
+      <section class="basma yirtik" id="basma" aria-labelledby="basma-baslik">
         <div class="sarmal">
-          <div>
-            <span class="etiket beliriv" data-i18n="a.band.label">Yeni sayı · Android</span>
-            <h2 id="ink-baslik" class="beliriv" style="--gecikme: 0.05s">Inklash</h2>
-            <p class="beliriv" style="--gecikme: 0.1s" data-i18n="a.band.p">
-              Defter kenarından fırlamış karakterler, mürekkeple çizilmiş
-              arenalarda kozlarını paylaşıyor. Tek dokunuşla yumruk, doğru
-              sırayla kombo.
-            </p>
-            <ul class="ink-maddeler">
-              <li class="beliriv" data-i18n="a.band.l1">Kare kare elle çizilmiş animasyon</li>
-              <li class="beliriv" style="--gecikme: 0.05s" data-i18n="a.band.l2">Ejderha Yumruğu, Rüzgâr Serisi ve daha fazla kombo</li>
-              <li class="beliriv" style="--gecikme: 0.1s" data-i18n="a.band.l3">CO-OP: aynı telefonda iki kişi karşı karşıya</li>
-              <li class="beliriv" style="--gecikme: 0.15s" data-i18n="a.band.l4">Online mod yolda</li>
-            </ul>
-            <a class="dugme sari beliriv" href="/oyunlar/inklash.html">
-              <span data-i18n="a.band.cta">Inklash sayfası</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-            </a>
-          </div>
-
-          <div class="ink-kolaj beliriv" style="--gecikme: 0.1s">
-            <div class="panel p1">
-              <img src="/gorseller/inklash/kombo2-k.webp" alt="Inklash dövüş sahnesi: Amele Ninja Ejderha Yumruğu kombosu yapıyor" width="720" height="405" loading="lazy" />
-            </div>
-            <div class="panel p2">
-              <img src="/gorseller/inklash/kazandin_b-k.webp" alt="Inklash raunt sonu: KAZANDINIZ afişi" width="720" height="405" loading="lazy" />
-            </div>
-            <span class="patlama" aria-hidden="true">PAT!</span>
-          </div>
+          <h2 id="basma-baslik" class="kayik beliriv" data-i18n="a.press.title">Bu düğmeye basma.</h2>
+          <p class="alt beliriv" data-i18n="a.press.sub">Ciddiyiz. Kırmızı düğmelere basmak kötü bir alışkanlık.</p>
+          <button type="button" class="kirmizi-dugme" id="kirmizi-dugme" data-i18n="a.press.btn">BASMA</button>
+          <p class="basma-mesaj" id="basma-mesaj" aria-live="polite"></p>
+          <p class="basma-sayac" id="basma-sayac"></p>
         </div>
       </section>
 
       <!-- ============================================================
-           ATÖLYE KURALLARI — stüdyonun nasıl çalıştığı, dört panel
+           ATÖLYE KURALLARI — stüdyonun nasıl çalıştığı
            ============================================================ -->
-      <section id="atolye">
+      <section id="atolye" class="yirtik" style="background-color: var(--kagit)">
         <div class="sarmal">
           <div class="bolum-basi">
             <h2 class="bant-baslik beliriv" data-i18n="a.rules.title">Atölye kuralları</h2>
@@ -292,7 +253,7 @@
         </div>
       </section>
 
-      <section class="selam raster" aria-labelledby="selam-baslik">
+      <section class="selam raster yirtik" style="--nokta: rgba(46, 75, 255, 0.16)" aria-labelledby="selam-baslik">
         <div class="sarmal">
           <span class="balon beliriv" data-i18n="a.hello.bubble">Psst! Bir fikrin mi var?</span>
           <h2 id="selam-baslik" class="beliriv" data-i18n="a.hello.title">Bize yaz: hata, öneri, iş birliği ya da sadece selam.</h2>
@@ -332,6 +293,7 @@
           <span><a href="/privacy.html">Privacy (EN)</a></span>
         </div>
       </div>
+      <span class="dev-yazi" aria-hidden="true">YILKI GAMES</span>
     </footer>
 
     <script src="/metin.js"></script>

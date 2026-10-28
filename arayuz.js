@@ -214,3 +214,92 @@
     });
   });
 })();
+
+/* ============================================================
+   KIRMIZI DÜĞME
+   "Basma" yazan düğme. Her basışta mesaj sertleşiyor, sayfa
+   sarsılıyor ve ekranın rastgele yerlerinde patlamalar çıkıyor.
+   Altıncı basışta düğme eziliyor ve öyle kalıyor (sayfa yenilenene
+   kadar). Hiçbir şey kaydedilmiyor, sunucuya gitmiyor.
+
+   Mesajlar o anki dilde: METIN sözlüğünden a.press.m1..m6.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var dugme = document.getElementById("kirmizi-dugme");
+  if (!dugme) return;
+  var mesaj = document.getElementById("basma-mesaj");
+  var sayac = document.getElementById("basma-sayac");
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SESLER = ["BAM!", "KRAK!", "GÜM!", "POW!", "ÇAT!", "VUŞ!"];
+  var SINIR = 6;
+  var kez = 0;
+
+  function metin(a) {
+    var dil = document.documentElement.lang || "en";
+    var s = (typeof METIN !== "undefined" && (METIN[dil] || {})[a]) || (typeof METIN !== "undefined" && (METIN.en || {})[a]);
+    return s || "";
+  }
+
+  function patlat() {
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti ucan " + (Math.random() < 0.5 ? "kirmizi" : "mavi");
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
+    p.style.left = 10 + Math.random() * 80 + "vw";
+    p.style.top = 15 + Math.random() * 70 + "vh";
+    p.style.setProperty("--aci", Math.round(Math.random() * 50 - 25) + "deg");
+    p.style.setProperty("--boy", 110 + Math.round(Math.random() * 70) + "px");
+    document.body.appendChild(p);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
+  }
+
+  dugme.addEventListener("click", function () {
+    if (kez >= SINIR) return;
+    kez++;
+    mesaj.textContent = metin("a.press.m" + kez);
+    sayac.textContent = metin("a.press.count").replace("{n}", kez);
+
+    if (!azalt) {
+      document.body.classList.remove("sarsil");
+      void document.body.offsetWidth; /* animasyonu yeniden başlat */
+      document.body.classList.add("sarsil");
+      for (var i = 0; i < Math.min(kez, 4); i++) setTimeout(patlat, i * 90);
+    }
+    if (navigator.vibrate) navigator.vibrate(kez * 25);
+
+    if (kez >= SINIR) {
+      dugme.classList.add("ezik");
+      dugme.setAttribute("aria-disabled", "true");
+    }
+  });
+})();
+
+/* ============================================================
+   KART EĞİMİ
+   Oyun kartları fareyi takip ederek birkaç derece yatıyor; kâğıt
+   bir panel elde tutuluyormuş gibi. Dokunmatikte ve hareket
+   azaltmada kapalı.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  if (window.matchMedia("(hover: none), (prefers-reduced-motion: reduce)").matches) return;
+
+  document.querySelectorAll("a.kart").forEach(function (k) {
+    k.addEventListener("pointermove", function (e) {
+      var r = k.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      k.style.setProperty("--ry", (x * 8).toFixed(2) + "deg");
+      k.style.setProperty("--rx", (-y * 8).toFixed(2) + "deg");
+    });
+    k.addEventListener("pointerleave", function () {
+      k.style.setProperty("--ry", "0deg");
+      k.style.setProperty("--rx", "0deg");
+    });
+  });
+})();

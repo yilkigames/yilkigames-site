@@ -6,9 +6,9 @@ Statik HTML — derleme adımı ve dış bağımlılık yok (yazı tipleri de
 yeterli.
 
 ```
-index.html             ana sayfa — çizgi roman kapağı, oyunlar, atölye kuralları
-oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — galeri, kadro, modlar
-oyunlar/xoxd.html      XOXD sayfası + oynanabilir tahta (xoxd.js)
+index.html             ana sayfa — kapak, oyunlar, BASMA düğmesi, atölye kuralları
+oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — kısa bilgi
+oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html           gizlilik politikası (EN)
@@ -16,41 +16,48 @@ kullanim-sartlari.html / terms.html          kullanım şartları
 sifre-sifirla.html / reset-password.html    Supabase şifre sıfırlama
 support.html           /destek.html'e yönlendirme
 metin.js               on dilin tüm metinleri
-arayuz.js              dil seçici, beliren paneller, üst bar, hero ses efektleri
+arayuz.js              dil seçici, beliren paneller, üst bar, ses efektleri, BASMA, kart eğimi
 tasarim.css            tasarım sistemi — her sayfa bunu kullanıyor
 belge.css              uzun metin sayfalarına (gizlilik, şartlar, destek) ek
 fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde), woff2
-gorseller/inklash/     oyundan ekran görüntüleri ve dekupe karakterler (webp)
+gorseller/logo.svg     stüdyo logosu (vektör)
+gorseller/inklash/     ninja.webp — dekupe Amele Ninja
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
 
-## Tasarım dili (2026-10): çizgi roman
+## Tasarım dili (2026-10): riso çizgi roman
 
-Eski doğa/yılkı atı teması bırakıldı. Kimlik artık stüdyonun oyunlarından
-geliyor: Inklash'ın kalın mürekkep hatları, sarı bant afişleri ve kırmızı
-kalem çizgisi, XOXD'nin siyah-kırmızısı. Site bir çizgi roman sayfası gibi:
+Site, risograf baskı makinesinden yeni çıkmış bir çizgi roman gibi:
+kalın mürekkep çerçeveli paneller, raster noktalar, konuşma balonları,
+"PAT!" patlamaları, iki rengin üst üste kaydığı yanlış baskı (`.kayik`),
+yırtık kâğıt kenarları (`.yirtik`) ve tüm sayfanın üstünde hafif kâğıt greni.
 
-- **Renkler** `tasarim.css` başındaki `:root`'ta: kâğıt `#fff5dc`, mürekkep
-  `#121212`, sarı `#ffd638`, kırmızı `#e0332b`, mavi `#2f6bff`.
-- **Parçalar:** `.bant-baslik` (dönük sarı şerit + kırmızı kalem çizgisi),
-  `.balon` (konuşma balonu), `.patlama` (yıldız patlama, `--boy` ile
-  boyutlanır; uzun yazıda `.uzun` ekle), `.etiket` (anlatıcı kutusu),
-  `.kart` (panel), `.raster` (baskı noktası dokusu), `.dugme` (+ `.sari`,
-  `.beyaz`).
-- **Hero'ya dokununca** "PAT!", "GÜM!" gibi ses efektleri patlıyor
-  (`arayuz.js` sonundaki blok). Hareket azaltmayı seçenlerde kapalı.
-- **Inklash sayfası** zemini kareli defter kâğıdına çeviriyor (sayfanın
-  kendi `<style>` bloğu); oyunun ana menüsüyle aynı dil.
+- **Renkler** `tasarim.css` başındaki `:root`'ta: kâğıt `#f1ece2`,
+  mürekkep `#141414`, kırmızı `#ff3b2f`, kobalt mavi `#2e4bff`, açık mavi
+  `#d9defc`. Sarı bilerek yok.
+- **Logo:** kırmızı yılkı atı kafası. Canva'da üretildi, `vtracer` ile
+  vektöre çevrildi → `gorseller/logo.svg` (üst bar ve SVG favicon).
+  `favicon.ico`, `favicon-48/96.png`, `apple-touch-icon.png` ve
+  `gorseller/logo-kare.png` aynı çizimden.
+- **Parçalar:** `.bant-baslik` (dönük kırmızı şerit + mavi kalem çizgisi),
+  `.balon`, `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.mavi`, uzun
+  yazıda `.uzun`), `.damga` (çift çizgili mühür), `.etiket`, `.kart`,
+  `.raster`, `.dugme` (+ `.mavi`, `.beyaz`).
+- **Marjinal kısımlar** (hepsi `arayuz.js` sonunda, hareket azaltmayı
+  seçenlerde sessiz):
+  - hero'ya dokununca dokunulan yerde "PAT!", "GÜM!" patlıyor;
+  - "BASMA" yazan kırmızı düğme: her basışta mesaj sertleşiyor, sayfa
+    sarsılıyor, altıncıda düğme eziliyor. Mesajlar `a.press.m1..m6`;
+  - oyun kartları fareyle hafifçe yatıyor;
+  - üst bardaki at kafası fareyle üstüne gelince sallanıyor;
+  - alt bilginin dibinde kesik, kaymış baskılı dev "YILKI GAMES".
+- **Oyun içerikleri bilerek kısa.** Oyun içi ekran görüntüsü kullanılmıyor;
+  görsel olarak yalnızca Amele Ninja (`gorseller/inklash/ninja.webp`)
+  ve XOXD kapak görseli var. Inklash sayfası defter kâğıdı zemininde,
+  dört kısa madde ve "ne zaman" bölümünden ibaret.
 - Eski adlı renk değişkenleri (`--yesil`, `--ak`, `--kart`...) şifre
   sayfalarının satır içi stilleri için takma ad olarak duruyor.
-- Favicon'lar ve `gorseller/logo-kare.png` hâlâ eski yeşil at; yeni logo
-  çizilince aynı adlarla değiştirmek yeterli. Üst bardaki "YG" patlama
-  işareti her sayfada satır içi SVG.
-
-**Görsel ekleme:** oyundan yeni ekran görüntüsü koyarken iki boy üret:
-1280 px (`ad.webp`) ve 720 px (`ad-k.webp`), webp kalite ~78. Galerideki
-`data-buyuk` büyük olanı, `<img>` küçüğü gösteriyor.
 
 Kaydırınca beliren paneller `.beliriv` sınıfıyla işaretli. Gizleme yalnızca
 `arayuz.js` çalıştığında (`html.hareket`) devreye giriyor ve 2,5 saniyelik
@@ -208,8 +215,7 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
 - [ ] Inklash mağazaya çıkınca: `oyunlar/inklash.html` ve ana sayfadaki
       "Çıkınca haber ver" (mailto) düğmelerini Play bağlantısıyla değiştir,
       rozeti `badge.soon` → `badge.live` yap
-- [ ] XOXD sayfasındaki "Google Play'de indir" düğmesi
-      `play.google.com/store/apps/details?id=com.yilkigames.xoxd`'e gidiyor;
-      uygulama üretime çıkana kadar bu sayfa test kullanıcısı olmayanlara
-      açılmaz
-- [ ] Yeni logo çizilirse favicon'ları ve `logo-kare.png`'yi değiştir
+- [ ] XOXD kapalı testten çıkınca: rozetleri `badge.test` yerine yayında
+      yap, `oyunlar/xoxd.html`'deki "Çıkınca haber ver" düğmesini
+      `https://play.google.com/store/apps/details?id=com.yilkigames.xoxd`
+      bağlantısıyla değiştir
