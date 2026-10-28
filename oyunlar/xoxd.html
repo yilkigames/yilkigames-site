@@ -8,7 +8,7 @@
       name="description"
       content="Tanıdık bir tahta, hiç oynamadığın bir kural. Her tur X mi O mu koyacağına sen karar veriyorsun."
     />
-    <meta name="theme-color" content="#08080a" />
+    <meta name="theme-color" content="#121212" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
@@ -47,41 +47,24 @@
       }
     </script>
 
-    <link rel="stylesheet" href="../tasarim.css" />
-    <style>
-      /* ============================================================
-         XOXD'NİN KENDİ KİMLİĞİ
-         Stüdyo yeşil, oyun kırmızı. Tasarım sistemindeki renk
-         değişkenlerini bu sayfada eziyoruz — tek yerden dokunmakla
-         düğmeler, rozetler, bağlantılar ve dil paneli oyunun rengine
-         geçiyor. Yapıyı kopyalamak yerine tema değiştiriyoruz.
-         ============================================================ */
-      :root {
-        --zemin: #08080a;
-        --zemin-2: #0c0c0f;
-        --kart: #131317;
-        --kart-2: #17171c;
-        --cizgi: #1e1e24;
-        --cizgi-2: #2e2e37;
-        --ak: #f4f4f6;
-        --orta: #adadb6;
-        --soluk: #6e6e79;
-        --yesil: #d9262a;
-        --yesil-parlak: #ff4247;
-        --yesil-sis: rgba(217, 38, 42, 0.14);
-      }
-    </style>
+    <link rel="stylesheet" href="/tasarim.css" />
   </head>
-  <body>
+  <body class="xoxd-sayfa">
+    <a class="atla" href="#kural" data-i18n="a.skip">İçeriğe atla</a>
     <header id="ust-bar">
       <div class="sarmal ust">
-        <a class="marka" href="../">
-          <img src="../gorseller/logo-sade.webp" alt="" width="40" height="40" />
-          YILKI GAMES
+        <a class="marka" href="/" aria-label="Yılkı Games">
+          <svg class="marka-isaret" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon fill="#121212" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
+            <polygon fill="#ffd638" transform="translate(50 50) scale(.84) translate(-50 -50)" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
+            <text x="50" y="63" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="36" fill="#121212">YG</text>
+          </svg>
+          <span>YILKI <b>GAMES</b></span>
         </a>
         <div class="ust-sag">
-          <nav>
-            <a href="../#oyunlar" data-i18n="nav.games">Oyunlar</a>
+          <nav aria-label="Ana menü">
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/oyunlar/inklash.html">Inklash</a>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
           <button
@@ -108,7 +91,7 @@
       <div class="oyun-hero">
         <div class="oyun-hero-gorsel" aria-hidden="true"></div>
         <div class="sarmal oyun-hero-ic">
-          <a class="geri" href="../#oyunlar">
+          <a class="geri" href="/#oyunlar">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M19 12H5M11 18l-6-6 6-6" />
             </svg>
@@ -119,7 +102,7 @@
           <p class="hero-alt beliriv" style="--gecikme: 0.12s" data-i18n="x.sub">
             Tanıdık bir tahta, hiç oynamadığın bir kural.
           </p>
-          <a class="dugme beliriv" href="#" style="--gecikme: 0.18s">
+          <a class="dugme beliriv" href="https://play.google.com/store/apps/details?id=com.yilkigames.xoxd" style="--gecikme: 0.18s">
             <span data-i18n="x.cta">Google Play'de indir</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -137,7 +120,7 @@
         <div class="sarmal kural-ikili">
           <div class="beliriv">
             <span class="etiket" data-i18n="x.rule.label">Tek kural</span>
-            <h2 data-i18n="x.rule.title">İki sembol de senin.</h2>
+            <h2 class="bant-baslik" data-i18n="x.rule.title" style="margin-bottom: 40px">İki sembol de senin.</h2>
             <p class="uzun-metin" data-i18n-html="x.rule.p1">
               Klasik XOX'ta sen X'sin, rakibin O. Burada öyle değil. Her turda
               hangisini koyacağına <strong>sen</strong> karar veriyorsun.
@@ -168,8 +151,8 @@
       <section id="modlar" class="koyu">
         <div class="sarmal">
           <div class="bolum-basi">
-            <h2 class="beliriv" data-i18n="x.modes.title">Dört mod</h2>
-            <span class="bolum-not beliriv" data-i18n="x.modes.note">Aynı kural, dört yol</span>
+            <h2 class="bant-baslik beliriv" data-i18n="x.modes.title">Dört mod</h2>
+            <span class="balon sag beliriv" data-i18n="x.modes.note">Aynı kural, dört yol</span>
           </div>
 
           <div class="modlar">
@@ -211,7 +194,7 @@
       <section id="ozellikler">
         <div class="sarmal">
           <div class="bolum-basi">
-            <h2 class="beliriv" data-i18n="x.feat.title">Kutunun içinde</h2>
+            <h2 class="bant-baslik beliriv" data-i18n="x.feat.title">Kutunun içinde</h2>
           </div>
           <ul class="ozellik-listesi">
             <li class="beliriv" data-i18n="x.feat.1">Arkadaş listesi, sohbet ve maç daveti</li>
@@ -232,7 +215,7 @@
         <div class="alt-ust">
           <div class="alt-sutun">
             <h4 data-i18n="foot.studio">Stüdyo</h4>
-            <a href="../#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
           </div>
           <div class="alt-sutun">
             <h4 data-i18n="foot.help">Yardım</h4>
@@ -251,13 +234,13 @@
         </div>
         <div class="alt-son">
           <span>© 2026 Yılkı Games</span>
-          <span class="alt-baglantilar"><a href="/privacy.html">English</a></span>
+          <span><a href="/privacy.html">Privacy (EN)</a></span>
         </div>
       </div>
     </footer>
 
-    <script src="../metin.js"></script>
-    <script src="../arayuz.js"></script>
-    <script src="xoxd.js"></script>
+    <script src="/metin.js"></script>
+    <script src="/arayuz.js"></script>
+    <script src="/oyunlar/xoxd.js"></script>
   </body>
 </html>

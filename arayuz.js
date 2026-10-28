@@ -1,7 +1,7 @@
 /* ============================================================
    YILKI GAMES — arayüz davranışları
-   Üç iş: ipe bağlı dil değiştirici, kaydırınca beliren bölümler,
-   kaydırınca koyulaşan üst bar. Hepsi isteğe bağlı — ilgili düğüm
+   Dört iş: dil değiştirici, kaydırınca beliren paneller, kaydırınca
+   gölgelenen üst bar, hero'da dokununca patlayan ses efektleri. Hepsi isteğe bağlı — ilgili düğüm
    yoksa sessizce atlanıyor, aynı dosya her sayfaya konabiliyor.
    ============================================================ */
 
@@ -116,7 +116,11 @@
 
   var belirecekler = document.querySelectorAll(".beliriv");
 
-  if (belirecekler.length) {
+  /* Gizleme CSS'te yalnızca html.hareket varken devrede: betik hiç
+     çalışmazsa içerik zaten görünür kalıyor. */
+  var hareketAzalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (belirecekler.length && !hareketAzalt) {
     if (!("IntersectionObserver" in window)) {
       belirecekler.forEach(function (e) {
         e.classList.add("gorundu");
@@ -133,9 +137,18 @@
         },
         { rootMargin: "0px 0px -12% 0px", threshold: 0.06 }
       );
+      document.documentElement.classList.add("hareket");
       belirecekler.forEach(function (e) {
         gozcu.observe(e);
       });
+      /* Emniyet: gözcü bir sebeple tetiklenmezse 2,5 sn sonra ekrandaki
+         her şey görünür olsun — boş sayfa hiçbir koşulda kalmasın. */
+      setTimeout(function () {
+        belirecekler.forEach(function (e) {
+          var r = e.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) e.classList.add("gorundu");
+        });
+      }, 2500);
     }
   }
 
@@ -157,48 +170,47 @@
 })();
 
 /* ============================================================
-   HERO PARALLAKS
-   Katmanlar farklı hızda kayıyor. Kaydırma olayında değil,
-   requestAnimationFrame içinde çiziliyor — aksi hâlde her
-   kaydırma karesinde düzen yeniden hesaplanıyor ve mobilde
-   takılıyor.
+   SES EFEKTLERİ
+   Hero'da boş bir yere dokununca dokunulan noktada çizgi roman
+   patlaması beliriyor: "PAT!", "GÜM!"... Oyunlarımızın ilk kuralı
+   "her dokunuşa tepki" — site de buna uysun.
 
-   Hareketi azaltmayı seçmiş kullanıcılarda hiç çalışmıyor.
+   Bağlantı ve düğmelere dokunuş sayılmıyor; aynı anda en fazla
+   altı patlama ekranda kalıyor, eskisi siliniyor.
    ============================================================ */
 (function () {
   "use strict";
 
-  /* Telefonda parallaks hesabı hiç çalışmasın: CSS zaten katmanları
-     sabitliyor, burada da boşuna kare harcamayalım. */
-  var azalt =
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-    window.matchMedia("(max-width: 900px)").matches;
-  var katlar = document.querySelectorAll(".hero .kat");
-  if (azalt || !katlar.length) return;
+  var alan = document.getElementById("hero");
+  if (!alan) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var bekliyor = false;
+  var SESLER = ["PAT!", "GÜM!", "BAM!", "POW!", "ŞAK!", "ZING!", "VUŞ!", "KA-BUM!", "BİNG!", "ÇAT!"];
+  var RENKLER = ["", "kirmizi"];
+  var sira = 0;
+  var canli = [];
 
-  function ciz() {
-    bekliyor = false;
-    var y = window.scrollY;
-    if (y > window.innerHeight * 1.2) return; /* hero geçildiyse boşuna çizme */
-    for (var i = 0; i < katlar.length; i++) {
-      var hiz = parseFloat(katlar[i].dataset.hiz || "0");
-      katlar[i].style.transform =
-        "translateX(-50%) translate3d(0," + y * hiz + "px,0)";
-    }
-  }
+  alan.addEventListener("pointerdown", function (e) {
+    if (e.target.closest("a, button")) return;
 
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!bekliyor) {
-        bekliyor = true;
-        requestAnimationFrame(ciz);
-      }
-    },
-    { passive: true }
-  );
+    var kutu = alan.getBoundingClientRect();
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti " + RENKLER[sira % 2];
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = SESLER[Math.floor(Math.random() * SESLER.length)];
+    p.style.left = e.clientX - kutu.left + "px";
+    p.style.top = e.clientY - kutu.top + "px";
+    p.style.setProperty("--aci", Math.round(Math.random() * 40 - 20) + "deg");
+    p.style.setProperty("--boy", 100 + Math.round(Math.random() * 50) + "px");
+    sira++;
 
-  ciz();
+    alan.appendChild(p);
+    canli.push(p);
+    if (canli.length > 6) canli.shift().remove();
+    p.addEventListener("animationend", function () {
+      p.remove();
+      var i = canli.indexOf(p);
+      if (i > -1) canli.splice(i, 1);
+    });
+  });
 })();

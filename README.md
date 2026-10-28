@@ -1,58 +1,78 @@
 # yilkigames.com
 
 Yılkı Games'in tanıtım sitesi ve Google Play'in istediği yasal sayfalar.
-Statik HTML — derleme adımı ve dış bağımlılık yok. Dosyaları olduğu gibi
-sunmak yeterli.
+Statik HTML — derleme adımı ve dış bağımlılık yok (yazı tipleri de
+`fontlar/` içinde, Google'a istek gitmiyor). Dosyaları olduğu gibi sunmak
+yeterli.
 
 ```
-index.html      ana sayfa (oynanabilir tahta + oyunlar + stüdyo) — 10 dilli
-destek.html     destek / SSS / hesap silme — 10 dilli
-i18n.js         on dilin tüm metinleri + dil seçme mantığı
-site.js         hero'daki oynanabilir tahta, beliren bölümler, mobil menü
-gizlilik.html   gizlilik politikası (TR) — Play'e verilecek URL
-privacy.html    gizlilik politikası (EN)
-style.css       tek stil dosyası, hepsi bunu kullanıyor
-CNAME           GitHub Pages'in özel alan adı için okuduğu dosya
+index.html             ana sayfa — çizgi roman kapağı, oyunlar, atölye kuralları
+oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — galeri, kadro, modlar
+oyunlar/xoxd.html      XOXD sayfası + oynanabilir tahta (xoxd.js)
+destek.html            destek / SSS / hesap silme — 10 dilli
+gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
+privacy.html           gizlilik politikası (EN)
+kullanim-sartlari.html / terms.html          kullanım şartları
+sifre-sifirla.html / reset-password.html    Supabase şifre sıfırlama
+support.html           /destek.html'e yönlendirme
+metin.js               on dilin tüm metinleri
+arayuz.js              dil seçici, beliren paneller, üst bar, hero ses efektleri
+tasarim.css            tasarım sistemi — her sayfa bunu kullanıyor
+belge.css              uzun metin sayfalarına (gizlilik, şartlar, destek) ek
+fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde), woff2
+gorseller/inklash/     oyundan ekran görüntüleri ve dekupe karakterler (webp)
+CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
 
-## Hero'daki tahta
+## Tasarım dili (2026-10): çizgi roman
 
-Ziyaretçi hücrelere dokununca boş → X → O → boş diye döner; tamamlanan her
-**X-O-X** dizisi kırmızı yanar ve puan artar. Rakip yok, amaç oyunu oynatmak
-değil — XOXD'nin kuralını okumadan anlatmak. Mantığı `site.js` içinde,
-`DIZILER` sabiti 3×3 tahtadaki sekiz diziyi tutuyor.
+Eski doğa/yılkı atı teması bırakıldı. Kimlik artık stüdyonun oyunlarından
+geliyor: Inklash'ın kalın mürekkep hatları, sarı bant afişleri ve kırmızı
+kalem çizgisi, XOXD'nin siyah-kırmızısı. Site bir çizgi roman sayfası gibi:
 
-Kaydırınca beliren bölümler `.beliriv` sınıfıyla işaretli. Gizleme yalnızca
-`site.js` çalıştığında (`html.hareket`) devreye giriyor ve 2,5 saniyelik bir
-emniyet zamanlayıcısı var — betik yüklenmezse ya da IntersectionObserver
-çalışmazsa içerik yine görünür, hiçbir koşulda boş sayfa kalmaz.
+- **Renkler** `tasarim.css` başındaki `:root`'ta: kâğıt `#fff5dc`, mürekkep
+  `#121212`, sarı `#ffd638`, kırmızı `#e0332b`, mavi `#2f6bff`.
+- **Parçalar:** `.bant-baslik` (dönük sarı şerit + kırmızı kalem çizgisi),
+  `.balon` (konuşma balonu), `.patlama` (yıldız patlama, `--boy` ile
+  boyutlanır; uzun yazıda `.uzun` ekle), `.etiket` (anlatıcı kutusu),
+  `.kart` (panel), `.raster` (baskı noktası dokusu), `.dugme` (+ `.sari`,
+  `.beyaz`).
+- **Hero'ya dokununca** "PAT!", "GÜM!" gibi ses efektleri patlıyor
+  (`arayuz.js` sonundaki blok). Hareket azaltmayı seçenlerde kapalı.
+- **Inklash sayfası** zemini kareli defter kâğıdına çeviriyor (sayfanın
+  kendi `<style>` bloğu); oyunun ana menüsüyle aynı dil.
+- Eski adlı renk değişkenleri (`--yesil`, `--ak`, `--kart`...) şifre
+  sayfalarının satır içi stilleri için takma ad olarak duruyor.
+- Favicon'lar ve `gorseller/logo-kare.png` hâlâ eski yeşil at; yeni logo
+  çizilince aynı adlarla değiştirmek yeterli. Üst bardaki "YG" patlama
+  işareti her sayfada satır içi SVG.
+
+**Görsel ekleme:** oyundan yeni ekran görüntüsü koyarken iki boy üret:
+1280 px (`ad.webp`) ve 720 px (`ad-k.webp`), webp kalite ~78. Galerideki
+`data-buyuk` büyük olanı, `<img>` küçüğü gösteriyor.
+
+Kaydırınca beliren paneller `.beliriv` sınıfıyla işaretli. Gizleme yalnızca
+`arayuz.js` çalıştığında (`html.hareket`) devreye giriyor ve 2,5 saniyelik
+bir emniyet zamanlayıcısı var — betik yüklenmezse ya da
+IntersectionObserver çalışmazsa içerik yine görünür.
 
 ## Diller
 
 Site oyunla aynı on dili konuşuyor: **tr en es de fr it pt ru zh ja**.
 
-Dil şu sırayla belirlenir:
-
-1. `?lang=de` gibi bir adres parametresi — her şeyi ezer
-2. ziyaretçinin üst bardaki listeden yaptığı seçim (`localStorage`)
-3. **IP'den bulunan ülke** (`ULKE_DILI` tablosu)
-4. tarayıcı dili
-5. İngilizce
-
-Ülke, GeoJS ve ipwho.is servislerine aynı anda sorulur, ilk cevap veren
-kullanılır; 700 ms içinde ikisi de yetişmezse tarayıcı diline düşülür.
-Sonuç 7 gün önbelleğe alınır, her ziyarette sorgu atılmaz. Sayfa, dil
-oturana kadar gizli tutulur (`.on-yukleme`); HTML'deki satır içi betikteki
-1200 ms'lik zamanlayıcı, JS bozulursa sayfanın gizli kalmasını engeller.
-
-Ziyaretçi listeden dil seçmediyse `yg_lang` **yazılmaz** — yoksa sonradan
-değişen tercihini bir daha yakalayamayız.
+Dil şu sırayla belirlenir: ziyaretçinin listeden yaptığı seçim
+(`localStorage` → `yg-dil`), sonra tarayıcı dili, o da yoksa İngilizce.
 
 **Yeni metin eklerken:** HTML'e `data-i18n="anahtar"` koy (içinde etiket
-geçiyorsa `data-i18n-html`), sonra `i18n.js` içindeki on sözlüğe de karşılığını
-yaz. Bir dilde anahtar eksikse orada İngilizcesi görünür, sayfa bozulmaz.
-Sayfaya özel başlık/açıklama için `<body data-title="..." data-desc="...">`.
+geçiyorsa `data-i18n-html`), sonra `metin.js` içindeki on sözlüğe de
+karşılığını yaz. Ana sayfa anahtarları `a.`, Inklash sayfası `i.`, XOXD
+`x.` ile başlıyor. Bir dilde anahtar eksikse orada İngilizcesi görünür,
+sayfa bozulmaz. Sayfaya özel başlık/açıklama için
+`<body data-title="..." data-desc="...">`.
+
+Bangers yazı tipinde Kiril/Çince/Japonca harf yok; o dillerde başlıklar
+sistemin kalın yazısına düşüyor, bu bilerek kabul edildi.
 
 **Gizlilik sayfaları bilerek yalnızca TR ve EN.** Hukuki metnin on dile
 çevrilmesi sürümler arasında kayma riski taşıyor; sayfaların başında hangi
@@ -137,8 +157,8 @@ google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
 ## 4. E-posta
 
 Sitedeki tüm bağlantılar tek adrese yazıyor: **`info@yilkigames.com`**.
-Ayrı bir destek adresi açarsan `i18n.js`, `gizlilik.html`, `privacy.html` ve
-`index.html` içinde toplu değiştir.
+Ayrı bir destek adresi açarsan tüm `.html` dosyalarında ve `metin.js`
+içinde toplu değiştir.
 
 ---
 
@@ -185,4 +205,11 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
       `https://yilkigames.com/gizlilik.html` yap (şu an boş, DEVIR.md'de
       "doldurulmadan mağazaya gönderilemez" diye işaretli)
 - [ ] AdMob hesabı açılınca `app-ads.txt` ekle
-- [ ] Inklash yayına yaklaşınca ana sayfadaki rozetini güncelle
+- [ ] Inklash mağazaya çıkınca: `oyunlar/inklash.html` ve ana sayfadaki
+      "Çıkınca haber ver" (mailto) düğmelerini Play bağlantısıyla değiştir,
+      rozeti `badge.soon` → `badge.live` yap
+- [ ] XOXD sayfasındaki "Google Play'de indir" düğmesi
+      `play.google.com/store/apps/details?id=com.yilkigames.xoxd`'e gidiyor;
+      uygulama üretime çıkana kadar bu sayfa test kullanıcısı olmayanlara
+      açılmaz
+- [ ] Yeni logo çizilirse favicon'ları ve `logo-kare.png`'yi değiştir

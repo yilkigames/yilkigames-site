@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Inklash — Yılkı Games</title>
+    <meta
+      name="description"
+      content="Inklash: kara kalem arenalarda kare kare çizilmiş karikatür karakterlerin kapıştığı 2B mobil dövüş oyunu. Kombolar, aynı telefonda iki kişilik CO-OP, 14 karakterlik kadro. Yakında Android'de."
+    />
+    <meta name="theme-color" content="#ffd638" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="https://yilkigames.com/oyunlar/inklash.html" />
+    <link rel="preload" href="/fontlar/bangers-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Yılkı Games" />
+    <meta property="og:title" content="Inklash — yakında" />
+    <meta property="og:description" content="Kara kalem karikatür dövüş. Kombolar, aynı telefonda iki kişi, 14 karakterlik kadro." />
+    <meta property="og:url" content="https://yilkigames.com/oyunlar/inklash.html" />
+    <meta property="og:image" content="https://yilkigames.com/gorseller/inklash/vs_b.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Inklash",
+        "url": "https://yilkigames.com/oyunlar/inklash.html",
+        "image": "https://yilkigames.com/gorseller/inklash/vs_b.webp",
+        "description": "Kara kalem arenalarda kare kare çizilmiş karikatür karakterlerin kapıştığı 2B mobil dövüş oyunu.",
+        "genre": ["Fighting", "Action"],
+        "gamePlatform": "Android",
+        "playMode": ["SinglePlayer", "MultiPlayer"],
+        "publisher": {
+          "@type": "Organization",
+          "name": "Yılkı Games",
+          "url": "https://yilkigames.com/"
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="/tasarim.css" />
+    <style>
+      /* ============================================================
+         INKLASH'IN KENDİ KİMLİĞİ
+         Oyunun ana menüsü kareli defter sayfası; site de bu sayfada
+         deftere dönüyor. Sarı bant, kırmızı kalem ve siyah mürekkep
+         zaten stüdyo tasarımıyla ortak — yalnızca zemin değişiyor.
+         ============================================================ */
+      body {
+        background-color: #fbf8f0;
+        background-image: linear-gradient(rgba(70, 110, 160, 0.13) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(70, 110, 160, 0.13) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+
+      /* Defterin kırmızı kenar çizgisi */
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: max(10px, calc((100vw - 1200px) / 2 - 12px));
+        width: 2px;
+        background: rgba(224, 51, 43, 0.45);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ink-hero {
+        border-bottom: var(--cerceve);
+        background: transparent;
+      }
+
+      .ink-hero-ic {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 44px;
+        align-items: center;
+      }
+
+      .ink-hero h1 {
+        color: var(--murekkep);
+        -webkit-text-stroke: 0;
+        text-shadow: 7px 7px 0 var(--sari);
+        transform: rotate(-3deg);
+        transform-origin: left center;
+      }
+
+      .ink-hero .hero-alt {
+        font-size: clamp(18px, 1.8vw, 22px);
+        font-weight: 600;
+        max-width: 28em;
+        margin-bottom: 32px;
+      }
+
+      .vs-sahne {
+        position: relative;
+        padding: 20px 0 40px;
+      }
+
+      .vs-sahne .vs-panel {
+        border: 4px solid var(--murekkep);
+        box-shadow: 12px 12px 0 var(--murekkep);
+        transform: rotate(2deg);
+        background: var(--beyaz);
+      }
+
+      .vs-sahne .patlama {
+        position: absolute;
+        right: -18px;
+        top: -14px;
+        --boy: 150px;
+        transform: rotate(12deg);
+      }
+
+      .vs-sahne .bant-not {
+        position: absolute;
+        left: -16px;
+        bottom: 6px;
+        background: var(--sari);
+        border: var(--cerceve);
+        padding: 8px 16px 5px;
+        font-family: var(--cizgi-roman);
+        font-size: 24px;
+        letter-spacing: 0.05em;
+        transform: rotate(-4deg);
+        box-shadow: 5px 5px 0 var(--murekkep);
+      }
+
+      /* Nedir — iki sütun metin + ninja */
+      .nedir {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 50px;
+        align-items: center;
+      }
+
+      .nedir h2 {
+        margin-bottom: 40px;
+      }
+
+      .nedir-ninja {
+        position: relative;
+        justify-self: center;
+        max-width: 360px;
+      }
+
+      .nedir-ninja img {
+        filter: drop-shadow(8px 8px 0 rgba(18, 18, 18, 0.9));
+      }
+
+      .nedir-ninja .balon {
+        position: absolute;
+        right: -10px;
+        top: -24px;
+        transform: rotate(4deg);
+        max-width: 200px;
+      }
+
+      /* Özellik panelleri */
+      .ozellikler {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
+      }
+
+      .ozellik {
+        position: relative;
+        color: var(--murekkep);
+        background: var(--beyaz);
+        border: var(--cerceve);
+        box-shadow: var(--golge);
+        padding: 30px 24px 26px;
+      }
+
+      .ozellik:nth-child(3n + 1) {
+        transform: rotate(-1deg);
+      }
+
+      .ozellik:nth-child(3n + 2) {
+        transform: rotate(0.8deg) translateY(10px);
+      }
+
+      .ozellik .ikon {
+        width: 58px;
+        height: 58px;
+        display: grid;
+        place-items: center;
+        background: var(--sari);
+        border: var(--cerceve);
+        border-radius: 50%;
+        margin-bottom: 16px;
+        font-size: 28px;
+      }
+
+      .ozellik:nth-child(even) .ikon {
+        background: var(--kirmizi);
+      }
+
+      .ozellik h3 {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+
+      .ozellik p {
+        color: var(--murekkep-2);
+        font-size: 16px;
+      }
+
+      .ozellik .rozet {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+      }
+
+      /* Galeri — çizgi roman sayfası ızgarası */
+      .galeri {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 18px;
+      }
+
+      .galeri figure {
+        grid-column: span 2;
+        position: relative;
+        border: var(--cerceve);
+        background: var(--beyaz);
+        box-shadow: 5px 5px 0 var(--murekkep);
+        cursor: zoom-in;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .galeri figure:nth-child(1),
+      .galeri figure:nth-child(2) {
+        grid-column: span 3;
+      }
+
+      .galeri figure:hover {
+        transform: translate(-3px, -3px);
+        box-shadow: 9px 9px 0 var(--murekkep);
+      }
+
+      .galeri button {
+        display: block;
+        width: 100%;
+        border: 0;
+        padding: 0;
+        background: none;
+        cursor: zoom-in;
+      }
+
+      .galeri img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .galeri figcaption {
+        position: absolute;
+        left: -3px;
+        bottom: -3px;
+        background: var(--sari);
+        border: var(--cerceve);
+        padding: 4px 10px 3px;
+        font-weight: 800;
+        font-size: 13.5px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+
+      .galeri-not {
+        margin-top: 26px;
+        font-size: 14.5px;
+        color: var(--gri);
+      }
+
+      dialog.buyutec {
+        border: 4px solid var(--murekkep);
+        box-shadow: 12px 12px 0 var(--sari);
+        padding: 0;
+        max-width: min(1280px, 94vw);
+        width: 100%;
+        background: var(--beyaz);
+        margin: auto;
+      }
+
+      dialog.buyutec::backdrop {
+        background: rgba(18, 18, 18, 0.82);
+      }
+
+      dialog.buyutec img {
+        width: 100%;
+        height: auto;
+      }
+
+      dialog.buyutec p {
+        padding: 12px 18px;
+        font-weight: 700;
+        border-top: var(--cerceve);
+      }
+
+      dialog.buyutec .kapat {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 44px;
+        height: 44px;
+        border: var(--cerceve);
+        background: var(--sari);
+        font-size: 24px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      /* Kadro */
+      .kadro {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 14px;
+      }
+
+      .dovuscu {
+        position: relative;
+        background: var(--beyaz);
+        border: var(--cerceve);
+        box-shadow: 4px 4px 0 var(--murekkep);
+        aspect-ratio: 3 / 4;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+      }
+
+      .dovuscu.hazir {
+        grid-column: span 2;
+        grid-row: span 2;
+        background-image: repeating-conic-gradient(from 0deg at 50% 70%, rgba(255, 214, 56, 0.35) 0deg 6deg, transparent 6deg 15deg);
+      }
+
+      .dovuscu img {
+        position: absolute;
+        left: 50%;
+        bottom: 46px;
+        height: 76%;
+        width: auto;
+        max-width: none;
+        transform: translateX(-50%);
+        transition: transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+      }
+
+      .dovuscu.hazir:hover img {
+        transform: translateX(-50%) scale(1.06) rotate(-2deg);
+      }
+
+      .dovuscu .ad {
+        position: relative;
+        background: var(--murekkep);
+        color: var(--beyaz);
+        font-family: var(--cizgi-roman);
+        font-size: 24px;
+        letter-spacing: 0.05em;
+        text-align: center;
+        padding: 6px 6px 4px;
+      }
+
+      .dovuscu .ozel {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        background: var(--sari);
+        border: 2px solid var(--murekkep);
+        padding: 4px 8px;
+        line-height: 1.3;
+      }
+
+      .dovuscu.bos {
+        display: grid;
+        place-items: center;
+        background-color: var(--kagit);
+        background-image: radial-gradient(rgba(18, 18, 18, 0.14) 1.5px, transparent 1.8px);
+        background-size: 10px 10px;
+        box-shadow: none;
+        border-style: dashed;
+      }
+
+      .dovuscu.bos span {
+        font-family: var(--cizgi-roman);
+        font-size: 44px;
+        color: rgba(18, 18, 18, 0.4);
+      }
+
+      .kadro-not {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+        max-width: 760px;
+        font-size: 18px;
+      }
+
+      .kadro-sayac {
+        font-family: var(--cizgi-roman);
+        font-size: 64px;
+        line-height: 1;
+        color: var(--kirmizi);
+      }
+
+      /* Modlar */
+      .ink-modlar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 22px;
+      }
+
+      .ink-mod {
+        background: var(--beyaz);
+        color: var(--murekkep);
+        border: var(--cerceve);
+        padding: 24px 22px;
+        box-shadow: 6px 6px 0 var(--sari);
+      }
+
+      .ink-mod.kapali {
+        background: #2a2824;
+        color: #cfc8ba;
+        border-color: #cfc8ba;
+        border-style: dashed;
+        box-shadow: none;
+      }
+
+      .ink-mod h3 {
+        font-size: 32px;
+        margin: 12px 0 8px;
+      }
+
+      .ink-mod p {
+        font-size: 16px;
+      }
+
+      .ink-mod.kapali p {
+        color: #a39c8c;
+      }
+
+      /* Ne zaman? */
+      .ne-zaman {
+        text-align: center;
+      }
+
+      .ne-zaman p {
+        max-width: 36em;
+        margin: 28px auto 34px;
+        font-size: 19px;
+      }
+
+      @media (max-width: 1000px) {
+        .ink-hero-ic,
+        .nedir {
+          grid-template-columns: 1fr;
+        }
+        .ozellikler,
+        .ink-modlar {
+          grid-template-columns: 1fr 1fr;
+        }
+        .galeri figure,
+        .galeri figure:nth-child(1),
+        .galeri figure:nth-child(2) {
+          grid-column: span 3;
+        }
+        .kadro {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 760px) {
+        .ozellikler,
+        .ink-modlar {
+          grid-template-columns: 1fr;
+        }
+        .ozellik:nth-child(n) {
+          transform: none;
+        }
+        .galeri {
+          grid-template-columns: 1fr;
+        }
+        .galeri figure,
+        .galeri figure:nth-child(1),
+        .galeri figure:nth-child(2) {
+          grid-column: auto;
+        }
+        .kadro {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+        }
+        .dovuscu.hazir {
+          grid-column: span 3;
+          grid-row: auto;
+          aspect-ratio: 16 / 12;
+        }
+        .dovuscu.hazir img {
+          height: 64%;
+        }
+        .dovuscu .ad {
+          font-size: 22px;
+        }
+        .dovuscu.bos span {
+          font-size: 32px;
+        }
+        .vs-sahne .patlama {
+          --boy: 110px;
+          right: -6px;
+        }
+        .nedir-ninja {
+          max-width: 260px;
+        }
+        .nedir-ninja .balon {
+          right: -30px;
+        }
+        body::after {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body data-title="i.meta.title" data-desc="i.meta.desc">
+    <a class="atla" href="#icerik" data-i18n="a.skip">İçeriğe atla</a>
+
+    <header id="ust-bar">
+      <div class="sarmal ust">
+        <a class="marka" href="/" aria-label="Yılkı Games">
+          <svg class="marka-isaret" viewBox="0 0 100 100" aria-hidden="true">
+            <polygon fill="#121212" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
+            <polygon fill="#ffd638" transform="translate(50 50) scale(.84) translate(-50 -50)" points="50,0 59,22 79,8 74,31 98,30 80,47 100,62 76,66 86,89 63,78 54,100 44,79 22,94 27,70 2,72 18,54 0,38 24,34 14,11 37,21" />
+            <text x="50" y="63" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="36" fill="#121212">YG</text>
+          </svg>
+          <span>YILKI <b>GAMES</b></span>
+        </a>
+        <div class="ust-sag">
+          <nav aria-label="Ana menü">
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/oyunlar/inklash.html" aria-current="page">Inklash</a>
+            <a href="/#atolye" data-i18n="foot.studio">Stüdyo</a>
+            <a href="/destek.html" data-i18n="nav.support">Destek</a>
+          </nav>
+          <button type="button" class="dil-dugme" id="dil-dugme" aria-expanded="false" aria-haspopup="true" aria-label="Dil / Language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+            </svg>
+            <span id="dil-kod">TR</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="icerik">
+      <!-- ============================================================
+           HERO — defter sayfası, VS ekranı
+           ============================================================ -->
+      <div class="oyun-hero ink-hero">
+        <div class="sarmal ink-hero-ic">
+          <div>
+            <a class="geri" href="/#oyunlar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+              <span data-i18n="x.back">Tüm oyunlar</span>
+            </a>
+            <br />
+            <span class="etiket beliriv" data-i18n="i.eyebrow">Yakında · Android</span>
+            <h1 class="beliriv" style="--gecikme: 0.06s">Inklash</h1>
+            <p class="hero-alt beliriv" style="--gecikme: 0.12s" data-i18n="i.sub">
+              Kara kalem karikatür dövüş. Defterinin kenarına çizdiğin kavga
+              sonunda canlandı.
+            </p>
+            <div class="hero-dugmeler beliriv" style="--gecikme: 0.18s">
+              <a class="dugme" href="mailto:info@yilkigames.com?subject=Inklash%20-%20haber%20ver">
+                <span data-i18n="i.cta">Çıkınca haber ver</span>
+              </a>
+              <a class="dugme beyaz" href="#galeri">
+                <span data-i18n="i.cta2">Ekranlara bak</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="vs-sahne beliriv" style="--gecikme: 0.1s">
+            <img class="vs-panel" src="/gorseller/inklash/vs_b.webp" srcset="/gorseller/inklash/vs_b-k.webp 720w, /gorseller/inklash/vs_b.webp 1280w" sizes="(max-width: 1000px) 100vw, 620px" alt="Inklash VS ekranı: Amele Ninja ile Samara karşı karşıya, arena Dojo Avlusu" width="1280" height="720" fetchpriority="high" />
+            <span class="patlama kirmizi uzun" aria-hidden="true" data-i18n="a.burst.soon">ÇOK YAKINDA!</span>
+            <span class="bant-not" data-i18n="i.round">Raunt 1 — Dövüş!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================================
+           NEDİR
+           ============================================================ -->
+      <section>
+        <div class="sarmal nedir">
+          <div>
+            <h2 class="bant-baslik beliriv" data-i18n="i.what.title">Bu ne şimdi?</h2>
+            <p class="uzun-metin beliriv" data-i18n-html="i.what.p1">
+              Inklash, telefon için yapılmış <strong>2B bir dövüş oyunu</strong>.
+              Arenalar siyah beyaz mürekkeple, karakterler renkli karikatür
+              olarak elle çiziliyor — her hareket kare kare.
+            </p>
+            <p class="uzun-metin beliriv" data-i18n-html="i.what.p2">
+              Sol başparmak joystick'te; sağda yumruk, tekme, zıplama ve blok.
+              Doğru sırayla basınca <strong>kombo</strong> patlıyor. Kolay
+              başlıyor, derinleştikçe blok kırma, zamanlama ve özel hamleler
+              devreye giriyor.
+            </p>
+          </div>
+          <div class="nedir-ninja beliriv" style="--gecikme: 0.1s">
+            <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja, Inklash'ın kahramanı, gard almış" width="512" height="720" loading="lazy" />
+            <span class="balon sag" data-i18n="i.ninja.says">Bileğimi ısıttım bile!</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           ÖZELLİKLER
+           ============================================================ -->
+      <section class="koyu">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="bant-baslik beliriv" data-i18n="i.feat.title">Neler var?</h2>
+          </div>
+          <div class="ozellikler">
+            <article class="ozellik beliriv">
+              <div class="ikon" aria-hidden="true">✏️</div>
+              <h3 data-i18n="i.f1.t">Kare kare çizim</h3>
+              <p data-i18n="i.f1.d">Animasyonlar iskelet kuklası değil; her poz tek tek elle çizildi.</p>
+            </article>
+            <article class="ozellik beliriv" style="--gecikme: 0.06s">
+              <div class="ikon" aria-hidden="true">👊</div>
+              <h3 data-i18n="i.f2.t">Kombolar</h3>
+              <p data-i18n="i.f2.d">Ejderha Yumruğu, Rüzgâr Serisi, Yukarı Seri… Doğru sırayı bul, adı ekranda patlasın.</p>
+            </article>
+            <article class="ozellik beliriv" style="--gecikme: 0.12s">
+              <div class="ikon" aria-hidden="true">📱</div>
+              <h3 data-i18n="i.f3.t">CO-OP: tek telefon</h3>
+              <p data-i18n="i.f3.d">Ekran ikiye bölünür; arkadaşınla aynı telefonda karşı karşıya geçersin.</p>
+            </article>
+            <article class="ozellik beliriv">
+              <div class="ikon" aria-hidden="true">🤖</div>
+              <h3 data-i18n="i.f4.t">Bota karşı</h3>
+              <p data-i18n="i.f4.d">Kolay, orta, zor. Zor bot blok yapmayı da biliyor.</p>
+            </article>
+            <article class="ozellik beliriv" style="--gecikme: 0.06s">
+              <span class="rozet yakinda" data-i18n="badge.soon">Yakında</span>
+              <div class="ikon" aria-hidden="true">🌍</div>
+              <h3 data-i18n="i.f5.t">Online</h3>
+              <p data-i18n="i.f5.d">Aynı Wi-Fi'daki arkadaşınla ya da dünyanın öbür ucundaki rakiple eşleşme yolda.</p>
+            </article>
+            <article class="ozellik beliriv" style="--gecikme: 0.12s">
+              <div class="ikon" aria-hidden="true">🎭</div>
+              <h3 data-i18n="i.f6.t">Kostümler</h3>
+              <p data-i18n="i.f6.d">Her dövüşçünün kendi özel hamlesi ve en az bir kostümü olacak.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           GALERİ — gerçek oyun içi görüntüler
+           Görsellere dokununca büyütülmüş hâli bir <dialog>'da açılıyor
+           (inklash.js). Betik yoksa düğmeler sadece görsel kalıyor.
+           ============================================================ -->
+      <section id="galeri">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="bant-baslik beliriv" data-i18n="i.gal.title">Kareler</h2>
+            <span class="balon sag beliriv" data-i18n="i.gal.bubble">Büyütmek için dokun!</span>
+          </div>
+          <div class="galeri">
+            <figure class="beliriv">
+              <button type="button" data-buyuk="/gorseller/inklash/kombo2.webp"><img src="/gorseller/inklash/kombo2-k.webp" alt="Amele Ninja, Samara'ya Ejderha Yumruğu kombosu yapıyor" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g1">Ejderha Yumruğu</figcaption>
+            </figure>
+            <figure class="beliriv" style="--gecikme: 0.06s">
+              <button type="button" data-buyuk="/gorseller/inklash/coop_dovus.webp"><img src="/gorseller/inklash/coop_dovus-k.webp" alt="CO-OP modunda iki oyuncu aynı ekranda dövüşüyor" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g2">CO-OP: tek telefon, iki oyuncu</figcaption>
+            </figure>
+            <figure class="beliriv">
+              <button type="button" data-buyuk="/gorseller/inklash/kazandin_b.webp"><img src="/gorseller/inklash/kazandin_b-k.webp" alt="Raunt sonu KAZANDINIZ afişi" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g3">Raunt sonu</figcaption>
+            </figure>
+            <figure class="beliriv" style="--gecikme: 0.06s">
+              <button type="button" data-buyuk="/gorseller/inklash/kahramanlar.webp"><img src="/gorseller/inklash/kahramanlar-k.webp" alt="Kareli defter tasarımlı kahramanlar ekranı" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g4">Kahramanlar defteri</figcaption>
+            </figure>
+            <figure class="beliriv" style="--gecikme: 0.12s">
+              <button type="button" data-buyuk="/gorseller/inklash/secim_coop.webp"><img src="/gorseller/inklash/secim_coop-k.webp" alt="Dövüşçü seçim ekranı, iki oyunculu" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g5">Dövüşçünü seç</figcaption>
+            </figure>
+            <figure class="beliriv">
+              <button type="button" data-buyuk="/gorseller/inklash/mod_coop2.webp"><img src="/gorseller/inklash/mod_coop2-k.webp" alt="Mod seçim ekranı: Bota karşı, CO-OP, Online" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g6">Mod seçimi</figcaption>
+            </figure>
+            <figure class="beliriv" style="--gecikme: 0.06s">
+              <button type="button" data-buyuk="/gorseller/inklash/bot_mac.webp"><img src="/gorseller/inklash/bot_mac-k.webp" alt="Bota karşı maç: Yukarı Seri kombosu" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g7">Bota karşı</figcaption>
+            </figure>
+            <figure class="beliriv" style="--gecikme: 0.12s">
+              <button type="button" data-buyuk="/gorseller/inklash/vs_b.webp"><img src="/gorseller/inklash/vs_b-k.webp" alt="VS ekranı: Amele Ninja ve Samara" width="720" height="405" loading="lazy" /></button>
+              <figcaption data-i18n="i.g8">VS ekranı</figcaption>
+            </figure>
+          </div>
+          <p class="galeri-not" data-i18n="i.gal.note">Görüntüler geliştirme sürümünden alındı; çıkışa kadar değişebilir.</p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           KADRO — 14 dövüşçü planı
+           ============================================================ -->
+      <section class="raster" style="--nokta: rgba(18, 18, 18, 0.08)">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="bant-baslik beliriv" data-i18n="i.roster.title">Kadro</h2>
+          </div>
+          <div class="kadro-not beliriv">
+            <span class="kadro-sayac">3 / 14</span>
+            <p data-i18n="i.roster.p">Üçü ringde, on biri çizim masasında. Her dövüşçünün kendi özel hamlesi, kendi VS sahnesi ve en az bir kostümü olacak.</p>
+          </div>
+          <div class="kadro">
+            <article class="dovuscu hazir beliriv">
+              <span class="ozel" data-i18n="i.r1">Ağır yumruk, hızlı shuriken.</span>
+              <img src="/gorseller/inklash/ninja.webp" alt="" width="512" height="720" loading="lazy" />
+              <h3 class="ad">Amele Ninja</h3>
+            </article>
+            <article class="dovuscu hazir beliriv" style="--gecikme: 0.06s">
+              <span class="ozel" data-i18n="i.r2">Bıçağı var, sabrı yok.</span>
+              <img src="/gorseller/inklash/samara.webp" alt="" width="334" height="620" loading="lazy" />
+              <h3 class="ad">Samara</h3>
+            </article>
+            <article class="dovuscu hazir beliriv" style="--gecikme: 0.12s">
+              <span class="ozel" data-i18n="i.r3">Kırbacıyla rakibini kendine çeker.</span>
+              <img src="/gorseller/inklash/manyak.webp" alt="" width="307" height="620" loading="lazy" />
+              <h3 class="ad" data-i18n="i.r3.name">Kırbaç Manyağı</h3>
+            </article>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+            <div class="dovuscu bos" aria-hidden="true"><span>?</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           MODLAR
+           ============================================================ -->
+      <section class="koyu">
+        <div class="sarmal">
+          <div class="bolum-basi">
+            <h2 class="bant-baslik beliriv" data-i18n="i.modes.title">Modlar</h2>
+          </div>
+          <div class="ink-modlar">
+            <article class="ink-mod beliriv">
+              <span class="rozet canli" data-i18n="i.ready">Hazır</span>
+              <h3 data-i18n="i.m1.t">Bota karşı</h3>
+              <p data-i18n="i.m1.d">Üç zorluk seviyesi. Isınmak için kolay, ter atmak için zor.</p>
+            </article>
+            <article class="ink-mod beliriv" style="--gecikme: 0.06s">
+              <span class="rozet canli" data-i18n="i.ready">Hazır</span>
+              <h3>CO-OP</h3>
+              <p data-i18n="i.m2.d">İki arkadaş, tek telefon, bölünmüş ekran. Bahsi kaybeden çay ısmarlar.</p>
+            </article>
+            <article class="ink-mod kapali beliriv" style="--gecikme: 0.12s">
+              <span class="rozet yakinda" data-i18n="badge.soon">Yakında</span>
+              <h3>Online</h3>
+              <p data-i18n="i.m3.d">Yakındaki arkadaşınla aynı Wi-Fi'da ya da dünya eşleşmesinde.</p>
+            </article>
+            <article class="ink-mod kapali beliriv" style="--gecikme: 0.18s">
+              <span class="rozet yakinda" data-i18n="badge.soon">Yakında</span>
+              <h3 data-i18n="i.m4.t">Hikâye</h3>
+              <p data-i18n="i.m4.d">Defterin sayfalarında geçen bir macera. Şimdilik sır.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           NE ZAMAN? — mağaza bağlantısı yok, uydurmuyoruz
+           ============================================================ -->
+      <section class="ne-zaman">
+        <div class="sarmal">
+          <h2 class="bant-baslik beliriv" data-i18n="i.when.title">Ne zaman çıkıyor?</h2>
+          <p class="beliriv" data-i18n="i.when.p">Henüz bir tarih vermiyoruz. Önce Android'de, Google Play'de çıkacak. Haber almak istersen bir satır yaz; çıktığı gün ilk sen öğren.</p>
+          <a class="dugme beliriv" href="mailto:info@yilkigames.com?subject=Inklash%20-%20haber%20ver">
+            <span data-i18n="i.cta">Çıkınca haber ver</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="buyutec" id="buyutec" aria-label="Görsel">
+      <form method="dialog"><button class="kapat" aria-label="Kapat">×</button></form>
+      <img id="buyutec-img" src="" alt="" />
+      <p id="buyutec-yazi"></p>
+    </dialog>
+
+    <div class="dil-panel" id="dil-panel" role="menu" aria-labelledby="dil-dugme"></div>
+
+    <footer>
+      <div class="sarmal">
+        <div class="alt-ust">
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.studio">Stüdyo</h4>
+            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+            <a href="/oyunlar/inklash.html">Inklash</a>
+            <a href="/oyunlar/xoxd.html">XOXD</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.help">Yardım</h4>
+            <a href="/destek.html" data-i18n="nav.support">Destek</a>
+            <a href="mailto:info@yilkigames.com">info@yilkigames.com</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.join">Bize katıl</h4>
+            <a href="mailto:info@yilkigames.com?subject=Portfolyo" data-i18n="foot.portfolio">Portfolyo gönder</a>
+          </div>
+          <div class="alt-sutun">
+            <h4 data-i18n="foot.legal">Yasal</h4>
+            <a href="/gizlilik.html" data-i18n="foot.privacy">Gizlilik Politikası</a>
+            <a href="/kullanim-sartlari.html" data-i18n="foot.terms">Kullanım Şartları</a>
+          </div>
+        </div>
+        <div class="alt-son">
+          <span>© 2026 Yılkı Games</span>
+          <span><a href="/privacy.html">Privacy (EN)</a></span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/metin.js"></script>
+    <script src="/arayuz.js"></script>
+    <script>
+      /* Galeri büyüteci: düğmeye dokununca büyük görsel <dialog>'da.
+         Altyazı, o anki dildeki figcaption'dan okunuyor. */
+      (function () {
+        var d = document.getElementById("buyutec");
+        if (!d || !d.showModal) return;
+        var img = document.getElementById("buyutec-img");
+        var yazi = document.getElementById("buyutec-yazi");
+        document.querySelectorAll("[data-buyuk]").forEach(function (b) {
+          b.addEventListener("click", function () {
+            var kucuk = b.querySelector("img");
+            img.src = b.getAttribute("data-buyuk");
+            img.alt = kucuk.alt;
+            var cap = b.parentNode.querySelector("figcaption");
+            yazi.textContent = cap ? cap.textContent : "";
+            d.showModal();
+          });
+        });
+        d.addEventListener("click", function (e) {
+          if (e.target === d) d.close();
+        });
+      })();
+    </script>
+  </body>
+</html>
