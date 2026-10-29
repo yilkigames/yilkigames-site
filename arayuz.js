@@ -34,6 +34,13 @@
       if (m !== undefined) e.innerHTML = m;
     });
 
+    /* Yalnızca ekran okuyucuya giden etiketler (simge düğmeler) */
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (e) {
+      var a = e.getAttribute("data-i18n-aria");
+      var m = sozluk[a] !== undefined ? sozluk[a] : yedek[a];
+      if (m !== undefined) e.setAttribute("aria-label", m);
+    });
+
     /* Sayfa başlığı ve açıklaması da çevrilsin: <body> üzerindeki
        data-title / data-desc anahtarları buna yarıyor. */
     var g = document.body;
@@ -377,9 +384,7 @@
      8    3-2-1 geri sayım → tam ekran KA-BUM, karalama yağmuru,
           düğme eziliyor, "Söz dinlemez" damgası ve "Tamir et"
    "Tamir et" her şeyi başa sarıyor (kapak yine kapalı).
-
-   Toplam basış ve patlatma sayısı yalnızca bu tarayıcıda
-   (localStorage "yg-basma") — sunucuya hiçbir şey gitmiyor.
+   Hiçbir şey kaydedilmiyor, sunucuya gitmiyor.
    Mesajlar o anki dilde: METIN sözlüğünden a.press.*.
    ============================================================ */
 (function () {
@@ -391,7 +396,6 @@
   var kapak = document.getElementById("basma-kapak");
   var bolum = document.getElementById("basma");
   var mesaj = document.getElementById("basma-mesaj");
-  var sayac = document.getElementById("basma-sayac");
   var son = document.getElementById("basma-son");
   var tamir = document.getElementById("basma-tamir");
   var kabum = document.getElementById("kabum");
@@ -402,32 +406,10 @@
   var kez = 0;
   var kilit = false;
 
-  var kayit = { basis: 0, patlama: 0 };
-  try {
-    var k = JSON.parse(localStorage.getItem("yg-basma") || "{}");
-    kayit.basis = k.basis | 0;
-    kayit.patlama = k.patlama | 0;
-  } catch (e) {}
-
-  function sakla() {
-    try {
-      localStorage.setItem("yg-basma", JSON.stringify(kayit));
-    } catch (e) {}
-  }
-
   function metin(a) {
     var dil = document.documentElement.lang || "en";
     var s = (typeof METIN !== "undefined" && (METIN[dil] || {})[a]) || (typeof METIN !== "undefined" && (METIN.en || {})[a]);
     return s || "";
-  }
-
-  function sayacYaz() {
-    var s = kez ? metin("a.press.count").replace("{n}", kez) : "";
-    if (kayit.basis) {
-      var t = metin("a.press.total").replace("{t}", kayit.basis).replace("{k}", kayit.patlama);
-      s = s ? s + " · " + t : t;
-    }
-    sayac.textContent = s;
   }
 
   function sars(siddet) {
@@ -498,9 +480,6 @@
   dugme.addEventListener("click", function () {
     if (kilit || kez >= SINIR || !kutu.classList.contains("acik")) return;
     kez++;
-    kayit.basis++;
-    sakla();
-    sayacYaz();
 
     if (navigator.vibrate) navigator.vibrate(kez * 20);
 
@@ -539,8 +518,6 @@
   });
 
   function patla() {
-    kayit.patlama++;
-    sakla();
     kabumYazi.textContent = metin("a.press.boom") || "KA-BUM!";
     if (!azalt) {
       kabum.classList.remove("patladi");
@@ -556,7 +533,6 @@
     dugme.classList.add("ezik");
     dugme.setAttribute("aria-disabled", "true");
     mesaj.textContent = metin("a.press.m8");
-    sayacYaz();
     setTimeout(function () {
       son.hidden = false;
     }, azalt ? 0 : 700);
@@ -571,11 +547,9 @@
     dugme.tabIndex = -1;
     kutu.classList.remove("acik");
     mesaj.textContent = metin("a.press.fixed");
-    sayacYaz();
     kapak.focus({ preventScroll: true });
   });
 
-  sayacYaz();
 })();
 
 /* ============================================================
@@ -603,3 +577,129 @@
     });
   });
 })();
+
+/* ============================================================
+   DEFTER — sayfa çevirme
+   Sağ yaprak çevrilince arkasında Survive in Turkey, altında Bit
+   Pazarı çıkıyor. Görünmeyen yüzdeki bağlantılar sekme sırasından
+   ve ekran okuyucudan çıkarılıyor (inert). Telefonda sayfalar alt
+   alta dizildiği için çevirme düğmeleri CSS'te gizli.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var defter = document.getElementById("defter");
+  if (!defter) return;
+  var ileri = document.getElementById("cevir-ileri");
+  var geri = document.getElementById("cevir-geri");
+  var on = defter.querySelector(".yuz.on");
+  var arka = defter.querySelector(".yuz.arka");
+  var ink = defter.querySelector(".s-ink");
+  var bit = document.getElementById("sayfa-bit");
+  var dar = window.matchMedia("(max-width: 900px)");
+
+  function uygula() {
+    var cevrik = defter.classList.contains("cevrildi");
+    ileri.hidden = cevrik;
+    geri.hidden = !cevrik;
+    /* Telefonda dördü de görünüyor; kimse gizlenmesin */
+    var gizle = !dar.matches;
+    on.inert = gizle && cevrik;
+    ink.inert = gizle && cevrik;
+    arka.inert = gizle && !cevrik;
+    bit.inert = gizle && !cevrik;
+  }
+
+  function cevir(yon) {
+    defter.classList.toggle("cevrildi", yon);
+    uygula();
+    (yon ? geri : ileri).focus({ preventScroll: true });
+  }
+
+  ileri.addEventListener("click", function () {
+    cevir(true);
+  });
+  geri.addEventListener("click", function () {
+    cevir(false);
+  });
+  if (dar.addEventListener) dar.addEventListener("change", uygula);
+  uygula();
+})();
+
+/* ============================================================
+   SERSEM NİNJA
+   Ana sayfanın yazısız sahnesi: Amele Ninja oyundaki sersem
+   animasyonuyla sallanıyor. Dokununca bir tokat daha yiyor:
+   sarsılıyor, yıldızlar hızlanıyor, başının yanında "PAT!".
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var ninja = document.getElementById("sersem-ninja");
+  if (!ninja) return;
+  var SESLER = ["PAT!", "BONK!", "TOK!", "ŞAK!", "BAM!"];
+  var RENK = ["sari", "kirmizi", "mavi", ""];
+  var n = 0;
+
+  ninja.addEventListener("click", function () {
+    ninja.classList.remove("tokat");
+    void ninja.offsetWidth;
+    ninja.classList.add("tokat");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti " + RENK[n % RENK.length];
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = SESLER[n % SESLER.length];
+    p.style.left = (n % 2 ? 78 : 22) + "%";
+    p.style.top = "22%";
+    p.style.setProperty("--aci", (n % 2 ? 14 : -14) + "deg");
+    p.style.setProperty("--boy", "120px");
+    ninja.appendChild(p);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
+    n++;
+  });
+})();
+
+/* ============================================================
+   INKLASH NİNJASI
+   Inklash sayfasında Amele Ninja gard alıp bekliyor (6 karelik
+   bekleme döngüsü). Dokununca oyundaki ileri yumruğu atıyor,
+   bitince yine gard. Kareler gorseller/inklash/ninja-*.webp şeritleri.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var ninja = document.getElementById("ink-ninja");
+  if (!ninja) return;
+  var sprite = ninja.querySelector(".sprite");
+  var kilit = false;
+
+  ninja.addEventListener("click", function () {
+    if (kilit) return;
+    kilit = true;
+    sprite.classList.remove("bekle");
+    sprite.classList.add("yumruk");
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti sari";
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = "POW!";
+    p.style.left = "86%";
+    p.style.top = "40%";
+    p.style.setProperty("--aci", "12deg");
+    p.style.setProperty("--boy", "110px");
+    setTimeout(function () {
+      ninja.appendChild(p);
+    }, 220);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
+    setTimeout(function () {
+      sprite.classList.remove("yumruk");
+      sprite.classList.add("bekle");
+      kilit = false;
+    }, 470);
+  });
+})()
+;

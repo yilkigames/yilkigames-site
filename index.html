@@ -292,7 +292,6 @@
             </div>
           </div>
         </div>
-        <span class="dokun-not" data-i18n="a.tap">Çizimlere dokun</span>
       </div>
 
       <!-- Çapraz iki şerit. İçerik iki kez yazılıyor: yarısı kayınca
@@ -333,26 +332,23 @@
       </div>
 
       <!-- ============================================================
-           OYUNLAR — kısa ve genel: iki panel, altında atölyedekiler
-           ============================================================ -->
-      <!-- ============================================================
-           OYUNLAR — vitrin: masaya açılmış spiralli bir defter
+           OYUNLAR — vitrin: masaya açılmış spiralli defter
            Inklash'ın ana menüsü de kareli defter; vitrin oradan geliyor.
-           Sol sayfa Inklash (Amele Ninja panelden taşıyor), sağ sayfa
-           XOXD (bantlı polaroid). Mavi tükenmez notları, sarı ve mavi
-           maskeleme bantları; altta atölyedekiler yapışkan not olarak.
+           İlk açılış: Inklash | XOXD. Sağ yaprak çevrilince arkasında
+           Survive in Turkey, altında Bit Pazarı Simulator (arayuz.js →
+           DEFTER). Telefonda dört sayfa alt alta, çevirme yok.
            ============================================================ -->
       <section id="oyunlar" class="vitrin">
         <div class="sarmal">
           <div class="bolum-basi">
             <h2 class="bant-baslik beliriv" data-i18n="nav.games">Oyunlar</h2>
-            <span class="balon sag beliriv" data-i18n="a.games.note">Dört sayı, tek stüdyo.</span>
           </div>
 
-          <div class="defter beliriv">
+          <div class="defter beliriv" id="defter">
             <span class="spiral" aria-hidden="true"></span>
 
-            <a class="sayfa sol" href="/oyunlar/inklash.html">
+            <!-- 1. sayfa (sol, sabit) -->
+            <a class="sayfa sol s-ink" href="/oyunlar/inklash.html">
               <span class="bant sari" aria-hidden="true"></span>
               <span class="sayfa-no" aria-hidden="true">No. 01</span>
               <div class="ninja-pano">
@@ -364,13 +360,7 @@
                 <span class="rozet yakinda" data-i18n="badge.soon">Yakında</span>
                 <span class="platform">Android</span>
               </div>
-              <h3 class="el-baslik">
-                Inklash
-                <span class="tukenmez not-ink" aria-hidden="true">
-                  <svg viewBox="0 0 60 40"><path d="M56 6 C40 4 22 10 12 28 M12 28 L10 16 M12 28 L23 25" /></svg>
-                  <span data-i18n="a.v.note1">kare kare elle çizildi!</span>
-                </span>
-              </h3>
+              <h3 class="el-baslik">Inklash</h3>
               <p data-i18n="a.ink.desc">Elle çizilmiş karikatür kahramanların kapıştığı hızlı bir dövüş oyunu.</p>
               <span class="kart-bag">
                 <span data-i18n="a.cta2">Inklash'ı tanı</span>
@@ -378,46 +368,68 @@
               </span>
             </a>
 
-            <a class="sayfa sag" href="/oyunlar/xoxd.html">
-              <span class="bant mavi" aria-hidden="true"></span>
-              <span class="sayfa-no" aria-hidden="true">No. 02</span>
+            <!-- 4. sayfa (sağ, yaprağın altında) -->
+            <div class="sayfa sag s-bit" id="sayfa-bit">
+              <span class="sayfa-no" aria-hidden="true">No. 04</span>
+              <span class="insaat-bandi" aria-hidden="true"></span>
               <figure class="polaroid">
-                <span class="bant sari kucuk" aria-hidden="true"></span>
-                <img src="/gorseller/xoxd-kapak.webp" alt="XOXD kapak görseli: siyah zemin üstünde X ve O'lar" width="1400" height="763" loading="lazy" />
-                <span class="damga" data-i18n="badge.test">Kapalı test</span>
+                <span class="bant mavi kucuk" aria-hidden="true"></span>
+                <img src="/gorseller/bitpazari-insaat.webp" alt="Yapım alanı: iskele kurulmuş dev bir oyun kartuşu, yarım kalmış bit pazarı tezgâhı, vinç ve trafik konileri" width="1000" height="565" loading="lazy" />
               </figure>
-              <svg class="cizim kenar-eskiz" aria-hidden="true"><use href="#c-tahta" /></svg>
               <div class="sayfa-ust">
-                <span class="rozet test" data-i18n="badge.test">Kapalı test</span>
-                <span class="platform">Android</span>
+                <span class="rozet insaat" data-i18n="a.wip">Çizim masasında</span>
+                <span class="platform">PC</span>
               </div>
-              <h3 class="el-baslik">
-                XOXD
-                <span class="tukenmez not-xoxd" aria-hidden="true">
-                  <svg viewBox="0 0 60 40"><path d="M4 8 C20 4 40 12 48 30 M48 30 L50 18 M48 30 L37 26" /></svg>
-                  <span data-i18n="a.v.note2">iki sembol de senin!</span>
-                </span>
-              </h3>
-              <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, bilmediğin bir kural. Şu an kapalı testte, yakında herkese açık.</p>
-              <span class="kart-bag">
-                <span data-i18n="xoxd.link">Oyunu incele</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </span>
-            </a>
-          </div>
+              <h3 class="el-baslik">Bit Pazarı <small lang="en">Simulator</small></h3>
+              <p data-i18n="a.bit.desc">Al, sat, pazarlık et. Tezgâhı hâlâ kuruyoruz; baretini al gel.</p>
+            </div>
 
-          <div class="masa">
-            <span class="atolye-baslik beliriv" data-i18n="a.wip">Çizim masasında</span>
-            <div class="yapiskan sari beliriv">
-              <svg class="cizim" aria-hidden="true"><use href="#c-cay" /></svg>
-              <b>Survive in Turkey</b>
-              <span data-i18n="survive.genre">Hayat simülasyonu</span>
+            <!-- Çevrilen yaprak: önü 2. sayfa, arkası 3. sayfa -->
+            <div class="yaprak" id="yaprak">
+              <a class="sayfa sag yuz on s-xoxd" href="/oyunlar/xoxd.html">
+                <span class="bant mavi" aria-hidden="true"></span>
+                <span class="sayfa-no" aria-hidden="true">No. 02</span>
+                <figure class="polaroid">
+                  <span class="bant sari kucuk" aria-hidden="true"></span>
+                  <img src="/gorseller/xoxd-kapak.webp" alt="XOXD kapak görseli: siyah zemin üstünde X ve O'lar" width="1400" height="763" loading="lazy" />
+                  <span class="damga" data-i18n="badge.test">Kapalı test</span>
+                </figure>
+                <svg class="cizim kenar-eskiz" aria-hidden="true"><use href="#c-tahta" /></svg>
+                <div class="sayfa-ust">
+                  <span class="rozet test" data-i18n="badge.test">Kapalı test</span>
+                  <span class="platform">Android</span>
+                </div>
+                <h3 class="el-baslik">XOXD</h3>
+                <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, bilmediğin bir kural. Şu an kapalı testte, yakında herkese açık.</p>
+                <span class="kart-bag">
+                  <span data-i18n="xoxd.link">Oyunu incele</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </span>
+              </a>
+
+              <div class="sayfa sol yuz arka s-sit">
+                <span class="bant sari" aria-hidden="true"></span>
+                <span class="sayfa-no" aria-hidden="true">No. 03</span>
+                <figure class="polaroid">
+                  <span class="bant mavi kucuk" aria-hidden="true"></span>
+                  <img src="/gorseller/survive-kapak.webp" alt="Survive in Turkey kapak görseli: uçuşan paraların altında cepleri boş üç adam" width="1400" height="780" loading="lazy" />
+                </figure>
+                <svg class="cizim kenar-eskiz" aria-hidden="true"><use href="#c-cay" /></svg>
+                <div class="sayfa-ust">
+                  <span class="rozet insaat" data-i18n="a.wip">Çizim masasında</span>
+                  <span class="platform">Android</span>
+                </div>
+                <h3 class="el-baslik" lang="en">Survive <small>in Turkey</small></h3>
+                <p data-i18n="a.sit.desc">Kira, fatura, zam, kuyruk: Türkiye'de bir hayatı ayakta tutmaya çalış.</p>
+              </div>
             </div>
-            <div class="yapiskan mavi beliriv" style="--gecikme: 0.08s">
-              <svg class="cizim" aria-hidden="true"><use href="#c-gramofon" /></svg>
-              <b>Bit Pazarı Simulator</b>
-              <span data-i18n="bit.genre">Ticaret simülasyonu</span>
-            </div>
+
+            <button type="button" class="cevir ileri" id="cevir-ileri" data-i18n-aria="a.flip.next" aria-label="Sayfayı çevir" aria-controls="yaprak">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            </button>
+            <button type="button" class="cevir geri" id="cevir-geri" data-i18n-aria="a.flip.prev" aria-label="Geri çevir" aria-controls="yaprak" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+            </button>
           </div>
         </div>
       </section>
@@ -426,8 +438,7 @@
            BASMA — kırmızı düğme, ikinci sürüm
            Koruma kapağı → sekiz kademe: sarsıntı, alarm, çatlak, son
            uyarı, geri sayım, KA-BUM. Patlayınca "Söz dinlemez" damgası
-           ve "Tamir et" çıkıyor. Toplam basış yalnızca bu tarayıcıda
-           tutuluyor; hiçbir şey sunucuya gitmiyor.
+           ve "Tamir et" çıkıyor. Hiçbir şey hiçbir yere kaydedilmiyor.
            ============================================================ -->
       <section class="basma yirtik" id="basma" aria-labelledby="basma-baslik">
         <div class="sarmal">
@@ -443,7 +454,6 @@
             <button type="button" class="kapak" id="basma-kapak" data-i18n="a.press.lift">Kapağı kaldır</button>
           </div>
           <p class="basma-mesaj" id="basma-mesaj" aria-live="polite"></p>
-          <p class="basma-sayac" id="basma-sayac"></p>
           <div class="basma-son" id="basma-son" hidden>
             <span class="damga" data-i18n="a.press.badge">Söz dinlemez</span>
             <button type="button" class="dugme gece" id="basma-tamir" data-i18n="a.press.fix">Tamir et</button>
@@ -452,32 +462,33 @@
       </section>
 
       <!-- ============================================================
-           ATÖLYE KURALLARI — stüdyonun nasıl çalıştığı
+           SERSEM SAHNE — yazısız bir mola
+           Az önce dayak yemiş Amele Ninja sallanıyor (oyundaki sersem
+           animasyonu, 6 kare). Başının üstünde yıldızlar ve kuşlar
+           dönüyor, yerde kavganın döküntüsü. Ninjaya dokununca
+           tokat yemiş gibi sarsılıp "PAT!" diyor (arayuz.js → SERSEM).
            ============================================================ -->
-      <section id="atolye" class="atolye-bolum yirtik">
-        <div class="sarmal">
-          <div class="bolum-basi">
-            <h2 class="bant-baslik beliriv" data-i18n="a.rules.title">Atölye kuralları</h2>
-            <span class="balon sag beliriv" data-i18n="a.rules.note">Her oyun bu dört kuraldan geçer.</span>
+      <section id="atolye" class="sersem-sahne" aria-label="Amele Ninja">
+        <div class="sersem-ic">
+          <div class="sersem-pano" aria-hidden="true">
+            <svg class="cizim d-shuriken" viewBox="0 0 100 100"><path d="M50 6 L58 42 L94 50 L58 58 L50 94 L42 58 L6 50 L42 42 Z" fill="#c9c3b6" stroke="currentColor" stroke-width="4" stroke-linejoin="round" /><circle cx="50" cy="50" r="7" fill="#0e0d0c" stroke="currentColor" stroke-width="3" /></svg>
+            <svg class="cizim d-kilic" viewBox="0 0 160 60"><path d="M8 40 C40 34 70 34 92 30 L116 14 L122 20 L100 36 C76 42 44 46 10 48 Z" fill="#e6e1d6" stroke="currentColor" stroke-width="4" stroke-linejoin="round" /><path d="M96 24 L112 44 M100 36 L130 40 L150 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" /><path d="M130 40 L150 48" stroke="#ff3b2f" stroke-width="8" stroke-linecap="round" /></svg>
+            <svg class="cizim d-parsomen" viewBox="0 0 140 80"><path d="M20 18 H120 V62 H20 Z" fill="#f6f1e7" stroke="currentColor" stroke-width="4" /><ellipse cx="20" cy="40" rx="9" ry="24" fill="#e2dbcb" stroke="currentColor" stroke-width="4" /><ellipse cx="120" cy="40" rx="9" ry="24" fill="#e2dbcb" stroke="currentColor" stroke-width="4" /><path d="M58 62 L62 76 L68 66 L74 76 L76 62" fill="#ff3b2f" stroke="currentColor" stroke-width="3" stroke-linejoin="round" /></svg>
+            <svg class="cizim d-toz" viewBox="0 0 200 60"><path d="M10 50 C14 34 34 30 42 40 C46 24 70 22 78 36 C86 22 112 24 116 40 C126 28 150 30 152 44 C166 36 186 42 190 52 Z" fill="rgba(241,236,226,0.12)" stroke="currentColor" stroke-width="3" stroke-linejoin="round" /></svg>
+            <svg class="cizim d-sandalet" viewBox="0 0 100 60"><path d="M10 40 C10 28 30 24 52 26 C74 28 92 32 90 42 C88 50 70 50 50 48 C30 46 10 50 10 40 Z" fill="#8a5a3a" stroke="currentColor" stroke-width="4" /><path d="M40 27 L48 40 L60 28" fill="none" stroke="#ff3b2f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </div>
-          <ol class="kurallar">
-            <li class="beliriv">
-              <h3 data-i18n="a.r1.t">Bir dakikada öğren</h3>
-              <p data-i18n="a.r1.d">Kuralı anlatmak için kılavuz gerekiyorsa kural yanlıştır.</p>
-            </li>
-            <li class="beliriv" style="--gecikme: 0.06s">
-              <h3 data-i18n="a.r2.t">Her dokunuşa tepki</h3>
-              <p data-i18n="a.r2.d">Bir tuşa bastığında ekran sana cevap vermeli: PAT, GÜM, puan, kahkaha.</p>
-            </li>
-            <li class="beliriv" style="--gecikme: 0.12s">
-              <h3 data-i18n="a.r3.t">Elle çiz</h3>
-              <p data-i18n="a.r3.d">Karakterlerimiz kalemle, kare kare çiziliyor. Kusurları da bizim.</p>
-            </li>
-            <li class="beliriv" style="--gecikme: 0.18s">
-              <h3 data-i18n="a.r4.t">Herkes için, her dilde</h3>
-              <p data-i18n="a.r4.d">Oyunlarımız on dil konuşuyor. Telefonu olan herkes oynayabilmeli.</p>
-            </li>
-          </ol>
+
+          <button type="button" class="sersem-ninja" id="sersem-ninja" aria-label="Amele Ninja">
+            <span class="kuslar" aria-hidden="true">
+              <span class="yorunge">
+                <svg class="cizim k1" viewBox="0 0 100 100"><use href="#c-parilti" /></svg>
+                <svg class="cizim k2" viewBox="0 0 60 40"><path d="M6 24 C14 10 24 12 30 22 C36 12 46 10 54 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" /><circle cx="30" cy="24" r="5" fill="#ffd23f" stroke="currentColor" stroke-width="2.5" /></svg>
+                <svg class="cizim k3" viewBox="0 0 100 100"><use href="#c-parilti" /></svg>
+                <svg class="cizim k4" viewBox="0 0 60 40"><path d="M6 24 C14 10 24 12 30 22 C36 12 46 10 54 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" /><circle cx="30" cy="24" r="5" fill="#2f5bff" stroke="currentColor" stroke-width="2.5" /></svg>
+              </span>
+            </span>
+            <span class="sprite sersem" aria-hidden="true"></span>
+          </button>
         </div>
       </section>
 

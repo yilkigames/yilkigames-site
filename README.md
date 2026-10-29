@@ -6,9 +6,9 @@ Statik HTML — derleme adımı ve dış bağımlılık yok (yazı tipleri de
 yeterli.
 
 ```
-index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA düğmesi, atölye kuralları
+index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA düğmesi, sersem ninja sahnesi
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
-oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — kısa bilgi
+oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 panelli hikâye, 2 oyun karesi
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
@@ -17,12 +17,16 @@ kullanim-sartlari.html / terms.html          kullanım şartları
 sifre-sifirla.html / reset-password.html    Supabase şifre sıfırlama
 support.html           /destek.html'e yönlendirme
 metin.js               on dilin tüm metinleri
-arayuz.js              dil seçici, beliren paneller, üst bar, karalamalar, ses efektleri, BASMA, kart eğimi
+arayuz.js              dil seçici, beliren paneller, üst bar, karalamalar, ses efektleri, BASMA,
+                       defter eğimi ve sayfa çevirme, sersem ninja, Inklash ninjası
 tasarim.css            tasarım sistemi — her sayfa bunu kullanıyor
 belge.css              uzun metin sayfalarına (gizlilik, şartlar, destek) ek
 fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde) + Space Grotesk (yalnız XOXD), woff2
 gorseller/logo.svg     stüdyo logosu (vektör)
 gorseller/inklash/     ninja.webp — dekupe Amele Ninja
+                       ninja-sersem/bekle/yumruk.webp — oyunun 6 karelik animasyon şeritleri
+                       hikaye-*.webp — hikâye panelleri (Canva), oyun-*.webp — iki oyun içi kare
+gorseller/bitpazari-insaat.webp, survive-kapak.webp, xoxd-kapak.webp — vitrin görselleri
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
@@ -40,8 +44,9 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   paneller `#1a1816` / `#27241f`, kemik `#f1ece2`, kırmızı `#ff3b2f`.
   Açık paneller için `--beyaz` `#f6f1e7`. Ara renkler `--sari` `#ffd23f`
   ve `--mavi` `#2f5bff` yalnızca detayda: maskeleme bantları, tükenmez
-  notları, yapışkan notlar, bazı patlamalar, yanlış baskının ikinci kalıbı,
-  3. ve 4. atölye kuralı. Büyük alanlara sarı/mavi verme.
+  notları, inşaat bandı, çevirme düğmeleri, hikâyenin anlatıcı kutuları,
+  bazı patlamalar, yanlış baskının ikinci kalıbı. Büyük alanlara sarı/mavi
+  verme.
 - **Logo:** kırmızı yılkı atı kafası. Canva'da üretildi, `vtracer` ile
   vektöre çevrildi → `gorseller/logo.svg` (üst bar ve SVG favicon).
   `favicon.ico`, `favicon-48/96.png`, `apple-touch-icon.png` ve
@@ -56,14 +61,24 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   sarı ya da mavi düşüyor.
 - **Oyun vitrini:** masaya açılmış spiralli defter (Inklash'ın menüsü de
   kareli defter). Kemik kâğıt, soluk mavi kareler, kırmızı kenar çizgisi.
-  Sol sayfa Inklash: Amele Ninja kırmızı panelin üstünden taşıyor. Sağ
-  sayfa XOXD: bantlı polaroid. Başlıkların yanında mavi tükenmez notları,
-  altta atölyedekiler raptiyeli yapışkan not. Defter fareyle hafifçe yatıyor,
-  sayfa köşeleri kıvrılıyor; telefonda sayfalar alt alta.
+  Dört oyun tek defterde: ilk açılış Inklash (Amele Ninja kırmızı panelden
+  taşıyor) | XOXD (bantlı polaroid). Sağ alttaki sarı düğme sağ yaprağı
+  3B çeviriyor: arkasında Survive in Turkey, altında Bit Pazarı (Canva'da
+  çizilmiş "oyun inşaatı" görseli, köşesinde sarı-siyah bant). Görünmeyen
+  sayfalar `inert`. Defter fareyle hafifçe yatıyor; telefonda dört sayfa
+  alt alta, çevirme yok.
+- **Sersem sahne (eski atölye kuralları):** yazısız. Oyunun sersem
+  animasyonuyla sallanan Amele Ninja, başında dönen yıldız ve kuşlar,
+  yerde kavga döküntüsü. Dokununca tokat yiyip "PAT!" diyor.
+- **Kare animasyonu:** `.sprite` + `.sersem` / `.bekle` / `.yumruk`.
+  Şeritler `Documents/inklash/karakterler/amele/kareler` karelerinden,
+  ortak ölçekle ve sol-alt hizayla (oyundaki ayak çapası) üretildi.
+  Tek seferlik animasyon ayrı keyframe adı kullanmalı (`kare6-tek`);
+  aynı adla tarayıcı sonsuz döngüyü sürdürüp yumruğu hiç oynatmıyor.
 - **Parçalar:** `.bant-baslik` (dönük kırmızı şerit, sarı kalem çizgisi), `.balon`,
   `.patlama` (`--boy` ile boyutlanır; `.kirmizi`, `.kara`, `.sari`, `.mavi`, uzun yazıda
   `.uzun`), `.damga`, `.etiket`, `.raster`, `.dugme` (+ `.gece`), `.bant`
-  (maskeleme bandı), `.yapiskan`, `.tukenmez`.
+  (maskeleme bandı), `.polaroid`, `.insaat-bandi`, `.cevir`.
 - **Marjinal kısımlar** (hepsi `arayuz.js`'te, hareket azaltmayı
   seçenlerde sessiz):
   - girişte karalamalar her açılışta rastgele diziliyor; masaüstünde
@@ -73,13 +88,19 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   - "BASMA" düğmesi: önce koruma kapağı, sonra sekiz kademe — sarsıntı
     ve düğmeden fırlayan karalamalar, 4'te alarm ve siren, 5-6'da çatlak,
     7'de son uyarı, 8'de 3-2-1 ve tam ekran KA-BUM. Ardından "Söz
-    dinlemez" damgası ve "Tamir et". Toplam basış/patlama yalnızca
-    tarayıcıda (`localStorage` `yg-basma`). Metinler `a.press.*`;
+    dinlemez" damgası ve "Tamir et". Sayaç yok, hiçbir şey kaydedilmiyor.
+    Metinler `a.press.*`;
   - logo üstüne gelince sallanıyor;
   - alt bilginin dibinde kesik, kaymış baskılı dev "YILKI GAMES".
-- **Oyun içerikleri bilerek kısa.** Oyun içi ekran görüntüsü yok. Amele
-  Ninja (`gorseller/inklash/ninja.webp`) yalnızca vitrinde ve Inklash
-  sayfasında — girişte ve başka yerlerde kullanılmıyor.
+- **Oyun içerikleri bilerek kısa.** Ana sayfada oyun içi ekran görüntüsü
+  yok; Inklash sayfasında yalnızca iki kare var (fazlasını koyma). Amele
+  Ninja vitrinde, sersem sahnede ve Inklash sayfasında; girişte yok.
+- **Inklash hikâyesi:** sakar bir ninja ustası son nefesinde öğrencisine
+  boş bir parşömen verip "dünyanın en güçlü dövüşçüsüne götür" diyor;
+  Amele Ninja yola çıkıyor. Dört panel: 1-2 Canva çizimi, 3-4 oyunun kendi
+  kareleri. Metinler `i.s1`–`i.s4`.
+- Sayfalarda küçük açıklama yazıları (balon notları, "çizimlere dokun",
+  sayaç) bilerek yok; kullanıcı istemedi.
 - **XOXD sayfası oyunun kendi dilinde:** üst bar ve alt bilgi siteninki,
   arası sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu
   `#d9262a` (oyundaki renkler). Çizgi roman efekti ve gren yok; demo

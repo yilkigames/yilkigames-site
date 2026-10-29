@@ -44,13 +44,15 @@
       }
     </script>
 
+    <link rel="preload" href="/gorseller/inklash/ninja-bekle.webp" as="image" />
+    <link rel="preload" href="/gorseller/inklash/ninja-yumruk.webp" as="image" />
     <link rel="stylesheet" href="/tasarim.css" />
     <style>
       /* ============================================================
          INKLASH'IN KENDİ KİMLİĞİ
          Oyunun ana menüsü kareli defter sayfası; site bu sayfada
-         gece defterine dönüyor. Madde kartları defterden koparılmış
-         açık sayfalar. Renkler stüdyo paletinden.
+         gece defterine dönüyor. Hikâye çizgi roman şeridi olarak
+         anlatılıyor: açık kâğıt paneller, sarı anlatıcı kutuları.
          ============================================================ */
       body {
         background-color: var(--murekkep);
@@ -71,18 +73,19 @@
         transform-origin: left center;
       }
 
+      /* Sağda canlı Amele Ninja: gard alıp bekliyor, dokununca yumruk */
       .ninja-kutu {
         position: relative;
-        max-width: 400px;
+        max-width: 420px;
         width: 100%;
         justify-self: center;
-        padding-top: 40px;
+        padding-top: 50px;
       }
 
       .ninja-kutu::before {
         content: "";
         position: absolute;
-        inset: 18% -4% 2% 6%;
+        inset: 22% -4% 2% 2%;
         background-color: var(--kirmizi);
         background-image: repeating-conic-gradient(from 0deg at 50% 60%, rgba(255, 255, 255, 0.16) 0deg 5deg, transparent 5deg 14deg);
         border: 4px solid var(--murekkep);
@@ -90,12 +93,23 @@
         transform: rotate(-3deg);
       }
 
-      .ninja-kutu img {
+      #ink-ninja {
+        --boy: 400px;
         position: relative;
-        width: 86%;
-        margin: 0 auto;
+        display: block;
+        width: calc(var(--boy) * 262 / 420);
+        height: var(--boy);
+        margin: 0 auto 0 14%;
+        border: 0;
+        background: none;
+        cursor: pointer;
         filter: drop-shadow(7px 7px 0 var(--murekkep));
-        animation: diken 3.2s ease-in-out infinite;
+      }
+
+      #ink-ninja .sprite {
+        position: absolute;
+        left: 0;
+        bottom: 0;
       }
 
       .ninja-kutu .balon {
@@ -107,7 +121,7 @@
         z-index: 1;
       }
 
-      .ninja-kutu .patlama {
+      .ninja-kutu > .patlama {
         position: absolute;
         right: -22px;
         bottom: 6%;
@@ -116,22 +130,167 @@
         z-index: 1;
       }
 
-      .kisaca {
+      /* ---------- Hikâye: dört panelli çizgi roman şeridi ---------- */
+      .hikaye-giris {
+        max-width: 40em;
+        margin: 40px 0 56px;
+      }
+
+      .serit-roman {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: start;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        padding: 22px;
+        background: var(--beyaz);
+        box-shadow: 12px 12px 0 var(--kirmizi);
+        transform: rotate(-0.6deg);
       }
 
-      .kisaca h2 {
-        margin-bottom: 40px;
+      .pano {
+        position: relative;
+        min-height: 300px;
+        overflow: hidden;
+        border: 4px solid var(--murekkep);
+        background: var(--kemik);
       }
 
+      .pano > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .pano:nth-child(2) {
+        grid-column: 2;
+      }
+
+      .pano:nth-child(3) {
+        grid-column: 1;
+      }
+
+      /* Anlatıcı kutusu: çizgi romandaki sarı kutu */
+      .anlatici {
+        position: absolute;
+        z-index: 2;
+        left: 12px;
+        top: 12px;
+        max-width: min(92%, 25em);
+        padding: 10px 14px;
+        background: var(--sari);
+        color: var(--murekkep);
+        border: 3px solid var(--murekkep);
+        box-shadow: 4px 4px 0 var(--murekkep);
+        font-size: 15.5px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .anlatici.alt {
+        top: auto;
+        bottom: 12px;
+      }
+
+      .pano-no {
+        position: absolute;
+        z-index: 2;
+        right: 10px;
+        top: 8px;
+        font-family: var(--cizgi-roman);
+        font-size: 26px;
+        color: var(--murekkep);
+        background: var(--beyaz);
+        border: 3px solid var(--murekkep);
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+      }
+
+      /* 3. panel: kareli kâğıtta boş parşömenle sersemlemiş ninja */
+      .pano.defter-pano {
+        background-color: #f4efe3;
+        background-image: linear-gradient(rgba(70, 110, 200, 0.2) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(70, 110, 200, 0.2) 1px, transparent 1px);
+        background-size: 22px 22px;
+        min-height: 380px;
+      }
+
+      .defter-pano .sprite {
+        --boy: 290px;
+        position: absolute;
+        left: 12%;
+        bottom: 6px;
+      }
+
+      .bos-parsomen {
+        position: absolute;
+        right: 6%;
+        bottom: 60px;
+        width: 46%;
+        transform: rotate(-8deg);
+        color: var(--murekkep);
+      }
+
+      .soru {
+        position: absolute;
+        font-family: var(--cizgi-roman);
+        font-size: 64px;
+        color: var(--mavi);
+        text-shadow: 3px 3px 0 var(--murekkep);
+        animation: soru-zipla 1.4s ease-in-out infinite;
+      }
+
+      .soru.s1 {
+        left: 44%;
+        top: 34%;
+      }
+
+      .soru.s2 {
+        left: 54%;
+        top: 22%;
+        font-size: 44px;
+        color: var(--kirmizi);
+        animation-delay: -0.6s;
+      }
+
+      @keyframes soru-zipla {
+        50% {
+          transform: translateY(-10px) rotate(8deg);
+        }
+      }
+
+      /* 4. panel: kırmızı hız çizgileri, yola çıkan ninja */
+      .pano.yola {
+        background-color: var(--kirmizi);
+        background-image: repeating-conic-gradient(from 0deg at 40% 60%, rgba(14, 13, 12, 0.14) 0deg 5deg, transparent 5deg 14deg);
+        min-height: 380px;
+      }
+
+      .pano.yola > img {
+        position: absolute;
+        left: 6%;
+        bottom: -6px;
+        width: auto;
+        height: 92%;
+        object-fit: contain;
+        filter: drop-shadow(6px 6px 0 var(--murekkep));
+      }
+
+      .pano.yola .patlama {
+        position: absolute;
+        right: 6%;
+        top: 34%;
+        --boy: 150px;
+        transform: rotate(10deg);
+      }
+
+      /* ---------- Özellikler ---------- */
       .maddeler {
         list-style: none;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         gap: 18px;
+        margin-top: 70px;
       }
 
       .maddeler li {
@@ -163,6 +322,27 @@
         color: var(--murekkep-2);
       }
 
+      /* ---------- Oyundan iki kare: bantlı polaroidler ---------- */
+      .kareler {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 46px;
+        margin-top: 60px;
+      }
+
+      .kareler .polaroid {
+        margin: 0;
+      }
+
+      .kareler .polaroid:nth-child(2) {
+        transform: rotate(-2deg);
+        margin-top: 40px;
+      }
+
+      .kareler .polaroid img {
+        aspect-ratio: 16 / 9;
+      }
+
       .ne-zaman {
         text-align: center;
       }
@@ -175,20 +355,81 @@
       }
 
       @media (max-width: 1000px) {
-        .ink-hero-ic,
-        .kisaca {
+        .ink-hero-ic {
           grid-template-columns: 1fr;
+        }
+        .maddeler {
+          grid-template-columns: 1fr 1fr;
         }
       }
 
       @media (max-width: 760px) {
-        .maddeler {
+        .serit-roman {
+          grid-template-columns: 1fr;
+          padding: 12px;
+          gap: 12px;
+        }
+        .pano:nth-child(n) {
+          grid-column: 1;
+        }
+        .pano {
+          min-height: 0;
+        }
+        .pano > img {
+          height: auto;
+        }
+        .pano .anlatici {
+          position: relative;
+          left: auto;
+          top: auto;
+          bottom: auto;
+          max-width: none;
+          margin: 0;
+          box-shadow: none;
+          border-width: 3px 0 0;
+        }
+        .pano.defter-pano,
+        .pano.yola {
+          min-height: 340px;
+          display: flex;
+          flex-direction: column-reverse;
+        }
+        .pano.yola .anlatici,
+        .pano.defter-pano .anlatici {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+        .defter-pano .sprite {
+          --boy: 220px;
+          bottom: 92px;
+        }
+        .bos-parsomen {
+          bottom: 130px;
+        }
+        .pano.yola > img {
+          height: 64%;
+          bottom: 92px;
+        }
+        .pano.yola .patlama {
+          --boy: 110px;
+          top: 14%;
+        }
+        .maddeler,
+        .kareler {
           grid-template-columns: 1fr;
         }
-        .ninja-kutu {
-          max-width: 300px;
+        .kareler .polaroid:nth-child(2) {
+          margin-top: 0;
         }
-        .ninja-kutu .patlama {
+        .ninja-kutu {
+          max-width: 320px;
+        }
+        #ink-ninja {
+          --boy: 320px;
+        }
+        .ninja-kutu > .patlama {
           --boy: 104px;
           right: -6px;
         }
@@ -244,22 +485,58 @@
 
           <div class="ninja-kutu beliriv" style="--gecikme: 0.1s">
             <span class="balon" data-i18n="i.ninja.says">Bileğimi ısıttım bile!</span>
-            <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja, Inklash'ın kahramanı, gard almış" width="512" height="720" fetchpriority="high" />
+            <button type="button" id="ink-ninja" data-i18n-aria="i.ninja.tap" aria-label="Amele Ninja: dokun, yumruk atsın">
+              <span class="sprite bekle" aria-hidden="true"></span>
+            </button>
             <span class="patlama sari uzun" aria-hidden="true" data-i18n="a.burst.soon">ÇOK YAKINDA!</span>
           </div>
         </div>
       </div>
 
-      <section>
-        <div class="sarmal kisaca">
-          <div>
-            <h2 class="bant-baslik beliriv" data-i18n="i.what.title">Bu ne şimdi?</h2>
-            <p class="uzun-metin beliriv" data-i18n-html="i.what.p1">
-              Inklash, telefon için yapılmış <strong>2B bir dövüş oyunu</strong>.
-              Siyah beyaz mürekkep arenalarda renkli karikatür kahramanlar
-              kapışıyor. Öğrenmesi kolay, bırakması zor.
-            </p>
+      <!-- ============================================================
+           HİKÂYE — dört panelli çizgi roman şeridi
+           Sakar usta → son istek → boş parşömen → yola çıkış.
+           1 ve 2 Canva çizimi; 3 ve 4'te oyunun kendi ninja kareleri.
+           ============================================================ -->
+      <section class="hikaye">
+        <div class="sarmal">
+          <h2 class="bant-baslik beliriv" data-i18n="i.what.title">Bu ne şimdi?</h2>
+          <p class="uzun-metin hikaye-giris beliriv" data-i18n-html="i.what.p1">
+            Inklash, telefon için yapılmış <strong>2B bir dövüş oyunu</strong>.
+            Siyah beyaz mürekkep arenalarda renkli karikatür kahramanlar
+            kapışıyor. Öğrenmesi kolay, bırakması zor.
+          </p>
+
+          <div class="serit-roman beliriv">
+            <figure class="pano">
+              <img src="/gorseller/inklash/hikaye-sakar-usta.webp" alt="Yaşlı ninja ustası kendi kılıcına takılıp düşüyor, attığı shuriken'ler hedef yerine kovaya ve çaydanlığa saplanıyor" width="1400" height="791" loading="lazy" />
+              <span class="pano-no" aria-hidden="true">1</span>
+              <figcaption class="anlatici alt" data-i18n="i.s1">Köyün en sakar ninja ustası oydu. Kırk yılda tek bir shuriken'i hedefe tutturamadı, kendi kılıcına takılmadığı gün olmadı. Yine de bir öğrencisi vardı: Amele Ninja.</figcaption>
+            </figure>
+
+            <figure class="pano">
+              <img src="/gorseller/inklash/hikaye-son-istek.webp" alt="Yatağındaki yaşlı usta, öğrencisine kırmızı kurdeleli bir parşömen uzatıyor" width="1400" height="791" loading="lazy" />
+              <span class="pano-no" aria-hidden="true">2</span>
+              <figcaption class="anlatici alt" data-i18n="i.s2">Bir sabah usta yatağından kalkamadı. Son nefesinde parşömeni uzattı: "Benim yapamadığımı sen yap. Bunu dünyanın en güçlü dövüşçüsüne götür."</figcaption>
+            </figure>
+
+            <figure class="pano defter-pano">
+              <span class="sprite sersem" role="img" aria-label="Amele Ninja boş parşömene bakıp sersemliyor"></span>
+              <svg class="bos-parsomen" viewBox="0 0 220 120" aria-hidden="true"><path d="M30 20 H190 V100 H30 Z" fill="#fffdf6" stroke="currentColor" stroke-width="5" /><ellipse cx="30" cy="60" rx="13" ry="42" fill="#e2dbcb" stroke="currentColor" stroke-width="5" /><ellipse cx="190" cy="60" rx="13" ry="42" fill="#e2dbcb" stroke="currentColor" stroke-width="5" /><path d="M96 100 L100 116 L108 104 L116 116 L120 100" fill="#ff3b2f" stroke="currentColor" stroke-width="4" stroke-linejoin="round" /></svg>
+              <span class="soru s1" aria-hidden="true">?</span>
+              <span class="soru s2" aria-hidden="true">?</span>
+              <span class="pano-no" aria-hidden="true">3</span>
+              <figcaption class="anlatici" data-i18n="i.s3">Amele Ninja parşömeni açtı. İçi bomboştu. Ne demek istendiğini anlamadı; zaten pek bir şey anladığı da yoktu.</figcaption>
+            </figure>
+
+            <figure class="pano yola">
+              <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja gard almış, yola çıkmaya hazır" width="512" height="720" loading="lazy" />
+              <span class="patlama sari uzun" aria-hidden="true" data-i18n="i.s.burst">YOLA ÇIKTI!</span>
+              <span class="pano-no" aria-hidden="true">4</span>
+              <figcaption class="anlatici" data-i18n="i.s4">Ama bir şeyden emin: en güçlüyü bulmanın tek yolu, yoldaki herkesi yenmek. Önce yumruk, sonra soru.</figcaption>
+            </figure>
           </div>
+
           <ul class="maddeler">
             <li class="beliriv">
               <h3 data-i18n="i.f1.t">Elle çizildi</h3>
@@ -278,6 +555,23 @@
               <p data-i18n="i.f5.d">Yolda.</p>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <!-- Oyundan iki kare — fazlası değil -->
+      <section class="oyundan">
+        <div class="sarmal">
+          <h2 class="bant-baslik beliriv" data-i18n="i.shots.title">Oyundan iki kare</h2>
+          <div class="kareler">
+            <figure class="polaroid beliriv">
+              <span class="bant sari kucuk" aria-hidden="true"></span>
+              <img src="/gorseller/inklash/oyun-seri.webp" alt="Oyun içi: dojo arenasında iki Amele Ninja kapışıyor, ekranda üç vuruşluk seri yazıyor" width="1280" height="720" loading="lazy" />
+            </figure>
+            <figure class="polaroid beliriv" style="--gecikme: 0.08s">
+              <span class="bant mavi kucuk" aria-hidden="true"></span>
+              <img src="/gorseller/inklash/oyun-ejderha.webp" alt="Oyun içi: iki oyunculu maçta ejderha yumruğu serisi" width="1280" height="720" loading="lazy" />
+            </figure>
+          </div>
         </div>
       </section>
 
