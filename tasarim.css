@@ -545,8 +545,10 @@ h2 {
 }
 
 .patlama.uzun {
-  font-size: calc(var(--boy, 130px) * 0.155);
-  padding: 0 14%;
+  font-size: calc(var(--boy, 130px) * 0.15);
+  /* Yüzde verilirse ebeveynin genişliğinden hesaplanıyor ve yazı
+     sağa kayıyordu; boşluk patlamanın kendi boyundan */
+  padding: 0 calc(var(--boy, 130px) * 0.16);
 }
 
 .patlama.kirmizi {
@@ -2233,23 +2235,24 @@ footer {
   align-items: center;
 }
 
-.x-geri {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--x-soluk);
-  font-size: 15px;
-  margin-bottom: 48px;
-  transition: color 0.15s;
-}
-
-.x-geri:hover {
+/* Geri bağlantısı ve düğme sitenin çizgi roman parçaları (.geri, .dugme);
+   XOXD'nin kendi kırmızısı ve beyazıyla — site dili, oyunun rengi. */
+.xoxd-sayfa .geri {
+  font-family: var(--govde);
+  margin-bottom: 40px;
+  border-color: var(--x-beyaz);
   color: var(--x-beyaz);
 }
 
-.x-geri svg {
-  width: 18px;
-  height: 18px;
+.xoxd-sayfa .dugme {
+  background: var(--x-kirmizi);
+  color: var(--x-beyaz);
+  text-shadow: 2px 2px 0 var(--murekkep);
+  box-shadow: 5px 5px 0 var(--x-beyaz);
+}
+
+.xoxd-sayfa .dugme:hover {
+  box-shadow: 8px 8px 0 var(--x-beyaz);
 }
 
 .x-durum {
@@ -2281,7 +2284,8 @@ footer {
 
 .x-baslik {
   position: relative;
-  display: inline-block;
+  display: block;
+  width: fit-content;
   font-size: clamp(110px, 17vw, 240px);
   line-height: 0.8;
   margin: 30px 0 30px;
@@ -2314,24 +2318,6 @@ footer {
   color: var(--x-soluk);
   max-width: 24em;
   margin-bottom: 36px;
-}
-
-.x-dugme {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 26px;
-  background: var(--x-beyaz);
-  color: var(--x-zemin);
-  font-weight: 700;
-  font-size: 16px;
-  border-radius: 10px;
-  transition: background 0.15s, color 0.15s;
-}
-
-.x-dugme:hover {
-  background: var(--x-kirmizi);
-  color: var(--x-beyaz);
 }
 
 /* Sağda kapaktaki gibi dev X ve O'lar, üstlerinden kırmızı çizgi */

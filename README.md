@@ -8,7 +8,7 @@ yeterli.
 ```
 index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA düğmesi, sersem ninja sahnesi
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
-oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 panelli hikâye, 2 oyun karesi
+oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, 2 oyun karesi
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
@@ -25,7 +25,9 @@ fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde) + Space
 gorseller/logo.svg     stüdyo logosu (vektör)
 gorseller/inklash/     ninja.webp — dekupe Amele Ninja
                        ninja-sersem/bekle/yumruk.webp — oyunun 6 karelik animasyon şeritleri
-                       hikaye-*.webp — hikâye panelleri (Canva), oyun-*.webp — iki oyun içi kare
+                       hikaye-karikatur.webp — 4 karelik hikâye (Canva, yazısız),
+                       dojo-murekkep.webp — oyunun dojo arenası, mürekkebe çevrilmiş,
+                       oyun-secim.webp / oyun-manyak.webp — oyundan iki kare (2400×1080 → 20:9)
 gorseller/bitpazari-insaat.webp, survive-kapak.webp, xoxd-kapak.webp — vitrin görselleri
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
@@ -97,12 +99,23 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   Ninja vitrinde, sersem sahnede ve Inklash sayfasında; girişte yok.
 - **Inklash hikâyesi:** sakar bir ninja ustası son nefesinde öğrencisine
   boş bir parşömen verip "dünyanın en güçlü dövüşçüsüne götür" diyor;
-  Amele Ninja yola çıkıyor. Dört panel: 1-2 Canva çizimi, 3-4 oyunun kendi
-  kareleri. Metinler `i.s1`–`i.s4`.
+  Amele Ninja yola çıkıyor. Karikatür Canva'da `ninja.webp` referans
+  verilerek tek görsel (2×2) çizildi; **görsellerde yazı yok**, metinler
+  sitede (`i.s1`–`i.s4`, yanda numaralı liste) ki on dile çevrilebilsin.
+  Yeni Canva görsellerinde de yazı istemeyin.
+- **Oyun kareleri nasıl alındı:** Inklash projesine geçici bir sahne
+  eklenip (`hedef=dovus_alani p1=amele p2=manyak`, oyuncu da yapay zekâ)
+  `get_viewport().get_texture().get_image().save_png()` ile kare kare
+  kaydedildi; sahne sonra silindi.
+- **Şerit espirileri:** `a.joke1`–`a.joke10`. Her bantta bir kez, her
+  açılışta karışık sırayla (arayuz.js → ŞERİTLER); hız bant uzunluğundan
+  bağımsız ~45 px/sn. Yeni söz eklerken iki bandın HTML'ine de iki kopya
+  olarak ekle.
 - Sayfalarda küçük açıklama yazıları (balon notları, "çizimlere dokun",
   sayaç) bilerek yok; kullanıcı istemedi.
 - **XOXD sayfası oyunun kendi dilinde:** üst bar ve alt bilgi siteninki,
-  arası sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu
+  "Tüm oyunlar" ve "Çıkınca haber ver" sitenin çizgi roman parçaları
+  (XOXD'nin kırmızısıyla); gerisi sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu
   `#d9262a` (oyundaki renkler). Çizgi roman efekti ve gren yok; demo
   tahtada tamamlanan dizilerin üstünden oyundaki gibi kırmızı çizgi geçiyor.
 - Eski adlı renk değişkenleri (`--yesil`, `--ak`, `--kart`...) şifre

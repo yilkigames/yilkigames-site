@@ -703,3 +703,38 @@
   });
 })()
 ;
+
+/* ============================================================
+   ŞERİTLER
+   Girişin altındaki iki kayan bantta stüdyonun espirileri geçiyor.
+   Her açılışta her bandın sırası ayrı karıştırılıyor; listede her söz
+   bir kez olduğundan aynısı art arda gelmiyor (iki kopyanın birleştiği
+   yerde de: son ve ilk söz farklı). Hız, bant uzunluğundan bağımsız
+   olarak saniyede ~45 piksel.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  document.querySelectorAll(".serit-ic").forEach(function (ic) {
+    var parcalar = Array.prototype.slice.call(ic.children);
+    var yari = parcalar.slice(0, parcalar.length / 2);
+    for (var i = yari.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = yari[i];
+      yari[i] = yari[j];
+      yari[j] = t;
+    }
+    ic.textContent = "";
+    yari.forEach(function (p) {
+      ic.appendChild(p);
+    });
+    yari.forEach(function (p) {
+      ic.appendChild(p.cloneNode(true));
+    });
+    var hizla = function () {
+      ic.style.animationDuration = Math.max(30, ic.scrollWidth / 2 / 45).toFixed(1) + "s";
+    };
+    hizla();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hizla);
+  });
+})();

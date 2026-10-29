@@ -82,14 +82,18 @@
         padding-top: 50px;
       }
 
+      /* Arkada oyunun dojo arenası, mürekkebe çevrilmiş; tepede kırmızı güneş */
       .ninja-kutu::before {
         content: "";
         position: absolute;
         inset: 22% -4% 2% 2%;
-        background-color: var(--kirmizi);
-        background-image: repeating-conic-gradient(from 0deg at 50% 60%, rgba(255, 255, 255, 0.16) 0deg 5deg, transparent 5deg 14deg);
+        background:
+          url(/gorseller/inklash/dojo-murekkep.webp) 58% 100% / auto 74% no-repeat,
+          radial-gradient(circle at 76% 26%, var(--kirmizi) 0 13%, transparent 13.5%),
+          linear-gradient(transparent 80%, #d9d2c3 80%),
+          #f1ece2;
         border: 4px solid var(--murekkep);
-        box-shadow: 10px 10px 0 var(--kemik);
+        box-shadow: 10px 10px 0 var(--kirmizi);
         transform: rotate(-3deg);
       }
 
@@ -136,152 +140,65 @@
         margin: 40px 0 56px;
       }
 
-      .serit-roman {
+      /* Canva'da tek görsel olarak çizilmiş 4 karelik karikatür (yazısız);
+         metinler sitede, numaralı liste olarak yanında — çeviri kolay,
+         karikatürün üstü temiz kalıyor. */
+      .karikatur {
         display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 22px;
-        padding: 22px;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+        gap: 40px;
+        align-items: center;
+      }
+
+      .karikatur figure {
+        padding: 14px;
         background: var(--beyaz);
         box-shadow: 12px 12px 0 var(--kirmizi);
-        transform: rotate(-0.6deg);
+        transform: rotate(-1deg);
       }
 
-      .pano {
-        position: relative;
-        min-height: 300px;
-        overflow: hidden;
-        border: 4px solid var(--murekkep);
-        background: var(--kemik);
-      }
-
-      .pano > img {
+      .karikatur figure img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        aspect-ratio: 1;
       }
 
-      .pano:nth-child(2) {
-        grid-column: 2;
+      .hikaye-adim {
+        list-style: none;
+        display: grid;
+        gap: 18px;
+        counter-reset: adim;
       }
 
-      .pano:nth-child(3) {
-        grid-column: 1;
+      .hikaye-adim li {
+        counter-increment: adim;
+        position: relative;
+        padding: 0 0 0 54px;
+        font-size: 16.5px;
+        line-height: 1.55;
+        color: var(--kemik-2);
       }
 
-      /* Anlatıcı kutusu: çizgi romandaki sarı kutu */
-      .anlatici {
+      .hikaye-adim li::before {
+        content: counter(adim);
         position: absolute;
-        z-index: 2;
-        left: 12px;
-        top: 12px;
-        max-width: min(92%, 25em);
-        padding: 10px 14px;
+        left: 0;
+        top: -2px;
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
         background: var(--sari);
         color: var(--murekkep);
         border: 3px solid var(--murekkep);
-        box-shadow: 4px 4px 0 var(--murekkep);
-        font-size: 15.5px;
-        font-weight: 600;
-        line-height: 1.45;
-      }
-
-      .anlatici.alt {
-        top: auto;
-        bottom: 12px;
-      }
-
-      .pano-no {
-        position: absolute;
-        z-index: 2;
-        right: 10px;
-        top: 8px;
+        box-shadow: 3px 3px 0 var(--kemik);
         font-family: var(--cizgi-roman);
-        font-size: 26px;
-        color: var(--murekkep);
-        background: var(--beyaz);
-        border: 3px solid var(--murekkep);
-        width: 40px;
-        height: 40px;
-        display: grid;
-        place-items: center;
+        font-size: 22px;
+        transform: rotate(-4deg);
       }
 
-      /* 3. panel: kareli kâğıtta boş parşömenle sersemlemiş ninja */
-      .pano.defter-pano {
-        background-color: #f4efe3;
-        background-image: linear-gradient(rgba(70, 110, 200, 0.2) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(70, 110, 200, 0.2) 1px, transparent 1px);
-        background-size: 22px 22px;
-        min-height: 380px;
-      }
-
-      .defter-pano .sprite {
-        --boy: 290px;
-        position: absolute;
-        left: 12%;
-        bottom: 6px;
-      }
-
-      .bos-parsomen {
-        position: absolute;
-        right: 6%;
-        bottom: 60px;
-        width: 46%;
-        transform: rotate(-8deg);
-        color: var(--murekkep);
-      }
-
-      .soru {
-        position: absolute;
-        font-family: var(--cizgi-roman);
-        font-size: 64px;
-        color: var(--mavi);
-        text-shadow: 3px 3px 0 var(--murekkep);
-        animation: soru-zipla 1.4s ease-in-out infinite;
-      }
-
-      .soru.s1 {
-        left: 44%;
-        top: 34%;
-      }
-
-      .soru.s2 {
-        left: 54%;
-        top: 22%;
-        font-size: 44px;
-        color: var(--kirmizi);
-        animation-delay: -0.6s;
-      }
-
-      @keyframes soru-zipla {
-        50% {
-          transform: translateY(-10px) rotate(8deg);
-        }
-      }
-
-      /* 4. panel: kırmızı hız çizgileri, yola çıkan ninja */
-      .pano.yola {
-        background-color: var(--kirmizi);
-        background-image: repeating-conic-gradient(from 0deg at 40% 60%, rgba(14, 13, 12, 0.14) 0deg 5deg, transparent 5deg 14deg);
-        min-height: 380px;
-      }
-
-      .pano.yola > img {
-        position: absolute;
-        left: 6%;
-        bottom: -6px;
-        width: auto;
-        height: 92%;
-        object-fit: contain;
-        filter: drop-shadow(6px 6px 0 var(--murekkep));
-      }
-
-      .pano.yola .patlama {
-        position: absolute;
-        right: 6%;
-        top: 34%;
-        --boy: 150px;
-        transform: rotate(10deg);
+      .hikaye-adim li:last-child {
+        color: var(--kemik);
+        font-weight: 700;
       }
 
       /* ---------- Özellikler ---------- */
@@ -340,7 +257,7 @@
       }
 
       .kareler .polaroid img {
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 20 / 9;
       }
 
       .ne-zaman {
@@ -364,57 +281,13 @@
       }
 
       @media (max-width: 760px) {
-        .serit-roman {
+        .karikatur {
           grid-template-columns: 1fr;
-          padding: 12px;
-          gap: 12px;
+          gap: 30px;
         }
-        .pano:nth-child(n) {
-          grid-column: 1;
-        }
-        .pano {
-          min-height: 0;
-        }
-        .pano > img {
-          height: auto;
-        }
-        .pano .anlatici {
-          position: relative;
-          left: auto;
-          top: auto;
-          bottom: auto;
-          max-width: none;
-          margin: 0;
-          box-shadow: none;
-          border-width: 3px 0 0;
-        }
-        .pano.defter-pano,
-        .pano.yola {
-          min-height: 340px;
-          display: flex;
-          flex-direction: column-reverse;
-        }
-        .pano.yola .anlatici,
-        .pano.defter-pano .anlatici {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        }
-        .defter-pano .sprite {
-          --boy: 220px;
-          bottom: 92px;
-        }
-        .bos-parsomen {
-          bottom: 130px;
-        }
-        .pano.yola > img {
-          height: 64%;
-          bottom: 92px;
-        }
-        .pano.yola .patlama {
-          --boy: 110px;
-          top: 14%;
+        .karikatur figure {
+          padding: 8px;
+          box-shadow: 7px 7px 0 var(--kirmizi);
         }
         .maddeler,
         .kareler {
@@ -494,9 +367,10 @@
       </div>
 
       <!-- ============================================================
-           HİKÂYE — dört panelli çizgi roman şeridi
+           HİKÂYE — dört karelik karikatür
            Sakar usta → son istek → boş parşömen → yola çıkış.
-           1 ve 2 Canva çizimi; 3 ve 4'te oyunun kendi ninja kareleri.
+           Karikatür Canva'da Amele Ninja referansıyla tek görsel olarak
+           çizildi, içinde yazı yok; metinler yanda ve on dile çevrili.
            ============================================================ -->
       <section class="hikaye">
         <div class="sarmal">
@@ -507,34 +381,16 @@
             kapışıyor. Öğrenmesi kolay, bırakması zor.
           </p>
 
-          <div class="serit-roman beliriv">
-            <figure class="pano">
-              <img src="/gorseller/inklash/hikaye-sakar-usta.webp" alt="Yaşlı ninja ustası kendi kılıcına takılıp düşüyor, attığı shuriken'ler hedef yerine kovaya ve çaydanlığa saplanıyor" width="1400" height="791" loading="lazy" />
-              <span class="pano-no" aria-hidden="true">1</span>
-              <figcaption class="anlatici alt" data-i18n="i.s1">Köyün en sakar ninja ustası oydu. Kırk yılda tek bir shuriken'i hedefe tutturamadı, kendi kılıcına takılmadığı gün olmadı. Yine de bir öğrencisi vardı: Amele Ninja.</figcaption>
+          <div class="karikatur">
+            <figure class="beliriv">
+              <img src="/gorseller/inklash/hikaye-karikatur.webp" alt="Dört karelik karikatür: yaşlı usta kılıcına takılıp düşüyor, yatağından Amele Ninja'ya parşömen uzatıyor, Amele Ninja boş parşömene sersem sersem bakıyor, sonra dağlara doğru yola çıkıyor" width="1200" height="1200" loading="lazy" />
             </figure>
-
-            <figure class="pano">
-              <img src="/gorseller/inklash/hikaye-son-istek.webp" alt="Yatağındaki yaşlı usta, öğrencisine kırmızı kurdeleli bir parşömen uzatıyor" width="1400" height="791" loading="lazy" />
-              <span class="pano-no" aria-hidden="true">2</span>
-              <figcaption class="anlatici alt" data-i18n="i.s2">Bir sabah usta yatağından kalkamadı. Son nefesinde parşömeni uzattı: "Benim yapamadığımı sen yap. Bunu dünyanın en güçlü dövüşçüsüne götür."</figcaption>
-            </figure>
-
-            <figure class="pano defter-pano">
-              <span class="sprite sersem" role="img" aria-label="Amele Ninja boş parşömene bakıp sersemliyor"></span>
-              <svg class="bos-parsomen" viewBox="0 0 220 120" aria-hidden="true"><path d="M30 20 H190 V100 H30 Z" fill="#fffdf6" stroke="currentColor" stroke-width="5" /><ellipse cx="30" cy="60" rx="13" ry="42" fill="#e2dbcb" stroke="currentColor" stroke-width="5" /><ellipse cx="190" cy="60" rx="13" ry="42" fill="#e2dbcb" stroke="currentColor" stroke-width="5" /><path d="M96 100 L100 116 L108 104 L116 116 L120 100" fill="#ff3b2f" stroke="currentColor" stroke-width="4" stroke-linejoin="round" /></svg>
-              <span class="soru s1" aria-hidden="true">?</span>
-              <span class="soru s2" aria-hidden="true">?</span>
-              <span class="pano-no" aria-hidden="true">3</span>
-              <figcaption class="anlatici" data-i18n="i.s3">Amele Ninja parşömeni açtı. İçi bomboştu. Ne demek istendiğini anlamadı; zaten pek bir şey anladığı da yoktu.</figcaption>
-            </figure>
-
-            <figure class="pano yola">
-              <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja gard almış, yola çıkmaya hazır" width="512" height="720" loading="lazy" />
-              <span class="patlama sari uzun" aria-hidden="true" data-i18n="i.s.burst">YOLA ÇIKTI!</span>
-              <span class="pano-no" aria-hidden="true">4</span>
-              <figcaption class="anlatici" data-i18n="i.s4">Ama bir şeyden emin: en güçlüyü bulmanın tek yolu, yoldaki herkesi yenmek. Önce yumruk, sonra soru.</figcaption>
-            </figure>
+            <ol class="hikaye-adim beliriv" style="--gecikme: 0.1s">
+              <li data-i18n="i.s1">Köyün en sakar ninja ustası oydu. Kırk yılda tek bir shuriken'i hedefe tutturamadı, kendi kılıcına takılmadığı gün olmadı. Yine de bir öğrencisi vardı: Amele Ninja.</li>
+              <li data-i18n="i.s2">Bir sabah usta yatağından kalkamadı. Son nefesinde parşömeni uzattı: "Benim yapamadığımı sen yap. Bunu dünyanın en güçlü dövüşçüsüne götür."</li>
+              <li data-i18n="i.s3">Amele Ninja parşömeni açtı. İçi bomboştu. Ne demek istendiğini anlamadı; zaten pek bir şey anladığı da yoktu.</li>
+              <li data-i18n="i.s4">Ama bir şeyden emin: en güçlüyü bulmanın tek yolu, yoldaki herkesi yenmek. Önce yumruk, sonra soru.</li>
+            </ol>
           </div>
 
           <ul class="maddeler">
@@ -565,11 +421,11 @@
           <div class="kareler">
             <figure class="polaroid beliriv">
               <span class="bant sari kucuk" aria-hidden="true"></span>
-              <img src="/gorseller/inklash/oyun-seri.webp" alt="Oyun içi: dojo arenasında iki Amele Ninja kapışıyor, ekranda üç vuruşluk seri yazıyor" width="1280" height="720" loading="lazy" />
+              <img src="/gorseller/inklash/oyun-secim.webp" alt="Oyun içi: dövüşçü seçim ekranı — Amele Ninja, Samara ve Kırbaç Manyağı" width="1400" height="630" loading="lazy" />
             </figure>
             <figure class="polaroid beliriv" style="--gecikme: 0.08s">
               <span class="bant mavi kucuk" aria-hidden="true"></span>
-              <img src="/gorseller/inklash/oyun-ejderha.webp" alt="Oyun içi: iki oyunculu maçta ejderha yumruğu serisi" width="1280" height="720" loading="lazy" />
+              <img src="/gorseller/inklash/oyun-manyak.webp" alt="Oyun içi: dojo arenasında Amele Ninja ile Kırbaç Manyağı kapışıyor, ekranda Gök Delen serisi" width="1400" height="630" loading="lazy" />
             </figure>
           </div>
         </div>
