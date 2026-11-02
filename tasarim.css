@@ -3088,28 +3088,255 @@ footer {
 }
 
 /* ============================================================
-   SERSEM SAHNE: dört karakter bir arada (ninja, Survive adamı, X, O)
-   Hepsine dokunulur; "Poz ver" hepsini aynı anda zıplatıp flaş patlatır.
+   MASKOTLAR AFİŞİ: ninja, X, O ve Survive adamı raf üstünde
+   Bone kâğıt afiş, silik X/O deseni, kırmızı patlama, tahta raf.
+   Hepsine dokunulur; "Poz ver": ninja yumruk atar, hepsi zıplar, flaş.
    ============================================================ */
-.sersem-pano .d-kilic,
-.sersem-pano .d-parsomen {
-  display: none;
+.sersem-sahne {
+  padding: 100px 0 90px;
+}
+
+.sersem-ic {
+  position: relative;
+  width: min(1120px, calc(100% - 32px));
+  height: 620px;
+  margin: 0 auto;
+  background:
+    radial-gradient(rgba(14, 13, 12, 0.1) 1.2px, transparent 1.6px) 0 0 / 14px 14px,
+    var(--beyaz);
+  border: 4px solid var(--murekkep);
+  box-shadow: 0 0 0 4px var(--kemik), 14px 14px 0 4px var(--kirmizi);
+}
+
+.afis-arka {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hayalet {
+  position: absolute;
+  display: block;
+  opacity: 0.9;
+}
+
+.h-o,
+.h-o2 {
+  border-radius: 50%;
+  border: solid #e5dfd0;
+}
+
+.h-o {
+  right: -90px;
+  top: -80px;
+  width: 360px;
+  height: 360px;
+  border-width: 80px;
+}
+
+.h-o2 {
+  left: -70px;
+  bottom: 40px;
+  width: 260px;
+  height: 260px;
+  border-width: 56px;
+}
+
+.h-x,
+.h-x2 {
+  width: 300px;
+  height: 300px;
+}
+
+.h-x::before,
+.h-x::after,
+.h-x2::before,
+.h-x2::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10%;
+  width: 70px;
+  height: 120%;
+  margin-left: -35px;
+  background: #e5dfd0;
+  transform: rotate(45deg);
+}
+
+.h-x::after,
+.h-x2::after {
+  transform: rotate(-45deg);
+}
+
+.h-x {
+  left: 32%;
+  top: -40px;
+  transform: scale(0.7);
+}
+
+.h-x2 {
+  right: 3%;
+  bottom: 20px;
+  transform: scale(0.55);
+}
+
+/* Patlama: ninjanın arkasında */
+.sersem-ic::before,
+.sersem-ic::after {
+  top: 90px;
+  width: 440px;
+  height: 440px;
+  margin-left: -220px;
+  z-index: 0;
+}
+
+.sersem-ic::before {
+  background: var(--murekkep);
+}
+
+.sersem-ic::after {
+  width: 400px;
+  height: 400px;
+  top: 110px;
+  margin-left: -200px;
+}
+
+.afis-bant {
+  top: -16px;
+  left: 50%;
+  margin-left: -65px;
+  transform: rotate(-3deg);
+  z-index: 7;
+}
+
+.afis-baslik {
+  position: absolute;
+  z-index: 1;
+  left: 4%;
+  top: 22px;
+  margin: 0;
+  font-family: var(--cizgi-roman);
+  font-weight: 400;
+  font-size: clamp(54px, 9vw, 120px);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: var(--murekkep);
+  transform: rotate(-4deg);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.afis-baslik b {
+  display: block;
+  font-weight: 400;
+  margin-left: 0.5em;
+  color: var(--kirmizi);
+  -webkit-text-stroke: 3px var(--murekkep);
+  text-shadow: 5px 5px 0 var(--murekkep);
+}
+
+.sersem-pano {
+  z-index: 1;
+}
+
+.sersem-ic .sersem-pano .cizim {
+  color: var(--murekkep) !important;
+}
+
+.sersem-pano .d-shuriken {
+  left: 3%;
+  top: auto;
+  bottom: 44px;
+  width: 64px;
+  transform: rotate(14deg);
+}
+
+.sersem-pano .d-sandalet {
+  right: 41%;
+  top: auto;
+  bottom: 40px;
+  width: 80px;
+  transform: rotate(-6deg);
+}
+
+.sersem-pano .d-toz {
+  bottom: 30px;
+  width: 300px;
+  margin-left: -150px;
+}
+
+/* Raf: koyu tahta, vidalar, iki braket */
+.raf {
+  position: absolute;
+  z-index: 4;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  height: 40px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 60px, rgba(0, 0, 0, 0.18) 60px 62px),
+    linear-gradient(#6b4528, #3b2514);
+  border: 4px solid var(--murekkep);
+  box-shadow: 0 -6px 0 -2px #8a5d36 inset;
+}
+
+.raf i {
+  position: absolute;
+  top: 100%;
+  width: 46px;
+  height: 44px;
+  margin-top: 2px;
+  background: #3b2514;
+  border: 4px solid var(--murekkep);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.raf i:first-child {
+  left: 8%;
+}
+
+.raf i:last-child {
+  right: 8%;
+  transform: scaleX(-1);
 }
 
 .sersem-ninja {
+  position: absolute;
   z-index: 3;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  filter: drop-shadow(6px 6px 0 var(--kirmizi));
+}
+
+.sersem-ninja .sprite {
+  --boy: 440px;
+  transform-origin: 50% 100%;
+  animation: kare6 0.75s steps(6) infinite;
+}
+
+.sersem-ninja .sprite.yumruk {
+  animation: kare6-tek 0.48s steps(6) 1 forwards;
+}
+
+.sersem-ninja.tokat .sprite {
+  animation: kare6 0.75s steps(6) infinite, tokat 0.5s ease-out;
 }
 
 .grup {
   position: absolute;
-  z-index: 2;
-  bottom: 22px;
+  z-index: 4;
+  bottom: 40px;
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
   transform-origin: 50% 100%;
-  filter: drop-shadow(6px 6px 0 var(--murekkep));
+  filter: drop-shadow(5px 5px 0 var(--kirmizi));
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -3118,35 +3345,33 @@ footer {
   display: block;
   height: 100%;
   width: auto;
+  overflow: visible;
   pointer-events: none;
 }
 
-.grup-adam {
-  left: 2%;
-  height: 450px;
-  animation: grup-nefes 3.2s ease-in-out infinite;
-}
-
 .grup-x {
-  right: 22%;
-  height: 250px;
-  animation: grup-nefes 2.8s ease-in-out -0.8s infinite;
+  left: 17%;
+  height: 330px;
+  animation: grup-nefes 3s ease-in-out infinite;
 }
 
 .grup-o {
-  right: 3%;
-  height: 270px;
-  animation: grup-nefes 3.6s ease-in-out -1.6s infinite;
+  right: 26%;
+  height: 310px;
+  animation: grup-nefes 3.4s ease-in-out -1.4s infinite;
+}
+
+.grup-adam {
+  right: 9%;
+  height: 470px;
+  z-index: 3;
+  animation: grup-nefes 3.2s ease-in-out -0.7s infinite;
 }
 
 .grup:focus-visible,
 .sersem-ninja:focus-visible {
-  outline: 4px dashed var(--sari);
+  outline: 4px dashed var(--kirmizi);
   outline-offset: 6px;
-}
-
-.grup svg {
-  overflow: visible;
 }
 
 .grup.sek {
@@ -3167,13 +3392,13 @@ footer {
 
 @keyframes grup-nefes {
   50% {
-    transform: translateY(-6px) rotate(1.5deg);
+    transform: translateY(-5px) rotate(1.2deg);
   }
 }
 
 @keyframes grup-sek {
   25% {
-    transform: translateY(-46px) scale(1.05, 0.95) rotate(-5deg);
+    transform: translateY(-50px) scale(1.05, 0.95) rotate(-5deg);
   }
   50% {
     transform: translateY(0) scale(1.08, 0.9);
@@ -3185,7 +3410,7 @@ footer {
 
 @keyframes grup-egil {
   30% {
-    transform: rotate(7deg) translateY(10px);
+    transform: rotate(6deg) translateY(10px);
   }
   60% {
     transform: rotate(-3deg);
@@ -3203,25 +3428,25 @@ footer {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-60px) rotate(-6deg);
+    transform: translateY(-70px) rotate(-6deg);
   }
   100% {
-    transform: translateY(-4px) scale(1.06) rotate(2deg);
+    transform: translateY(-6px) scale(1.06) rotate(2deg);
   }
 }
 
 .poz-dugme {
   position: absolute;
-  z-index: 6;
+  z-index: 9;
   left: 50%;
-  bottom: -34px;
+  bottom: -38px;
   transform: translateX(-50%);
 }
 
 .poz-flas {
   position: absolute;
   z-index: 8;
-  inset: -40px -4%;
+  inset: 0;
   background: #fff;
   opacity: 0;
   pointer-events: none;
@@ -3241,19 +3466,79 @@ footer {
 }
 
 @media (max-width: 900px) {
-  .grup-adam {
-    left: -2%;
-    height: 250px;
+  .sersem-ic {
+    height: 500px;
+  }
+
+  .afis-baslik {
+    font-size: 56px;
+  }
+
+  .sersem-ic::before {
+    width: 340px;
+    height: 340px;
+    margin-left: -170px;
+  }
+
+  .sersem-ic::after {
+    width: 306px;
+    height: 306px;
+    margin-left: -153px;
+    top: 107px;
+  }
+
+  .sersem-ninja .sprite {
+    --boy: 330px;
   }
 
   .grup-x {
-    right: 20%;
-    height: 170px;
+    left: 4%;
+    height: 230px;
   }
 
   .grup-o {
-    right: 0;
+    right: 24%;
+    height: 220px;
+  }
+
+  .grup-adam {
+    right: -2%;
+    height: 330px;
+  }
+
+  .sersem-pano .d-toz {
+    width: 220px;
+    margin-left: -110px;
+  }
+}
+
+@media (max-width: 520px) {
+  .sersem-ic {
+    height: 440px;
+  }
+
+  .sersem-ninja .sprite {
+    --boy: 270px;
+  }
+
+  .grup-x {
+    left: 0;
     height: 190px;
+  }
+
+  .grup-o {
+    right: 22%;
+    height: 180px;
+  }
+
+  .grup-adam {
+    right: -4%;
+    height: 270px;
+  }
+
+  .sersem-pano .d-shuriken,
+  .sersem-pano .d-sandalet {
+    display: none;
   }
 }
 

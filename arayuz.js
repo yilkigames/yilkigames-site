@@ -982,10 +982,15 @@
         el.style.animationDelay = i * 0.08 + "s";
         el.classList.add("poz");
       });
-      if (ninja) {
-        ninja.classList.remove("tokat");
-        void ninja.offsetWidth;
-        ninja.classList.add("tokat");
+      var sp = ninja && ninja.querySelector(".sprite");
+      if (sp && !azalt) {
+        sp.classList.remove("bekle", "yumruk");
+        void sp.offsetWidth;
+        sp.classList.add("yumruk");
+        setTimeout(function () {
+          sp.classList.remove("yumruk");
+          sp.classList.add("bekle");
+        }, 2600);
       }
       setTimeout(function () {
         flas.classList.remove("git");
