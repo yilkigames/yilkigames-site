@@ -9,11 +9,11 @@
       content="Inklash: elle çizilmiş karikatür kahramanların kapıştığı 2B mobil dövüş oyunu. Yakında Android'de."
     />
     <meta name="theme-color" content="#0e0d0c" />
-    <link rel="icon" type="image/svg+xml" href="/gorseller/logo.svg" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href="https://yilkigames.com/oyunlar/inklash.html" />
     <link rel="preload" href="/fontlar/bangers-latin.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -239,25 +239,356 @@
         color: var(--murekkep-2);
       }
 
-      /* ---------- Oyundan iki kare: bantlı polaroidler ---------- */
-      .kareler {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 46px;
-        margin-top: 60px;
+      /* ============================================================
+         OYUNDAN KARELER — mürekkep arcade'i
+         Yan yatmış telefon + altında film şeridi. Çizgi roman paneli
+         değil, "birisi masaya telefon bırakmış" havası: bantlar, saplı
+         shuriken, damlayan kırmızı mürekkep, vizör köşeleri.
+         ============================================================ */
+      .oyundan {
+        overflow: hidden;
+        background: radial-gradient(ellipse 60% 50% at 50% 58%, #2c1411 0%, transparent 72%), var(--murekkep);
       }
 
-      .kareler .polaroid {
-        margin: 0;
+      .oyundan::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 59, 47, 0.32) 2px, transparent 2.4px);
+        background-size: 16px 16px;
+        -webkit-mask-image: radial-gradient(ellipse 52% 58% at 50% 52%, transparent 38%, #000 92%);
+        mask-image: radial-gradient(ellipse 52% 58% at 50% 52%, transparent 38%, #000 92%);
+        pointer-events: none;
       }
 
-      .kareler .polaroid:nth-child(2) {
-        transform: rotate(-2deg);
-        margin-top: 40px;
+      .oyundan .sarmal {
+        position: relative;
       }
 
-      .kareler .polaroid img {
+      .kare-sahne {
+        position: relative;
+        max-width: 1020px;
+        margin: 90px auto 0;
+      }
+
+      /* Etrafta uçuşan karalamalar */
+      .dd {
+        position: absolute;
+        z-index: 1;
+        height: auto;
+        aspect-ratio: 1;
+        animation: dd-sal 5s ease-in-out infinite;
+      }
+
+      .dd.d1 {
+        width: 150px;
+        left: -92px;
+        top: -64px;
+        --vurgu: var(--sari);
+        transform: rotate(-16deg);
+      }
+
+      .dd.d2 {
+        width: 160px;
+        right: -88px;
+        top: 38%;
+        --vurgu: var(--sari);
+        animation-delay: -1.6s;
+      }
+
+      .dd.d3 {
+        width: 96px;
+        left: -66px;
+        bottom: 60px;
+        --vurgu: var(--mavi);
+        animation-delay: -3s;
+      }
+
+      .dd.d4 {
+        width: 84px;
+        right: 18px;
+        bottom: -52px;
+        --vurgu: var(--kirmizi);
+        animation-delay: -2.2s;
+      }
+
+      @keyframes dd-sal {
+        50% {
+          translate: 0 -12px;
+          rotate: 5deg;
+        }
+      }
+
+      /* Telefon */
+      .telefon {
+        position: relative;
+        z-index: 2;
+        padding: 20px 52px 20px 58px;
+        background: #0b0a09;
+        border: 5px solid var(--kemik);
+        border-radius: 48px;
+        box-shadow: 14px 14px 0 var(--kirmizi), inset 0 0 0 3px #26231f;
+        transform: perspective(1800px) rotate(-1.4deg) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+        transition: transform 0.3s ease-out;
+      }
+
+      /* Sol kenarda kamera, sağda hoparlör çizgisi */
+      .telefon::before {
+        content: "";
+        position: absolute;
+        left: 22px;
+        top: 50%;
+        width: 16px;
+        height: 16px;
+        margin-top: -8px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #4d6bff 0 16%, #14110f 22%);
+        box-shadow: 0 0 0 4px #1d1a17;
+      }
+
+      .telefon::after {
+        content: "";
+        position: absolute;
+        right: 22px;
+        top: 50%;
+        width: 8px;
+        height: 76px;
+        margin-top: -38px;
+        border-radius: 4px;
+        background: #1d1a17;
+      }
+
+      .telefon.sars {
+        animation: tel-sars 0.36s linear;
+      }
+
+      @keyframes tel-sars {
+        20% {
+          transform: perspective(1800px) rotate(-1.4deg) translate(-6px, 2px);
+        }
+        40% {
+          transform: perspective(1800px) rotate(-0.6deg) translate(6px, -3px);
+        }
+        60% {
+          transform: perspective(1800px) rotate(-2deg) translate(-3px, -1px);
+        }
+        80% {
+          transform: perspective(1800px) rotate(-1.2deg) translate(2px, 2px);
+        }
+      }
+
+      .telefon .bant.sari {
+        top: -16px;
+        left: 70px;
+        transform: rotate(-5deg);
+      }
+
+      .telefon .bant.alt-bant {
+        top: auto;
+        bottom: -14px;
+        right: 12px;
+        width: 110px;
+        transform: rotate(4deg);
+        z-index: 4;
+      }
+
+      .telefon .bant {
+        z-index: 4;
+      }
+
+      .saplanan {
+        position: absolute;
+        z-index: 5;
+        top: -34px;
+        right: 28px;
+        width: 82px;
+        height: 82px;
+        transform: rotate(24deg);
+        filter: drop-shadow(4px 5px 0 rgba(0, 0, 0, 0.55));
+        pointer-events: none;
+      }
+
+      /* Ekran: üst üste dizili kareler, yenisi mürekkep lekesi gibi açılıyor */
+      .ekran {
+        position: relative;
+        display: block;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        border-radius: 22px;
+        overflow: hidden;
         aspect-ratio: 20 / 9;
+        background: #000;
+        cursor: pointer;
+        isolation: isolate;
+      }
+
+      .ekran .kare {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        visibility: hidden;
+      }
+
+      .ekran .kare.aktif {
+        visibility: visible;
+        z-index: 1;
+      }
+
+      .ekran .kare.gelen {
+        visibility: visible;
+        z-index: 2;
+        animation: leke-ac 0.65s cubic-bezier(0.5, 0, 0.2, 1) both;
+      }
+
+      @keyframes leke-ac {
+        from {
+          clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+        }
+        to {
+          clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
+        }
+      }
+
+      /* Tarama çizgileri ve kenar kararması */
+      .ekran::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 4px),
+          radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, 0.4));
+      }
+
+      .ekran:focus-visible {
+        outline: 4px solid var(--sari);
+        outline-offset: 6px;
+      }
+
+      /* Kamera vizörü köşeleri ve kayıt ışığı */
+      .vizor {
+        position: absolute;
+        inset: 16px;
+        z-index: 4;
+        pointer-events: none;
+        --c: rgba(246, 241, 231, 0.9);
+        background: linear-gradient(var(--c), var(--c)) 0 0 / 28px 3px, linear-gradient(var(--c), var(--c)) 0 0 / 3px 28px,
+          linear-gradient(var(--c), var(--c)) 100% 0 / 28px 3px, linear-gradient(var(--c), var(--c)) 100% 0 / 3px 28px,
+          linear-gradient(var(--c), var(--c)) 0 100% / 28px 3px, linear-gradient(var(--c), var(--c)) 0 100% / 3px 28px,
+          linear-gradient(var(--c), var(--c)) 100% 100% / 28px 3px, linear-gradient(var(--c), var(--c)) 100% 100% / 3px 28px;
+        background-repeat: no-repeat;
+      }
+
+      .rec {
+        position: absolute;
+        z-index: 4;
+        top: 30px;
+        left: 34px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--kirmizi);
+        box-shadow: 0 0 0 3px rgba(246, 241, 231, 0.9), 0 0 14px 3px rgba(255, 59, 47, 0.8);
+        animation: rec-yan 1.3s steps(1) infinite;
+      }
+
+      @keyframes rec-yan {
+        50% {
+          opacity: 0.15;
+        }
+      }
+
+      /* Telefonun altından damlayan kırmızı mürekkep */
+      .damla {
+        position: absolute;
+        z-index: 3;
+        left: 13%;
+        right: 13%;
+        bottom: -66px;
+        width: 74%;
+        height: 70px;
+        fill: var(--kirmizi);
+        transform-origin: top;
+        animation: damla-uza 3.6s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      @keyframes damla-uza {
+        50% {
+          transform: scaleY(1.22);
+        }
+      }
+
+      /* Film şeridi: kare başına bir küçük resim */
+      .film {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        gap: 12px;
+        max-width: 880px;
+        margin: 108px auto 0;
+        padding: 34px 20px;
+        background: #0b0a09;
+        border-block: 3px solid var(--kemik);
+        box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.5);
+        transform: rotate(0.9deg);
+      }
+
+      .film::before,
+      .film::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 11px;
+        background: repeating-linear-gradient(90deg, var(--kemik) 0 14px, transparent 14px 30px);
+        opacity: 0.9;
+      }
+
+      .film::before {
+        top: 8px;
+      }
+
+      .film::after {
+        bottom: 8px;
+      }
+
+      .film-kare {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0;
+        overflow: hidden;
+        aspect-ratio: 20 / 9;
+        background: #000;
+        border: 3px solid #2e2a26;
+        cursor: pointer;
+        transition: transform 0.25s cubic-bezier(0.3, 1.7, 0.5, 1), border-color 0.2s;
+      }
+
+      .film-kare img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(0.75) brightness(0.65);
+        transition: filter 0.2s;
+      }
+
+      .film-kare:hover img,
+      .film-kare.aktif img {
+        filter: none;
+      }
+
+      .film-kare.aktif {
+        border-color: var(--kirmizi);
+        transform: translateY(-8px) rotate(-2.5deg) scale(1.08);
+      }
+
+      .film-kare:focus-visible {
+        outline: 3px solid var(--sari);
+        outline-offset: 2px;
       }
 
       .ne-zaman {
@@ -289,12 +620,87 @@
           padding: 8px;
           box-shadow: 7px 7px 0 var(--kirmizi);
         }
-        .maddeler,
-        .kareler {
+        .maddeler {
           grid-template-columns: 1fr;
         }
-        .kareler .polaroid:nth-child(2) {
-          margin-top: 0;
+        .kare-sahne {
+          margin-top: 70px;
+        }
+        .telefon {
+          padding: 10px 26px 10px 30px;
+          border-width: 3px;
+          border-radius: 26px;
+          box-shadow: 8px 8px 0 var(--kirmizi), inset 0 0 0 2px #26231f;
+        }
+        .telefon::before {
+          left: 9px;
+          width: 10px;
+          height: 10px;
+          margin-top: -5px;
+          box-shadow: 0 0 0 3px #1d1a17;
+        }
+        .telefon::after {
+          right: 9px;
+          width: 5px;
+          height: 44px;
+          margin-top: -22px;
+        }
+        .ekran {
+          border-radius: 10px;
+        }
+        .vizor {
+          inset: 8px;
+          --c: rgba(246, 241, 231, 0.9);
+          background-size: 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px, 16px 2px, 2px 16px;
+        }
+        .rec {
+          top: 16px;
+          left: 18px;
+          width: 10px;
+          height: 10px;
+        }
+        .saplanan {
+          width: 52px;
+          height: 52px;
+          top: -22px;
+          right: 12px;
+        }
+        .telefon .bant.sari {
+          width: 90px;
+          left: 30px;
+        }
+        .telefon .bant.alt-bant {
+          width: 80px;
+        }
+        .dd.d1 {
+          width: 84px;
+          left: -10px;
+          top: -50px;
+        }
+        .dd.d2 {
+          width: 88px;
+          right: -6px;
+          top: auto;
+          bottom: -80px;
+        }
+        .dd.d3,
+        .dd.d4 {
+          display: none;
+        }
+        .damla {
+          height: 46px;
+          bottom: -42px;
+        }
+        .film {
+          gap: 5px;
+          margin-top: 80px;
+          padding: 28px 8px;
+        }
+        .film-kare {
+          border-width: 2px;
+        }
+        .film-kare.aktif {
+          transform: translateY(-5px) scale(1.06);
         }
         .ninja-kutu {
           max-width: 320px;
@@ -310,6 +716,30 @@
     </style>
   </head>
   <body data-title="i.meta.title" data-desc="i.meta.desc">
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="c-yumruk" viewBox="0 0 100 100">
+          <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M33 44 C31 34 37 29 45 30 L71 30 C80 30 85 37 84 46 L83 61 C82 72 75 77 65 77 L46 77 C37 77 32 71 32 62 Z" />
+            <path d="M47 30 C46 36 47 41 49 45 M59 30 C58 36 59 41 61 45 M71 31 C70 37 71 41 73 45" stroke-width="3.2" />
+            <path d="M32 52 C41 47 51 49 54 55 C56 61 50 64 42 63 L33 62" />
+            <path d="M44 77 L43 92 L69 92 L68 77" style="fill: var(--vurgu, #ff3b2f)" />
+            <path d="M44 84 H68" stroke-width="3" />
+            <path d="M6 41 H22 M3 52 H22 M7 63 H22" stroke-width="3.6" />
+          </g>
+        </symbol>
+<symbol id="c-ko" viewBox="0 0 100 100">
+          <path d="M50 3 L59 25 L80 10 L74 33 L97 33 L79 49 L97 64 L74 66 L82 90 L61 78 L52 98 L43 78 L21 92 L27 68 L3 70 L19 53 L3 37 L26 34 L16 12 L38 23 Z" style="fill: var(--vurgu, #ff3b2f)" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+          <text x="50" y="62" text-anchor="middle" font-family="Bangers, Impact, sans-serif" font-size="34" fill="currentColor" stroke="#0e0d0c" stroke-width="1.5" paint-order="stroke" transform="rotate(-8 50 50)">K.O!</text>
+        </symbol>
+<symbol id="c-simsek" viewBox="0 0 100 100">
+          <path d="M58 5 L24 55 H46 L36 95 L78 39 H55 L66 5 Z" style="fill: var(--vurgu, #ff3b2f)" stroke="currentColor" stroke-width="4" stroke-linejoin="round" />
+          <path d="M14 22 L22 28 M84 70 L92 74 M10 76 L18 72" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" />
+        </symbol>
+<symbol id="c-parilti" viewBox="0 0 100 100">
+          <path d="M50 8 C53 38 62 47 92 50 C62 53 53 62 50 92 C47 62 38 53 8 50 C38 47 47 38 50 8 Z" fill="currentColor" />
+          <circle cx="82" cy="20" r="5" style="fill: var(--vurgu, #ff3b2f)" />
+        </symbol>
+    </defs></svg>
     <a class="atla" href="#icerik" data-i18n="a.skip">İçeriğe atla</a>
 
     <header id="ust-bar">
@@ -414,19 +844,49 @@
         </div>
       </section>
 
-      <!-- Oyundan iki kare — fazlası değil -->
-      <section class="oyundan">
+      <!-- ============================================================
+           OYUNDAN KARELER — mürekkep arcade'i
+           Yan yatmış, kalın çerçeveli bir telefon; ekranda oyundan kareler
+           mürekkep lekesi gibi açılarak değişiyor (arayuz.js → KARELER).
+           Altından kırmızı mürekkep damlıyor, köşesine shuriken saplanmış,
+           altında sprocket delikli film şeridi. Yazı yok; her kare tıklanır,
+           kaydırılır, ok tuşlarıyla gezilir.
+           ============================================================ -->
+      <section class="oyundan" aria-labelledby="kareler-baslik">
         <div class="sarmal">
-          <h2 class="bant-baslik beliriv" data-i18n="i.shots.title">Oyundan iki kare</h2>
-          <div class="kareler">
-            <figure class="polaroid beliriv">
-              <span class="bant sari kucuk" aria-hidden="true"></span>
-              <img src="/gorseller/inklash/oyun-secim.webp" alt="Oyun içi: dövüşçü seçim ekranı — Amele Ninja, Samara ve Kırbaç Manyağı" width="1400" height="630" loading="lazy" />
-            </figure>
-            <figure class="polaroid beliriv" style="--gecikme: 0.08s">
-              <span class="bant mavi kucuk" aria-hidden="true"></span>
-              <img src="/gorseller/inklash/oyun-manyak.webp" alt="Oyun içi: dojo arenasında Amele Ninja ile Kırbaç Manyağı kapışıyor, ekranda Gök Delen serisi" width="1400" height="630" loading="lazy" />
-            </figure>
+          <h2 id="kareler-baslik" class="bant-baslik beliriv" data-i18n="i.shots.title">Oyundan kareler</h2>
+
+          <div class="kare-sahne beliriv" id="kare-sahne">
+            <svg class="cizim dd d1" aria-hidden="true"><use href="#c-yumruk" /></svg>
+            <svg class="cizim dd d2" aria-hidden="true"><use href="#c-ko" /></svg>
+            <svg class="cizim dd d3" aria-hidden="true"><use href="#c-simsek" /></svg>
+            <svg class="cizim dd d4" aria-hidden="true"><use href="#c-parilti" /></svg>
+
+            <div class="telefon" id="telefon">
+              <span class="bant sari" aria-hidden="true"></span>
+              <span class="bant mavi alt-bant" aria-hidden="true"></span>
+              <svg class="saplanan" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6 L58 42 L94 50 L58 58 L50 94 L42 58 L6 50 L42 42 Z" fill="#c9c3b6" stroke="#0e0d0c" stroke-width="5" stroke-linejoin="round" /><circle cx="50" cy="50" r="7" fill="#0e0d0c" /></svg>
+              <button type="button" class="ekran" id="ekran" data-i18n-aria="i.shot.next" aria-label="Sonraki kare">
+                  <img class="kare aktif" src="/gorseller/inklash/kare-dovus1.webp" alt="Amele Ninja, Kırbaç Manyağı'na yer çekici vuruyor: ekranda "PAT!" ve 2 vuruşluk seri" width="2000" height="900" loading="lazy" />
+                  <img class="kare" src="/gorseller/inklash/kare-menu.webp" alt="Oyunun defter şeklindeki ana menüsü: Dövüş, Hikâye ve Ink Lash yazısı" width="2000" height="900" loading="lazy" />
+                  <img class="kare" src="/gorseller/inklash/kare-dovus2.webp" alt="Havadaki Amele Ninja "Gök Delen" serisiyle Kırbaç Manyağı'na iniyor" width="2000" height="900" loading="lazy" />
+                  <img class="kare" src="/gorseller/inklash/kare-secim.webp" alt="Dövüşçü seçim ekranı: Amele Ninja, Samara ve diğer kahramanlar" width="2000" height="900" loading="lazy" />
+                  <img class="kare" src="/gorseller/inklash/kare-dovus3.webp" alt="Amele Ninja ile Kırbaç Manyağı göğüs göğüse, kırtasiye arenasında" width="2000" height="900" loading="lazy" />
+                  <img class="kare" src="/gorseller/inklash/kare-mod.webp" alt="Mod seçimi: bota karşı, co-op ve yakında gelecek online; bot zorluğu" width="2000" height="900" loading="lazy" />
+                <span class="vizor" aria-hidden="true"></span>
+                <span class="rec" aria-hidden="true"></span>
+              </button>
+              <svg class="damla" viewBox="0 0 400 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H400 V4 H372 C372 20 366 30 366 42 a8 8 0 0 1 -16 0 C350 30 346 20 346 4 H260 C260 14 256 22 256 30 a6 6 0 0 1 -12 0 C244 22 240 14 240 4 H150 C150 24 142 40 142 56 a10 10 0 0 1 -20 0 C122 40 114 24 114 4 H40 C40 12 36 18 36 24 a5 5 0 0 1 -10 0 C26 18 22 12 22 4 H0 Z" /></svg>
+            </div>
+
+            <div class="film">
+            <button type="button" class="film-kare aktif" data-i="0"><img src="/gorseller/inklash/kare-dovus1-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            <button type="button" class="film-kare" data-i="1"><img src="/gorseller/inklash/kare-menu-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            <button type="button" class="film-kare" data-i="2"><img src="/gorseller/inklash/kare-dovus2-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            <button type="button" class="film-kare" data-i="3"><img src="/gorseller/inklash/kare-secim-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            <button type="button" class="film-kare" data-i="4"><img src="/gorseller/inklash/kare-dovus3-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            <button type="button" class="film-kare" data-i="5"><img src="/gorseller/inklash/kare-mod-k.webp" alt="" width="480" height="216" loading="lazy" /></button>
+            </div>
           </div>
         </div>
       </section>

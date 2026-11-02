@@ -8,7 +8,7 @@ yeterli.
 ```
 index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA düğmesi, sersem ninja sahnesi
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
-oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, 2 oyun karesi
+oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, mürekkep arcade'i (telefon + film şeridi)
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
@@ -22,12 +22,13 @@ arayuz.js              dil seçici, beliren paneller, üst bar, karalamalar, ses
 tasarim.css            tasarım sistemi — her sayfa bunu kullanıyor
 belge.css              uzun metin sayfalarına (gizlilik, şartlar, destek) ek
 fontlar/               Bangers (başlık) + Bricolage Grotesque (gövde) + Space Grotesk (yalnız XOXD), woff2
-gorseller/logo.svg     stüdyo logosu (vektör)
+gorseller/logo.svg     stüdyo logosu (vektör, üst bar)
+icon-*.png, favicon.ico, apple-touch-icon.png, site.webmanifest   favicon seti
 gorseller/inklash/     ninja.webp — dekupe Amele Ninja
                        ninja-sersem/bekle/yumruk.webp — oyunun 6 karelik animasyon şeritleri
                        hikaye-karikatur.webp — 4 karelik hikâye (Canva, yazısız),
                        dojo-murekkep.webp — oyunun dojo arenası, mürekkebe çevrilmiş,
-                       oyun-secim.webp / oyun-manyak.webp — oyundan iki kare (2400×1080 → 20:9)
+                       kare-*.webp (2000×900) ve kare-*-k.webp (480×216 önizleme) — oyun içi kareler
 gorseller/bitpazari-insaat.webp, survive-kapak.webp, xoxd-kapak.webp — vitrin görselleri
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
@@ -50,9 +51,15 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   bazı patlamalar, yanlış baskının ikinci kalıbı. Büyük alanlara sarı/mavi
   verme.
 - **Logo:** kırmızı yılkı atı kafası. Canva'da üretildi, `vtracer` ile
-  vektöre çevrildi → `gorseller/logo.svg` (üst bar ve SVG favicon).
-  `favicon.ico`, `favicon-48/96.png`, `apple-touch-icon.png` ve
-  `gorseller/logo-kare.png` aynı çizimden.
+  vektöre çevrildi → `gorseller/logo.svg` (üst bar).
+  **Favicon seti:** kemik rengi yuvarlak kareye oturtulmuş at kafası
+  (koyu ve açık temada aynı okunsun diye): `favicon.ico` (16/32/48),
+  `icon-96/192/512.png`, `apple-touch-icon.png`, `site.webmanifest`.
+  Google yalnızca 48'in katı boyutları alıyor; SVG favicon bilerek
+  bağlanmadı. İkon değişince Google eski ikonu haftalarca tutabiliyor:
+  Search Console → URL Denetimi → ana sayfa → "Dizine eklenmesini iste"
+  ve yeni URL'ler (`?v=3`, yeni dosya adları) kullanmak süreci hızlandırır.
+  `gorseller/logo-kare.png` yapısal verideki logo.
 - **Karalamalar:** oyunlarımızdan karikatür çizimler, `index.html`'in
   başında `<symbol id="c-...">` olarak (100×100, çizgi `currentColor`,
   vurgu kırmızı). Inklash: yumruk, mürekkep, ko · XOXD: x, o, tahta ·
@@ -107,6 +114,19 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   eklenip (`hedef=dovus_alani p1=amele p2=manyak`, oyuncu da yapay zekâ)
   `get_viewport().get_texture().get_image().save_png()` ile kare kare
   kaydedildi; sahne sonra silindi.
+- **Oyundan kareler vitrini (Inklash sayfası):** yan yatmış kalın çerçeveli
+  telefon; ekranda 6 kare sırayla geçiyor, yenisi tıklanan noktadan
+  mürekkep lekesi gibi açılıyor (`clip-path`), telefon sarsılıyor, "POW!"
+  patlıyor. Altından kırmızı mürekkep damlıyor, köşesine shuriken
+  saplanmış, vizör köşeleri ve yanıp sönen kayıt ışığı var, altında
+  sprocket delikli film şeridi. Tıkla / kaydır / ok tuşları / film
+  şeridi; fare üstündeyken ve sekme gizliyken durur; hareket azaltmada
+  otomatik oynatma kapalı. Yeni kare eklemek: `kare-<ad>.webp` +
+  `kare-<ad>-k.webp` koy, HTML'de hem `.ekran` içine hem `.film`'e ekle.
+  Kareler oyundan **tam çözünürlükte** alınır: geçici sahnede oyun bir
+  `SubViewport` (2400×1080) içine kurulup `get_texture().get_image()`
+  ile kaydedilir (pencere ekrandan büyük olamadığı için doğrudan pencere
+  görüntüsü 1920'de kalıyordu); sahne sonra silinir.
 - **Şerit espirileri:** `a.joke1`–`a.joke10`. Her bantta bir kez, her
   açılışta karışık sırayla (arayuz.js → ŞERİTLER); hız bant uzunluğundan
   bağımsız ~45 px/sn. Yeni söz eklerken iki bandın HTML'ine de iki kopya

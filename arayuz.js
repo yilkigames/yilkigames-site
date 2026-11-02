@@ -738,3 +738,183 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(hizla);
   });
 })();
+
+/* ============================================================
+   KARELER — Inklash sayfasındaki mürekkep arcade'i
+   Telefon ekranında oyundan kareler sırayla geçiyor; yeni kare
+   tıklanan (ya da rastgele bir) noktadan mürekkep lekesi gibi açılıyor,
+   telefon sarsılıyor, "POW!" patlıyor. Tıkla / kaydır / ok tuşları /
+   film şeridi ile gezilir. Fare üstündeyken ve sekme gizliyken durur;
+   hareket azaltmada otomatik oynatma kapalı.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var ekran = document.getElementById("ekran");
+  if (!ekran) return;
+  var sahne = document.getElementById("kare-sahne");
+  var telefon = document.getElementById("telefon");
+  var kareler = Array.prototype.slice.call(ekran.querySelectorAll(".kare"));
+  var dugmeler = Array.prototype.slice.call(document.querySelectorAll(".film-kare"));
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SESLER = ["POW!", "BAM!", "ŞAK!", "ÇAT!", "GÜM!", "VUŞ!", "PAT!"];
+  var RENK = ["sari", "kirmizi", "mavi", "kara"];
+  var simdi = 0;
+  var gecis = false;
+  var gorunur = false;
+  var fareUstunde = false;
+  var sayac = null;
+  var n = 0;
+
+  function metin(a) {
+    var dil = document.documentElement.lang || "en";
+    var s = (typeof METIN !== "undefined" && (METIN[dil] || {})[a]) || (typeof METIN !== "undefined" && (METIN.en || {})[a]);
+    return s || "";
+  }
+
+  function etiketle() {
+    dugmeler.forEach(function (d, k) {
+      d.setAttribute("aria-label", metin("i.shot.n").replace("{n}", k + 1));
+      d.setAttribute("aria-current", k === simdi ? "true" : "false");
+    });
+  }
+
+  function patlat() {
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti " + RENK[n % RENK.length];
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = SESLER[n % SESLER.length];
+    p.style.left = 8 + Math.random() * 84 + "%";
+    p.style.top = 6 + Math.random() * 54 + "%";
+    p.style.zIndex = 6;
+    p.style.setProperty("--aci", Math.round(Math.random() * 40 - 20) + "deg");
+    p.style.setProperty("--boy", 96 + Math.round(Math.random() * 40) + "px");
+    n++;
+    sahne.appendChild(p);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
+  }
+
+  function git(i, x, y) {
+    i = (i + kareler.length) % kareler.length;
+    if (i === simdi || gecis) return;
+    gecis = true;
+    var yeni = kareler[i];
+    var eski = kareler[simdi];
+    yeni.style.setProperty("--x", x != null ? x : 15 + Math.random() * 70 + "%");
+    yeni.style.setProperty("--y", y != null ? y : 15 + Math.random() * 70 + "%");
+    yeni.classList.add("gelen");
+    simdi = i;
+    etiketle();
+    dugmeler.forEach(function (d, k) {
+      d.classList.toggle("aktif", k === i);
+    });
+    if (!azalt) {
+      patlat();
+      telefon.classList.remove("sars");
+      void telefon.offsetWidth;
+      telefon.classList.add("sars");
+    }
+    setTimeout(
+      function () {
+        eski.classList.remove("aktif");
+        yeni.classList.remove("gelen");
+        yeni.classList.add("aktif");
+        gecis = false;
+      },
+      azalt ? 0 : 650
+    );
+  }
+
+  function zamanla() {
+    clearInterval(sayac);
+    if (azalt) return;
+    sayac = setInterval(function () {
+      if (gorunur && !fareUstunde && !document.hidden) git(simdi + 1);
+    }, 3800);
+  }
+
+  /* Tıklama ve kaydırma: aynı yüzey. Yatay hareket 45 pikseli geçtiyse
+     kaydırma sayılıyor, ardından gelen tıklama yutuluyor. */
+  var basX = null;
+  var kaydirildi = false;
+  ekran.addEventListener("pointerdown", function (e) {
+    basX = e.clientX;
+  });
+  ekran.addEventListener("pointerup", function (e) {
+    if (basX === null) return;
+    var dx = e.clientX - basX;
+    basX = null;
+    if (Math.abs(dx) > 45) {
+      kaydirildi = true;
+      git(simdi + (dx < 0 ? 1 : -1));
+      zamanla();
+    }
+  });
+  ekran.addEventListener("click", function (e) {
+    if (kaydirildi) {
+      kaydirildi = false;
+      return;
+    }
+    var r = ekran.getBoundingClientRect();
+    var x = e.clientX ? ((e.clientX - r.left) / r.width) * 100 + "%" : null;
+    var y = e.clientY ? ((e.clientY - r.top) / r.height) * 100 + "%" : null;
+    git(simdi + 1, x, y);
+    zamanla();
+  });
+  ekran.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      git(simdi + (e.key === "ArrowRight" ? 1 : -1));
+      zamanla();
+    }
+  });
+
+  dugmeler.forEach(function (d, k) {
+    d.addEventListener("click", function () {
+      git(k);
+      zamanla();
+    });
+  });
+
+  /* Sadece fare üstünde durur; dokunmatikte "üstünde" kavramı yok */
+  sahne.addEventListener("pointerenter", function (e) {
+    if (e.pointerType === "mouse") fareUstunde = true;
+  });
+  sahne.addEventListener("pointerleave", function () {
+    fareUstunde = false;
+    telefon.style.setProperty("--rx", "0deg");
+    telefon.style.setProperty("--ry", "0deg");
+  });
+
+  /* Fareyi takip ederek telefon birkaç derece yatıyor */
+  if (!azalt && !window.matchMedia("(hover: none)").matches) {
+    sahne.addEventListener("pointermove", function (e) {
+      var r = sahne.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      telefon.style.setProperty("--ry", (x * 7).toFixed(2) + "deg");
+      telefon.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg");
+    });
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      function (g) {
+        gorunur = g[0].isIntersecting;
+      },
+      { threshold: 0.35 }
+    ).observe(sahne);
+  } else {
+    gorunur = true;
+  }
+
+  /* Dil değişince etiketler yeniden yazılsın */
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(etiketle, 0);
+  });
+
+  etiketle();
+  zamanla();
+})();

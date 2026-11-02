@@ -137,7 +137,7 @@ var METIN = {
     "i.s2": "Bir sabah usta yatağından kalkamadı. Son nefesinde parşömeni uzattı: \"Benim yapamadığımı sen yap. Bunu dünyanın en güçlü dövüşçüsüne götür.\"",
     "i.s3": "Amele Ninja parşömeni açtı. İçi bomboştu. Ne demek istendiğini anlamadı; zaten pek bir şey anladığı da yoktu.",
     "i.s4": "Ama bir şeyden emin: en güçlüyü bulmanın tek yolu, yoldaki herkesi yenmek. Önce yumruk, sonra soru.",
-    "i.shots.title": "Oyundan iki kare",
+    "i.shots.title": "Oyundan kareler",
     "a.joke1": "Oynamak zor mu? Bir de yapmayı dene.",
     "a.joke2": "Stüdyomuz çok fakir.",
     "a.joke3": "Tüh, bi aksilik oldu.",
@@ -148,6 +148,8 @@ var METIN = {
     "a.joke8": "Ninjamız hâlâ parşömeni okuyor.",
     "a.joke9": "Bu bantta reklam olabilirdi.",
     "a.joke10": "Kaydetmeyi unutma. Biz unuttuk.",
+    "i.shot.next": "Sonraki kare",
+    "i.shot.n": "Kare {n}",
   },
 
   en: {
@@ -261,7 +263,7 @@ var METIN = {
     "i.s2": "One morning the master couldn't get out of bed. With his last breath he held out a scroll: \"Do what I never could. Take this to the strongest fighter in the world.\"",
     "i.s3": "Amele Ninja unrolled the scroll. It was completely blank. He had no idea what it meant — then again, he rarely did.",
     "i.s4": "But he's sure of one thing: the only way to find the strongest is to beat everyone on the road. Punch first, ask later.",
-    "i.shots.title": "Two shots from the game",
+    "i.shots.title": "Frames from the game",
     "a.joke1": "Hard to play? Try making one.",
     "a.joke2": "Our studio is very broke.",
     "a.joke3": "Oops, something went wrong.",
@@ -272,6 +274,8 @@ var METIN = {
     "a.joke8": "Our ninja is still reading the scroll.",
     "a.joke9": "An ad could have gone on this ribbon.",
     "a.joke10": "Don't forget to save. We did.",
+    "i.shot.next": "Next frame",
+    "i.shot.n": "Frame {n}",
   },
 
   es: {
@@ -385,7 +389,7 @@ var METIN = {
     "i.s2": "Una mañana el maestro no pudo levantarse. Con su último aliento le tendió un pergamino: \"Haz lo que yo nunca pude. Llévale esto al luchador más fuerte del mundo.\"",
     "i.s3": "Amele Ninja desenrolló el pergamino. Estaba en blanco. No entendió nada; aunque, la verdad, casi nunca entiende nada.",
     "i.s4": "Pero de algo está seguro: la única forma de encontrar al más fuerte es vencer a todos por el camino. Primero el puño, luego las preguntas.",
-    "i.shots.title": "Dos imágenes del juego",
+    "i.shots.title": "Imágenes del juego",
     "a.joke1": "¿Difícil de jugar? Prueba a hacer uno.",
     "a.joke2": "Nuestro estudio es muy pobre.",
     "a.joke3": "Vaya, algo salió mal.",
@@ -396,6 +400,8 @@ var METIN = {
     "a.joke8": "Nuestro ninja sigue leyendo el pergamino.",
     "a.joke9": "Aquí podría ir un anuncio.",
     "a.joke10": "No olvides guardar. Nosotros lo olvidamos.",
+    "i.shot.next": "Siguiente imagen",
+    "i.shot.n": "Imagen {n}",
   },
 
   de: {
@@ -509,7 +515,7 @@ var METIN = {
     "i.s2": "Eines Morgens kam der Meister nicht mehr aus dem Bett. Mit letzter Kraft reichte er eine Schriftrolle: „Tu, was ich nie geschafft habe. Bring das dem stärksten Kämpfer der Welt.“",
     "i.s3": "Amele Ninja rollte die Schriftrolle auf. Sie war völlig leer. Er verstand nicht, was das sollte – aber er verstand selten etwas.",
     "i.s4": "Aber eins weiß er sicher: Den Stärksten findet man nur, wenn man jeden unterwegs besiegt. Erst zuschlagen, dann fragen.",
-    "i.shots.title": "Zwei Bilder aus dem Spiel",
+    "i.shots.title": "Bilder aus dem Spiel",
     "a.joke1": "Schwer zu spielen? Versuch mal, eins zu bauen.",
     "a.joke2": "Unser Studio ist sehr pleite.",
     "a.joke3": "Hoppla, da ist was schiefgelaufen.",
@@ -520,6 +526,8 @@ var METIN = {
     "a.joke8": "Unser Ninja liest immer noch die Schriftrolle.",
     "a.joke9": "Hier könnte Werbung stehen.",
     "a.joke10": "Vergiss nicht zu speichern. Wir haben's vergessen.",
+    "i.shot.next": "Nächstes Bild",
+    "i.shot.n": "Bild {n}",
   },
 
   fr: {
@@ -633,7 +641,7 @@ var METIN = {
     "i.s2": "Un matin, le maître ne put se lever. Dans un dernier souffle, il tendit un parchemin : « Fais ce que je n'ai jamais pu faire. Apporte ceci au plus fort combattant du monde. »",
     "i.s3": "Amele Ninja déroula le parchemin. Il était vierge. Il n'y comprit rien — mais bon, il ne comprend pas grand-chose en général.",
     "i.s4": "Mais il est sûr d'une chose : le seul moyen de trouver le plus fort, c'est de battre tous ceux qu'il croise. D'abord le poing, ensuite les questions.",
-    "i.shots.title": "Deux images du jeu",
+    "i.shots.title": "Images du jeu",
     "a.joke1": "Dur à jouer ? Essaie d'en faire un.",
     "a.joke2": "Notre studio est très fauché.",
     "a.joke3": "Oups, petit souci.",
@@ -644,6 +652,8 @@ var METIN = {
     "a.joke8": "Notre ninja lit encore le parchemin.",
     "a.joke9": "Une pub aurait pu être ici.",
     "a.joke10": "N'oublie pas de sauvegarder. Nous, on a oublié.",
+    "i.shot.next": "Image suivante",
+    "i.shot.n": "Image {n}",
   },
 
   it: {
@@ -757,7 +767,7 @@ var METIN = {
     "i.s2": "Una mattina il maestro non riuscì ad alzarsi. Con l'ultimo respiro porse una pergamena: «Fai ciò che io non sono mai riuscito a fare. Portala al combattente più forte del mondo.»",
     "i.s3": "Amele Ninja srotolò la pergamena. Era completamente bianca. Non capì cosa significasse; del resto capisce di rado qualcosa.",
     "i.s4": "Ma di una cosa è certo: l'unico modo per trovare il più forte è battere chiunque incontri per strada. Prima il pugno, poi le domande.",
-    "i.shots.title": "Due immagini dal gioco",
+    "i.shots.title": "Immagini dal gioco",
     "a.joke1": "Difficile da giocare? Prova a farne uno.",
     "a.joke2": "Il nostro studio è poverissimo.",
     "a.joke3": "Ops, qualcosa è andato storto.",
@@ -768,6 +778,8 @@ var METIN = {
     "a.joke8": "Il nostro ninja sta ancora leggendo la pergamena.",
     "a.joke9": "Qui ci poteva stare una pubblicità.",
     "a.joke10": "Non dimenticare di salvare. Noi l'abbiamo dimenticato.",
+    "i.shot.next": "Immagine successiva",
+    "i.shot.n": "Immagine {n}",
   },
 
   pt: {
@@ -881,7 +893,7 @@ var METIN = {
     "i.s2": "Certa manhã o mestre não conseguiu levantar. No último suspiro, estendeu um pergaminho: \"Faça o que eu nunca consegui. Leve isto ao lutador mais forte do mundo.\"",
     "i.s3": "Amele Ninja abriu o pergaminho. Estava em branco. Não entendeu o que aquilo queria dizer; aliás, quase nunca entende.",
     "i.s4": "Mas de uma coisa ele tem certeza: o único jeito de achar o mais forte é vencer todo mundo pelo caminho. Primeiro o soco, depois as perguntas.",
-    "i.shots.title": "Duas cenas do jogo",
+    "i.shots.title": "Cenas do jogo",
     "a.joke1": "Difícil de jogar? Tenta fazer um.",
     "a.joke2": "Nosso estúdio é muito pobre.",
     "a.joke3": "Ops, deu ruim.",
@@ -892,6 +904,8 @@ var METIN = {
     "a.joke8": "Nosso ninja ainda está lendo o pergaminho.",
     "a.joke9": "Aqui podia ter um anúncio.",
     "a.joke10": "Não esqueça de salvar. A gente esqueceu.",
+    "i.shot.next": "Próxima cena",
+    "i.shot.n": "Cena {n}",
   },
 
   ru: {
@@ -1005,7 +1019,7 @@ var METIN = {
     "i.s2": "Однажды утром мастер не смог встать с постели. На последнем вздохе он протянул свиток: «Сделай то, что не удалось мне. Отнеси это сильнейшему бойцу в мире».",
     "i.s3": "Амеле Ниндзя развернул свиток. Он был совершенно пуст. Что это значит, он не понял — впрочем, он редко что-то понимает.",
     "i.s4": "Но в одном он уверен: единственный способ найти сильнейшего — победить всех на своём пути. Сначала кулак, потом вопросы.",
-    "i.shots.title": "Два кадра из игры",
+    "i.shots.title": "Кадры из игры",
     "a.joke1": "Трудно играть? Попробуй сделать игру.",
     "a.joke2": "Наша студия очень бедная.",
     "a.joke3": "Упс, что-то пошло не так.",
@@ -1016,6 +1030,8 @@ var METIN = {
     "a.joke8": "Наш ниндзя всё ещё читает свиток.",
     "a.joke9": "Здесь могла быть ваша реклама.",
     "a.joke10": "Не забудь сохраниться. Мы вот забыли.",
+    "i.shot.next": "Следующий кадр",
+    "i.shot.n": "Кадр {n}",
   },
 
   zh: {
@@ -1129,7 +1145,7 @@ var METIN = {
     "i.s2": "一天早上，师父起不来床了。临终前他递出一卷卷轴：“做到我没能做到的事。把它交给世界上最强的格斗家。”",
     "i.s3": "Amele 忍者打开卷轴。里面一片空白。他完全不明白是什么意思——不过他本来也很少明白什么。",
     "i.s4": "但他确信一件事：找到最强者的唯一办法，就是打败路上的每一个人。先出拳，再提问。",
-    "i.shots.title": "游戏截图两张",
+    "i.shots.title": "游戏画面",
     "a.joke1": "玩起来难？那你试试做一个。",
     "a.joke2": "我们工作室穷得很。",
     "a.joke3": "哎呀，出了点岔子。",
@@ -1140,6 +1156,8 @@ var METIN = {
     "a.joke8": "我们的忍者还在读那卷卷轴。",
     "a.joke9": "这里本来可以放广告。",
     "a.joke10": "别忘了存档。我们就忘了。",
+    "i.shot.next": "下一张",
+    "i.shot.n": "第 {n} 张",
   },
 
   ja: {
@@ -1253,7 +1271,7 @@ var METIN = {
     "i.s2": "ある朝、師匠は布団から起き上がれなかった。最期の息で巻物を差し出す。「わしにできなかったことを、お前がやれ。これを世界最強の格闘家に届けるのだ」",
     "i.s3": "アメレ忍者は巻物を開いた。中は真っ白。意味はさっぱりわからない。まあ、わかることのほうが珍しいのだが。",
     "i.s4": "でも、ひとつだけ確かなことがある。最強を見つける唯一の方法は、道で出会う全員を倒すこと。まず拳、質問はあとだ。",
-    "i.shots.title": "ゲームから2枚",
+    "i.shots.title": "ゲームの一コマ",
     "a.joke1": "遊ぶのが難しい？作ってみなよ。",
     "a.joke2": "うちのスタジオ、すごく貧乏。",
     "a.joke3": "あちゃー、トラブル発生。",
@@ -1264,5 +1282,7 @@ var METIN = {
     "a.joke8": "うちの忍者、まだ巻物を読んでる。",
     "a.joke9": "ここに広告が入るはずだった。",
     "a.joke10": "セーブを忘れずに。僕らは忘れた。",
+    "i.shot.next": "次のカット",
+    "i.shot.n": "カット {n}",
   },
 };
