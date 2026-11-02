@@ -330,11 +330,7 @@ arayüz görselleri taslak olduğu için kullanılmadı; harita bize ait, siteni
 - **Mahalle haritası:** `gorseller/survive/harita.svg` (1300×1000 birim, düz SVG; elle düzenlenebilir). Sürüklenir;
   pin ya da çipe basınca piksel adam yürür, yerin kartı açılır (yakın plan = aynı harita, köşede oyundan bir çıkartma).
   Yerler/pin koordinatları `YERLER` dizisinde (JS), metinler `sit.y.<id>.n/.d`.
-- **Basamaklar:** 6 kıyafet = 6 meslek (Dilenci, Market, Doktor, CEO, Hacker, Cumhurbaşkanı). Sicil kartındaki
-  kazanç/açlık/uyku/gerekenler oyunun `src/denge.gd` tablosundan (kazanç ×100 ölçekli, dönem başına).
-- **Alt bar:** oyunun döngüsünün küçük hâli; her hareket 3 gün, açlık/uyku 0 olunca sağlık düşer, sağlık 0 → R.I.P.
-  Hacker'da %20 yakalanma riski ve 3 kat ceza oyundaki gibi.
-- Kıyafet görselleri değişirse `gorseller/survive/kiyafet-*.webp` üzerine aynı adla yazmak yeterli.
+- **Şerit:** oyundaki işler, dilenciden başkana kayan kırmızı bant. Haritadaki adam `kiyafet-cuval.webp` (klasik adam).
 - Metinler `sit.*` anahtarları (10 dil); JS'in okuduğu anahtarlar metin üretici betikte `kullanilan` kümesine eklenmeli.
 
 XOXD galerisi artık kaydırmayla ilerlemiyor: kareler telefona dokununca, noktalarla, yatay kaydırmayla ya da

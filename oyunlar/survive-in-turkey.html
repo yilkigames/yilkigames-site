@@ -78,7 +78,6 @@
       <ol>
         <li><a href="#sit-hero" tabindex="-1" data-i18n="sit.rail.1">Kaldırım</a></li>
         <li><a href="#harita" tabindex="-1" data-i18n="sit.rail.2">Mahalle</a></li>
-        <li><a href="#basamak" tabindex="-1" data-i18n="sit.rail.3">Basamaklar</a></li>
         <li><a href="#saray" tabindex="-1" data-i18n="sit.rail.4">Saray</a></li>
       </ol>
     </nav>
@@ -175,92 +174,10 @@
         </div>
       </section>
 
-      <!-- ============================================================
-           BASAMAKLAR — altı kıyafet altı basamak; basılan basamak sicil
-           kartını açar. Altındaki çubuk oyunun alt barı (her tık 3 gün).
-           ============================================================ -->
-      <section class="sb-bolum" id="basamak" aria-labelledby="sit-gard-baslik">
-        <div class="sarmal">
-          <h2 class="bant-baslik beliriv" id="sit-gard-baslik" data-i18n="sit.g.title">Bir adam, altı kıyafet</h2>
-          <p class="uzun-metin sit-gard-giris beliriv" data-i18n="sit.g.sub">
-            Oyunda her iş ayrı bir kıyafet ister. Bir basamağa bas: sicil kartı o mesleğin gerçek rakamlarını gösterir.
-          </p>
-
-          <div class="sb-ic">
-            <ol class="sb-merdiven" id="sit-askilar">
-              <li><button type="button" class="sb-basamak aktif" aria-pressed="true" data-i="0"><img src="/gorseller/survive/kiyafet-cuval.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 0"><b>100</b><em data-i18n="sit.o1.name">Çuval</em></span></button></li>
-              <li><button type="button" class="sb-basamak" aria-pressed="false" data-i="1"><img src="/gorseller/survive/kiyafet-gunluk.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 1"><b>8K</b><em data-i18n="sit.o2.name">Günlük</em></span></button></li>
-              <li><button type="button" class="sb-basamak" aria-pressed="false" data-i="2"><img src="/gorseller/survive/kiyafet-onluk.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 2"><b>100K</b><em data-i18n="sit.o3.name">Önlük</em></span></button></li>
-              <li><button type="button" class="sb-basamak" aria-pressed="false" data-i="3"><img src="/gorseller/survive/kiyafet-takim.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 3"><b>150K</b><em data-i18n="sit.o4.name">Takım elbise</em></span></button></li>
-              <li><button type="button" class="sb-basamak" aria-pressed="false" data-i="4"><img src="/gorseller/survive/kiyafet-hacker.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 4"><b>220K</b><em data-i18n="sit.o5.name">Palto</em></span></button></li>
-              <li><button type="button" class="sb-basamak" aria-pressed="false" data-i="5"><img src="/gorseller/survive/kiyafet-altin.webp" alt="" width="706" height="1414" loading="lazy" /><span class="sb-blok" style="--k: 5"><b>500K</b><em data-i18n="sit.o6.name">Altın takım</em></span></button></li>
-            </ol>
-
-            <article class="sit-kart" id="sit-kart" aria-live="polite">
-              <span class="bant sari" aria-hidden="true"></span>
-              <p class="sit-kart-ust"><span data-i18n="sit.k.card">Sicil kartı</span> <b id="sit-k-no">1/6</b></p>
-              <h3 class="sit-k-meslek" id="sit-k-meslek">Dilenci</h3>
-              <p class="sit-k-kazanc"><b id="sit-k-para">100 ₺</b> <span data-i18n="sit.k.per">/ dönem</span></p>
-              <dl class="sit-k-liste">
-                <div>
-                  <dt data-i18n="sit.k.needs">Gerekenler</dt>
-                  <dd id="sit-k-ister">—</dd>
-                </div>
-                <div>
-                  <dt data-i18n="sit.k.cost">Bir dönemin bedeli</dt>
-                  <dd>
-                    <span class="sit-mini"><em data-i18n="sit.m.hunger">Açlık</em><i><u id="sit-k-ac"></u></i><b id="sit-k-ac-n">−1</b></span>
-                    <span class="sit-mini"><em data-i18n="sit.m.sleep">Uyku</em><i><u id="sit-k-uy"></u></i><b id="sit-k-uy-n">−1</b></span>
-                  </dd>
-                </div>
-              </dl>
-            </article>
-          </div>
-
-          <div class="sit-hud" id="sit-hud">
-            <div class="sit-hud-sol">
-              <p class="sit-gun"><span data-i18n="sit.h.day">Gün</span> <b id="sit-gun">1</b></p>
-              <p class="sit-hud-cep"><span data-i18n="sit.h.money">Cep</span> <b id="sit-hud-cep">0 ₺</b></p>
-            </div>
-            <div class="sit-olcerler">
-              <div class="sit-olcer ac"><span data-i18n="sit.m.hunger">Açlık</span><i><u id="sit-o-ac"></u></i><b id="sit-o-ac-n">100</b></div>
-              <div class="sit-olcer uy"><span data-i18n="sit.m.sleep">Uyku</span><i><u id="sit-o-uy"></u></i><b id="sit-o-uy-n">100</b></div>
-              <div class="sit-olcer sa"><span data-i18n="sit.m.health">Sağlık</span><i><u id="sit-o-sa"></u></i><b id="sit-o-sa-n">100</b></div>
-            </div>
-            <div class="sit-eylem">
-              <button type="button" class="dugme" id="sit-calis"><span id="sit-calis-y">Çalış</span></button>
-              <button type="button" class="dugme gece" id="sit-simit"><span data-i18n="sit.h.simit">Simit −20 ₺</span></button>
-              <button type="button" class="dugme gece" id="sit-kebap"><span data-i18n="sit.h.kebap">Kebap −200 ₺</span></button>
-              <button type="button" class="dugme gece" id="sit-uyu"><span data-i18n="sit.h.sleep">Uyu</span></button>
-            </div>
-            <p class="sit-bildirim" id="sit-bildirim" role="status"></p>
-            <p class="sit-not" data-i18n="sit.h.note">Her tık 3 gün. Açlık ya da uyku bitince sağlık düşer. Sayılar oyunun gerçek tablosundan.</p>
-            <div class="sit-rip" id="sit-rip" hidden>
-              <img src="/gorseller/survive/mezar.webp" alt="" width="90" height="95" style="image-rendering: pixelated" />
-              <b class="sit-rip-b">R.I.P.</b>
-              <p id="sit-rip-y"></p>
-              <button type="button" class="dugme" id="sit-yeniden"><span data-i18n="sit.rip.btn">Yeniden başla</span></button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- Meslek şeridi: oyundaki işlerin hepsi, dilenciden başkana -->
       <div class="sit-serit" aria-hidden="true">
         <div class="sit-serit-ray" id="sit-serit"></div>
       </div>
-
-      <section class="sit-sayilar" aria-labelledby="sit-say-baslik">
-        <div class="sarmal">
-          <h2 class="bant-baslik beliriv" id="sit-say-baslik" data-i18n="sit.s.title">Kaldırımdan saraya</h2>
-          <ul class="sit-say-liste">
-            <li class="beliriv"><b>16</b><span data-i18n="sit.s1">meslek: dilenciden cumhurbaşkanlığına</span></li>
-            <li class="beliriv" style="--gecikme: 0.06s"><b>3</b><span data-i18n="sit.s2">gün geçer her tıkta; yaşlanırsın, kira gelir</span></li>
-            <li class="beliriv" style="--gecikme: 0.12s"><b>4</b><span data-i18n="sit.s3">yaşam yeri: sokak, apart, müstakil ev, villa</span></li>
-            <li class="beliriv" style="--gecikme: 0.18s"><b>36</b><span data-i18n="sit.s4">gözlük çanta; başta yalnızca dokuzu açık</span></li>
-          </ul>
-        </div>
-      </section>
 
       <section class="sit-saray" id="saray">
         <div class="sarmal">

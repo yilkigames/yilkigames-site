@@ -4,9 +4,7 @@
       kutuya düşer). Eşikler oyunun gerçek fiyatlarına bağlı.
    2) MAHALLE: kendi çizdiğimiz harita; sürüklenir, bir yere basınca
       adam yürür ve yerin kartı açılır.
-   3) BASAMAKLAR: altı kıyafet; sicil kartı oyunun denge tablosundan.
-   4) ALT BAR: oyunun döngüsünün küçük hâli (her hareket 3 gün).
-   5) ŞERİT + RAY: meslek şeridi, sayfa yukarı çıktıkça dolan ray.
+   3) ŞERİT + RAY: meslek şeridi, sayfa yukarı çıktıkça dolan ray.
    ============================================================ */
 (function () {
   "use strict";
@@ -36,16 +34,6 @@
       if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(f, 0);
     });
   }
-
-  /* kazanc: dönem başına ₺ · ac / uy: bir dönemde giden puan · risk: yakalanma % */
-  var KIYAFET = [
-    { kazanc: 100, ac: 1, uy: 1, risk: 0 },
-    { kazanc: 8000, ac: 5, uy: 4, risk: 0 },
-    { kazanc: 100000, ac: 50, uy: 5, risk: 0 },
-    { kazanc: 150000, ac: 50, uy: 5, risk: 0 },
-    { kazanc: 220000, ac: 10, uy: 5, risk: 20 },
-    { kazanc: 500000, ac: 1, uy: 2, risk: 0 }
-  ];
 
   /* ---------------- 1) KALDIRIM: yalvar ---------------- */
   var DOKTOR = 100000;
@@ -195,33 +183,7 @@
   var aktif = -1;
   var yurumeZaman, gitZaman, kartZaman;
 
-  var AVATAR = [
-    "..rrrrrr..",
-    ".rrrrrrrr.",
-    ".kkkkkkkk.",
-    ".kekkkkek.",
-    ".kkkkkkkk.",
-    "..kkmmkk..",
-    ".bbbbbbbb.",
-    "bbbbbbbbbb",
-    "kbbbbbbbbk",
-    "kbbbbbbbbk",
-    ".bbbbbbbb.",
-    ".bbbbbbbb.",
-    "..dd..dd..",
-    "..dd..dd.."
-  ];
-  var PAL = { r: "#ff3b2f", k: "#e8b48a", e: "#0e0d0c", m: "#8a3a2a", b: "#9b7a4a", d: "#1a1816" };
-
-  (function avatarKur() {
-    var s = '<svg viewBox="0 0 10 14" shape-rendering="crispEdges" aria-hidden="true">';
-    AVATAR.forEach(function (satirS, y) {
-      satirS.split("").forEach(function (ch, x) {
-        if (ch !== ".") s += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + PAL[ch] + '"/>';
-      });
-    });
-    ben.innerHTML = s + "</svg>";
-  })();
+  ben.innerHTML = '<img src="/gorseller/survive/kiyafet-cuval.webp" alt="" width="706" height="1414" />';
 
   function sinirla() {
     var vw = gorus.clientWidth;
@@ -255,7 +217,7 @@
     var H = vw < 700 ? vh : BOY;
     gorus.style.setProperty("--H", H + "px");
     olcek = H / BOY;
-    ben.style.width = (vw < 700 ? 34 : 46) + "px";
+    ben.style.width = (vw < 700 ? 40 : 56) + "px";
     var yer = aktif >= 0 ? hedef(YERLER[aktif]) : { x: 430, y: 330 };
     benKonum(yer.x, yer.y);
     yerles(false);
@@ -449,148 +411,7 @@
   gorus.addEventListener("pointercancel", birak);
   window.addEventListener("resize", olcekle);
 
-  /* ---------------- 3) BASAMAKLAR ---------------- */
-  var basamaklar = Array.prototype.slice.call(document.querySelectorAll(".sb-basamak"));
-  var simdi = 0;
-
-  function kartYazK() {
-    var k = KIYAFET[simdi];
-    var n = simdi + 1;
-    $("sit-k-no").textContent = n + "/6";
-    $("sit-k-meslek").textContent = metin("sit.o" + n + ".job");
-    $("sit-k-para").textContent = sayi(k.kazanc) + " ₺";
-    $("sit-k-ister").textContent = metin("sit.o" + n + ".need");
-    $("sit-k-ac").style.width = Math.min(100, k.ac * 2) + "%";
-    $("sit-k-uy").style.width = Math.min(100, k.uy * 2) + "%";
-    $("sit-k-ac-n").textContent = "−" + k.ac;
-    $("sit-k-uy-n").textContent = "−" + k.uy;
-    $("sit-calis-y").textContent = metin("sit.h.work").replace("{job}", metin("sit.o" + n + ".job")).replace("{n}", sayi(k.kazanc));
-  }
-
-  function bas(i) {
-    simdi = i;
-    basamaklar.forEach(function (b, j) {
-      b.classList.toggle("aktif", j === i);
-      b.setAttribute("aria-pressed", j === i ? "true" : "false");
-      b.classList.remove("hop");
-    });
-    var b = basamaklar[i];
-    void b.offsetWidth;
-    if (!azalt) b.classList.add("hop");
-    kartYazK();
-  }
-
-  basamaklar.forEach(function (b, i) {
-    b.setAttribute("aria-label", metin("sit.o" + (i + 1) + ".job"));
-    b.addEventListener("click", function () {
-      bas(i);
-    });
-  });
-
-  /* ---------------- 4) ALT BAR ---------------- */
-  var D;
-  var olu = false;
-
-  function basla() {
-    D = { gun: 1, para: 0, ac: 100, uy: 100, sa: 100 };
-    olu = false;
-    $("sit-rip").hidden = true;
-    $("sit-hud").classList.remove("olu");
-    bildir("");
-    hudYaz();
-  }
-
-  function tut(v) {
-    return Math.max(0, Math.min(100, v));
-  }
-
-  function hudYaz() {
-    $("sit-gun").textContent = sayi(D.gun);
-    $("sit-hud-cep").textContent = sayi(D.para) + " ₺";
-    [["ac", "sit-o-ac"], ["uy", "sit-o-uy"], ["sa", "sit-o-sa"]].forEach(function (p) {
-      $(p[1]).style.width = D[p[0]] + "%";
-      $(p[1] + "-n").textContent = D[p[0]];
-      $(p[1]).parentNode.parentNode.classList.toggle("az", D[p[0]] <= 25);
-    });
-    ["sit-simit", "sit-kebap", "sit-uyu", "sit-calis"].forEach(function (id) {
-      $(id).disabled = olu;
-    });
-  }
-
-  var bildirimZaman;
-  function bildir(m) {
-    var b = $("sit-bildirim");
-    b.textContent = m;
-    b.classList.remove("yeni");
-    if (m) {
-      void b.offsetWidth;
-      b.classList.add("yeni");
-    }
-    clearTimeout(bildirimZaman);
-    if (m) bildirimZaman = setTimeout(function () {
-      b.textContent = "";
-    }, 4200);
-  }
-
-  /* Her hareket bir dönem = 3 gün. Açlık ya da uyku sıfırsa sağlık düşer. */
-  function donemGec() {
-    D.gun += 3;
-    if (D.ac === 0 || D.uy === 0) D.sa = tut(D.sa - 10);
-    if (D.sa <= 0) olu = true;
-    hudYaz();
-    if (olu) {
-      $("sit-hud").classList.add("olu");
-      $("sit-rip-y").textContent = metin("sit.rip.msg").replace("{n}", sayi(D.gun));
-      $("sit-rip").hidden = false;
-      $("sit-yeniden").focus({ preventScroll: true });
-    }
-  }
-
-  $("sit-calis").addEventListener("click", function () {
-    if (olu) return;
-    var k = KIYAFET[simdi];
-    D.ac = tut(D.ac - k.ac);
-    D.uy = tut(D.uy - k.uy);
-    if (k.risk && Math.random() * 100 < k.risk) {
-      var ceza = Math.min(D.para, k.kazanc * 3);
-      D.para -= ceza;
-      bildir(metin("sit.t.caught").replace("{n}", sayi(ceza)));
-    } else {
-      D.para += k.kazanc;
-      bildir(metin("sit.t.work").replace("{n}", sayi(k.kazanc)));
-    }
-    donemGec();
-  });
-
-  function ye(ucret, doyum) {
-    return function () {
-      if (olu) return;
-      if (D.para < ucret) {
-        bildir(metin("sit.t.broke"));
-        return;
-      }
-      D.para -= ucret;
-      D.ac = tut(D.ac + doyum);
-      bildir(metin("sit.t.ate").replace("{n}", doyum));
-      donemGec();
-    };
-  }
-
-  $("sit-simit").addEventListener("click", ye(20, 10));
-  $("sit-kebap").addEventListener("click", ye(200, 70));
-  $("sit-uyu").addEventListener("click", function () {
-    if (olu) return;
-    D.uy = tut(D.uy + 30);
-    D.ac = tut(D.ac - 5);
-    bildir(metin("sit.t.slept"));
-    donemGec();
-  });
-  $("sit-yeniden").addEventListener("click", function () {
-    basla();
-    $("sit-calis").focus({ preventScroll: true });
-  });
-
-  /* ---------------- 5) ŞERİT + RAY ---------------- */
+  /* ---------------- 3) ŞERİT + RAY ---------------- */
   function seritYaz() {
     var liste = metin("sit.jobs").split("|");
     var html = "";
@@ -603,7 +424,7 @@
   }
 
   var rail = $("sit-rail");
-  var bolumler = ["sit-hero", "harita", "basamak", "saray"].map($);
+  var bolumler = ["sit-hero", "harita", "saray"].map($);
   var raylar = Array.prototype.slice.call(rail.querySelectorAll("a"));
   var bekle = false;
 
@@ -634,20 +455,15 @@
   );
 
   function hepsiniYaz() {
-    kartYazK();
     seritYaz();
     balonYaz();
     adlariYaz();
     cepYaz();
-    basamaklar.forEach(function (b, i) {
-      b.setAttribute("aria-label", metin("sit.o" + (i + 1) + ".job"));
-    });
   }
 
   dilDegisince(hepsiniYaz);
 
   pinleriKur();
-  basla();
   hepsiniYaz();
   olcekle();
   rayGuncelle();
