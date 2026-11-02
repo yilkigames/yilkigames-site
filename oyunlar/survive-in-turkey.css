@@ -986,21 +986,6 @@
   clip-path: polygon(0 28px, 5% 8px, 11% 24px, 17% 4px, 24% 22px, 31% 6px, 38% 24px, 46% 4px, 53% 22px, 60% 6px, 68% 24px, 75% 4px, 82% 22px, 90% 6px, 96% 20px, 100% 8px, 100% 100%, 0 100%);
 }
 
-.sit-saray::before {
-  content: "SARAY";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  font-family: var(--cizgi-roman);
-  font-size: clamp(140px, 28vw, 460px);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  color: transparent;
-  -webkit-text-stroke: 3px rgba(14, 13, 12, 0.12);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
 .sit-saray .sarmal {
   position: relative;
 }
