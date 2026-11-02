@@ -1008,3 +1008,44 @@
     });
   }
 })();
+
+/* ============================================================
+   YAN RAY
+   Sağ kenardaki küçük kaydırma imleci (Inklash, XOXD): hangi bölümde
+   olduğunu gösterir, tıklayınca o bölüme gider.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  document.querySelectorAll(".yan-ray").forEach(function (ray) {
+    var linkler = Array.prototype.slice.call(ray.querySelectorAll("a"));
+    var bolumler = linkler.map(function (a) {
+      return document.querySelector(a.getAttribute("href"));
+    });
+    var bekle = false;
+
+    function guncelle() {
+      bekle = false;
+      var esik = window.innerHeight * 0.45;
+      var en = 0;
+      bolumler.forEach(function (b, i) {
+        if (b && b.getBoundingClientRect().top <= esik) en = i;
+      });
+      linkler.forEach(function (a, i) {
+        a.classList.toggle("aktif", i === en);
+      });
+    }
+
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (!bekle) {
+          bekle = true;
+          requestAnimationFrame(guncelle);
+        }
+      },
+      { passive: true }
+    );
+    guncelle();
+  });
+})();

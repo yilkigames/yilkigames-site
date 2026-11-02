@@ -89,6 +89,8 @@
           <nav aria-label="Ana menü">
             <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
             <a href="/oyunlar/inklash.html">Inklash</a>
+            <a href="/oyunlar/xoxd.html" aria-current="page">XOXD</a>
+            <a href="/oyunlar/survive-in-turkey.html">Survive<span class="nav-uz"> in Turkey</span></a>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
           <button
@@ -114,8 +116,16 @@
          Space Grotesk, düz beyaz X ve O'lar, tek vurgu kırmızı çizgi.
          Çizgi roman efekti yok — XOXD sade bir oyun, sayfası da öyle.
          ============================================================ -->
+    <nav class="yan-ray x-ray" aria-hidden="true">
+      <ol>
+        <li><a href="#x-ust" tabindex="-1"></a></li>
+        <li><a href="#kural" tabindex="-1"></a></li>
+        <li><a href="#xg" tabindex="-1"></a></li>
+      </ol>
+    </nav>
+
     <main id="icerik">
-      <div class="x-hero">
+      <div class="x-hero" id="x-ust">
         <div class="sarmal x-hero-ic">
           <div>
             <a class="geri" href="/#oyunlar">
@@ -228,12 +238,12 @@
           </div>
 
           <div class="xs-h xs-nokta-sar" id="xg-noktalar">
-            <button type="button" class="xs-nokta aktif" data-i="0"></button>
-            <button type="button" class="xs-nokta" data-i="1"></button>
-            <button type="button" class="xs-nokta" data-i="2"></button>
-            <button type="button" class="xs-nokta" data-i="3"></button>
-            <button type="button" class="xs-nokta" data-i="4"></button>
-            <button type="button" class="xs-nokta" data-i="5"></button>
+            <button type="button" class="xs-nokta aktif" data-i="0" data-i18n-aria="x.g1" aria-label=""><img src="/gorseller/xoxd-tek.webp" alt="" width="900" height="1600" loading="lazy" /><b>01</b></button>
+            <button type="button" class="xs-nokta" data-i="1" data-i18n-aria="x.g2" aria-label=""><img src="/gorseller/xoxd-harita.webp" alt="" width="900" height="1600" loading="lazy" /><b>02</b></button>
+            <button type="button" class="xs-nokta" data-i="2" data-i18n-aria="x.g3" aria-label=""><img src="/gorseller/xoxd-kalp.webp" alt="" width="900" height="1600" loading="lazy" /><b>03</b></button>
+            <button type="button" class="xs-nokta" data-i="3" data-i18n-aria="x.g4" aria-label=""><img src="/gorseller/xoxd-kaos.webp" alt="" width="900" height="1600" loading="lazy" /><b>04</b></button>
+            <button type="button" class="xs-nokta" data-i="4" data-i18n-aria="x.g5" aria-label=""><img src="/gorseller/xoxd-ayna.webp" alt="" width="900" height="1600" loading="lazy" /><b>05</b></button>
+            <button type="button" class="xs-nokta" data-i="5" data-i18n-aria="x.g6" aria-label=""><img src="/gorseller/xoxd-buyuk.webp" alt="" width="900" height="1600" loading="lazy" /><b>06</b></button>
           </div>
 
           <div class="xs-h" data-adim="3"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="100" d="M22 22 L78 78" /><path pathLength="100" d="M78 22 L22 78" /></svg></div>

@@ -752,6 +752,8 @@
           <nav aria-label="Ana menü">
             <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
             <a href="/oyunlar/inklash.html" aria-current="page">Inklash</a>
+            <a href="/oyunlar/xoxd.html">XOXD</a>
+            <a href="/oyunlar/survive-in-turkey.html">Survive<span class="nav-uz"> in Turkey</span></a>
             <a href="/#atolye" data-i18n="foot.studio">Stüdyo</a>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
@@ -766,8 +768,17 @@
       </div>
     </header>
 
+    <nav class="yan-ray ink-ray" aria-hidden="true">
+      <ol>
+        <li><a href="#ink-ust" tabindex="-1">1</a></li>
+        <li><a href="#ink-hikaye" tabindex="-1">2</a></li>
+        <li><a href="#ink-kareler" tabindex="-1">3</a></li>
+        <li><a href="#ink-son" tabindex="-1">4</a></li>
+      </ol>
+    </nav>
+
     <main id="icerik">
-      <div class="oyun-hero ink-hero">
+      <div class="oyun-hero ink-hero" id="ink-ust">
         <div class="sarmal ink-hero-ic">
           <div>
             <a class="geri" href="/#oyunlar">
@@ -802,7 +813,7 @@
            Karikatür Canva'da Amele Ninja referansıyla tek görsel olarak
            çizildi, içinde yazı yok; metinler yanda ve on dile çevrili.
            ============================================================ -->
-      <section class="hikaye">
+      <section class="hikaye" id="ink-hikaye">
         <div class="sarmal">
           <h2 class="bant-baslik beliriv" data-i18n="i.what.title">Bu ne şimdi?</h2>
           <p class="uzun-metin hikaye-giris beliriv" data-i18n-html="i.what.p1">
@@ -852,7 +863,7 @@
            altında sprocket delikli film şeridi. Yazı yok; her kare tıklanır,
            kaydırılır, ok tuşlarıyla gezilir.
            ============================================================ -->
-      <section class="oyundan" aria-labelledby="kareler-baslik">
+      <section class="oyundan" id="ink-kareler" aria-labelledby="kareler-baslik">
         <div class="sarmal">
           <h2 id="kareler-baslik" class="bant-baslik beliriv" data-i18n="i.shots.title">Oyundan kareler</h2>
 
@@ -891,7 +902,7 @@
         </div>
       </section>
 
-      <section class="ne-zaman koyu yirtik">
+      <section class="ne-zaman koyu yirtik" id="ink-son">
         <div class="sarmal">
           <h2 class="bant-baslik beliriv" data-i18n="i.when.title">Ne zaman çıkıyor?</h2>
           <p class="beliriv" data-i18n="i.when.p">Henüz bir tarih vermiyoruz. Önce Android'de, Google Play'de çıkacak. Haber almak istersen bir satır yaz; çıktığı gün ilk sen öğren.</p>

@@ -2811,40 +2811,77 @@ footer {
   animation-delay: -2.4s;
 }
 
-/* Sağ hücre: kareye atlayan noktalar */
+/* Sağ hücre: altı kare birden, büyük ve tıklanır küçük resimler.
+   Tahtanın bir hücresi gibi: ince çizgi, aktif olan kırmızı çerçeveli. */
 .xs-nokta-sar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-content: center;
+  gap: 10px;
+  padding: 0 clamp(14px, 3vw, 40px);
 }
 
 .xs-nokta {
-  width: 14px;
-  height: 14px;
+  position: relative;
+  aspect-ratio: 1 / 1.15;
   padding: 0;
-  background: none;
-  border: 1.5px solid rgba(245, 245, 245, 0.55);
+  overflow: hidden;
+  background: var(--x-panel);
+  border: 1px solid #3a3a3a;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.xs-nokta img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: grayscale(1) brightness(0.55);
+  transition: filter 0.25s, transform 0.3s;
+}
+
+.xs-nokta b {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 3px 7px 2px;
+  background: #0b0b0b;
+  font-family: var(--x-yazi);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--x-beyaz);
 }
 
 .xs-nokta:hover {
+  transform: translateY(-3px);
   border-color: var(--x-beyaz);
 }
 
+.xs-nokta:hover img {
+  filter: grayscale(0.4) brightness(0.85);
+}
+
 .xs-nokta.aktif {
-  background: var(--x-kirmizi);
   border-color: var(--x-kirmizi);
-  transform: scale(1.35) rotate(45deg);
+  box-shadow: 0 0 0 2px var(--x-kirmizi), 5px 5px 0 2px var(--x-kirmizi);
+  transform: translateY(-3px);
+}
+
+.xs-nokta.aktif img {
+  filter: none;
+}
+
+.xs-nokta.aktif b {
+  background: var(--x-kirmizi);
 }
 
 .xs-nokta:focus-visible {
   outline: 3px solid var(--x-beyaz);
   outline-offset: 4px;
 }
-
 
 @media (max-width: 900px) {
   .xg {
@@ -2887,7 +2924,16 @@ footer {
     display: none;
   }
   .xs-nokta-sar {
-    gap: 13px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
+    padding: 0 4px;
+  }
+  .xs-nokta {
+    aspect-ratio: 1 / 1;
+  }
+  .xs-nokta b {
+    font-size: 10px;
+    padding: 2px 4px 1px;
   }
   .xs-d1 {
     width: 56px;
@@ -3547,5 +3593,111 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .grup {
     animation: none;
+  }
+}
+
+/* ============================================================
+   YAN RAY: her oyunun sayfasında kendi kaydırma imleci
+   Survive: oyunun kendi dosyasında (etiketli, mor-pembe).
+   Inklash: film şeridi; XOXD: ince kareler ve kırmızı baklava.
+   Davranış arayuz.js → YAN RAY.
+   ============================================================ */
+.yan-ray {
+  position: fixed;
+  z-index: 30;
+  right: 10px;
+  top: 50%;
+  display: none;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 1100px) {
+  .yan-ray {
+    display: block;
+  }
+}
+
+.yan-ray ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ink-ray ol {
+  position: relative;
+  gap: 8px;
+  padding: 14px 13px;
+  background: var(--murekkep);
+  border: 2px solid var(--kemik);
+  box-shadow: 4px 4px 0 var(--kirmizi);
+}
+
+.ink-ray ol::before,
+.ink-ray ol::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 4px;
+  background: repeating-linear-gradient(180deg, var(--kemik) 0 7px, transparent 7px 14px);
+  opacity: 0.8;
+}
+
+.ink-ray ol::before {
+  left: 3px;
+}
+
+.ink-ray ol::after {
+  right: 3px;
+}
+
+.ink-ray a {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 32px;
+  background: var(--gece-3);
+  border: 2px solid var(--kemik-2);
+  font-family: var(--cizgi-roman);
+  font-size: 16px;
+  line-height: 1;
+  color: var(--kemik-2);
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+}
+
+.ink-ray a.aktif {
+  background: var(--kirmizi);
+  border-color: var(--kemik);
+  color: var(--kemik);
+  transform: scale(1.18) rotate(-5deg);
+}
+
+.x-ray {
+  right: 16px;
+}
+
+.x-ray ol {
+  gap: 22px;
+}
+
+.x-ray a {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(245, 245, 245, 0.55);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.x-ray a.aktif {
+  background: var(--x-kirmizi);
+  border-color: var(--x-kirmizi);
+  transform: scale(1.35) rotate(45deg);
+}
+
+/* Üst bar: Survive in Turkey dar ekranda kısa görünsün */
+@media (max-width: 700px) {
+  .nav-uz {
+    display: none;
   }
 }
