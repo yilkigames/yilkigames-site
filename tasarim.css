@@ -3245,7 +3245,7 @@ footer {
 }
 
 .sersem-pano .d-shuriken {
-  left: 3%;
+  left: 36%;
   top: auto;
   bottom: 44px;
   width: 64px;
@@ -3303,7 +3303,7 @@ footer {
 
 .sersem-ninja {
   position: absolute;
-  z-index: 3;
+  z-index: 5;
   left: 50%;
   bottom: 40px;
   transform: translateX(-50%);
@@ -3350,21 +3350,23 @@ footer {
 }
 
 .grup-x {
-  left: 17%;
-  height: 330px;
+  left: 1%;
+  z-index: 3;
+  height: 290px;
   animation: grup-nefes 3s ease-in-out infinite;
 }
 
 .grup-o {
-  right: 26%;
-  height: 310px;
+  left: 12%;
+  z-index: 4;
+  height: 280px;
   animation: grup-nefes 3.4s ease-in-out -1.4s infinite;
 }
 
 .grup-adam {
-  right: 9%;
+  right: 5%;
   height: 470px;
-  z-index: 3;
+  z-index: 5;
   animation: grup-nefes 3.2s ease-in-out -0.7s infinite;
 }
 
@@ -3492,13 +3494,13 @@ footer {
   }
 
   .grup-x {
-    left: 4%;
-    height: 230px;
+    left: 1%;
+    height: 210px;
   }
 
   .grup-o {
-    right: 24%;
-    height: 220px;
+    left: 14%;
+    height: 200px;
   }
 
   .grup-adam {
@@ -3523,12 +3525,12 @@ footer {
 
   .grup-x {
     left: 0;
-    height: 190px;
+    height: 150px;
   }
 
   .grup-o {
-    right: 22%;
-    height: 180px;
+    left: 12%;
+    height: 145px;
   }
 
   .grup-adam {
