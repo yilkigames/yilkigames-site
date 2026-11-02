@@ -2529,13 +2529,255 @@ footer {
   border-color: var(--x-beyaz);
 }
 
+/* ---------- Oyundan kareler: dikey telefon ----------
+   Inklash'taki arcade telefonun sade kardeşi. İnce beyaz çerçeve, tek
+   sert kırmızı gölge, bir bant ve iki karikatür X/O — gerisi düz. */
+.x-kareler {
+  padding: 120px 0 130px;
+  border-top: 1px solid var(--x-cizgi);
+  overflow: hidden;
+}
+
+.xk-ic {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 340px);
+  gap: 80px;
+  align-items: center;
+}
+
+.x-kareler h2 {
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.02;
+  margin-bottom: 44px;
+}
+
+/* Soldaki 3×2 seçici: her hücre bir kare, aktifin altında oynatma çubuğu */
+.xk-secici {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 150px));
+  gap: 16px;
+}
+
+.xk-kucuk {
+  position: relative;
+  padding: 0;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #fff;
+  border: 2px solid var(--x-cizgi);
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.xk-kucuk img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.xk-kucuk:hover {
+  opacity: 0.9;
+}
+
+.xk-kucuk.aktif {
+  opacity: 1;
+  border-color: var(--x-kirmizi);
+  transform: translateY(-4px);
+}
+
+.xk-kucuk.aktif::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--x-kirmizi);
+  transform-origin: left;
+  animation: xk-doluyor var(--xk-sure, 4.2s) linear forwards;
+}
+
+.xk-durdu .xk-kucuk.aktif::after {
+  animation-play-state: paused;
+}
+
+@keyframes xk-doluyor {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.xk-kucuk:focus-visible {
+  outline: 3px solid var(--x-beyaz);
+  outline-offset: 3px;
+}
+
+.xk-sahne {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 340px);
+}
+
+.xk-telefon {
+  position: relative;
+  z-index: 2;
+  padding: 30px 14px 30px;
+  background: #050505;
+  border: 2px solid var(--x-beyaz);
+  border-radius: 46px;
+  box-shadow: 12px 12px 0 var(--x-kirmizi);
+  transform: rotate(1.6deg);
+}
+
+/* Üstte hoparlör, altta ana ekran çubuğu */
+.xk-telefon::before,
+.xk-telefon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  border-radius: 4px;
+  background: #1f1f1f;
+}
+
+.xk-telefon::before {
+  top: 11px;
+  width: 58px;
+  height: 7px;
+  margin-left: -29px;
+}
+
+.xk-telefon::after {
+  bottom: 10px;
+  width: 84px;
+  height: 5px;
+  margin-left: -42px;
+}
+
+.xk-telefon .bant {
+  top: -14px;
+  right: 34px;
+  z-index: 4;
+  transform: rotate(6deg);
+}
+
+.xk-ekran {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  background: #fff;
+  cursor: pointer;
+}
+
+.xk-kare {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.18s;
+}
+
+.xk-kare.aktif {
+  opacity: 1;
+}
+
+.xk-ekran:focus-visible {
+  outline: 3px solid var(--x-beyaz);
+  outline-offset: 6px;
+}
+
+/* Geçişte ekranın üstünden oyundaki gibi kırmızı çizgi çekiliyor */
+.xk-cizgi {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.xk-cizgi line {
+  stroke: var(--x-kirmizi);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+}
+
+.xk-ekran.cizgi .xk-cizgi {
+  animation: xk-cizgi-gor 0.75s ease-out;
+}
+
+.xk-ekran.cizgi .xk-cizgi line {
+  animation: xk-cizgi-ciz 0.75s cubic-bezier(0.6, 0, 0.2, 1);
+}
+
+@keyframes xk-cizgi-gor {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes xk-cizgi-ciz {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Çevredeki iki karikatür: sitenin ruhu, XOXD'nin sembolleri */
+.xk-dd {
+  position: absolute;
+  z-index: 3;
+  height: auto;
+  aspect-ratio: 1;
+  animation: dd-sal 5.4s ease-in-out infinite;
+}
+
+.xk-d1 {
+  width: 96px;
+  left: -62px;
+  top: 52px;
+  transform: rotate(-14deg);
+}
+
+.xk-d2 {
+  width: 88px;
+  right: -52px;
+  bottom: 92px;
+  animation-delay: -2.4s;
+}
+
 /* ============================================================
    DUYARLILIK
    ============================================================ */
 @media (max-width: 1000px) {
   .kural-ikili,
-  .x-hero-ic {
+  .x-hero-ic,
+  .xk-ic {
     grid-template-columns: 1fr;
+  }
+  .xk-ic {
+    gap: 70px;
+  }
+  .xk-sahne {
+    order: -1;
+  }
+  .xk-secici {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    max-width: 560px;
   }
   .x-sahne {
     max-width: 340px;
@@ -2686,6 +2928,35 @@ footer {
   .oyun-hero h1 {
     -webkit-text-stroke-width: 3px;
     text-shadow: 6px 5px 0 var(--kirmizi), 3px 2px 0 var(--murekkep);
+  }
+  .x-kareler {
+    padding: 90px 0 100px;
+  }
+  .xk-sahne {
+    width: min(78%, 300px);
+  }
+  .xk-telefon {
+    padding: 26px 11px;
+    border-radius: 38px;
+    box-shadow: 9px 9px 0 var(--x-kirmizi);
+  }
+  .xk-ekran {
+    border-radius: 24px;
+  }
+  .xk-d1 {
+    width: 66px;
+    left: -30px;
+  }
+  .xk-d2 {
+    width: 60px;
+    right: -26px;
+  }
+  .xk-secici {
+    gap: 6px;
+  }
+  .xk-kucuk {
+    border-radius: 7px;
+    border-width: 1.5px;
   }
   .x-sayilar div {
     padding: 30px 14px 26px;

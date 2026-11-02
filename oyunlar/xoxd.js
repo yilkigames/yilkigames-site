@@ -108,3 +108,145 @@
 
   ciz();
 })();
+
+/* ============================================================
+   KARELER — dikey telefon vitrini
+   Ekranda oyundan gerçek kareler sırayla geçiyor; geçişte oyundaki
+   gibi kırmızı çizgi çekiliyor. Tıkla / kaydır / ok tuşları / soldaki
+   küçük kareler. Fare üstündeyken ve sekme gizliyken durur; hareket
+   azaltmada otomatik oynatma kapalı. Aktif küçük karenin altındaki
+   oynatma çubuğu CSS'te doluyor (süre --xk-sure ile aynı).
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var ekran = document.getElementById("xk-ekran");
+  if (!ekran) return;
+  var sahne = document.getElementById("xk-sahne");
+  var bolum = sahne.closest(".x-kareler");
+  var kareler = Array.prototype.slice.call(ekran.querySelectorAll(".xk-kare"));
+  var kucukler = Array.prototype.slice.call(document.querySelectorAll(".xk-kucuk"));
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SURE = 4200;
+  var simdi = 0;
+  var gorunur = false;
+  var fareUstunde = false;
+  var sayac = null;
+
+  bolum.style.setProperty("--xk-sure", SURE / 1000 + "s");
+
+  function metin(a) {
+    var dil = document.documentElement.lang || "en";
+    var s = (typeof METIN !== "undefined" && (METIN[dil] || {})[a]) || (typeof METIN !== "undefined" && (METIN.en || {})[a]);
+    return s || "";
+  }
+
+  function etiketle() {
+    kucukler.forEach(function (d, k) {
+      d.setAttribute("aria-label", metin("i.shot.n").replace("{n}", k + 1));
+      d.setAttribute("aria-current", k === simdi ? "true" : "false");
+    });
+  }
+
+  function isaretle() {
+    kucukler.forEach(function (d, k) {
+      /* sınıf çıkıp girerek oynatma çubuğunu baştan başlatıyor */
+      d.classList.remove("aktif");
+      if (k === simdi) {
+        void d.offsetWidth;
+        d.classList.add("aktif");
+      }
+    });
+    etiketle();
+  }
+
+  function git(i) {
+    i = (i + kareler.length) % kareler.length;
+    if (i === simdi) return;
+    if (!azalt) {
+      ekran.classList.remove("cizgi");
+      void ekran.offsetWidth;
+      ekran.classList.add("cizgi");
+    }
+    kareler[simdi].classList.remove("aktif");
+    kareler[i].classList.add("aktif");
+    simdi = i;
+    isaretle();
+  }
+
+  function zamanla() {
+    clearInterval(sayac);
+    isaretle();
+    if (azalt) return;
+    sayac = setInterval(function () {
+      if (gorunur && !fareUstunde && !document.hidden) git(simdi + 1);
+    }, SURE);
+  }
+
+  var basX = null;
+  var kaydirildi = false;
+  ekran.addEventListener("pointerdown", function (e) {
+    basX = e.clientX;
+  });
+  ekran.addEventListener("pointerup", function (e) {
+    if (basX === null) return;
+    var dx = e.clientX - basX;
+    basX = null;
+    if (Math.abs(dx) > 40) {
+      kaydirildi = true;
+      git(simdi + (dx < 0 ? 1 : -1));
+      zamanla();
+    }
+  });
+  ekran.addEventListener("click", function () {
+    if (kaydirildi) {
+      kaydirildi = false;
+      return;
+    }
+    git(simdi + 1);
+    zamanla();
+  });
+  ekran.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      git(simdi + (e.key === "ArrowRight" ? 1 : -1));
+      zamanla();
+    }
+  });
+  kucukler.forEach(function (d, k) {
+    d.addEventListener("click", function () {
+      git(k);
+      zamanla();
+    });
+  });
+
+  sahne.addEventListener("pointerenter", function (e) {
+    if (e.pointerType === "mouse") {
+      fareUstunde = true;
+      bolum.classList.add("xk-durdu");
+    }
+  });
+  sahne.addEventListener("pointerleave", function () {
+    if (!fareUstunde) return;
+    fareUstunde = false;
+    bolum.classList.remove("xk-durdu");
+    zamanla();
+  });
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      function (g) {
+        gorunur = g[0].isIntersecting;
+      },
+      { threshold: 0.35 }
+    ).observe(sahne);
+  } else {
+    gorunur = true;
+  }
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(etiketle, 0);
+  });
+
+  zamanla();
+})();

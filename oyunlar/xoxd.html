@@ -52,6 +52,32 @@
     <link rel="stylesheet" href="/tasarim.css" />
   </head>
   <body class="xoxd-sayfa">
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="c-x" viewBox="0 0 100 100">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 22 L78 78 M78 22 L22 78" stroke="currentColor" stroke-width="22" />
+            <path d="M22 22 L78 78 M78 22 L22 78" style="stroke: var(--vurgu, #ff3b2f)" stroke-width="13" />
+            <circle cx="42" cy="47" r="6.5" fill="#f6f1e7" stroke="#0e0d0c" stroke-width="3" />
+            <circle cx="58" cy="47" r="6.5" fill="#f6f1e7" stroke="#0e0d0c" stroke-width="3" />
+            <circle cx="43.5" cy="48.5" r="2.6" fill="#0e0d0c" />
+            <circle cx="56.5" cy="48.5" r="2.6" fill="#0e0d0c" />
+            <path d="M34 37 L47 42 M66 37 L53 42" stroke="#0e0d0c" stroke-width="4" />
+            <path d="M43 62 C47 58 53 58 57 62" stroke="#0e0d0c" stroke-width="3.6" />
+          </g>
+        </symbol>
+<symbol id="c-o" viewBox="0 0 100 100">
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="50" cy="50" r="31" stroke="currentColor" stroke-width="14" />
+            <circle cx="50" cy="50" r="31" stroke="#0e0d0c" stroke-width="1.5" />
+            <circle cx="42" cy="44" r="5.5" fill="currentColor" />
+            <circle cx="58" cy="44" r="5.5" fill="currentColor" />
+            <circle cx="42" cy="45" r="2.2" fill="#0e0d0c" />
+            <circle cx="58" cy="45" r="2.2" fill="#0e0d0c" />
+            <path d="M36 34 C39 31 43 31 46 33 M54 33 C57 31 61 31 64 34" stroke="currentColor" stroke-width="3" />
+            <ellipse cx="50" cy="60" rx="4.5" ry="6" style="fill: var(--vurgu, #ff3b2f)" stroke="currentColor" stroke-width="2.6" />
+          </g>
+        </symbol>
+    </defs></svg>
     <a class="atla" href="#icerik" data-i18n="a.skip">İçeriğe atla</a>
     <header id="ust-bar">
       <div class="sarmal ust">
@@ -155,6 +181,48 @@
               <span class="demo-puan"><b id="demo-puan">0</b> <span data-i18n="x.demo.score">puan</span></span>
               <button type="button" class="demo-sifirla" id="demo-sifirla">
                 <span data-i18n="x.demo.clear">Temizle</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           OYUNDAN KARELER — dikey telefon
+           Inklash sayfasındaki yan yatmış telefonun sade kardeşi: oyunun
+           gerçek ekranları, geçişte oyundaki gibi kırmızı çizgi çekiliyor.
+           Soldaki 3×2 tahta kare seçici; aktif karenin altında oynatma
+           çubuğu doluyor (xoxd.js → KARELER). Sitenin çizgi roman
+           dili yalnızca ince dokunuşlarda: sert kırmızı gölge, bant ve
+           iki karikatür X/O.
+           ============================================================ -->
+      <section class="x-kareler" aria-labelledby="xk-baslik">
+        <div class="sarmal xk-ic">
+          <div class="xk-sol">
+            <h2 id="xk-baslik" data-i18n="i.shots.title">Oyundan kareler</h2>
+            <div class="xk-secici" id="xk-secici">
+            <button type="button" class="xk-kucuk aktif" data-i="0"><img src="/gorseller/xoxd-tek-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            <button type="button" class="xk-kucuk" data-i="1"><img src="/gorseller/xoxd-harita-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            <button type="button" class="xk-kucuk" data-i="2"><img src="/gorseller/xoxd-kalp-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            <button type="button" class="xk-kucuk" data-i="3"><img src="/gorseller/xoxd-kaos-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            <button type="button" class="xk-kucuk" data-i="4"><img src="/gorseller/xoxd-ayna-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            <button type="button" class="xk-kucuk" data-i="5"><img src="/gorseller/xoxd-buyuk-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+            </div>
+          </div>
+
+          <div class="xk-sahne" id="xk-sahne">
+            <svg class="cizim xk-dd xk-d1" aria-hidden="true"><use href="#c-x" /></svg>
+            <svg class="cizim xk-dd xk-d2" aria-hidden="true"><use href="#c-o" /></svg>
+            <div class="xk-telefon" id="xk-telefon">
+              <span class="bant sari" aria-hidden="true"></span>
+              <button type="button" class="xk-ekran" id="xk-ekran" data-i18n-aria="i.shot.next" aria-label="Sonraki kare">
+              <img class="xk-kare aktif" src="/gorseller/xoxd-tek.webp" alt="XOXD tek oyuncu ekranı: 3×3 tahtada tamamlanmış X-O-X dizisi ve üstünden geçen kırmızı çizgi" width="900" height="1600" loading="lazy" />
+              <img class="xk-kare" src="/gorseller/xoxd-harita.webp" alt="Meydan okuma seviye haritası: yirmi seviye, sarı numaralı düğümlerle" width="900" height="1600" loading="lazy" />
+              <img class="xk-kare" src="/gorseller/xoxd-kalp.webp" alt="Meydan okuma: kalp şeklindeki tahta" width="900" height="1600" loading="lazy" />
+              <img class="xk-kare" src="/gorseller/xoxd-kaos.webp" alt="Kaos modu: Rastgele harita, Kaos ve Meydan okuma kartları" width="900" height="1600" loading="lazy" />
+              <img class="xk-kare" src="/gorseller/xoxd-ayna.webp" alt="Ayna sarayı seviyesi: simetrik şekilli tahta" width="900" height="1600" loading="lazy" />
+              <img class="xk-kare" src="/gorseller/xoxd-buyuk.webp" alt="Büyük tahtada oynanan bir tur" width="900" height="1600" loading="lazy" />
+                <svg class="xk-cizgi" viewBox="0 0 100 178" preserveAspectRatio="none" aria-hidden="true"><line x1="-6" y1="172" x2="106" y2="6" /></svg>
               </button>
             </div>
           </div>
