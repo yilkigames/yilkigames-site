@@ -10,6 +10,7 @@ index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA d�
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
 oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, mürekkep arcade'i (telefon + film şeridi)
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
+oyunlar/survive-in-turkey.html  Survive in Turkey sayfası + gardırop/alt bar (survive-in-turkey.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html           gizlilik politikası (EN)
@@ -316,3 +317,21 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
       yap, `oyunlar/xoxd.html`'deki "Çıkınca haber ver" düğmesini
       `https://play.google.com/store/apps/details?id=com.yilkigames.xoxd`
       bağlantısıyla değiştir
+
+## Survive in Turkey sayfası
+
+Oyunun kendi dili: alacakaranlık sokağı (mor → pembe → turuncu gökyüzü, apartman ve cami silüeti
+`gorseller/survive/siluet.svg`, kaldırım), üst bar/başlık bantları/düğmeler sitenin. Oyun içi arayüz
+görselleri taslak olduğu için hiçbiri kullanılmadı; yalnızca insan karakteri ve kıyafetleri var
+(`gorseller/survive/kiyafet-*.webp`, oyundaki `assets/evsiz*.png` dosyalarının 2x büyütülmüşü).
+
+- **Kapı:** gökten banknot yağıyor, dokununca `+0 ₺` patlıyor, cep sayacı 0'da kalıyor.
+- **Gardırop:** 6 kıyafet = 6 meslek (Dilenci, Market, Doktor, CEO, Hacker, Cumhurbaşkanı). Sicil kartındaki
+  kazanç/açlık/uyku/gerekenler oyunun `src/denge.gd` tablosundan (kazanç ×100 ölçekli, dönem başına).
+- **Alt bar:** oyunun döngüsünün küçük hâli; her hareket 3 gün, açlık/uyku 0 olunca sağlık düşer, sağlık 0 → R.I.P.
+  Hacker'da %20 yakalanma riski ve 3 kat ceza oyundaki gibi. Simit/kebap/uyku sayıları da oyundan.
+- Kıyafet görselleri değişirse aynı adla üzerine yazmak yeterli.
+- Metinler `sit.*` anahtarları (55 adet, 10 dil); JS'in okuduğu anahtarlar metin üretici betikte `kullanilan` kümesine eklenmeli.
+
+XOXD galerisi artık kaydırmayla ilerlemiyor: kareler telefona dokununca, noktalarla, yatay kaydırmayla ya da
+ok tuşlarıyla değişiyor (sayfa normal akıyor).

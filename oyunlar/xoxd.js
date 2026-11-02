@@ -111,14 +111,13 @@
 
 /* ============================================================
    GALERİ — tahtanın kendisi sahne
-   Sayfa kaydıkça sahne (position: sticky) yerinde kalıyor; kaydırma
-   ilerlemesi altı kareye bölünüyor. Her karede:
+   Kaydırma hiçbir şeyi değiştirmez: sayfa normal akar. Kareler elle
+   değişir (telefona dokun, noktalar, kaydır, ok tuşları). Her karede:
      - ortadaki telefonda oyundan o kare görünüyor,
      - çevredeki hücrelere sırayla X / O "yazılıyor" (data-adim),
      - 3. karede üst satır, 6. karede alt satır X-O-X oluyor:
        kırmızı çizgi çekiliyor ve +1 patlıyor,
-     - solda dev numara ve oyun içi mod adı, sağdaki noktalar karelere atlıyor.
-   Bölüm yüksekliği yalnızca burada, JS çalışınca (.xg-aktif) uzuyor.
+     - solda dev numara ve oyun içi mod adı.
    ============================================================ */
 (function () {
   "use strict";
@@ -127,6 +126,7 @@
   if (!bolum) return;
   var sahne = document.getElementById("xg-sahne");
   var bar = document.getElementById("ust-bar");
+  var ekran = document.getElementById("xg-ekran");
   var kareler = Array.prototype.slice.call(document.querySelectorAll("#xg-ekran .xs-kare"));
   var hucreler = Array.prototype.slice.call(sahne.querySelectorAll(".xs-h[data-adim]"));
   var noktalar = Array.prototype.slice.call(document.querySelectorAll(".xs-nokta"));
@@ -136,10 +136,11 @@
   var c2 = document.getElementById("xg-c2");
   var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var N = kareler.length;
-  var simdi = -2; /* henüz hesaplanmadı */
-  var bekliyor = false;
+  var simdi = -2; /* henüz çizilmedi */
 
-  bolum.classList.add("xg-aktif");
+  function ayarla() {
+    bolum.style.setProperty("--ustb", (bar ? bar.offsetHeight : 0) + "px");
+  }
 
   function metin(a) {
     var dil = document.documentElement.lang || "en";
@@ -161,6 +162,7 @@
         });
       }
     }
+    ekran.setAttribute("aria-label", metin("i.shot.next"));
     noktalar.forEach(function (n, i) {
       n.classList.toggle("aktif", i === k);
       n.setAttribute("aria-label", metin("i.shot.n").replace("{n}", i + 1));
@@ -185,14 +187,12 @@
     });
   }
 
-  /* k: -1 → henüz hiçbir hamle yok, 0..N-1 → o kareye kadar oynandı */
   function uygula(k) {
     if (k === simdi) return;
     var ileri = k > simdi;
-    var gorsel = Math.max(0, k);
     kareler.forEach(function (r, i) {
-      r.classList.toggle("aktif", i === gorsel);
-      if (i === gorsel) r.removeAttribute("aria-hidden");
+      r.classList.toggle("aktif", i === k);
+      if (i === k) r.removeAttribute("aria-hidden");
       else r.setAttribute("aria-hidden", "true");
     });
     hucreler.forEach(function (h) {
@@ -204,39 +204,39 @@
     if (alt && !c2.classList.contains("acik") && ileri) patlat(false);
     c1.classList.toggle("acik", ust);
     c2.classList.toggle("acik", alt);
-    yaz(gorsel, simdi !== -2 && Math.max(0, simdi) !== gorsel);
+    yaz(k, simdi !== -2);
     simdi = k;
   }
 
-  function olc() {
-    bekliyor = false;
-    var ust = bar ? bar.offsetHeight : 0;
-    bolum.style.setProperty("--ustb", ust + "px");
-    var r = bolum.getBoundingClientRect();
-    var yol = bolum.offsetHeight - sahne.offsetHeight;
-    var p = yol > 0 ? (ust - r.top) / yol : 0;
-    if (p < 0) uygula(-1);
-    else uygula(Math.min(N - 1, Math.floor(p * N)));
+  function git(k) {
+    uygula(((k % N) + N) % N);
   }
 
-  function iste() {
-    if (bekliyor) return;
-    bekliyor = true;
-    requestAnimationFrame(olc);
-  }
+  /* Telefona dokun → sonraki kare; yatay kaydırma → ileri / geri */
+  var bx = null, by = null, kaydirdi = false;
+  ekran.addEventListener("click", function () {
+    if (kaydirdi) { kaydirdi = false; return; }
+    git(simdi + 1);
+  });
+  ekran.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") { e.preventDefault(); git(simdi + 1); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); git(simdi - 1); }
+  });
+  ekran.addEventListener("touchstart", function (e) {
+    bx = e.touches[0].clientX; by = e.touches[0].clientY; kaydirdi = false;
+  }, { passive: true });
+  ekran.addEventListener("touchend", function (e) {
+    if (bx === null) return;
+    var dx = e.changedTouches[0].clientX - bx, dy = e.changedTouches[0].clientY - by;
+    bx = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) { kaydirdi = true; git(simdi + (dx < 0 ? 1 : -1)); }
+  }, { passive: true });
 
-  /* Noktalar: o karenin ortasına kaydır */
   noktalar.forEach(function (n, i) {
-    n.addEventListener("click", function () {
-      var ust = bar ? bar.offsetHeight : 0;
-      var yol = bolum.offsetHeight - sahne.offsetHeight;
-      var baslangic = bolum.getBoundingClientRect().top + window.scrollY - ust;
-      window.scrollTo({ top: baslangic + ((i + 0.5) / N) * yol, behavior: azalt ? "auto" : "smooth" });
-    });
+    n.addEventListener("click", function () { git(i); });
   });
 
-  window.addEventListener("scroll", iste, { passive: true });
-  window.addEventListener("resize", iste);
+  window.addEventListener("resize", ayarla);
   document.addEventListener("click", function (e) {
     if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(function () {
       var k = Math.max(0, simdi);
@@ -244,5 +244,6 @@
       uygula(k);
     }, 0);
   });
-  olc();
+  ayarla();
+  uygula(0);
 })();
