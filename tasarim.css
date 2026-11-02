@@ -2529,111 +2529,211 @@ footer {
   border-color: var(--x-beyaz);
 }
 
-/* ---------- Oyundan kareler: dikey telefon ----------
-   Inklash'taki arcade telefonun sade kardeşi. İnce beyaz çerçeve, tek
-   sert kırmızı gölge, bir bant ve iki karikatür X/O — gerisi düz. */
-.x-kareler {
-  padding: 120px 0 130px;
-  border-top: 1px solid var(--x-cizgi);
-  overflow: hidden;
-}
-
-.xk-ic {
-  display: grid;
-  grid-template-columns: 1fr minmax(260px, 340px);
-  gap: 80px;
-  align-items: center;
-}
-
-.x-kareler h2 {
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1.02;
-  margin-bottom: 44px;
-}
-
-/* Soldaki 3×2 seçici: her hücre bir kare, aktifin altında oynatma çubuğu */
-.xk-secici {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 150px));
-  gap: 16px;
-}
-
-.xk-kucuk {
+/* ---------- Oyun galerisi: tahtanın kendisi sahne ----------
+   Sayfa kaydıkça sahne sabit kalıyor; oyunun 3×3 tahtası çiziliyor.
+   Ortadaki hücre dikey bir telefon, çevresine her kareyle bir X ya da O
+   konuyor, X-O-X olunca kırmızı çizgi çekiliyor ve +1 patlıyor.
+   Yalnızca JS çalışırsa uzuyor (.xg-aktif); yoksa düz bir sahne kalır. */
+.xg {
+  --ustb: 75px;
+  --H: calc(100vh - var(--ustb));
+  --H: calc(100svh - var(--ustb));
+  --py: 26px;
+  --px: 12px;
+  --ph: calc(var(--H) * 0.66 - 28px);
+  --pw: calc((var(--ph) - 2 * var(--py)) * 0.5625 + 2 * var(--px));
+  --cw: calc(var(--pw) + 90px);
   position: relative;
-  padding: 0;
-  aspect-ratio: 9 / 16;
+  border-top: 1px solid var(--x-cizgi);
+}
+
+.xg.xg-aktif {
+  height: calc(var(--H) + 300vh);
+  height: calc(var(--H) + 300svh);
+}
+
+.xg-sahne {
+  position: sticky;
+  top: var(--ustb);
+  height: var(--H);
   overflow: hidden;
-  background: #fff;
-  border: 2px solid var(--x-cizgi);
-  border-radius: 12px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--cw) minmax(0, 1fr);
+  grid-template-rows: 17% 1fr 17%;
 }
 
-.xk-kucuk img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Tahtanın çizgileri: hücre kenarları, dış çerçeve yok */
+.xs-h {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border: 0 solid #2b2b2b;
 }
 
-.xk-kucuk:hover {
-  opacity: 0.9;
+.xs-h:not(:nth-child(3n)) {
+  border-right-width: 1px;
 }
 
-.xk-kucuk.aktif {
-  opacity: 1;
-  border-color: var(--x-kirmizi);
-  transform: translateY(-4px);
+.xs-h:nth-child(-n + 6) {
+  border-bottom-width: 1px;
 }
 
-.xk-kucuk.aktif::after {
+.xs-gizli {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* X ve O: ince çizgiyle "yazılıyor" (stroke-dashoffset) */
+.xs-isaret {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 74%;
+  width: auto;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.xs-isaret path,
+.xs-isaret circle {
+  fill: none;
+  stroke: var(--x-beyaz);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+}
+
+.xs-isaret path + path {
+  transition-delay: 0.3s;
+}
+
+.xs-h.dolu .xs-isaret path,
+.xs-h.dolu .xs-isaret circle {
+  stroke-dashoffset: 0;
+}
+
+/* Tamamlanan satırın üstünden geçen kırmızı çizgi */
+.xs-cizgi {
+  position: absolute;
+  z-index: 4;
+  left: 4%;
+  right: 4%;
+  height: 5px;
+  margin-top: -2px;
+  background: var(--x-kirmizi);
+  border-radius: 3px;
+  transform: scaleX(0) rotate(-0.6deg);
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.xs-cizgi.ust {
+  top: 8.5%;
+}
+
+.xs-cizgi.alt {
+  bottom: 8.5%;
+  margin-top: 0;
+  margin-bottom: -2px;
+}
+
+.xs-cizgi.acik {
+  transform: scaleX(1) rotate(-0.6deg);
+}
+
+/* Sol hücre: dev numara ve oyun içi mod adı */
+.xs-sol {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 9% 9%;
+}
+
+.xs-no {
+  display: block;
+  font-size: clamp(110px, 15vw, 230px);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(245, 245, 245, 0.55);
+  margin-bottom: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.xs-ad {
+  position: relative;
+  padding-top: 22px;
+  font-size: clamp(26px, 2.6vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.xs-ad::before {
   content: "";
   position: absolute;
   left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0;
+  width: 52px;
   height: 4px;
   background: var(--x-kirmizi);
-  transform-origin: left;
-  animation: xk-doluyor var(--xk-sure, 4.2s) linear forwards;
 }
 
-.xk-durdu .xk-kucuk.aktif::after {
-  animation-play-state: paused;
+.xs-no.degis,
+.xs-ad.degis {
+  animation: xs-gir 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@keyframes xk-doluyor {
+@keyframes xs-gir {
   from {
-    transform: scaleX(0);
+    opacity: 0;
+    transform: translateY(18px);
   }
 }
 
-.xk-kucuk:focus-visible {
-  outline: 3px solid var(--x-beyaz);
-  outline-offset: 3px;
+/* Orta hücre: telefon, arkasında kırmızı ışık */
+.xs-orta {
+  display: grid;
+  place-items: center;
 }
 
-.xk-sahne {
+.xs-orta::before {
+  content: "";
+  position: absolute;
+  inset: -22% -34%;
+  background: radial-gradient(ellipse at center, rgba(217, 38, 42, 0.2), transparent 62%);
+  pointer-events: none;
+}
+
+.xs-tel-sar {
   position: relative;
-  justify-self: center;
-  width: min(100%, 340px);
+  width: var(--pw);
+  height: var(--ph);
 }
 
-.xk-telefon {
+.xs-telefon {
   position: relative;
   z-index: 2;
-  padding: 30px 14px 30px;
+  width: 100%;
+  height: 100%;
+  padding: var(--py) var(--px);
   background: #050505;
   border: 2px solid var(--x-beyaz);
-  border-radius: 46px;
-  box-shadow: 12px 12px 0 var(--x-kirmizi);
-  transform: rotate(1.6deg);
+  border-radius: 40px;
+  box-shadow: 10px 10px 0 var(--x-kirmizi);
+  transform: rotate(1.2deg);
 }
 
-/* Üstte hoparlör, altta ana ekran çubuğu */
-.xk-telefon::before,
-.xk-telefon::after {
+.xs-telefon::before,
+.xs-telefon::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -2641,103 +2741,54 @@ footer {
   background: #1f1f1f;
 }
 
-.xk-telefon::before {
-  top: 11px;
-  width: 58px;
-  height: 7px;
-  margin-left: -29px;
+.xs-telefon::before {
+  top: 9px;
+  width: 54px;
+  height: 6px;
+  margin-left: -27px;
 }
 
-.xk-telefon::after {
-  bottom: 10px;
-  width: 84px;
+.xs-telefon::after {
+  bottom: 8px;
+  width: 76px;
   height: 5px;
-  margin-left: -42px;
+  margin-left: -38px;
 }
 
-.xk-telefon .bant {
+.xs-telefon .bant {
   top: -14px;
-  right: 34px;
+  right: 30px;
   z-index: 4;
   transform: rotate(6deg);
 }
 
-.xk-ekran {
+.xs-ekran {
   position: relative;
-  display: block;
   width: 100%;
-  padding: 0;
-  border: 0;
-  border-radius: 28px;
+  height: 100%;
   overflow: hidden;
-  aspect-ratio: 9 / 16;
+  border-radius: 26px;
   background: #fff;
-  cursor: pointer;
 }
 
-.xk-kare {
+.xs-kare {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 0.5s ease 0.18s;
+  transform: translateY(16px) scale(1.03);
+  transition: opacity 0.55s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.xk-kare.aktif {
+.xs-kare.aktif {
   opacity: 1;
+  transform: none;
 }
 
-.xk-ekran:focus-visible {
-  outline: 3px solid var(--x-beyaz);
-  outline-offset: 6px;
-}
-
-/* Geçişte ekranın üstünden oyundaki gibi kırmızı çizgi çekiliyor */
-.xk-cizgi {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.xk-cizgi line {
-  stroke: var(--x-kirmizi);
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-}
-
-.xk-ekran.cizgi .xk-cizgi {
-  animation: xk-cizgi-gor 0.75s ease-out;
-}
-
-.xk-ekran.cizgi .xk-cizgi line {
-  animation: xk-cizgi-ciz 0.75s cubic-bezier(0.6, 0, 0.2, 1);
-}
-
-@keyframes xk-cizgi-gor {
-  0%,
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes xk-cizgi-ciz {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* Çevredeki iki karikatür: sitenin ruhu, XOXD'nin sembolleri */
-.xk-dd {
+/* Sitenin çizgi roman dili: telefonun yanında iki karikatür */
+.xs-dd {
   position: absolute;
   z-index: 3;
   height: auto;
@@ -2745,18 +2796,109 @@ footer {
   animation: dd-sal 5.4s ease-in-out infinite;
 }
 
-.xk-d1 {
-  width: 96px;
-  left: -62px;
-  top: 52px;
+.xs-d1 {
+  width: 92px;
+  left: -58px;
+  top: 8%;
   transform: rotate(-14deg);
 }
 
-.xk-d2 {
-  width: 88px;
-  right: -52px;
-  bottom: 92px;
+.xs-d2 {
+  width: 84px;
+  right: -50px;
+  bottom: 10%;
   animation-delay: -2.4s;
+}
+
+/* Sağ hücre: kareye atlayan noktalar */
+.xs-nokta-sar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.xs-nokta {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  background: none;
+  border: 1.5px solid rgba(245, 245, 245, 0.55);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.xs-nokta:hover {
+  border-color: var(--x-beyaz);
+}
+
+.xs-nokta.aktif {
+  background: var(--x-kirmizi);
+  border-color: var(--x-kirmizi);
+  transform: scale(1.35) rotate(45deg);
+}
+
+.xs-nokta:focus-visible {
+  outline: 3px solid var(--x-beyaz);
+  outline-offset: 4px;
+}
+
+
+@media (max-width: 900px) {
+  .xg {
+    --py: 20px;
+    --px: 9px;
+    --ph: calc(var(--H) * 0.5);
+    --cw: calc(var(--pw) + 28px);
+  }
+  .xg-sahne {
+    grid-template-rows: 15% 1fr 15%;
+  }
+  .xs-telefon {
+    border-radius: 30px;
+    box-shadow: 7px 7px 0 var(--x-kirmizi);
+  }
+  .xs-ekran {
+    border-radius: 19px;
+  }
+  /* Dar ekranda sol hücre bir cilt sırtı gibi dikey okunuyor */
+  .xs-sol {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+  }
+  .xs-no {
+    font-size: 44px;
+    margin: 0;
+    line-height: 1;
+    -webkit-text-stroke-width: 1px;
+  }
+  .xs-ad {
+    padding: 0 0 0 0;
+    font-size: 19px;
+  }
+  .xs-ad::before {
+    display: none;
+  }
+  .xs-nokta-sar {
+    gap: 13px;
+  }
+  .xs-d1 {
+    width: 56px;
+    left: -26px;
+  }
+  .xs-d2 {
+    width: 52px;
+    right: -22px;
+  }
+  .xs-cizgi {
+    height: 4px;
+  }
 }
 
 /* ============================================================
@@ -2764,20 +2906,8 @@ footer {
    ============================================================ */
 @media (max-width: 1000px) {
   .kural-ikili,
-  .x-hero-ic,
-  .xk-ic {
+  .x-hero-ic {
     grid-template-columns: 1fr;
-  }
-  .xk-ic {
-    gap: 70px;
-  }
-  .xk-sahne {
-    order: -1;
-  }
-  .xk-secici {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 8px;
-    max-width: 560px;
   }
   .x-sahne {
     max-width: 340px;
@@ -2928,35 +3058,6 @@ footer {
   .oyun-hero h1 {
     -webkit-text-stroke-width: 3px;
     text-shadow: 6px 5px 0 var(--kirmizi), 3px 2px 0 var(--murekkep);
-  }
-  .x-kareler {
-    padding: 90px 0 100px;
-  }
-  .xk-sahne {
-    width: min(78%, 300px);
-  }
-  .xk-telefon {
-    padding: 26px 11px;
-    border-radius: 38px;
-    box-shadow: 9px 9px 0 var(--x-kirmizi);
-  }
-  .xk-ekran {
-    border-radius: 24px;
-  }
-  .xk-d1 {
-    width: 66px;
-    left: -30px;
-  }
-  .xk-d2 {
-    width: 60px;
-    right: -26px;
-  }
-  .xk-secici {
-    gap: 6px;
-  }
-  .xk-kucuk {
-    border-radius: 7px;
-    border-width: 1.5px;
   }
   .x-sayilar div {
     padding: 30px 14px 26px;

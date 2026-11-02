@@ -110,30 +110,36 @@
 })();
 
 /* ============================================================
-   KARELER — dikey telefon vitrini
-   Ekranda oyundan gerçek kareler sırayla geçiyor; geçişte oyundaki
-   gibi kırmızı çizgi çekiliyor. Tıkla / kaydır / ok tuşları / soldaki
-   küçük kareler. Fare üstündeyken ve sekme gizliyken durur; hareket
-   azaltmada otomatik oynatma kapalı. Aktif küçük karenin altındaki
-   oynatma çubuğu CSS'te doluyor (süre --xk-sure ile aynı).
+   GALERİ — tahtanın kendisi sahne
+   Sayfa kaydıkça sahne (position: sticky) yerinde kalıyor; kaydırma
+   ilerlemesi altı kareye bölünüyor. Her karede:
+     - ortadaki telefonda oyundan o kare görünüyor,
+     - çevredeki hücrelere sırayla X / O "yazılıyor" (data-adim),
+     - 3. karede üst satır, 6. karede alt satır X-O-X oluyor:
+       kırmızı çizgi çekiliyor ve +1 patlıyor,
+     - solda dev numara ve oyun içi mod adı, sağdaki noktalar karelere atlıyor.
+   Bölüm yüksekliği yalnızca burada, JS çalışınca (.xg-aktif) uzuyor.
    ============================================================ */
 (function () {
   "use strict";
 
-  var ekran = document.getElementById("xk-ekran");
-  if (!ekran) return;
-  var sahne = document.getElementById("xk-sahne");
-  var bolum = sahne.closest(".x-kareler");
-  var kareler = Array.prototype.slice.call(ekran.querySelectorAll(".xk-kare"));
-  var kucukler = Array.prototype.slice.call(document.querySelectorAll(".xk-kucuk"));
+  var bolum = document.getElementById("xg");
+  if (!bolum) return;
+  var sahne = document.getElementById("xg-sahne");
+  var bar = document.getElementById("ust-bar");
+  var kareler = Array.prototype.slice.call(document.querySelectorAll("#xg-ekran .xs-kare"));
+  var hucreler = Array.prototype.slice.call(sahne.querySelectorAll(".xs-h[data-adim]"));
+  var noktalar = Array.prototype.slice.call(document.querySelectorAll(".xs-nokta"));
+  var no = document.getElementById("xg-no");
+  var ad = document.getElementById("xg-ad");
+  var c1 = document.getElementById("xg-c1");
+  var c2 = document.getElementById("xg-c2");
   var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var SURE = 4200;
-  var simdi = 0;
-  var gorunur = false;
-  var fareUstunde = false;
-  var sayac = null;
+  var N = kareler.length;
+  var simdi = -2; /* henüz hesaplanmadı */
+  var bekliyor = false;
 
-  bolum.style.setProperty("--xk-sure", SURE / 1000 + "s");
+  bolum.classList.add("xg-aktif");
 
   function metin(a) {
     var dil = document.documentElement.lang || "en";
@@ -141,112 +147,102 @@
     return s || "";
   }
 
-  function etiketle() {
-    kucukler.forEach(function (d, k) {
-      d.setAttribute("aria-label", metin("i.shot.n").replace("{n}", k + 1));
-      d.setAttribute("aria-current", k === simdi ? "true" : "false");
-    });
-  }
-
-  function isaretle() {
-    kucukler.forEach(function (d, k) {
-      /* sınıf çıkıp girerek oynatma çubuğunu baştan başlatıyor */
-      d.classList.remove("aktif");
-      if (k === simdi) {
-        void d.offsetWidth;
-        d.classList.add("aktif");
+  function yaz(k, anim) {
+    var yeniNo = ("0" + (k + 1)).slice(-2);
+    var yeniAd = metin("x.g" + (k + 1)) || ad.textContent;
+    if (no.textContent !== yeniNo || ad.textContent !== yeniAd) {
+      no.textContent = yeniNo;
+      ad.textContent = yeniAd;
+      if (anim && !azalt) {
+        [no, ad].forEach(function (e) {
+          e.classList.remove("degis");
+          void e.offsetWidth;
+          e.classList.add("degis");
+        });
       }
-    });
-    etiketle();
-  }
-
-  function git(i) {
-    i = (i + kareler.length) % kareler.length;
-    if (i === simdi) return;
-    if (!azalt) {
-      ekran.classList.remove("cizgi");
-      void ekran.offsetWidth;
-      ekran.classList.add("cizgi");
     }
-    kareler[simdi].classList.remove("aktif");
-    kareler[i].classList.add("aktif");
-    simdi = i;
-    isaretle();
+    noktalar.forEach(function (n, i) {
+      n.classList.toggle("aktif", i === k);
+      n.setAttribute("aria-label", metin("i.shot.n").replace("{n}", i + 1));
+      n.setAttribute("aria-current", i === k ? "true" : "false");
+    });
   }
 
-  function zamanla() {
-    clearInterval(sayac);
-    isaretle();
+  function patlat(ust) {
     if (azalt) return;
-    sayac = setInterval(function () {
-      if (gorunur && !fareUstunde && !document.hidden) git(simdi + 1);
-    }, SURE);
+    var p = document.createElement("span");
+    p.className = "patlama kirmizi ses-efekti";
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = "+1";
+    p.style.left = "88%";
+    p.style.top = ust ? "17%" : "83%";
+    p.style.zIndex = 6;
+    p.style.setProperty("--aci", "10deg");
+    p.style.setProperty("--boy", "112px");
+    sahne.appendChild(p);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
   }
 
-  var basX = null;
-  var kaydirildi = false;
-  ekran.addEventListener("pointerdown", function (e) {
-    basX = e.clientX;
-  });
-  ekran.addEventListener("pointerup", function (e) {
-    if (basX === null) return;
-    var dx = e.clientX - basX;
-    basX = null;
-    if (Math.abs(dx) > 40) {
-      kaydirildi = true;
-      git(simdi + (dx < 0 ? 1 : -1));
-      zamanla();
-    }
-  });
-  ekran.addEventListener("click", function () {
-    if (kaydirildi) {
-      kaydirildi = false;
-      return;
-    }
-    git(simdi + 1);
-    zamanla();
-  });
-  ekran.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      e.preventDefault();
-      git(simdi + (e.key === "ArrowRight" ? 1 : -1));
-      zamanla();
-    }
-  });
-  kucukler.forEach(function (d, k) {
-    d.addEventListener("click", function () {
-      git(k);
-      zamanla();
+  /* k: -1 → henüz hiçbir hamle yok, 0..N-1 → o kareye kadar oynandı */
+  function uygula(k) {
+    if (k === simdi) return;
+    var ileri = k > simdi;
+    var gorsel = Math.max(0, k);
+    kareler.forEach(function (r, i) {
+      r.classList.toggle("aktif", i === gorsel);
+      if (i === gorsel) r.removeAttribute("aria-hidden");
+      else r.setAttribute("aria-hidden", "true");
+    });
+    hucreler.forEach(function (h) {
+      h.classList.toggle("dolu", k >= Number(h.getAttribute("data-adim")));
+    });
+    var ust = k >= 2;
+    var alt = k >= 5;
+    if (ust && !c1.classList.contains("acik") && ileri) patlat(true);
+    if (alt && !c2.classList.contains("acik") && ileri) patlat(false);
+    c1.classList.toggle("acik", ust);
+    c2.classList.toggle("acik", alt);
+    yaz(gorsel, simdi !== -2 && Math.max(0, simdi) !== gorsel);
+    simdi = k;
+  }
+
+  function olc() {
+    bekliyor = false;
+    var ust = bar ? bar.offsetHeight : 0;
+    bolum.style.setProperty("--ustb", ust + "px");
+    var r = bolum.getBoundingClientRect();
+    var yol = bolum.offsetHeight - sahne.offsetHeight;
+    var p = yol > 0 ? (ust - r.top) / yol : 0;
+    if (p < 0) uygula(-1);
+    else uygula(Math.min(N - 1, Math.floor(p * N)));
+  }
+
+  function iste() {
+    if (bekliyor) return;
+    bekliyor = true;
+    requestAnimationFrame(olc);
+  }
+
+  /* Noktalar: o karenin ortasına kaydır */
+  noktalar.forEach(function (n, i) {
+    n.addEventListener("click", function () {
+      var ust = bar ? bar.offsetHeight : 0;
+      var yol = bolum.offsetHeight - sahne.offsetHeight;
+      var baslangic = bolum.getBoundingClientRect().top + window.scrollY - ust;
+      window.scrollTo({ top: baslangic + ((i + 0.5) / N) * yol, behavior: azalt ? "auto" : "smooth" });
     });
   });
 
-  sahne.addEventListener("pointerenter", function (e) {
-    if (e.pointerType === "mouse") {
-      fareUstunde = true;
-      bolum.classList.add("xk-durdu");
-    }
-  });
-  sahne.addEventListener("pointerleave", function () {
-    if (!fareUstunde) return;
-    fareUstunde = false;
-    bolum.classList.remove("xk-durdu");
-    zamanla();
-  });
-
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(
-      function (g) {
-        gorunur = g[0].isIntersecting;
-      },
-      { threshold: 0.35 }
-    ).observe(sahne);
-  } else {
-    gorunur = true;
-  }
-
+  window.addEventListener("scroll", iste, { passive: true });
+  window.addEventListener("resize", iste);
   document.addEventListener("click", function (e) {
-    if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(etiketle, 0);
+    if (e.target.closest && e.target.closest("#dil-panel")) setTimeout(function () {
+      var k = Math.max(0, simdi);
+      simdi = -2;
+      uygula(k);
+    }, 0);
   });
-
-  zamanla();
+  olc();
 })();

@@ -150,6 +150,12 @@ var METIN = {
     "a.joke10": "Kaydetmeyi unutma. Biz unuttuk.",
     "i.shot.next": "Sonraki kare",
     "i.shot.n": "Kare {n}",
+    "x.g1": "Tek oyuncu",
+    "x.g2": "Seviye haritası",
+    "x.g3": "Kalp kırığı",
+    "x.g4": "Kaos modu",
+    "x.g5": "Ayna sarayı",
+    "x.g6": "Büyük tahta",
   },
 
   en: {
@@ -276,6 +282,12 @@ var METIN = {
     "a.joke10": "Don't forget to save. We did.",
     "i.shot.next": "Next frame",
     "i.shot.n": "Frame {n}",
+    "x.g1": "Single player",
+    "x.g2": "Level map",
+    "x.g3": "Heartbreak",
+    "x.g4": "Chaos mode",
+    "x.g5": "Palace of mirrors",
+    "x.g6": "Big board",
   },
 
   es: {
@@ -402,6 +414,12 @@ var METIN = {
     "a.joke10": "No olvides guardar. Nosotros lo olvidamos.",
     "i.shot.next": "Siguiente imagen",
     "i.shot.n": "Imagen {n}",
+    "x.g1": "Un jugador",
+    "x.g2": "Mapa de niveles",
+    "x.g3": "Corazón roto",
+    "x.g4": "Modo caos",
+    "x.g5": "Palacio de espejos",
+    "x.g6": "Tablero grande",
   },
 
   de: {
@@ -528,6 +546,12 @@ var METIN = {
     "a.joke10": "Vergiss nicht zu speichern. Wir haben's vergessen.",
     "i.shot.next": "Nächstes Bild",
     "i.shot.n": "Bild {n}",
+    "x.g1": "Einzelspieler",
+    "x.g2": "Levelkarte",
+    "x.g3": "Herzbruch",
+    "x.g4": "Chaos-Modus",
+    "x.g5": "Spiegelpalast",
+    "x.g6": "Großes Brett",
   },
 
   fr: {
@@ -654,6 +678,12 @@ var METIN = {
     "a.joke10": "N'oublie pas de sauvegarder. Nous, on a oublié.",
     "i.shot.next": "Image suivante",
     "i.shot.n": "Image {n}",
+    "x.g1": "Solo",
+    "x.g2": "Carte des niveaux",
+    "x.g3": "Cœur brisé",
+    "x.g4": "Mode chaos",
+    "x.g5": "Palais des glaces",
+    "x.g6": "Grand plateau",
   },
 
   it: {
@@ -780,6 +810,12 @@ var METIN = {
     "a.joke10": "Non dimenticare di salvare. Noi l'abbiamo dimenticato.",
     "i.shot.next": "Immagine successiva",
     "i.shot.n": "Immagine {n}",
+    "x.g1": "Giocatore singolo",
+    "x.g2": "Mappa dei livelli",
+    "x.g3": "Cuore spezzato",
+    "x.g4": "Modalità caos",
+    "x.g5": "Palazzo degli specchi",
+    "x.g6": "Tabellone grande",
   },
 
   pt: {
@@ -906,6 +942,12 @@ var METIN = {
     "a.joke10": "Não esqueça de salvar. A gente esqueceu.",
     "i.shot.next": "Próxima cena",
     "i.shot.n": "Cena {n}",
+    "x.g1": "Um jogador",
+    "x.g2": "Mapa de fases",
+    "x.g3": "Coração partido",
+    "x.g4": "Modo caos",
+    "x.g5": "Palácio dos espelhos",
+    "x.g6": "Tabuleiro grande",
   },
 
   ru: {
@@ -1032,6 +1074,12 @@ var METIN = {
     "a.joke10": "Не забудь сохраниться. Мы вот забыли.",
     "i.shot.next": "Следующий кадр",
     "i.shot.n": "Кадр {n}",
+    "x.g1": "Одиночная игра",
+    "x.g2": "Карта уровней",
+    "x.g3": "Разбитое сердце",
+    "x.g4": "Режим хаоса",
+    "x.g5": "Зеркальный дворец",
+    "x.g6": "Большое поле",
   },
 
   zh: {
@@ -1158,6 +1206,12 @@ var METIN = {
     "a.joke10": "别忘了存档。我们就忘了。",
     "i.shot.next": "下一张",
     "i.shot.n": "第 {n} 张",
+    "x.g1": "单人游戏",
+    "x.g2": "关卡地图",
+    "x.g3": "心碎",
+    "x.g4": "混沌模式",
+    "x.g5": "镜宫",
+    "x.g6": "大棋盘",
   },
 
   ja: {
@@ -1284,5 +1338,11 @@ var METIN = {
     "a.joke10": "セーブを忘れずに。僕らは忘れた。",
     "i.shot.next": "次のカット",
     "i.shot.n": "カット {n}",
+    "x.g1": "ひとりで遊ぶ",
+    "x.g2": "レベルマップ",
+    "x.g3": "ハートブレイク",
+    "x.g4": "カオスモード",
+    "x.g5": "鏡の宮殿",
+    "x.g6": "大きな盤",
   },
 };

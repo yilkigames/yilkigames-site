@@ -30,7 +30,7 @@ gorseller/inklash/     ninja.webp — dekupe Amele Ninja
                        dojo-murekkep.webp — oyunun dojo arenası, mürekkebe çevrilmiş,
                        kare-*.webp (2000×900) ve kare-*-k.webp (480×216 önizleme) — oyun içi kareler
 gorseller/bitpazari-insaat.webp, survive-kapak.webp, xoxd-kapak.webp — vitrin görselleri
-gorseller/xoxd-*.webp — XOXD oyun kareleri (6 kare + önizleme)
+gorseller/xoxd-*.webp — XOXD oyun kareleri (6 kare, 900×1600)
 CNAME                  GitHub Pages'in özel alan adı için okuduğu dosya
 robots.txt / sitemap.xml
 ```
@@ -134,14 +134,20 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   olarak ekle.
 - Sayfalarda küçük açıklama yazıları (balon notları, "çizimlere dokun",
   sayaç) bilerek yok; kullanıcı istemedi.
-- **XOXD oyun kareleri:** Inklash'taki arcade telefonun sade kardeşi.
-  Dikey telefon (ince beyaz çerçeve, tek sert kırmızı gölge, bir bant,
-  iki karikatür X/O); ekranda oyundan 6 gerçek kare, geçişte oyundaki
-  gibi kırmızı çizgi çekiliyor. Solda 3×2 küçük kare seçici, aktifin
-  altında oynatma çubuğu doluyor (`xoxd.js` sonu, CSS `.xk-*`). Kareler
-  `Documents/xoxd-magaza/ekran_*_tr.png` mağaza görüntülerinden
-  (1080×1920) → `gorseller/xoxd-<ad>.webp` (900×1600) ve `-k.webp`
-  (270×480). Fotoğrafları değiştirmek: aynı adlarla üzerine yaz.
+- **XOXD oyun galerisi — "tahtanın kendisi sahne":** sayfa kaydıkça sahne
+  (`position: sticky`, bölüm yüksekliği JS ile `.xg-aktif`) yerinde kalıyor
+  ve oyunun 3×3 tahtası çiziliyor. Ortadaki hücrede dikey telefon, oyundan
+  6 gerçek kare; her karede çevredeki hücrelere bir X ya da O "yazılıyor"
+  (`stroke-dashoffset`), 3. karede üst satır, 6. karede alt satır X-O-X
+  oluyor → kırmızı çizgi çekiliyor ve `+1` patlıyor (oyundaki puan kuralı).
+  Solda dev numara ve oyun içi mod adı (`x.g1`–`x.g6`), sağda karelere
+  atlayan noktalar. Dar ekranda sol hücre cilt sırtı gibi dikey okunuyor.
+  Telefon sade ama ana siteyle akraba: sert kırmızı gölge, sarı bant, iki
+  karikatür X/O. Kodu `xoxd.js` sonu (GALERİ) ve CSS `.xg*`/`.xs-*`.
+  Kareler `Documents/xoxd-magaza/ekran_*_tr.png` (1080×1920) →
+  `gorseller/xoxd-<ad>.webp` (900×1600); fotoğrafı değiştirmek için aynı
+  adla üzerine yaz (tek, harita, kalp, kaos, ayna, buyuk). Hamle sırası ve
+  hangi hücrenin hangi karede dolduğu HTML'deki `data-adim` ile belirli.
 - **XOXD sayfası oyunun kendi dilinde:** üst bar ve alt bilgi siteninki,
   "Tüm oyunlar" ve "Çıkınca haber ver" sitenin çizgi roman parçaları
   (XOXD'nin kırmızısıyla); gerisi sade — `#0b0b0b` zemin, Space Grotesk, düz beyaz X/O, tek vurgu

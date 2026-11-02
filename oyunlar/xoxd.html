@@ -188,44 +188,60 @@
       </section>
 
       <!-- ============================================================
-           OYUNDAN KARELER — dikey telefon
-           Inklash sayfasındaki yan yatmış telefonun sade kardeşi: oyunun
-           gerçek ekranları, geçişte oyundaki gibi kırmızı çizgi çekiliyor.
-           Soldaki 3×2 tahta kare seçici; aktif karenin altında oynatma
-           çubuğu doluyor (xoxd.js → KARELER). Sitenin çizgi roman
-           dili yalnızca ince dokunuşlarda: sert kırmızı gölge, bant ve
-           iki karikatür X/O.
+           OYUN GALERİSİ — tahtanın kendisi sahne
+           Sayfa kaydıkça sahne yerinde kalıyor (sticky) ve oyunun 3×3
+           tahtası çiziliyor: ortadaki hücrede oyundan gerçek kareler
+           değişiyor, etrafındaki hücrelere her karede bir X ya da O
+           konuyor. Üçüncü hamlede üst satır, altıncıda alt satır X-O-X
+           oluyor ve oyundaki gibi kırmızı çizgiyle +1 yazıyor.
+           Sol hücre: dev numara ve oyun içi mod adı. Sağ hücre: kareye
+           atlayan noktalar. (xoxd.js → GALERİ)
            ============================================================ -->
-      <section class="x-kareler" aria-labelledby="xk-baslik">
-        <div class="sarmal xk-ic">
-          <div class="xk-sol">
-            <h2 id="xk-baslik" data-i18n="i.shots.title">Oyundan kareler</h2>
-            <div class="xk-secici" id="xk-secici">
-            <button type="button" class="xk-kucuk aktif" data-i="0"><img src="/gorseller/xoxd-tek-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
-            <button type="button" class="xk-kucuk" data-i="1"><img src="/gorseller/xoxd-harita-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
-            <button type="button" class="xk-kucuk" data-i="2"><img src="/gorseller/xoxd-kalp-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
-            <button type="button" class="xk-kucuk" data-i="3"><img src="/gorseller/xoxd-kaos-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
-            <button type="button" class="xk-kucuk" data-i="4"><img src="/gorseller/xoxd-ayna-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
-            <button type="button" class="xk-kucuk" data-i="5"><img src="/gorseller/xoxd-buyuk-k.webp" alt="" width="270" height="480" loading="lazy" /></button>
+      <section class="xg" id="xg" aria-labelledby="xg-baslik">
+        <h2 id="xg-baslik" class="xs-gizli" data-i18n="i.shots.title">Oyundan kareler</h2>
+        <div class="xg-sahne" id="xg-sahne">
+          <div class="xs-h" data-adim="0"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="100" d="M22 22 L78 78" /><path pathLength="100" d="M78 22 L22 78" /></svg></div>
+          <div class="xs-h" data-adim="2"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><circle pathLength="100" cx="50" cy="50" r="30" transform="rotate(-90 50 50)" /></svg></div>
+          <div class="xs-h" data-adim="1"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="100" d="M22 22 L78 78" /><path pathLength="100" d="M78 22 L22 78" /></svg></div>
+
+          <div class="xs-h xs-sol">
+            <span class="xs-no" id="xg-no" aria-hidden="true">01</span>
+            <p class="xs-ad" id="xg-ad" aria-live="polite">Tek oyuncu</p>
+          </div>
+
+          <div class="xs-h xs-orta">
+            <div class="xs-tel-sar">
+              <svg class="cizim xs-dd xs-d1" aria-hidden="true"><use href="#c-x" /></svg>
+              <svg class="cizim xs-dd xs-d2" aria-hidden="true"><use href="#c-o" /></svg>
+              <div class="xs-telefon">
+                <span class="bant sari" aria-hidden="true"></span>
+                <div class="xs-ekran" id="xg-ekran">
+                  <img class="xs-kare aktif" src="/gorseller/xoxd-tek.webp" alt="XOXD tek oyuncu ekranı: 3×3 tahtada tamamlanmış X-O-X dizisi ve üstünden geçen kırmızı çizgi" width="900" height="1600" loading="lazy" />
+                  <img class="xs-kare" src="/gorseller/xoxd-harita.webp" alt="Meydan okuma seviye haritası: yirmi seviye, sarı numaralı düğümlerle" width="900" height="1600" loading="lazy" aria-hidden="true" />
+                  <img class="xs-kare" src="/gorseller/xoxd-kalp.webp" alt="Meydan okuma: kalp şeklindeki tahta" width="900" height="1600" loading="lazy" aria-hidden="true" />
+                  <img class="xs-kare" src="/gorseller/xoxd-kaos.webp" alt="Kaos modu: Rastgele harita, Kaos ve Meydan okuma kartları" width="900" height="1600" loading="lazy" aria-hidden="true" />
+                  <img class="xs-kare" src="/gorseller/xoxd-ayna.webp" alt="Ayna sarayı seviyesi: simetrik şekilli tahta" width="900" height="1600" loading="lazy" aria-hidden="true" />
+                  <img class="xs-kare" src="/gorseller/xoxd-buyuk.webp" alt="Büyük tahtada oynanan bir tur" width="900" height="1600" loading="lazy" aria-hidden="true" />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="xk-sahne" id="xk-sahne">
-            <svg class="cizim xk-dd xk-d1" aria-hidden="true"><use href="#c-x" /></svg>
-            <svg class="cizim xk-dd xk-d2" aria-hidden="true"><use href="#c-o" /></svg>
-            <div class="xk-telefon" id="xk-telefon">
-              <span class="bant sari" aria-hidden="true"></span>
-              <button type="button" class="xk-ekran" id="xk-ekran" data-i18n-aria="i.shot.next" aria-label="Sonraki kare">
-              <img class="xk-kare aktif" src="/gorseller/xoxd-tek.webp" alt="XOXD tek oyuncu ekranı: 3×3 tahtada tamamlanmış X-O-X dizisi ve üstünden geçen kırmızı çizgi" width="900" height="1600" loading="lazy" />
-              <img class="xk-kare" src="/gorseller/xoxd-harita.webp" alt="Meydan okuma seviye haritası: yirmi seviye, sarı numaralı düğümlerle" width="900" height="1600" loading="lazy" />
-              <img class="xk-kare" src="/gorseller/xoxd-kalp.webp" alt="Meydan okuma: kalp şeklindeki tahta" width="900" height="1600" loading="lazy" />
-              <img class="xk-kare" src="/gorseller/xoxd-kaos.webp" alt="Kaos modu: Rastgele harita, Kaos ve Meydan okuma kartları" width="900" height="1600" loading="lazy" />
-              <img class="xk-kare" src="/gorseller/xoxd-ayna.webp" alt="Ayna sarayı seviyesi: simetrik şekilli tahta" width="900" height="1600" loading="lazy" />
-              <img class="xk-kare" src="/gorseller/xoxd-buyuk.webp" alt="Büyük tahtada oynanan bir tur" width="900" height="1600" loading="lazy" />
-                <svg class="xk-cizgi" viewBox="0 0 100 178" preserveAspectRatio="none" aria-hidden="true"><line x1="-6" y1="172" x2="106" y2="6" /></svg>
-              </button>
-            </div>
+          <div class="xs-h xs-nokta-sar" id="xg-noktalar">
+            <button type="button" class="xs-nokta aktif" data-i="0"></button>
+            <button type="button" class="xs-nokta" data-i="1"></button>
+            <button type="button" class="xs-nokta" data-i="2"></button>
+            <button type="button" class="xs-nokta" data-i="3"></button>
+            <button type="button" class="xs-nokta" data-i="4"></button>
+            <button type="button" class="xs-nokta" data-i="5"></button>
           </div>
+
+          <div class="xs-h" data-adim="3"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="100" d="M22 22 L78 78" /><path pathLength="100" d="M78 22 L22 78" /></svg></div>
+          <div class="xs-h" data-adim="5"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><circle pathLength="100" cx="50" cy="50" r="30" transform="rotate(-90 50 50)" /></svg></div>
+          <div class="xs-h" data-adim="4"><svg class="xs-isaret" viewBox="0 0 100 100" aria-hidden="true"><path pathLength="100" d="M22 22 L78 78" /><path pathLength="100" d="M78 22 L22 78" /></svg></div>
+
+          <span class="xs-cizgi ust" id="xg-c1" aria-hidden="true"></span>
+          <span class="xs-cizgi alt" id="xg-c2" aria-hidden="true"></span>
         </div>
       </section>
     </main>
