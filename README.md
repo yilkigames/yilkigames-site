@@ -320,18 +320,22 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
 
 ## Survive in Turkey sayfası
 
-Oyunun kendi dili: alacakaranlık sokağı (mor → pembe → turuncu gökyüzü, apartman ve cami silüeti
-`gorseller/survive/siluet.svg`, kaldırım), üst bar/başlık bantları/düğmeler sitenin. Oyun içi arayüz
-görselleri taslak olduğu için hiçbiri kullanılmadı; yalnızca insan karakteri ve kıyafetleri var
-(`gorseller/survive/kiyafet-*.webp`, oyundaki `assets/evsiz*.png` dosyalarının 2x büyütülmüşü).
+Sayfaya özel stil `oyunlar/survive-in-turkey.css` (tasarim.css'e girmez), davranış `oyunlar/survive-in-turkey.js`.
+Sayfa "yukarı çıkış" fikriyle kurulu: kaldırım (0 ₺) → mahalle → basamaklar → saray (altın). Oyunun harita ve
+arayüz görselleri taslak olduğu için kullanılmadı; harita bize ait, sitenin dilinde çizildi.
 
-- **Kapı:** gökten banknot yağıyor, dokununca `+0 ₺` patlıyor, cep sayacı 0'da kalıyor.
-- **Gardırop:** 6 kıyafet = 6 meslek (Dilenci, Market, Doktor, CEO, Hacker, Cumhurbaşkanı). Sicil kartındaki
+- **Kaldırım:** adama (ya da "Yalvar" düğmesine) dokununca eğilir, gökten bozuk para düşüp kutuya girer, +1 ₺.
+  Eşikler oyunun fiyatları: 20 simit, 100 bir dönem dilencilik, 200 kebap, 1000; "Doktor olmaya kalan" çubuğu.
+  Sayaç tarayıcıda `localStorage` ("sit-cep") ile hatırlanır.
+- **Mahalle haritası:** `gorseller/survive/harita.svg` (1300×1000 birim, düz SVG; elle düzenlenebilir). Sürüklenir;
+  pin ya da çipe basınca piksel adam yürür, yerin kartı açılır (yakın plan = aynı harita, köşede oyundan bir çıkartma).
+  Yerler/pin koordinatları `YERLER` dizisinde (JS), metinler `sit.y.<id>.n/.d`.
+- **Basamaklar:** 6 kıyafet = 6 meslek (Dilenci, Market, Doktor, CEO, Hacker, Cumhurbaşkanı). Sicil kartındaki
   kazanç/açlık/uyku/gerekenler oyunun `src/denge.gd` tablosundan (kazanç ×100 ölçekli, dönem başına).
 - **Alt bar:** oyunun döngüsünün küçük hâli; her hareket 3 gün, açlık/uyku 0 olunca sağlık düşer, sağlık 0 → R.I.P.
-  Hacker'da %20 yakalanma riski ve 3 kat ceza oyundaki gibi. Simit/kebap/uyku sayıları da oyundan.
-- Kıyafet görselleri değişirse aynı adla üzerine yazmak yeterli.
-- Metinler `sit.*` anahtarları (55 adet, 10 dil); JS'in okuduğu anahtarlar metin üretici betikte `kullanilan` kümesine eklenmeli.
+  Hacker'da %20 yakalanma riski ve 3 kat ceza oyundaki gibi.
+- Kıyafet görselleri değişirse `gorseller/survive/kiyafet-*.webp` üzerine aynı adla yazmak yeterli.
+- Metinler `sit.*` anahtarları (10 dil); JS'in okuduğu anahtarlar metin üretici betikte `kullanilan` kümesine eklenmeli.
 
 XOXD galerisi artık kaydırmayla ilerlemiyor: kareler telefona dokununca, noktalarla, yatay kaydırmayla ya da
 ok tuşlarıyla değişiyor (sayfa normal akıyor).
