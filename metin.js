@@ -200,6 +200,7 @@ var METIN = {
     "sit.y.manav.d": "Marul, domates, muz, karpuz. Ham gıda: ucuz ama az doyurur.",
     "sit.y.doner.n": "Dönerci",
     "sit.y.doner.d": "Köşedeki dükkândan simit 20 ₺, kebap 200 ₺. Karnı asıl burası doyurur.",
+    "a.pose": "Poz ver",
   },
 
   en: {
@@ -376,6 +377,7 @@ var METIN = {
     "sit.y.manav.d": "Lettuce, tomatoes, bananas, watermelon. Raw food: cheap, but it doesn't fill you much.",
     "sit.y.doner.n": "Kebab shop",
     "sit.y.doner.d": "At the corner shop, a simit is 20 ₺ and a kebab 200 ₺. This is where a belly really gets filled.",
+    "a.pose": "Strike a pose",
   },
 
   es: {
@@ -552,6 +554,7 @@ var METIN = {
     "sit.y.manav.d": "Lechuga, tomates, plátanos, sandía. Comida cruda: barata, pero llena poco.",
     "sit.y.doner.n": "Kebab",
     "sit.y.doner.d": "En la tienda de la esquina, un simit cuesta 20 ₺ y un kebab 200 ₺. Aquí es donde se llena el estómago.",
+    "a.pose": "Posar",
   },
 
   de: {
@@ -728,6 +731,7 @@ var METIN = {
     "sit.y.manav.d": "Salat, Tomaten, Bananen, Wassermelone. Rohkost: billig, macht aber kaum satt.",
     "sit.y.doner.n": "Dönerbude",
     "sit.y.doner.d": "Im Eckladen kostet ein Simit 20 ₺, ein Kebab 200 ₺. Hier wird man wirklich satt.",
+    "a.pose": "Posen",
   },
 
   fr: {
@@ -904,6 +908,7 @@ var METIN = {
     "sit.y.manav.d": "Laitue, tomates, bananes, pastèque. De la nourriture brute : pas chère, mais elle cale peu.",
     "sit.y.doner.n": "Kebab",
     "sit.y.doner.d": "Au coin de la rue, un simit coûte 20 ₺ et un kebab 200 ₺. C'est ici qu'on mange vraiment à sa faim.",
+    "a.pose": "Poser",
   },
 
   it: {
@@ -1080,6 +1085,7 @@ var METIN = {
     "sit.y.manav.d": "Lattuga, pomodori, banane, anguria. Cibo crudo: costa poco, ma sazia poco.",
     "sit.y.doner.n": "Kebabbaro",
     "sit.y.doner.d": "Al negozio all'angolo un simit costa 20 ₺ e un kebab 200 ₺. Qui si mangia davvero.",
+    "a.pose": "Posa",
   },
 
   pt: {
@@ -1256,6 +1262,7 @@ var METIN = {
     "sit.y.manav.d": "Alface, tomate, banana, melancia. Comida crua: barata, mas sacia pouco.",
     "sit.y.doner.n": "Kebaberia",
     "sit.y.doner.d": "Na lojinha da esquina, um simit custa 20 ₺ e um kebab 200 ₺. É aqui que se mata a fome de verdade.",
+    "a.pose": "Posar",
   },
 
   ru: {
@@ -1432,6 +1439,7 @@ var METIN = {
     "sit.y.manav.d": "Салат, помидоры, бананы, арбуз. Сырая еда: дёшево, но мало насыщает.",
     "sit.y.doner.n": "Кебабная",
     "sit.y.doner.d": "В лавке на углу симит стоит 20 ₺, кебаб — 200 ₺. Вот здесь и правда наедаешься.",
+    "a.pose": "Позируйте",
   },
 
   zh: {
@@ -1608,6 +1616,7 @@ var METIN = {
     "sit.y.manav.d": "生菜、番茄、香蕉、西瓜。生鲜食物：便宜，但不太顶饱。",
     "sit.y.doner.n": "烤肉店",
     "sit.y.doner.d": "街角小店里，芝麻圈饼 20 ₺，烤肉 200 ₺。真正吃饱要来这里。",
+    "a.pose": "摆个姿势",
   },
 
   ja: {
@@ -1784,5 +1793,6 @@ var METIN = {
     "sit.y.manav.d": "レタス、トマト、バナナ、スイカ。生の食材は安いが、あまり腹にたまらない。",
     "sit.y.doner.n": "ケバブ屋",
     "sit.y.doner.d": "角の店ではシミット20 ₺、ケバブ200 ₺。腹を満たすならここ。",
+    "a.pose": "ポーズ！",
   },
 };

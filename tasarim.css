@@ -1443,7 +1443,7 @@ h2 {
 
 .sersem-ic {
   position: relative;
-  width: min(760px, 100%);
+  width: min(1100px, 100%);
   height: 560px;
   margin: 0 auto;
 }
@@ -3084,5 +3084,181 @@ footer {
   .x-sahne .x-cizgi,
   .demo-cizgiler line {
     stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================================
+   SERSEM SAHNE: dört karakter bir arada (ninja, Survive adamı, X, O)
+   Hepsine dokunulur; "Poz ver" hepsini aynı anda zıplatıp flaş patlatır.
+   ============================================================ */
+.sersem-pano .d-kilic,
+.sersem-pano .d-parsomen {
+  display: none;
+}
+
+.sersem-ninja {
+  z-index: 3;
+}
+
+.grup {
+  position: absolute;
+  z-index: 2;
+  bottom: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(6px 6px 0 var(--murekkep));
+  -webkit-tap-highlight-color: transparent;
+}
+
+.grup img,
+.grup svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  pointer-events: none;
+}
+
+.grup-adam {
+  left: 2%;
+  height: 450px;
+  animation: grup-nefes 3.2s ease-in-out infinite;
+}
+
+.grup-x {
+  right: 22%;
+  height: 250px;
+  animation: grup-nefes 2.8s ease-in-out -0.8s infinite;
+}
+
+.grup-o {
+  right: 3%;
+  height: 270px;
+  animation: grup-nefes 3.6s ease-in-out -1.6s infinite;
+}
+
+.grup:focus-visible,
+.sersem-ninja:focus-visible {
+  outline: 4px dashed var(--sari);
+  outline-offset: 6px;
+}
+
+.grup svg {
+  overflow: visible;
+}
+
+.grup.sek {
+  animation: grup-sek 0.6s ease-out;
+}
+
+.grup-adam.sek {
+  animation: grup-egil 0.6s ease-out;
+}
+
+.grup-o.sek {
+  animation: grup-don 0.7s ease-out;
+}
+
+.grup.poz {
+  animation: grup-poz 0.5s ease-out both;
+}
+
+@keyframes grup-nefes {
+  50% {
+    transform: translateY(-6px) rotate(1.5deg);
+  }
+}
+
+@keyframes grup-sek {
+  25% {
+    transform: translateY(-46px) scale(1.05, 0.95) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(0) scale(1.08, 0.9);
+  }
+  70% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes grup-egil {
+  30% {
+    transform: rotate(7deg) translateY(10px);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes grup-don {
+  to {
+    transform: rotate(360deg) translateY(-10px);
+  }
+}
+
+@keyframes grup-poz {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-60px) rotate(-6deg);
+  }
+  100% {
+    transform: translateY(-4px) scale(1.06) rotate(2deg);
+  }
+}
+
+.poz-dugme {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%);
+}
+
+.poz-flas {
+  position: absolute;
+  z-index: 8;
+  inset: -40px -4%;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.poz-flas.git {
+  animation: poz-flas 0.6s ease-out;
+}
+
+@keyframes poz-flas {
+  0% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .grup-adam {
+    left: -2%;
+    height: 250px;
+  }
+
+  .grup-x {
+    right: 20%;
+    height: 170px;
+  }
+
+  .grup-o {
+    right: 0;
+    height: 190px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grup {
+    animation: none;
   }
 }

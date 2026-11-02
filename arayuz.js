@@ -918,3 +918,88 @@
   etiketle();
   zamanla();
 })();
+
+/* ============================================================
+   KARAKTERLER BİR ARADA
+   Survive adamı eğilip yalvarır (+1 ₺), X zıplar, O döner.
+   "Poz ver": dördü birden zıplar, flaş patlar, "ÇIT!" yazar.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var sahne = document.querySelector(".sersem-ic");
+  if (!sahne) return;
+  var azalt = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var ninja = document.getElementById("sersem-ninja");
+
+  function patla(el, yazi, renk, soldan) {
+    if (azalt) return;
+    var p = document.createElement("span");
+    p.className = "patlama ses-efekti " + renk;
+    p.setAttribute("aria-hidden", "true");
+    p.textContent = yazi;
+    var s = sahne.getBoundingClientRect();
+    var r = el.getBoundingClientRect();
+    p.style.left = r.left - s.left + r.width * soldan + "px";
+    p.style.top = r.top - s.top + "px";
+    p.style.setProperty("--aci", (soldan > 0.5 ? 12 : -12) + "deg");
+    p.style.setProperty("--boy", "110px");
+    sahne.appendChild(p);
+    p.addEventListener("animationend", function () {
+      p.remove();
+    });
+  }
+
+  function sek(el) {
+    el.classList.remove("sek", "poz");
+    void el.offsetWidth;
+    el.classList.add("sek");
+  }
+
+  var kaz = 0;
+  [
+    ["grup-adam", function () { kaz += 1; return "+" + kaz + " ₺"; }, "sari", 0.4],
+    ["grup-x", function () { return "X!"; }, "kirmizi", 0.5],
+    ["grup-o", function () { return "O!"; }, "mavi", 0.5]
+  ].forEach(function (g) {
+    var el = document.getElementById(g[0]);
+    if (!el) return;
+    el.addEventListener("click", function () {
+      sek(el);
+      patla(el, g[1](), g[2], g[3]);
+    });
+  });
+
+  var poz = document.getElementById("poz-dugme");
+  var flas = document.getElementById("poz-flas");
+  var tut;
+  if (poz) {
+    poz.addEventListener("click", function () {
+      var ler = ["grup-adam", "grup-x", "grup-o"].map(function (id) { return document.getElementById(id); });
+      ler.forEach(function (el, i) {
+        el.classList.remove("sek", "poz");
+        void el.offsetWidth;
+        el.style.animationDelay = i * 0.08 + "s";
+        el.classList.add("poz");
+      });
+      if (ninja) {
+        ninja.classList.remove("tokat");
+        void ninja.offsetWidth;
+        ninja.classList.add("tokat");
+      }
+      setTimeout(function () {
+        flas.classList.remove("git");
+        void flas.offsetWidth;
+        if (!azalt) flas.classList.add("git");
+        patla(poz, "ÇIT!", "kirmizi", 0.5);
+      }, azalt ? 0 : 520);
+      clearTimeout(tut);
+      tut = setTimeout(function () {
+        ler.forEach(function (el) {
+          el.classList.remove("poz");
+          el.style.animationDelay = "";
+        });
+      }, 2600);
+    });
+  }
+})();

@@ -979,10 +979,10 @@
   position: relative;
   padding: 130px 0 120px;
   text-align: center;
-  color: var(--murekkep);
+  color: var(--kemik);
   background:
-    repeating-linear-gradient(115deg, transparent 0 40px, rgba(255, 255, 255, 0.07) 40px 42px),
-    linear-gradient(180deg, #f6dd8a, #d9a63a 70%, #a6741c);
+    repeating-linear-gradient(115deg, transparent 0 40px, rgba(255, 255, 255, 0.05) 40px 42px),
+    linear-gradient(180deg, #2a1550 0%, #4b2a86 38%, #8a3c9e 72%, #b4366b 100%);
   clip-path: polygon(0 28px, 5% 8px, 11% 24px, 17% 4px, 24% 22px, 31% 6px, 38% 24px, 46% 4px, 53% 22px, 60% 6px, 68% 24px, 75% 4px, 82% 22px, 90% 6px, 96% 20px, 100% 8px, 100% 100%, 0 100%);
 }
 
@@ -1004,12 +1004,7 @@
   margin: 0 auto 30px;
   font-weight: 700;
   font-size: 18px;
-}
-
-.sit-saray .dugme {
-  background: var(--murekkep);
-  color: var(--kemik);
-  box-shadow: 6px 6px 0 var(--kirmizi);
+  color: var(--kemik-2);
 }
 
 /* ---------- animasyonlar ---------- */
