@@ -74,10 +74,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "İçeriğe atla",
-    "a.meta.title": "Yılkı Games — Küçük kurallar, büyük kapışmalar",
+    "a.meta.title": "Yılkı Games — Sürüden ayrılan oyunlar",
     "a.meta.desc": "Türkiye'de kurulu bağımsız oyun stüdyosu. Bir dakikada öğrenilen, aylarca bırakılmayan, el çizimi mobil oyunlar.",
     "a.eyebrow": "Bağımsız oyun stüdyosu · Türkiye",
-    "a.title": "Küçük kurallar,<br />büyük <em>kapışmalar!</em>",
+    "a.title": "Sürüden ayrılan<br /><em>oyunlar.</em>",
     "a.sub": "Türkiye'de kurulu bağımsız bir oyun stüdyosuyuz. Bir dakikada öğrenilen, aylarca bırakılmayan, el çizimi mobil oyunlar yapıyoruz.",
     "a.cta1": "Oyunlara bak",
     "a.cta2": "Inklash'ı tanı",
@@ -251,10 +251,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Skip to content",
-    "a.meta.title": "Yılkı Games — Small rules, big brawls",
+    "a.meta.title": "Yılkı Games — Games that left the herd",
     "a.meta.desc": "Independent game studio based in Türkiye. Hand-drawn mobile games that take a minute to learn and months to put down.",
     "a.eyebrow": "Independent game studio · Türkiye",
-    "a.title": "Small rules,<br />big <em>brawls!</em>",
+    "a.title": "Games that<br /><em>left the herd.</em>",
     "a.sub": "We are an independent game studio based in Türkiye. We make hand-drawn mobile games that take a minute to learn and months to put down.",
     "a.cta1": "See the games",
     "a.cta2": "Meet Inklash",
@@ -428,10 +428,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Saltar al contenido",
-    "a.meta.title": "Yılkı Games — Reglas pequeñas, peleas enormes",
+    "a.meta.title": "Yılkı Games — Juegos que dejaron la manada",
     "a.meta.desc": "Estudio de juegos independiente con sede en Turquía. Juegos para móvil dibujados a mano que se aprenden en un minuto y no se sueltan en meses.",
     "a.eyebrow": "Estudio independiente · Turquía",
-    "a.title": "Reglas pequeñas,<br />peleas <em>enormes!</em>",
+    "a.title": "Juegos que<br /><em>dejaron la manada.</em>",
     "a.sub": "Somos un estudio de juegos independiente con sede en Turquía. Hacemos juegos para móvil dibujados a mano que se aprenden en un minuto y no se sueltan en meses.",
     "a.cta1": "Ver los juegos",
     "a.cta2": "Conoce Inklash",
@@ -605,10 +605,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Zum Inhalt springen",
-    "a.meta.title": "Yılkı Games — Kleine Regeln, große Keilereien",
+    "a.meta.title": "Yılkı Games — Spiele, die die Herde verlassen",
     "a.meta.desc": "Unabhängiges Spielestudio aus der Türkei. Handgezeichnete Mobile-Spiele, in einer Minute gelernt und monatelang nicht weggelegt.",
     "a.eyebrow": "Unabhängiges Spielestudio · Türkei",
-    "a.title": "Kleine Regeln,<br />große <em>Keilereien!</em>",
+    "a.title": "Spiele, die<br /><em>die Herde verlassen.</em>",
     "a.sub": "Wir sind ein unabhängiges Spielestudio aus der Türkei. Wir machen handgezeichnete Mobile-Spiele, die man in einer Minute lernt und monatelang nicht weglegt.",
     "a.cta1": "Zu den Spielen",
     "a.cta2": "Inklash entdecken",
@@ -782,10 +782,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Aller au contenu",
-    "a.meta.title": "Yılkı Games — Petites règles, grosses bagarres",
+    "a.meta.title": "Yılkı Games — Des jeux qui ont quitté le troupeau",
     "a.meta.desc": "Studio de jeux indépendant basé en Turquie. Des jeux mobiles dessinés à la main, appris en une minute et impossibles à lâcher.",
     "a.eyebrow": "Studio indépendant · Turquie",
-    "a.title": "Petites règles,<br />grosses <em>bagarres !</em>",
+    "a.title": "Des jeux qui ont<br /><em>quitté le troupeau.</em>",
     "a.sub": "Nous sommes un studio de jeux indépendant basé en Turquie. Nous créons des jeux mobiles dessinés à la main, qu'on apprend en une minute et qu'on ne lâche plus pendant des mois.",
     "a.cta1": "Voir les jeux",
     "a.cta2": "Découvrir Inklash",
@@ -959,10 +959,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Vai al contenuto",
-    "a.meta.title": "Yılkı Games — Regole piccole, scontri enormi",
+    "a.meta.title": "Yılkı Games — Giochi che hanno lasciato il branco",
     "a.meta.desc": "Studio indipendente di videogiochi con sede in Turchia. Giochi mobile disegnati a mano che si imparano in un minuto e non si mollano per mesi.",
     "a.eyebrow": "Studio indipendente · Turchia",
-    "a.title": "Regole piccole,<br />scontri <em>enormi!</em>",
+    "a.title": "Giochi che hanno<br /><em>lasciato il branco.</em>",
     "a.sub": "Siamo uno studio indipendente di videogiochi con sede in Turchia. Facciamo giochi mobile disegnati a mano che si imparano in un minuto e non si mollano per mesi.",
     "a.cta1": "Vedi i giochi",
     "a.cta2": "Scopri Inklash",
@@ -1136,10 +1136,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Ir para o conteúdo",
-    "a.meta.title": "Yılkı Games — Regras pequenas, brigas enormes",
+    "a.meta.title": "Yılkı Games — Jogos que saíram da manada",
     "a.meta.desc": "Estúdio de jogos independente sediado na Turquia. Jogos para celular desenhados à mão, aprendidos num minuto e jogados por meses.",
     "a.eyebrow": "Estúdio independente · Turquia",
-    "a.title": "Regras pequenas,<br />brigas <em>enormes!</em>",
+    "a.title": "Jogos que saíram<br /><em>da manada.</em>",
     "a.sub": "Somos um estúdio de jogos independente sediado na Turquia. Fazemos jogos para celular desenhados à mão, que se aprendem num minuto e não se largam por meses.",
     "a.cta1": "Ver os jogos",
     "a.cta2": "Conheça Inklash",
@@ -1313,10 +1313,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "Перейти к содержимому",
-    "a.meta.title": "Yılkı Games — Простые правила, большие драки",
+    "a.meta.title": "Yılkı Games — Игры, ушедшие из табуна",
     "a.meta.desc": "Независимая игровая студия из Турции. Нарисованные от руки мобильные игры: учишься за минуту, не отпускаешь месяцами.",
     "a.eyebrow": "Независимая студия · Турция",
-    "a.title": "Простые правила,<br />большие <em>драки!</em>",
+    "a.title": "Игры, ушедшие<br /><em>из табуна.</em>",
     "a.sub": "Мы — независимая игровая студия из Турции. Делаем нарисованные от руки мобильные игры, которые осваиваешь за минуту и не можешь бросить месяцами.",
     "a.cta1": "Смотреть игры",
     "a.cta2": "Знакомьтесь: Inklash",
@@ -1490,10 +1490,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "跳到正文",
-    "a.meta.title": "Yılkı Games — 小规则，大乱斗",
+    "a.meta.title": "Yılkı Games — 离开马群的游戏",
     "a.meta.desc": "来自土耳其的独立游戏工作室。手绘手机游戏，一分钟上手，几个月放不下。",
     "a.eyebrow": "独立游戏工作室 · 土耳其",
-    "a.title": "小规则，<br /><em>大乱斗！</em>",
+    "a.title": "离开马群的<br /><em>游戏。</em>",
     "a.sub": "我们是一家来自土耳其的独立游戏工作室，专做手绘手机游戏——一分钟就能学会，却让人几个月都放不下。",
     "a.cta1": "看看游戏",
     "a.cta2": "认识 Inklash",
@@ -1667,10 +1667,10 @@ var METIN = {
 
     /* Ana sayfa (2026-10 çizgi roman tasarımı) ve Inklash sayfası */
     "a.skip": "本文へスキップ",
-    "a.meta.title": "Yılkı Games — 小さなルール、大きなケンカ",
+    "a.meta.title": "Yılkı Games — 群れを離れたゲーム",
     "a.meta.desc": "トルコの独立系ゲームスタジオ。1分で覚えて何か月も手放せない、手描きのモバイルゲーム。",
     "a.eyebrow": "独立系ゲームスタジオ · トルコ",
-    "a.title": "小さなルール、<br />大きな<em>ケンカ！</em>",
+    "a.title": "群れを離れた<br /><em>ゲーム。</em>",
     "a.sub": "私たちはトルコの独立系ゲームスタジオです。1分で覚えられて、何か月も手放せない手描きのモバイルゲームを作っています。",
     "a.cta1": "ゲームを見る",
     "a.cta2": "Inklash を知る",
