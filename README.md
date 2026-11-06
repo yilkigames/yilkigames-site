@@ -10,7 +10,7 @@ index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA d�
                        (karalama çizimleri <symbol> olarak bu dosyanın başında)
 oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, mürekkep arcade'i (telefon + film şeridi)
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
-oyunlar/survive-in-turkey.html  Survive in Turkey sayfası + gardırop/alt bar (survive-in-turkey.js)
+oyunlar/survive-in-turkiye.html  Survive in Türkiye sayfası + gardırop/alt bar (survive-in-turkiye.js)
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html           gizlilik politikası (EN)
@@ -65,7 +65,7 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
 - **Karalamalar:** oyunlarımızdan karikatür çizimler, `index.html`'in
   başında `<symbol id="c-...">` olarak (100×100, çizgi `currentColor`,
   vurgu kırmızı). Inklash: yumruk, mürekkep, ko · XOXD: x, o, tahta ·
-  Survive in Turkey: çay, simit, kedi · Bit Pazarı: gramofon, kaset,
+  Survive in Türkiye: çay, simit, kedi · Bit Pazarı: gramofon, kaset,
   etiket · stüdyo: nal, şimşek, bomba, parıltı. Yeni çizim eklerken
   `arayuz.js`'teki `ADLAR` listesine de ekle. Kırmızı vurgu
   `style="fill: var(--vurgu, #ff3b2f)"` ile yazılı; hero'da bazılarına
@@ -74,7 +74,7 @@ balonları ve belge kâğıdı (gizlilik, şartlar) açık renk kalıyor.
   kareli defter). Kemik kâğıt, soluk mavi kareler, kırmızı kenar çizgisi.
   Dört oyun tek defterde: ilk açılış Inklash (Amele Ninja kırmızı panelden
   taşıyor) | XOXD (bantlı polaroid). Sağ alttaki sarı düğme sağ yaprağı
-  3B çeviriyor: arkasında Survive in Turkey, altında Bit Pazarı (Canva'da
+  3B çeviriyor: arkasında Survive in Türkiye, altında Bit Pazarı (Canva'da
   çizilmiş "oyun inşaatı" görseli, köşesinde sarı-siyah bant). Görünmeyen
   sayfalar `inert`. Defter fareyle hafifçe yatıyor; telefonda dört sayfa
   alt alta, çevirme yok.
@@ -318,9 +318,9 @@ Ticari gelir başladığında bir avukata okutmak yerinde olur.
       `https://play.google.com/store/apps/details?id=com.yilkigames.xoxd`
       bağlantısıyla değiştir
 
-## Survive in Turkey sayfası
+## Survive in Türkiye sayfası
 
-Sayfaya özel stil `oyunlar/survive-in-turkey.css` (tasarim.css'e girmez), davranış `oyunlar/survive-in-turkey.js`.
+Sayfaya özel stil `oyunlar/survive-in-turkiye.css` (tasarim.css'e girmez), davranış `oyunlar/survive-in-turkiye.js`.
 Sayfa "yukarı çıkış" fikriyle kurulu: kaldırım (0 ₺) → mahalle → basamaklar → saray (altın). Oyunun harita ve
 arayüz görselleri taslak olduğu için kullanılmadı; harita bize ait, sitenin dilinde çizildi.
 

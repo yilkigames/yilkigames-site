@@ -580,7 +580,7 @@
 
 /* ============================================================
    DEFTER — sayfa çevirme
-   Sağ yaprak çevrilince arkasında Survive in Turkey, altında Bit
+   Sağ yaprak çevrilince arkasında Survive in Türkiye, altında Bit
    Pazarı çıkıyor. Görünmeyen yüzdeki bağlantılar sekme sırasından
    ve ekran okuyucudan çıkarılıyor (inert). Telefonda sayfalar alt
    alta dizildiği için çevirme düğmeleri CSS'te gizli.

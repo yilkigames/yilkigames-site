@@ -1,5 +1,5 @@
 /* ============================================================
-   SURVIVE IN TURKEY — sayfaya özel davranış
+   SURVIVE IN TÜRKİYE — sayfaya özel davranış
    1) KALDIRIM: adama dokun, yalvarsın; her dokunuş +1 ₺ (bozuk para
       kutuya düşer). Eşikler oyunun gerçek fiyatlarına bağlı.
    2) MAHALLE: kendi çizdiğimiz harita; sürüklenir, bir yere basınca
