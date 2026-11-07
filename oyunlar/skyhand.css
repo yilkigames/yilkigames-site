@@ -1,0 +1,450 @@
+/* ============================================================
+   SKYHAND — Altın El
+   Sayfa sitenin mürekkep zemininden başlıyor, gün doğarken açık
+   maviye çıkıyor, öğleden sonra kemik kâğıda, akşam yine mürekkebe
+   iniyor. Açık bölgede bile siteyle aynı dil: Bangers başlık, kalın
+   mürekkep çerçeve, sert kırmızı gölge, maskeleme bandı.
+   Sarı (Altın El) ve mavi (gökyüzü) burada büyük alana çıkıyor ama
+   hep mürekkep çizgiyle kuşatılmış kalıyor.
+   ============================================================ */
+
+.s-sayfa {
+  --s-gok: #67b4f0;
+  --s-acik: #d9edff;
+  --s-mavi: #1f8fe8;
+  background: var(--murekkep);
+}
+
+/* ---------- gökyüzü: mürekkep → şafak → gündüz ---------- */
+.s-gok {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 0 120px;
+  isolation: isolate;
+  color: var(--murekkep);
+  background:
+    linear-gradient(180deg,
+      #0e0d0c 0%,
+      #151b3f 14%,
+      #29438a 28%,
+      #4f8fd8 44%,
+      #8cc8f4 64%,
+      #cfe8fb 86%,
+      #dcedfb 100%);
+}
+
+/* Gün doğuyor: ufukta altın ışık (sitenin sarısı) */
+.s-gok::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 1400px;
+  height: 700px;
+  margin-left: -700px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 210, 63, 0.38), rgba(255, 210, 63, 0) 62%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.s-gok .geri {
+  color: var(--kemik);
+}
+
+.s-etiket {
+  display: inline-block;
+  margin: 18px 0 8px;
+  padding: 4px 12px;
+  font-family: var(--cizgi-roman);
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--murekkep);
+  background: var(--sari);
+  transform: rotate(-2deg);
+}
+
+.s-baslik {
+  margin: 6px 0 28px;
+}
+
+.s-baslik img {
+  display: block;
+  width: min(100%, 440px);
+  height: auto;
+  filter: drop-shadow(5px 6px 0 rgba(14, 13, 12, 0.55));
+}
+
+/* Yüzen bulutlar: çizgi roman bulutu, mürekkep çizgili */
+.s-bulut {
+  position: absolute;
+  z-index: 0;
+  width: 220px;
+  height: 56px;
+  border: 4px solid var(--murekkep);
+  border-radius: 60px;
+  background: #fff;
+  box-shadow: 56px -26px 0 -2px #fff, 56px -26px 0 2px var(--murekkep), 120px -6px 0 -10px #fff, 120px -6px 0 -6px var(--murekkep);
+  opacity: 0.92;
+  animation: s-sur 90s linear infinite;
+}
+
+.s-bulut-1 { top: 22%; left: -360px; }
+.s-bulut-2 { top: 52%; left: -360px; transform: scale(0.7); animation-duration: 120s; animation-delay: -50s; }
+.s-bulut-3 { top: 74%; left: -360px; transform: scale(1.15); animation-duration: 150s; animation-delay: -100s; }
+
+@keyframes s-sur {
+  to { translate: calc(100vw + 760px) 0; }
+}
+
+/* ---------- oyun alanı ---------- */
+.s-oyun {
+  position: relative;
+  z-index: 2;
+  display: block;
+}
+
+.s-cerceve {
+  --sx: 0px;
+  --sy: 0px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1050 / 440;
+  border: 5px solid var(--murekkep);
+  background: #4a8a3a;
+  box-shadow: 10px 11px 0 var(--kirmizi);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.s-bant {
+  top: -16px;
+  left: 34px;
+  z-index: 8;
+}
+
+.s-resim,
+.s-fx {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate(var(--sx), var(--sy)) scale(1.04);
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.s-resim {
+  object-fit: cover;
+}
+
+/* Güç çubuğu */
+.s-guc-bar {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  padding: 7px 10px 6px;
+  background: #fff;
+  border: 3px solid var(--murekkep);
+  border-radius: 18px;
+  box-shadow: 4px 4px 0 var(--murekkep);
+  cursor: default;
+  max-width: calc(100% - 16px);
+}
+
+.s-guc-dugme {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  width: 58px;
+  padding: 3px 2px 2px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--murekkep);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.s-guc-dugme.secili {
+  background: #e4f1ff;
+  outline: 3px solid var(--s-mavi);
+  outline-offset: -1px;
+}
+
+.s-guc-ikon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--r), var(--k));
+  box-shadow: 0 3px 0 var(--k);
+  transition: transform 0.2s cubic-bezier(0.3, 1.8, 0.5, 1);
+}
+
+.s-guc-dugme:hover .s-guc-ikon {
+  transform: translateY(-3px);
+}
+
+.s-guc-ikon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.s-guc-ikon i {
+  position: absolute;
+  right: -7px;
+  top: -8px;
+  min-width: 19px;
+  padding: 1px 3px;
+  border-radius: 10px;
+  background: #fff3c4;
+  border: 2px solid var(--murekkep);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.s-guc-ad {
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Altın El: imleç yerine geçiyor */
+.s-el {
+  position: absolute;
+  z-index: 7;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 560px;
+  transform-origin: 0 0;
+  pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(5px 7px 0 rgba(14, 13, 12, 0.32));
+}
+
+.s-el-ic {
+  display: block;
+}
+
+.s-el.dokun .s-el-ic {
+  animation: s-dokun 0.5s cubic-bezier(0.3, 0.1, 0.3, 1);
+}
+
+@keyframes s-dokun {
+  0% { transform: translateY(0); }
+  28% { transform: translateY(22px) scale(1.06, 0.97); }
+  100% { transform: translateY(0); }
+}
+
+.s-alt-yazi {
+  max-width: 26ch;
+  margin: 0 0 30px;
+  font-size: clamp(19px, 2.2vw, 24px);
+  line-height: 1.3;
+  color: var(--kemik);
+}
+
+/* ---------- özellikler: gökte süzülen kartlar ---------- */
+.s-ozellik {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 0 130px;
+  display: grid;
+  gap: 90px;
+  background: linear-gradient(180deg, #dcedfb 0%, #b9d9f5 30%, #7d9fd0 52%, #3a4a86 74%, #1a2146 90%, #0e0d0c 100%);
+}
+
+.s-satir {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 46px;
+  align-items: center;
+}
+
+.s-satir.ters {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+}
+
+.s-satir.ters .s-kart-gorsel {
+  order: 2;
+}
+
+.s-kart-gorsel {
+  margin: 0;
+  overflow: hidden;
+  border: 8px solid #fff;
+  border-radius: 28px;
+  box-shadow: 0 0 0 4px var(--murekkep), 10px 12px 0 4px var(--kirmizi);
+  background: #000;
+  animation: s-suzul 6s ease-in-out infinite;
+}
+
+.s-kart-gorsel img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.k1 { transform: rotate(-2deg); }
+.k2 { transform: rotate(1.6deg); animation-delay: -2s; box-shadow: 0 0 0 4px var(--murekkep), 10px 12px 0 4px var(--sari); }
+.k3 { transform: rotate(-1.2deg); animation-delay: -4s; box-shadow: 0 0 0 4px var(--murekkep), 10px 12px 0 4px var(--mavi); }
+
+@keyframes s-suzul {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+
+.s-sayi {
+  min-width: 0;
+}
+
+.s-sayi b {
+  display: block;
+  font-family: var(--cizgi-roman);
+  font-weight: 400;
+  font-size: clamp(110px, 16vw, 210px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--sari);
+  -webkit-text-stroke: 4px var(--murekkep);
+  paint-order: stroke fill;
+  text-shadow: 8px 9px 0 var(--mavi);
+}
+
+.s-sayi span {
+  display: block;
+  margin-top: 14px;
+  max-width: 18ch;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--murekkep);
+}
+
+.s-satir:last-child .s-sayi span {
+  color: var(--kemik);
+}
+
+.s-alt {
+  position: relative;
+  padding: 0 0 100px;
+  background: var(--murekkep);
+}
+
+/* ---------- dar ekran ---------- */
+@media (max-width: 860px) {
+  .s-satir,
+  .s-satir.ters {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .s-satir.ters .s-kart-gorsel {
+    order: 0;
+  }
+  .s-ozellik {
+    gap: 70px;
+  }
+}
+
+@media (max-width: 620px) {
+  .s-cerceve {
+    aspect-ratio: 5 / 4;
+  }
+  .s-guc-bar {
+    gap: 2px;
+    padding: 5px 5px 4px;
+    bottom: 8px;
+  }
+  .s-guc-dugme {
+    width: 46px;
+  }
+  .s-guc-ikon {
+    width: 34px;
+    height: 34px;
+  }
+  .s-guc-ad {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s-bulut,
+  .s-kart-gorsel {
+    animation: none;
+  }
+}
+
+/* ---------- yan ray: gökte süzülen baloncuklar, aktif olan altın ---------- */
+.s-ray {
+  right: 18px;
+}
+
+.s-ray ol {
+  position: relative;
+  gap: 16px;
+  padding: 12px 10px;
+}
+
+.s-ray ol::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  bottom: 14px;
+  width: 0;
+  border-left: 3px dashed rgba(23, 33, 63, 0.55);
+  transform: translateX(-50%);
+}
+
+.s-ray a {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--murekkep);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 3px 3px 0 rgba(23, 33, 63, 0.45);
+  transition: background 0.25s, transform 0.3s cubic-bezier(0.3, 1.8, 0.5, 1), box-shadow 0.25s;
+}
+
+.s-ray a.aktif {
+  background: var(--sari);
+  transform: scale(1.35);
+  box-shadow: 3px 3px 0 var(--mavi);
+}
+
+.s-ray a.aktif::after {
+  /* parıltı */
+  content: "";
+  position: absolute;
+  right: -9px;
+  top: -9px;
+  width: 11px;
+  height: 11px;
+  background: var(--murekkep);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+
+.s-ozellik .s-sayi p,
+.s-ozellik .s-sayi span {
+  color: var(--murekkep);
+}
+
+.s-ozellik .s-satir:last-child .s-sayi p,
+.s-ozellik .s-satir:last-child .s-sayi span {
+  color: var(--kemik);
+}

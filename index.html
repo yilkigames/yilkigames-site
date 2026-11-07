@@ -245,10 +245,10 @@
         </a>
         <div class="ust-sag">
           <nav aria-label="Ana menü">
-            <a href="#oyunlar" data-i18n="nav.games">Oyunlar</a>
-            <a href="/oyunlar/inklash.html">Inklash</a>
-            <a href="/oyunlar/xoxd.html">XOXD</a>
-            <a href="/oyunlar/survive-in-turkiye.html">Survive<span class="nav-uz"> in Türkiye</span></a>
+            <span class="nav-oyunlar">
+              <a href="#oyunlar" data-i18n="nav.games">Oyunlar</a>
+              <button type="button" class="nav-uc" id="nav-uc" aria-expanded="false" aria-haspopup="true" aria-controls="oyun-menu" data-i18n-aria="nav.games" aria-label="Oyunlar"><i></i><i></i><i></i></button>
+            </span>
             <a href="#atolye" data-i18n="foot.studio">Stüdyo</a>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
@@ -261,6 +261,15 @@
           </button>
         </div>
       </div>
+    <div class="oyun-menu" id="oyun-menu" hidden>
+      <div class="oyun-menu-ic">
+        <a class="om om-ink" style="--i: 0; --r: #ff3b2f" href="/oyunlar/inklash.html"><b>01</b><span>Inklash</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-xoxd" style="--i: 1; --r: #f1ece2" href="/oyunlar/xoxd.html"><b>02</b><span>XOXD</span><em class="canli" data-i18n="badge.live">Yayında</em></a>
+        <a class="om om-sit" style="--i: 2; --r: #b46cf0" href="/oyunlar/survive-in-turkiye.html"><b>03</b><span>Survive in Türkiye</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-kum" style="--i: 3; --r: #ff8a2b" href="/oyunlar/kumpas.html"><b>04</b><span>Kumpas</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-sky" style="--i: 4; --r: #4fb0ff" href="/oyunlar/skyhand.html"><b>05</b><span>Skyhand</span><em data-i18n="a.wip">Çizim masasında</em></a>
+      </div>
+    </div>
     </header>
 
     <main id="icerik">
@@ -374,10 +383,10 @@
               <div class="ninja-pano">
                 <img src="/gorseller/inklash/ninja.webp" alt="Amele Ninja, Inklash'ın kahramanı" width="512" height="720" loading="lazy" />
                 <span class="balon" data-i18n="a.bubble">Sıradaki raunt seninle!</span>
-                <span class="patlama sari uzun" aria-hidden="true" data-i18n="a.burst.soon">ÇOK YAKINDA!</span>
+                <span class="patlama sari uzun" aria-hidden="true" data-i18n="a.wip">Çizim masasında</span>
               </div>
               <div class="sayfa-ust">
-                <span class="rozet yakinda" data-i18n="badge.soon">Yakında</span>
+                <span class="rozet insaat" data-i18n="a.wip">Çizim masasında</span>
                 <span class="platform">Android</span>
               </div>
               <h3 class="el-baslik">Inklash</h3>
@@ -412,15 +421,15 @@
                 <figure class="polaroid">
                   <span class="bant sari kucuk" aria-hidden="true"></span>
                   <img src="/gorseller/xoxd-kapak.webp" alt="XOXD kapak görseli: siyah zemin üstünde X ve O'lar" width="1400" height="763" loading="lazy" />
-                  <span class="damga" data-i18n="badge.test">Kapalı test</span>
+                  <span class="damga" data-i18n="badge.live">Yayında</span>
                 </figure>
                 <svg class="cizim kenar-eskiz" aria-hidden="true"><use href="#c-tahta" /></svg>
                 <div class="sayfa-ust">
-                  <span class="rozet test" data-i18n="badge.test">Kapalı test</span>
+                  <span class="rozet test" data-i18n="badge.live">Yayında</span>
                   <span class="platform">Android</span>
                 </div>
                 <h3 class="el-baslik">XOXD</h3>
-                <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, bilmediğin bir kural. Şu an kapalı testte, yakında herkese açık.</p>
+                <p data-i18n="a.xoxd.desc">Tanıdık bir tahta, bilmediğin bir kural. Artık Google Play'de.</p>
                 <span class="kart-bag">
                   <span data-i18n="xoxd.link">Oyunu incele</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -454,6 +463,49 @@
             <button type="button" class="cevir geri" id="cevir-geri" data-i18n-aria="a.flip.prev" aria-label="Geri çevir" aria-controls="yaprak" hidden>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
             </button>
+          </div>
+
+          <!-- İkinci açılış: Kumpas | Skyhand (çevirme yok, sabit iki sayfa) -->
+          <div class="defter defter-ikinci beliriv" id="defter-2">
+            <span class="spiral" aria-hidden="true"></span>
+
+            <a class="sayfa sol s-kum" href="/oyunlar/kumpas.html">
+              <span class="bant mavi" aria-hidden="true"></span>
+              <span class="sayfa-no" aria-hidden="true">No. 05</span>
+              <figure class="polaroid">
+                <span class="bant sari kucuk" aria-hidden="true"></span>
+                <img src="/gorseller/kumpas/kapak-defter.webp" alt="Kumpas: ay ışığında kamp ateşinin etrafında oturan sekiz kişi, içlerinden biri kurt" width="1400" height="840" loading="lazy" />
+              </figure>
+              <div class="sayfa-ust">
+                <span class="rozet insaat" data-i18n="a.wip">Çizim masasında</span>
+                <span class="platform">Android</span>
+              </div>
+              <h3 class="el-baslik">Kumpas</h3>
+              <p data-i18n="a.kumpas.desc">Kamp ateşinin başında herkes masum görünür. Kurdu bul ya da kurt ol.</p>
+              <span class="kart-bag">
+                <span data-i18n="xoxd.link">Oyunu incele</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </a>
+
+            <a class="sayfa sag s-sky" href="/oyunlar/skyhand.html">
+              <span class="bant sari" aria-hidden="true"></span>
+              <span class="sayfa-no" aria-hidden="true">No. 06</span>
+              <figure class="polaroid">
+                <span class="bant mavi kucuk" aria-hidden="true"></span>
+                <img src="/gorseller/skyhand/kapak-defter.webp" alt="Skyhand: bulutların arasından inen altın bir el, denizdeki adayı gösteriyor" width="1400" height="840" loading="lazy" />
+              </figure>
+              <div class="sayfa-ust">
+                <span class="rozet insaat" data-i18n="a.wip">Çizim masasında</span>
+                <span class="platform">Android</span>
+              </div>
+              <h3 class="el-baslik">Skyhand</h3>
+              <p data-i18n="a.sky.desc">Bir ada, bir avuç insan ve senin elin. Müdahale et, efsane olsun.</p>
+              <span class="kart-bag">
+                <span data-i18n="xoxd.link">Oyunu incele</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </a>
           </div>
         </div>
       </section>
@@ -558,6 +610,44 @@
           <button type="button" class="grup grup-adam" id="grup-adam" aria-label="Survive in Türkiye">
             <img src="/gorseller/survive/kiyafet-cuval.webp" alt="" width="706" height="1414" loading="lazy" />
           </button>
+
+
+          <!-- Yeni oyunlar: Kumpas'ın kurdu aralarında oturuyor, izleri sahnenin zeminine yürümüş;
+               Skyhand'ın altın eli bulutlardan inip kurdu gösteriyor. -->
+          <div class="yeni-iz" aria-hidden="true">
+            <img class="pati p1" src="/gorseller/kumpas/s/pati.png" alt="" width="9" height="9" />
+            <img class="pati p2" src="/gorseller/kumpas/s/pati.png" alt="" width="9" height="9" />
+            <img class="pati p3" src="/gorseller/kumpas/s/pati.png" alt="" width="9" height="9" />
+            <img class="pati p4" src="/gorseller/kumpas/s/pati.png" alt="" width="9" height="9" />
+            <img class="pati p5" src="/gorseller/kumpas/s/pati.png" alt="" width="9" height="9" />
+          </div>
+          <a class="yeni-kurt" href="/oyunlar/kumpas.html" aria-label="Kumpas">
+            <img src="/gorseller/kumpas/s/c6-front-wolf.png" alt="" width="32" height="58" loading="lazy" />
+          </a>
+          <a class="yeni-el" href="/oyunlar/skyhand.html" aria-label="Skyhand">
+            <svg viewBox="-50 -230 100 360" width="100" height="360" aria-hidden="true">
+              <g fill="#0e0d0c" stroke="#0e0d0c" stroke-width="12" stroke-linejoin="round">
+                <rect x="-28" y="-230" width="56" height="238" rx="14" />
+                <rect x="-31" y="0" width="64" height="58" rx="22" />
+                <rect x="-11" y="36" width="15" height="30" rx="7.5" /><rect x="4" y="36" width="15" height="28" rx="7.5" /><rect x="18" y="34" width="14" height="25" rx="7" />
+                <rect x="-30" y="28" width="19" height="80" rx="9.5" />
+                <g transform="translate(-24,8) rotate(32)"><rect x="-9" y="0" width="18" height="42" rx="9" /></g>
+              </g>
+              <rect x="-28" y="-230" width="56" height="238" rx="14" fill="#fff" />
+              <path d="M-12 -60 v52 M10 -70 v60" stroke="#d6ecfb" stroke-width="6" stroke-linecap="round" />
+              <g fill="#ffc93c">
+                <rect x="-31" y="0" width="64" height="58" rx="22" />
+                <rect x="-11" y="36" width="15" height="30" rx="7.5" /><rect x="4" y="36" width="15" height="28" rx="7.5" /><rect x="18" y="34" width="14" height="25" rx="7" />
+                <rect x="-30" y="28" width="19" height="80" rx="9.5" />
+                <g transform="translate(-24,8) rotate(32)"><rect x="-9" y="0" width="18" height="42" rx="9" /></g>
+              </g>
+              <g fill="none" stroke="#0e0d0c" stroke-width="3.4" stroke-linecap="round"><path d="M-8 50 v14 M7 49 v13 M21 47 v11" /></g>
+              <rect x="-20" y="8" width="9" height="22" rx="4.5" fill="#ffe28c" />
+              <rect x="-26" y="88" width="11" height="15" rx="5.5" fill="#ffe28c" />
+              <rect x="-31" y="-6" width="62" height="14" rx="7" fill="#7cc4ff" stroke="#0e0d0c" stroke-width="5" />
+              <g class="ps"><path d="M-22 126 l5 -12 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5Z" fill="#ffd23f" stroke="#0e0d0c" stroke-width="4" stroke-linejoin="round" /></g>
+            </svg>
+          </a>
 
           <div class="raf" aria-hidden="true"><i></i><i></i></div>
           <div class="poz-flas" id="poz-flas" aria-hidden="true"></div>

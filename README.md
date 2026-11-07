@@ -11,6 +11,11 @@ index.html             ana sayfa — karalamalı kapak, defter vitrini, BASMA d�
 oyunlar/inklash.html   Inklash tanıtım sayfası (yakında) — canlı ninja, 4 karelik karikatür, mürekkep arcade'i (telefon + film şeridi)
 oyunlar/xoxd.html      XOXD sayfası (kapalı test) + oynanabilir tahta (xoxd.js)
 oyunlar/survive-in-turkiye.html  Survive in Türkiye sayfası + gardırop/alt bar (survive-in-turkiye.js)
+oyunlar/kumpas.html    Kumpas: sayfadaki kamp ateşi, oyunun kuralıyla bir tur oynanıyor (kumpas.js/css),
+                       rol kartları (çek/çevir/karıştır), ipe asılı ekran görüntüleri. Sprite'lar gorseller/kumpas/s/ (oyunun art klasöründen)
+oyunlar/skyhand.html   Skyhand: tanrı eli ile oynanan köy sahnesi (skyhand.js/css) — güç seç, dokun; köylüler tepki verir,
+                       Mitoloji Defteri'ne efsane yazılır, halkın taktığı ad şefkat↔korku ekseninde kayar. Halk üretici
+                       oyunun gerçek tablolarından (skyhand-veri.js) halk adı/kültür/inanç/mimari/yönetim çekiyor
 destek.html            destek / SSS / hesap silme — 10 dilli
 gizlilik.html          gizlilik politikası (TR) — Play'e verilecek URL
 privacy.html           gizlilik politikası (EN)

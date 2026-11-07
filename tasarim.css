@@ -3701,3 +3701,339 @@ footer {
     display: none;
   }
 }
+
+/* İkinci defter açılışı: Kumpas | Skyhand (çevirme yok) */
+.defter-ikinci {
+  margin-top: 84px;
+  transform: perspective(1600px) rotate(0.8deg) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+}
+
+@media (max-width: 900px) {
+  .defter-ikinci {
+    margin-top: 52px;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   ÜST BAR: Oyunlar + üç nokta menüsü
+   Oyunların hepsi tek tek menüde durmuyor; üç noktaya basınca
+   yukarıdan kâğıt gibi açılan bir liste iniyor, her oyunun kendi rengi var.
+   ============================================================ */
+.nav-oyunlar {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-uc {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 30px;
+  height: 34px;
+  padding: 0;
+  border: 2px solid var(--kemik);
+  background: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.25s cubic-bezier(0.3, 1.7, 0.5, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-uc i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  background: var(--kemik);
+  transition: background 0.15s, transform 0.3s;
+}
+
+.nav-uc:hover {
+  background: var(--kirmizi);
+  transform: rotate(-4deg);
+}
+
+.nav-uc:hover i {
+  background: var(--murekkep);
+}
+
+.nav-uc[aria-expanded="true"] {
+  background: var(--sari);
+  border-color: var(--murekkep);
+  transform: rotate(90deg);
+}
+
+.nav-uc[aria-expanded="true"] i {
+  background: var(--murekkep);
+}
+
+.oyun-menu {
+  position: absolute;
+  top: 100%;
+  right: max(16px, calc((100vw - var(--sarmal)) / 2 + 74px));
+  z-index: 60;
+  width: min(400px, calc(100vw - 32px));
+  padding-top: 14px;
+  pointer-events: none;
+}
+
+.oyun-menu[hidden] {
+  display: none;
+}
+
+.oyun-menu-ic {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 14px 14px 16px;
+  background:
+    radial-gradient(rgba(241, 236, 226, 0.07) 1.2px, transparent 1.6px) 0 0 / 12px 12px,
+    var(--murekkep);
+  border: 3px solid var(--kemik);
+  box-shadow: 8px 9px 0 var(--kirmizi);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.oyun-menu-ic::before {
+  /* üstte kenara tutturan sarı bant */
+  content: "";
+  position: absolute;
+  top: -12px;
+  right: 26px;
+  width: 76px;
+  height: 20px;
+  background: repeating-linear-gradient(-45deg, var(--sari) 0 8px, #ffdf6b 8px 16px);
+  opacity: 0.92;
+  transform: rotate(3deg);
+}
+
+.oyun-menu.acik {
+  pointer-events: auto;
+}
+
+.oyun-menu.acik .oyun-menu-ic {
+  clip-path: inset(-20px -20px -20px -20px);
+}
+
+.om {
+  position: relative;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: center;
+  padding: 9px 14px 8px 16px;
+  border: 2px solid rgba(241, 236, 226, 0.25);
+  background: var(--gece-2);
+  color: var(--kemik);
+  opacity: 0;
+  transform: translateX(-22px);
+  transition: transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1), background 0.15s, color 0.15s, border-color 0.15s, opacity 0.3s;
+}
+
+.om::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  bottom: -2px;
+  width: 6px;
+  background: var(--r);
+}
+
+.oyun-menu.acik .om {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i) * 55ms + 120ms), 0s, 0s, 0s, calc(var(--i) * 55ms + 120ms);
+}
+
+.om b {
+  font-family: var(--cizgi-roman);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  color: var(--r);
+}
+
+.om span {
+  font-family: var(--cizgi-roman);
+  font-size: 25px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.om b {
+  grid-row: 1 / 3;
+}
+
+.om em {
+  grid-column: 2;
+  justify-self: start;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kemik-2);
+  white-space: nowrap;
+}
+
+.om em.canli {
+  padding: 2px 7px;
+  color: var(--murekkep);
+  background: #38d27a;
+}
+
+.oyun-menu.acik .om:hover,
+.oyun-menu.acik .om:focus-visible {
+  background: var(--r);
+  border-color: var(--murekkep);
+  color: var(--murekkep);
+  transform: translateX(8px) rotate(-1deg);
+  transition-delay: 0s;
+  outline: none;
+}
+
+.om:hover b,
+.om:hover em,
+.om:focus-visible b,
+.om:focus-visible em {
+  color: var(--murekkep);
+}
+
+.om:hover em.canli {
+  background: var(--murekkep);
+  color: #38d27a;
+}
+
+@media (max-width: 700px) {
+  .oyun-menu {
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+  .om {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+  .om span {
+    font-size: 22px;
+    white-space: normal;
+  }
+}
+
+/* ============================================================
+   AFİŞ: Kumpas'ın kurdu ve izleri, Skyhand'ın altın eli
+   ============================================================ */
+.yeni-kurt {
+  position: absolute;
+  z-index: 4;
+  left: 66.5%;
+  bottom: 40px;
+  width: 128px;
+  transform: translateX(-50%);
+  filter: drop-shadow(5px 5px 0 var(--kirmizi));
+}
+
+.yeni-kurt img {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  animation: grup-nefes 3.1s ease-in-out -0.4s infinite;
+  transform-origin: 50% 100%;
+}
+
+.yeni-el {
+  position: absolute;
+  z-index: 6;
+  left: 66.5%;
+  top: 0;
+  width: 112px;
+  margin-left: -45px;
+  animation: yeni-el-sark 4.2s ease-in-out infinite;
+  filter: drop-shadow(5px 5px 0 var(--kirmizi));
+}
+
+.yeni-el svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.yeni-el .ps {
+  animation: yeni-parla 1.6s ease-in-out infinite;
+  transform-origin: -22px 138px;
+}
+
+@keyframes yeni-el-sark {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(14px); }
+}
+
+@keyframes yeni-parla {
+  0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0.8; }
+  50% { transform: scale(1.15) rotate(12deg); opacity: 1; }
+}
+
+.yeni-iz {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  height: 0;
+  pointer-events: none;
+}
+
+.pati {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  image-rendering: pixelated;
+  opacity: 0.55;
+}
+
+.pati.p1 { left: 55%; bottom: 8px; transform: rotate(80deg); opacity: 0.25; }
+.pati.p2 { left: 57.6%; bottom: 22px; transform: rotate(84deg); opacity: 0.35; }
+.pati.p3 { left: 60.2%; bottom: 6px; transform: rotate(78deg); opacity: 0.45; }
+.pati.p4 { left: 62.8%; bottom: 22px; transform: rotate(82deg); opacity: 0.6; }
+.pati.p5 { left: 64.4%; bottom: 8px; transform: rotate(80deg); opacity: 0.75; }
+
+@media (max-width: 900px) {
+  .yeni-kurt {
+    width: 80px;
+    left: 63%;
+  }
+  .yeni-el {
+    width: 56px;
+    left: 63%;
+    margin-left: -22px;
+  }
+  .pati {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 620px) {
+  .yeni-iz,
+  .yeni-el {
+    display: none;
+  }
+  .yeni-kurt {
+    width: 62px;
+    left: 56%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yeni-el,
+  .yeni-el .ps,
+  .yeni-kurt img {
+    animation: none;
+  }
+}

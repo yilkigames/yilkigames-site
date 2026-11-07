@@ -6,7 +6,7 @@
     <title>Inklash — Yılkı Games</title>
     <meta
       name="description"
-      content="Inklash: elle çizilmiş karikatür kahramanların kapıştığı 2B mobil dövüş oyunu. Yakında Android'de."
+      content="Inklash: elle çizilmiş karikatür kahramanların kapıştığı 2B mobil dövüş oyunu. Android için çizim masasında."
     />
     <meta name="theme-color" content="#0e0d0c" />
     <link rel="icon" href="/favicon.ico?v=3" sizes="48x48" />
@@ -19,8 +19,8 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Yılkı Games" />
-    <meta property="og:title" content="Inklash — yakında" />
-    <meta property="og:description" content="Kara kalem karikatür dövüş. Yakında Android'de." />
+    <meta property="og:title" content="Inklash" />
+    <meta property="og:description" content="Kara kalem karikatür dövüş. Android için çizim masasında." />
     <meta property="og:url" content="https://yilkigames.com/oyunlar/inklash.html" />
     <meta property="og:image" content="https://yilkigames.com/gorseller/inklash/ninja.webp" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -750,10 +750,10 @@
         </a>
         <div class="ust-sag">
           <nav aria-label="Ana menü">
-            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
-            <a href="/oyunlar/inklash.html" aria-current="page">Inklash</a>
-            <a href="/oyunlar/xoxd.html">XOXD</a>
-            <a href="/oyunlar/survive-in-turkiye.html">Survive<span class="nav-uz"> in Türkiye</span></a>
+            <span class="nav-oyunlar">
+              <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+              <button type="button" class="nav-uc" id="nav-uc" aria-expanded="false" aria-haspopup="true" aria-controls="oyun-menu" data-i18n-aria="nav.games" aria-label="Oyunlar"><i></i><i></i><i></i></button>
+            </span>
             <a href="/#atolye" data-i18n="foot.studio">Stüdyo</a>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
@@ -766,6 +766,15 @@
           </button>
         </div>
       </div>
+    <div class="oyun-menu" id="oyun-menu" hidden>
+      <div class="oyun-menu-ic">
+        <a class="om om-ink" style="--i: 0; --r: #ff3b2f" href="/oyunlar/inklash.html"><b>01</b><span>Inklash</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-xoxd" style="--i: 1; --r: #f1ece2" href="/oyunlar/xoxd.html"><b>02</b><span>XOXD</span><em class="canli" data-i18n="badge.live">Yayında</em></a>
+        <a class="om om-sit" style="--i: 2; --r: #b46cf0" href="/oyunlar/survive-in-turkiye.html"><b>03</b><span>Survive in Türkiye</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-kum" style="--i: 3; --r: #ff8a2b" href="/oyunlar/kumpas.html"><b>04</b><span>Kumpas</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-sky" style="--i: 4; --r: #4fb0ff" href="/oyunlar/skyhand.html"><b>05</b><span>Skyhand</span><em data-i18n="a.wip">Çizim masasında</em></a>
+      </div>
+    </div>
     </header>
 
     <nav class="yan-ray ink-ray" aria-hidden="true">
@@ -786,7 +795,7 @@
               <span data-i18n="x.back">Tüm oyunlar</span>
             </a>
             <br />
-            <span class="etiket beliriv" data-i18n="i.eyebrow">Yakında · Android</span>
+            <span class="etiket beliriv" data-i18n="i.eyebrow">Çizim masasında · Android</span>
             <h1 class="beliriv" style="--gecikme: 0.06s">Inklash</h1>
             <p class="hero-alt beliriv" style="--gecikme: 0.12s" data-i18n="i.sub">
               Kara kalem karikatür dövüş. Defterinin kenarına çizdiğin kavga
@@ -802,7 +811,7 @@
             <button type="button" id="ink-ninja" data-i18n-aria="i.ninja.tap" aria-label="Amele Ninja: dokun, yumruk atsın">
               <span class="sprite bekle" aria-hidden="true"></span>
             </button>
-            <span class="patlama sari uzun" aria-hidden="true" data-i18n="a.burst.soon">ÇOK YAKINDA!</span>
+            <span class="patlama sari uzun" aria-hidden="true" data-i18n="a.wip">Çizim masasında</span>
           </div>
         </div>
       </div>

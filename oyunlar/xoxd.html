@@ -87,10 +87,10 @@
         </a>
         <div class="ust-sag">
           <nav aria-label="Ana menü">
-            <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
-            <a href="/oyunlar/inklash.html">Inklash</a>
-            <a href="/oyunlar/xoxd.html" aria-current="page">XOXD</a>
-            <a href="/oyunlar/survive-in-turkiye.html">Survive<span class="nav-uz"> in Türkiye</span></a>
+            <span class="nav-oyunlar">
+              <a href="/#oyunlar" data-i18n="nav.games">Oyunlar</a>
+              <button type="button" class="nav-uc" id="nav-uc" aria-expanded="false" aria-haspopup="true" aria-controls="oyun-menu" data-i18n-aria="nav.games" aria-label="Oyunlar"><i></i><i></i><i></i></button>
+            </span>
             <a href="/destek.html" data-i18n="nav.support">Destek</a>
           </nav>
           <button
@@ -108,6 +108,15 @@
           </button>
         </div>
       </div>
+    <div class="oyun-menu" id="oyun-menu" hidden>
+      <div class="oyun-menu-ic">
+        <a class="om om-ink" style="--i: 0; --r: #ff3b2f" href="/oyunlar/inklash.html"><b>01</b><span>Inklash</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-xoxd" style="--i: 1; --r: #f1ece2" href="/oyunlar/xoxd.html"><b>02</b><span>XOXD</span><em class="canli" data-i18n="badge.live">Yayında</em></a>
+        <a class="om om-sit" style="--i: 2; --r: #b46cf0" href="/oyunlar/survive-in-turkiye.html"><b>03</b><span>Survive in Türkiye</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-kum" style="--i: 3; --r: #ff8a2b" href="/oyunlar/kumpas.html"><b>04</b><span>Kumpas</span><em data-i18n="a.wip">Çizim masasında</em></a>
+        <a class="om om-sky" style="--i: 4; --r: #4fb0ff" href="/oyunlar/skyhand.html"><b>05</b><span>Skyhand</span><em data-i18n="a.wip">Çizim masasında</em></a>
+      </div>
+    </div>
     </header>
 
     <!-- ============================================================
@@ -133,11 +142,11 @@
               <span data-i18n="x.back">Tüm oyunlar</span>
             </a>
             <br />
-            <span class="x-durum" data-i18n="x.eyebrow">Kapalı test · Android</span>
+            <span class="x-durum" data-i18n="x.eyebrow">Yayında · Android</span>
             <h1 class="x-baslik">XOXD</h1>
             <p class="x-alt" data-i18n="x.sub">Tanıdık bir tahta, hiç oynamadığın bir kural.</p>
-            <a class="dugme" href="mailto:info@yilkigames.com?subject=XOXD%20-%20haber%20ver">
-              <span data-i18n="x.cta">Çıkınca haber ver</span>
+            <a class="dugme" href="https://play.google.com/store/apps/details?id=com.yilkigames.xoxd" target="_blank" rel="noopener">
+              <span data-i18n="x.cta">Google Play'den indir</span>
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
           </div>

@@ -1049,3 +1049,39 @@
     guncelle();
   });
 })();
+
+/* ============================================================
+   OYUN MENÜSÜ
+   "Oyunlar" yanındaki üç nokta düğmesi: yukarıdan açılan oyun listesi.
+   Dışarı basınca ya da Esc ile kapanıyor.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  var dugme = document.getElementById("nav-uc");
+  var menu = document.getElementById("oyun-menu");
+  if (!dugme || !menu) return;
+
+  function ac() {
+    menu.hidden = false;
+    void menu.offsetWidth;
+    menu.classList.add("acik");
+    dugme.setAttribute("aria-expanded", "true");
+  }
+  function kapat() {
+    menu.classList.remove("acik");
+    dugme.setAttribute("aria-expanded", "false");
+    setTimeout(function () { if (!menu.classList.contains("acik")) menu.hidden = true; }, 480);
+  }
+
+  dugme.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (menu.classList.contains("acik")) kapat(); else ac();
+  });
+  document.addEventListener("click", function (e) {
+    if (menu.classList.contains("acik") && !menu.contains(e.target) && e.target !== dugme) kapat();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && menu.classList.contains("acik")) { kapat(); dugme.focus(); }
+  });
+})();
